@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\HomePage;
+use App\Livewire\NavigationBar;
+use App\Livewire\Notifications;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
