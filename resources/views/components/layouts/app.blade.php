@@ -11,16 +11,16 @@
 </head>
 
 <body>
-    <ul>
+    {{-- <ul>
         <li><a href="{{ route('login') }}">Login</a></li>
-        <li><a href="{{ route('logout') }}">Logout</a></li>
+        <li><a href="{{ route('register') }}">Register</a></li>
         <li>
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button type="submit">Logout</button>
             </form>
         </li>
-    </ul>
+    </ul> --}}
     {{ $slot }}
 
     @livewireScripts

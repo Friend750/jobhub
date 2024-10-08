@@ -1,0 +1,32 @@
+.navbar-brand {
+    color: #1e4b8b;
+}
+
+.form-control {
+    width: 250px;
+    background-color: #f0f4fb;
+}
+
+.navbar-icons a {
+    color: #333;
+    margin-left: 20px;
+}
+
+.navbar-icons i {
+    margin-right: 0px;
+    font-size: 20px;
+}
+
+.nav-link{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.navbar-icons{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dropdown{
+    display: flex !important;
+}

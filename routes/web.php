@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/',HomePage::class);
+// Route::get('/',HomePage::class);
+Route::get('/',NavigationBar::class);
+
 
 Auth::routes();
 
