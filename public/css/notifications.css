@@ -1,0 +1,27 @@
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.nav-link.active {
+    color: #2B6DAE !important;
+}
+
+.alert {
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+}
+.card-body h1
+{
+    color: #2B6DAE;
+}
+.blue
+{
+    background-color: #2B6DAE;
+    color: white;
+}
+.blue:hover
+{
+    background-color: #2B6DAE;
+    color: white;
+}

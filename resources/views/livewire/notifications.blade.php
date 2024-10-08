@@ -1,20 +1,21 @@
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<head><link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="{{ asset('css/Layout/notifications.css') }}">
+<link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
+</head>
 <div class="container mt-4">
     <div class="row">
         <!-- قسم الإحصائيات -->
         <div class="col-md-3">
             <div class="card">
-                <div class="card-header">
-                    NOTIFICATIONS
+                <div class="card-header text-secondary">
+                   NOTIFICATIONS
                 </div>
                 <div class="card-body text-center" >
-                    <h1 style="color: #2B6DAE !important;">367</h1>
+                    <h1 >367</h1>
                     <p>Last Post Views</p>
-                    <h1 style="color: #2B6DAE !important;">15</h1>
+                    <h1 >15</h1>
                     <p>Posts views</p>
-                    <h1 style="color: #2B6DAE !important;">9</h1>
+                    <h1 >9</h1>
                     <p>Profile views</p>
                 </div>
             </div>
@@ -45,8 +46,8 @@
                             <div>
                                 <strong>Ashwin Bose</strong> is requesting access to Design File - Final Project.
                                 <div>
-                                    <button class="btn btn-sm btn-primary">Accept</button>
-                                    <button class="btn btn-sm btn-secondary">Decline</button>
+                                    <button class="btn btn-sm ">Accept</button>
+                                    <button class="btn btn-sm ">Decline</button>
                                 </div>
                             </div>
                             <span>15h</span>
