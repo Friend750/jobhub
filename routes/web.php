@@ -3,6 +3,8 @@
 use App\Livewire\HomePage;
 use App\Livewire\NavigationBar;
 use App\Livewire\Notifications;
+use App\Livewire\Register;
+use App\Livewire\SignIn;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -10,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/',HomePage::class);
-Route::get('/',Notifications::class);
+Route::get('/',SignIn::class);
+// Route::get('/',Register::class);
 
 
 Auth::routes();
