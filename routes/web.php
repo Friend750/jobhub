@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/',HomePage::class);
-Route::get('/',NavigationBar::class);
+Route::get('/',Notifications::class);
 
 
 Auth::routes();
