@@ -6,7 +6,10 @@
 .nav-link.active {
     color: #2B6DAE !important;
 }
-
+.text-primary
+{
+    color: #2B6DAE !important;
+}
 .alert {
     border: 1px solid #e9ecef;
     border-radius: 5px;

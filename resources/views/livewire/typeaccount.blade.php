@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
     </head>
-<div class="container mt-5">
+<div class="container mt-5 col-6">
     <div class="container mt-5">
         <h2>What is your account?</h2>
         <p>Select whether your account will be for a company or  a personal account</p>

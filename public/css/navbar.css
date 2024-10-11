@@ -1,5 +1,5 @@
 .navbar-brand {
-    color: #1e4b8b;
+    color: #2B6DAE;
 }
 
 .form-control {
@@ -9,7 +9,10 @@
 
 .navbar-icons a {
     color: #333333c4;
-    margin-left: 20px;
+}
+
+a strong {
+    color: #2B6DAE;
 }
 
 .navbar-icons i {
@@ -24,7 +27,6 @@
 }
 .navbar-icons{
     display: flex;
-    justify-content: flex-end;
 }
 
 .dropdown{

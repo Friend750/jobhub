@@ -8,6 +8,7 @@ use App\Livewire\Search;
 use App\Livewire\SignIn;
 use App\Livewire\Typeaccount;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
