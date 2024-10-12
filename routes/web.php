@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // });
 //
 // Route::get('/',HomePage::class);
-Route::get('/',Typeaccount::class);
+Route::get('/',Notifications::class);
 
 
 Auth::routes();

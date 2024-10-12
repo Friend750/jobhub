@@ -1,0 +1,21 @@
+.cardprofile {
+    border-radius: 10px;
+    width: 15rem;
+}
+.profile
+{
+    width: 200px;
+    background-color: #fff;
+    border: 2 #2B6DAE solid;
+    border-radius: 100px !important;
+}
+
+.profile:hover
+{
+    color:#fff !important;
+    background-color: #2B6DAE !important;
+}
+
+.btn-outline-primary {
+    border-radius: 20px;
+}

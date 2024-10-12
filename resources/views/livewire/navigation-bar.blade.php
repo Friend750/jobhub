@@ -15,9 +15,7 @@
       <a class="navbar-brand" href="#">
         <strong>YEMEN JOBS</strong>
       </a>
-      <form class="d-flex ms-3">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      </form>
+      @livewire('searchbar')
       <div class="navbar-icons ms-auto">
         <a href="#" class="nav-link">
           <i class="bi bi-house-door-fill"></i> Home
@@ -39,8 +37,7 @@
             <i class="bi bi-person-circle"></i> <span>Profile</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            @livewire('user-profile')
           </ul>
         </div>
       </div>
