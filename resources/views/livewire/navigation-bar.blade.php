@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,21 +16,27 @@
       </a>
       @livewire('searchbar')
       <div class="navbar-icons ms-auto">
-        <a href="#" class="nav-link">
-          <i class="bi bi-house-door-fill"></i> Home
-        </a>
-        <a href="#" class="nav-link">
-          <i class="bi bi-people-fill"></i> My Network
-        </a>
-        <a href="#" class="nav-link">
-          <i class="bi bi-briefcase-fill"></i> Jobs
-        </a>
-        <a href="#" class="nav-link">
-          <i class="bi bi-chat-dots-fill"></i> Messages
-        </a>
-        <a href="#" class="nav-link">
-          <i class="bi bi-bell-fill"></i> Notifications
-        </a>
+    <a href="#" class="nav-link d-flex flex-column align-items-center">
+        <i class="bi bi-house-door-fill"></i>
+        <span>Home</span>
+    </a>
+    <a href="#" class="nav-link d-flex flex-column align-items-center">
+        <i class="bi bi-people-fill"></i>
+        <span>My Network</span>
+    </a>
+    <a href="#" class="nav-link d-flex flex-column align-items-center">
+        <i class="bi bi-briefcase-fill"></i>
+        <span>Jobs</span>
+    </a>
+    <a href="#" class="nav-link d-flex flex-column align-items-center">
+        <i class="bi bi-chat-dots-fill"></i>
+        <span>Messages</span>
+    </a>
+    <a href="#" class="nav-link d-flex flex-column align-items-center">
+        <i class="bi bi-bell-fill"></i>
+        <span>Notifications</span>
+    </a>
+</div>
         <div class="dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-person-circle"></i> <span>Profile</span>
@@ -46,4 +51,4 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+

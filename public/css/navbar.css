@@ -1,5 +1,5 @@
 .navbar-brand {
-    color: #2B6DAE;
+    color: #1e4b8b;
 }
 
 .form-control {
@@ -7,29 +7,41 @@
     background-color: #f0f4fb;
 }
 
-.navbar-icons a {
-    color: #333333c4;
-}
-
-a strong {
+strong {
     color: #2B6DAE;
 }
 
-.navbar-icons i {
-    margin-right: 0px;
-    font-size: 20px;
+.navbar-icons {
+    display: flex;
+    justify-content: flex-end;
 }
 
-.nav-link{
+.navbar-icons a {
+    color: #333333d4;
     display: flex;
     align-items: center;
     flex-direction: column;
-}
-.navbar-icons{
-    display: flex;
+    margin: -7px -7px; /* تقليل المسافة الأفقية بين الروابط */
 }
 
-.dropdown{
+.navbar-icons i {
+    font-size: 22px; /* حجم الأيقونة */
+    margin-bottom: 2px; /* تقليل المسافة بين الأيقونة والنص */
+}
+
+.navbar-icons .nav-link span {
+    font-size: 12px; /* حجم النص */
+}
+
+.dropdown {
     display: flex !important;
 }
 
+.dropdown .nav-link i {
+    font-size: 30px; /* حجم الأيقونة */
+    vertical-align: middle; /* لضمان محاذاة الأيقونة مع النص */
+}
+
+.dropdown .nav-link span {
+    font-size: 18px; /* حجم النص */
+}
