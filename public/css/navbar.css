@@ -1,3 +1,10 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.navbar{
+
+}
 .navbar-brand {
     color: #1e4b8b;
 }
@@ -21,12 +28,16 @@ strong {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: -7px -7px; /* تقليل المسافة الأفقية بين الروابط */
+    margin: -7px 10px; /* تقليل المسافة الأفقية بين الروابط */
+    /* border-bottom: #1e4b8b 3px solid; */
+    width: 50px;
+    padding: 0;
 }
 
 .navbar-icons i {
     font-size: 22px; /* حجم الأيقونة */
-    margin-bottom: 2px; /* تقليل المسافة بين الأيقونة والنص */
+    margin-bottom: -5px; /* تقليل المسافة بين الأيقونة والنص */
+
 }
 
 .navbar-icons .nav-link span {
@@ -34,14 +45,52 @@ strong {
 }
 
 .dropdown {
-    display: flex !important;
+    /* display: flex !important; */
+    /* flex-direction: column; */
+    /* display: inline-block !important; */
 }
 
 .dropdown .nav-link i {
-    font-size: 30px; /* حجم الأيقونة */
+    color: #333333d4;
+    font-size: 23px; /* حجم الأيقونة */
     vertical-align: middle; /* لضمان محاذاة الأيقونة مع النص */
+    margin-bottom: -6px;
 }
 
-.dropdown .nav-link span {
-    font-size: 18px; /* حجم النص */
+.dropdown .nav-link {
+    padding: 0 5px;
+    /* width: 50px; */
+    /* background-color: #6c8cab; */
+    border-radius: 999px;
 }
+
+
+.dropdown .nav-link span {
+    font-size: 12px; /* حجم النص */
+}
+
+.dropdown .nav-link .d-flex
+{
+    /* background-color: #a9b4c3; */
+    padding: 0px 5px;
+    border-radius: 999px;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+
+}
+.dropdown .nav-link .d-flex span {
+    margin: 0 5px;
+    color: #333333d4;
+
+}
+
+.nav-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ .container-fluid{
+    display: flex;
+    justify-content: space-around !important;
+ }

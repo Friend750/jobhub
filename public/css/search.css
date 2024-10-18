@@ -1,4 +1,7 @@
-
+*{
+    margin: 0;
+    padding: 0;
+}
 
 .btn-primary {
     background-color: #2B6DAE;
@@ -6,18 +9,21 @@
     border-radius: 30px;
 
 }
+
 .btn {
-   
+
     border-radius: 30px;
 
 }
+
 .list-group-item {
     border-bottom: none;
 }
-.end{
 
-        border-bottom: 1px solid #0000002c;
-  
+.end {
+
+    border-bottom: 1px solid #0000002c;
+
 }
 
 .btn-outline-primary {
@@ -28,12 +34,12 @@
 .btn-outline-primary:hover {
     background-color: #fff;
     color: #2B6DAE;
-   
+
 }
 
 .btn-outline-danger:hover {
     background-color: #fff;
     color: darkred;
     border-radius: 30px;
-    
+
 }
