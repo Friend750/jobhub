@@ -1,0 +1,72 @@
+:root {
+    --color-black: #181818;
+    --color-gray: #666666;
+    --color-primary: #2B6DAE;
+    --color-light-gray-border: #E0DFDC;
+    --color-bg-blue-light: #EAF0F7;
+    --color-hover: #2B6DAE;
+    --color-whight: #fff;
+}
+
+body {
+    background-color: var(--color-bg-blue-light) !important;
+    color: var(--color-gray);
+}
+
+.nav-bg-light {
+    background-color: var(--color-whight) !important;
+}
+.border {
+    border-color: var(--color-light-gray) !important;
+}
+
+.btn-primary {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+.btn-primary:hover{
+    background: #3f87cff9 !important;
+    border-color: #3f87cff9 !important;
+
+}
+
+.btn {
+    border-radius: 30px !important;
+}
+
+.btn-outline-primary {
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-bg-blue-light) !important;
+    color: var(--color-primary) !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--color-whight) !important;
+    color: darkred !important;
+    border-radius: 30px !important;
+}
+
+/*
+black
+181818
+
+Gray
+666666
+
+primary
+2B6DAE
+
+Light gray (borders)
+E0DFDC
+
+BG (Blue Light)for backgrounds
+EAF0F7
+
+Hover color
+2B6DAE
+*/

@@ -2,12 +2,6 @@
     padding: 0;
     margin: 0;
 }
-.navbar{
-
-}
-.navbar-brand {
-    color: #1e4b8b;
-}
 
 .form-control {
     width: 250px;
@@ -44,11 +38,6 @@ strong {
     font-size: 12px; /* حجم النص */
 }
 
-.dropdown {
-    /* display: flex !important; */
-    /* flex-direction: column; */
-    /* display: inline-block !important; */
-}
 
 .dropdown .nav-link i {
     color: #333333d4;
