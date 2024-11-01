@@ -1,15 +1,22 @@
-<head><link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
-</head>
-
-       <div class="card-body cardprofile text-center">
-           <img src="../" class="rounded-circle mb-2" alt="User Avatar" width="80">
-           <h5 class="card-title">User Name</h5>
-           <p class="card-text">--</p>
-           <a href="#" class="btn btn-outline-primary profile">View Profile</a>
-           <div class="mt-3">
-               <a href="#" class="d-block mb-2 nav-link">Language</a>
-               <a href="#" class="d-block mb-1 nav-link">Sign Out</a>
-           </div>
-       </div>
+<div>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <div class="profile-header" style="background-color: #333; height: 150px;"></div>
+                <img src="https://via.placeholder.com/150" class="rounded-circle profile-img" alt="Profile Image"
+                    style="position: relative; top: -75px; left: 15px; border: 5px solid white;">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $user->name ?? 'user name' }}</h5>
+                    <p class="card-text">User Specialist</p>
+                    <p class="card-text"><small class="text-muted">Sana‘a, Yemen</small></p>
+                    <p class="card-text"><a href="#" class="text-primary">Contact info</a></p>
+                    <p class="card-text">N Connections</p>
+                    <button class="btn btn-outline-secondary">Enhance Profile</button>
+                    <button class="btn btn-outline-secondary">More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
