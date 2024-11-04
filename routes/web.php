@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\UserProfile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',function() {
@@ -11,4 +12,4 @@ Route::get('/profile', UserProfile::class);
 
 Auth::routes();
 
-?>
+
