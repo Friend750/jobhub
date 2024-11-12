@@ -1,35 +1,5 @@
 <div>
-    <style>
-        .profile-picture {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background-color: #ccc;
-            border: 5px solid white;
-            margin-top: -9rem !important;
-            font-size: 180px;
-            color: gray;
-        }
-
-        .btn-custom {
-            border-radius: 20px;
-        }
-
-        .clickable-div {
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .clickable-div:hover {
-            background-color: #f8f9fa;
-            /* Light grey on hover */
-            /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Subtle shadow */
-            /* border-radius: 8px ; */
-            /* width: 100% */
-        }
-    </style>
-
-    <div class="container mt-4">
+    <div class="container mt-4 col-8">
 
         <div class="row">
             <div class="col-8">
@@ -49,7 +19,36 @@
                                 <div>
                                     <h3>First name + last name</h3>
                                     <span>User Specialist</span><br>
-                                    <span>Sana‘a, Yemen <a href="#" class="text-primary">Contact info</a></span>
+                                    <span>Sana‘a, Yemen
+                                        <a href="#" class="text-primary" data-toggle="modal"
+                                            data-target="#contactModal">Contact info</a>
+                                    </span>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="contactModal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Contact Information</h4>
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                    <div class="modal-body">
+                                                        <p><strong class="text-dark">Your Profile URL:</strong><br> John
+                                                            Doe</p>
+                                                        <p><strong class="text-dark">Email:</strong> <br>
+                                                            johndoe@example.com</p>
+                                                        <p><strong class="text-dark">Phone:</strong> <br> (123) 456-7890
+                                                        </p>
+                                                        <p><strong class="text-dark">Website:</strong> <br> ...</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <br>
                                     <span>N Connections</span>
                                 </div>
@@ -58,8 +57,46 @@
                                 <div class="d-flex mt-3">
                                     <button class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
                                         Profile</button>
-                                    <button class="btn btn-outline-secondary btn-custom">More</button>
+                                    <button id="toggleOptionsBtn" class="btn btn-outline-secondary btn-custom"
+                                        onclick="toggleOptionsCard()">More</button>
+
+                                    <div id="optionsCard" class="options-card mt-5">
+                                        <ul>
+                                            <li>Share profile link</li>
+                                            <li data-toggle="modal" data-target="#aboutProfileModal">About this profile
+                                            </li>
+                                            <li>Activity</li>
+                                            {{-- <li>About this profile</li> --}}
+                                        </ul>
+                                    </div>
                                 </div>
+
+                                {{-- modal --}}
+                                <div class="modal fade" id="aboutProfileModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" id="exampleModalLabel">About This Profile</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            <!-- Modal Body -->
+                                            <div class="modal-body">
+                                                <div class="modal-body">
+                                                    <p><strong class="text-dark">Joined:</strong><br> April 2021</p>
+                                                    <p><strong class="text-dark">Contact Information:</strong><br>
+                                                        Updated over 1 year ago</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -79,7 +116,7 @@
                 <!-- Actions Section -->
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5>Actions</h5>
+                        <h5>Actions <small>(Posts)</small></h5>
                         <p style="margin-top: -10px; color: gray;">K followers</p>
 
                         <div class="d-flex mb-3">
@@ -102,14 +139,18 @@
                     <div class="card-body">
                         <h5>Experience</h5>
                         <div class="mb-3">
-                            <p><strong>Job Title | Date From - To</strong></p>
-                            <p>Company Name | Place Name</p>
-                            <p class="text-muted">Work Time: Full time/ One shift</p>
+                            <ul class="list-unstyled">
+                                <li><strong>Job Title | Date From - To</strong></li>
+                                <li>Company Name | Place Name</li>
+                                <li class="text-muted">Work Time: Full time / One shift</li>
+                            </ul>
                         </div>
-                        <div>
-                            <p><strong>Job Title | Date From - To</strong></p>
-                            <p>Company Name | Place Name</p>
-                            <p class="text-muted">Work Time: Full time/ One shift</p>
+                        <div class="mb-3">
+                            <ul class="list-unstyled">
+                                <li><strong>Job Title | Date From - To</strong></li>
+                                <li>Company Name | Place Name</li>
+                                <li class="text-muted">Work Time: Full time / One shift</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -132,39 +173,144 @@
                     </div>
                 </div>
 
-                <!-- Interests Section -->
-                <div class="card mb-3">
+                <!-- old Interests Section -->
+                {{-- <div class="card mb-3">
                     <div class="card-body">
                         <h5>Interests</h5>
                         <p>Companies</p>
 
-                        <div class="d-flex flex-wrap justify-content-center">
+                        <div class="d-flex flex-wrap justify-content-around">
 
-                            <div class="card d-flex flex-row align-items-start me-2 mr-3 p-3"
-                                style="width: fit-content;">
-                                <img src="#" alt="Company Logo" class="rounded-circle bg-dark me-3"
-                                    style="width: 70px; height: 70px;">
-                                <div class="card-body text-start py-0">
-                                    <ul class="list-unstyled my-0">
+                            <div class="card d-flex flex-row align-items-start mr-1 p-2" style="height:fit-content;">
+                                <img src="https://via.placeholder.com/50" alt="logo" class="rounded-circle">
+                                <div class="card-body text-start py-0 pl-2">
+                                    <ul class="list-unstyled mb-0">
                                         <li><strong class="text-dark">Lorem ipsum dolor sit</strong></li>
-                                        <li class="text-muted"> 10,258 followers</li>
-                                        <li> <button class="btn btn-outline-secondary btn-custom mt-1">Tracking</button>
+                                        <li class="text-muted" style="margin-top: -6px;"><small>10k
+                                                followers</small></li>
+                                        <li> <button
+                                                class="btn btn-outline-secondary btn-custom mt-1 py-1">Tracking</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card d-flex flex-row align-items-start mr-1 p-2" style="height:fit-content;">
+                                <img src="https://via.placeholder.com/50" alt="logo" class="rounded-circle">
+                                <div class="card-body text-start py-0 pl-2">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><strong class="text-dark">Lorem ipsum dolor sit</strong></li>
+                                        <li class="text-muted" style="margin-top: -6px;"><small>122k
+                                                followers</small></li>
+                                        <li> <button
+                                                class="btn btn-outline-secondary btn-custom mt-1 py-1">Tracking</button>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
 
-                            <div class="card d-flex flex-row align-items-start me-2 mr-3 p-3"
-                                style="width: fit-content;">
-                                <img src="#" alt="Company Logo" class="rounded-circle bg-dark me-3"
-                                    style="width: 70px; height: 70px;">
-                                <div class="card-body text-start py-0">
-                                    <ul class="list-unstyled my-0">
-                                        <li><strong class="text-dark">Lorem ipsum dolor sit</strong></li>
-                                        <li class="text-muted"> 10,258 followers</li>
-                                        <li> <button class="btn btn-outline-secondary btn-custom mt-1">Tracking</button>
-                                        </li>
-                                    </ul>
+
+                        </div>
+
+                        <div class="text-center mt-3 position-relative">
+                            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
+                            <a href="#" class="text-decoration-none"><strong class="text-dark">Show all
+                                    →</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div> --}}
+
+                {{-- new interests Section --}}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Interests</h5>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active text-dark" id="companies-tab" data-toggle="tab"
+                                    href="#companies" role="tab" aria-controls="companies"
+                                    aria-selected="true">Companies</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link text-dark" id="groups-tab" data-toggle="tab" href="#groups"
+                                    role="tab" aria-controls="groups" aria-selected="false">Groups</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+
+                            <div class="tab-pane fade show active" id="companies" role="tabpanel"
+                                aria-labelledby="companies-tab">
+                                <div class="row mt-3">
+                                    <div class="col-md-6 mb-3">
+                                        <a href="" class="text-decoration-none text-dark">
+
+                                            <div class="d-flex align-items-start">
+                                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                                    alt="Company Logo">
+                                                <div>
+                                                    <h6 class="mb-0">Lorem ipsum dolor sit</h6>
+                                                    <small class="text-muted">10k followers</small>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-light border btn">Tracking</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <a href="" class="text-decoration-none text-dark">
+
+                                            <div class="d-flex align-items-start">
+                                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                                    alt="Company Logo">
+                                                <div>
+                                                    <h6 class="mb-0">Lorem ipsum dolor sit</h6>
+                                                    <small class="text-muted">122k followers</small>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-light border btn">Tracking</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="groups-tab">
+                                <div class="row mt-3">
+                                    <div class="col-md-6 mb-3">
+                                        <a href="" class="text-decoration-none text-dark">
+
+                                            <div class="d-flex align-items-start">
+                                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                                    alt="Company Logo">
+                                                <div>
+                                                    <h6 class="mb-0">name of group 1</h6>
+                                                    <small class="text-muted">10k members</small>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-light border btn">Joined</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <a href="" class="text-decoration-none text-dark">
+
+                                            <div class="d-flex align-items-start">
+                                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                                    alt="Company Logo">
+                                                <div>
+                                                    <h6 class="mb-0">name of group 2</h6>
+                                                    <small class="text-muted">122k members</small>
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-light border btn">Joined</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -172,11 +318,13 @@
 
                         <div class="text-center mt-3 position-relative">
                             <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-                            <a href="#" class="text-decoration-none"><strong class="text-dark">Show all →</strong>
+                            <a href="#" class="text-decoration-none"><strong class="text-dark">Show all
+                                    →</strong>
                             </a>
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <div class="col-md-4">
@@ -250,6 +398,7 @@
                                 </div>
                                 <button class="btn btn-primary btn-sm">Follow</button>
                             </div>
+
                             <div class="d-flex align-items-center mb-3">
                                 <img src="https://via.placeholder.com/50" alt="Company Logo"
                                     class="rounded-circle me-3 mr-3">
@@ -259,6 +408,7 @@
                                 </div>
                                 <button class="btn btn-primary btn-sm">Follow</button>
                             </div>
+
                             <div class="d-flex align-items-center mb-3">
                                 <img src="https://via.placeholder.com/50" alt="Company Logo"
                                     class="rounded-circle me-3 mr-3">
@@ -278,4 +428,26 @@
         </div>
     </div>
 
+    <script>
+        // Function to toggle the visibility of the options card
+        function toggleOptionsCard() {
+            const card = document.getElementById('optionsCard');
+            card.style.display = card.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Function to close the options card when clicking outside of it
+        document.addEventListener('click', function(event) {
+            const card = document.getElementById('optionsCard');
+            const button = document.getElementById('toggleOptionsBtn');
+
+            // Check if the click is outside the card and the button
+            if (!card.contains(event.target) && !button.contains(event.target)) {
+                card.style.display = 'none';
+            }
+        });
+    </script>
+
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 </div>
