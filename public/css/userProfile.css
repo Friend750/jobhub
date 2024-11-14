@@ -1,0 +1,61 @@
+.profile-picture {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 5px solid white;
+    margin-top: -9rem !important;
+    font-size: 180px;
+    color: gray;
+}
+
+.btn-custom {
+    border-radius: 20px;
+}
+
+.clickable-div {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.clickable-div:hover {
+    background-color: #f8f9fa;
+    /* Light grey on hover */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Subtle shadow */
+    /* border-radius: 8px ; */
+    /* width: 100% */
+}
+
+.options-card {
+    display: none;
+    position: absolute;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    right: 23px;
+}
+
+.options-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.options-card li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.options-card li:hover {
+    background-color: #e2e6ea;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
