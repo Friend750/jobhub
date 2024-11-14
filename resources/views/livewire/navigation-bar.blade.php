@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="nav-left">
                 <a class="navbar-brand" href="#">
-                    <strong>YEMEN JOBS</strong>
+                    <strong class="logoName">YEMEN JOBS</strong>
                 </a>
                 @livewire('searchbar')
             </div>

@@ -1,5 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+}
 
-.containerOfMyNetwork
+h4 {
+    color: #333;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+.containerOfNetwork
 {
-    height: 250px;
+    background-color: #fff;
 }
