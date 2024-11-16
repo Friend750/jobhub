@@ -23,3 +23,13 @@ h4 {
 {
     background-color: #fff;
 }
+a
+{
+    color: black;
+}
+a:hover
+{
+    color: #333;
+    text-decoration-line: none;
+
+}

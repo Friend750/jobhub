@@ -13,7 +13,10 @@ Route::get('/',function() {
     return view('welcome');
 });
 
-Route::get('/',CompanyList::class);
+Route::get('/',FollowingScreen::class);
+Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
+Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
+Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
 
 Auth::routes();
 

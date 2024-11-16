@@ -1,7 +1,7 @@
 @include('livewire.navigation-bar')
 <head><link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/companylist.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
     </head>
 <br>
 <br>
@@ -11,8 +11,8 @@
         <div class="col-md-3  ">
             <h4>Manage my network</h4>
             <ul class="list-unstyled">
-             <a><li><i class="fas fa-user-friends me-2 mb-3 mt-3 mr-2"></i>Following <span class="text-muted">1000</span></li></a>
-            <a> <li><i class="fas fa-users me-2 mb-3 mr-2"></i>Followers <span class="text-muted">200</span></li> </a>
+             <a href="/Following" wire:navigate><li><i class="fas fa-user-friends me-2 mb-3 mt-3 mr-2"></i>Following <span class="text-muted">1000</span></li></a>
+             <a href="Followers" wire:navigate> <li><i class="fas fa-users me-2 mb-3 mr-2"></i>Followers <span class="text-muted">200</span></li> </a>
                 <li><i class="fas fa-building me-2 mr-3"></i><strong>Companies</strong> <span class="text-muted">30</span></li>
             </ul>
         </div>
