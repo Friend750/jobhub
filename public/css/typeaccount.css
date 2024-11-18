@@ -1,13 +1,14 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} 
+.containerType
+{
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -70%);
+
+
+}
 
 
 h2 {
