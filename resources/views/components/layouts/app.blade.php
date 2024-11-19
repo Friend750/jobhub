@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
 
