@@ -3,9 +3,10 @@
     <nav class="navbar navbar-light nav-bg-light">
 
         <div class="container-fluid">
-            <div class="nav-left">
+            <div class="nav-left d-flex justify-content-center">
                 <a class="navbar-brand" href="#">
-                    <strong class="logoName">YEMEN JOBS</strong>
+                    <span class="logoName">YEMEN</span>
+                    <i class="bi bi-linkedin text-primary"></i>
                 </a>
                 @livewire('searchbar')
             </div>

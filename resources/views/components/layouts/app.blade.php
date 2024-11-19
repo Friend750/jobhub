@@ -23,7 +23,7 @@
 
 
 
-    {{-- make all css file about this line --}}
+    {{-- make all css files above this line --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
