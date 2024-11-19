@@ -3,6 +3,7 @@
 use App\Livewire\UserProfile;
 
 use App\Livewire\CompanyList;
+use App\Livewire\EnhanceProfile;
 use App\Livewire\FollowersScreen;
 use App\Livewire\FollowingScreen;
 use App\Livewire\HomePage;
@@ -23,6 +24,7 @@ Route::get('/',Typeaccount::class);
 Route::get('/user-profile',UserProfile::class);
 Route::get('/JobScreen',JobScreen::class);
 Route::get('/Search',Search::class);
+Route::get('/',EnhanceProfile::class);
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
