@@ -14,11 +14,16 @@
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
     <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
+
+
+
+
+    {{-- make all css file about this line --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
 
@@ -35,6 +40,10 @@
             </form>
         </li>
     </ul> --}}
+
+    @include('livewire.navigation-bar')
+
+
     {{ $slot }}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

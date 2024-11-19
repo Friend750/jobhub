@@ -1,4 +1,4 @@
-@include('livewire.navigation-bar')
+{{-- @include('livewire.navigation-bar') --}}
 
 <div class="container mt-5 col-md-8">
     <div class="row">

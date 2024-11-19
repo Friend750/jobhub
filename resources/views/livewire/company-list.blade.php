@@ -1,7 +1,7 @@
-@include('livewire.navigation-bar')
+{{-- @include('livewire.navigation-bar') --}}
 
-<br>
-<br>
+{{-- <br>
+<br> --}}
 <div class="container mt-4">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
