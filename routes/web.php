@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\PostCard;
 use App\Livewire\UserProfile;
 
 use App\Livewire\CompanyList;
@@ -24,10 +25,11 @@ Route::get('/',Typeaccount::class);
 Route::get('/user-profile',UserProfile::class);
 Route::get('/JobScreen',JobScreen::class);
 Route::get('/Search',Search::class);
-Route::get('/',EnhanceProfile::class);
+Route::get('/EnhanceProfile',EnhanceProfile::class);
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
+Route::get('/posts',PostCard::class);
 
 Auth::routes();
 

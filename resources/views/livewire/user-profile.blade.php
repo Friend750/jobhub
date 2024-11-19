@@ -1,9 +1,9 @@
 
 <div>
-    <div class="container mt-4 col-8">
+    <div class="container mt-4">
 
-        <div class="row">
-            <div class="col-8">
+        <div class="row justify-content-center">
+            <div class="col-8 ">
 
                 <!-- Profile Header -->
                 <div class="card mb-3">
@@ -328,7 +328,7 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3 p-0">
 
                 @livewire('ChatAndFeed')
 
