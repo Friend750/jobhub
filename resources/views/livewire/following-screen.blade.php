@@ -1,6 +1,4 @@
-@include('livewire.navigation-bar')
-<br>
-<br>
+
 <div class="container mt-4">
     <div class="row">
         <!-- قسم إدارة الشبكة -->

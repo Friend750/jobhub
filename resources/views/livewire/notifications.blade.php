@@ -1,4 +1,4 @@
-@include('livewire.navigation-bar')
+
 <div class="container mt-4 col-8">
     <div class="row">
         <!-- قسم الإحصائيات -->

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
     <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
 
@@ -36,6 +37,9 @@
             </form>
         </li>
     </ul> --}}
+@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home']))
+@include('livewire.navigation-bar');
+@endif
     {{ $slot }}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

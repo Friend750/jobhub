@@ -1,4 +1,3 @@
-@include('livewire.navigation-bar')
 
 <div>
         <main class="container mt-5">
