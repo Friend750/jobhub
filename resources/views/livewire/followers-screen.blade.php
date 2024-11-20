@@ -1,13 +1,37 @@
+<<<<<<< HEAD
+=======
+{{-- @include('livewire.navigation-bar') --}}
+>>>>>>> dd2c72dde4d8ad7f21b59177b331b718309c110d
 
 <div class="container mt-4">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
-        <div class="col-md-3  ">
-            <h4>Manage my network</h4>
+        <div class="col-md-3">
+            <h5><i class="bi bi-arrow-left"></i> Manage my network</h5>
+
             <ul class="list-unstyled">
-            <a href="/Following" wire:navigate> <li><i class="fas fa-user-friends me-2 mb-3 mt-3 mr-2"></i>Following <span class="text-muted">1000</span></li> </a>
-                <li><i class="fas fa-users me-2 mb-3 mr-2"></i><strong>Followers</strong> <span class="text-muted">200</span></li>
-            <a href ="/CompaniesList" wire:navigate >  <li><i class="fas fa-building me-2 mr-3"></i>Companies <span class="text-muted">30</span></li> </a>
+                <a href="/Following" wire:navigate>
+                    <li class="d-flex justify-content-between text-muted">
+                        <div>
+                            <i class="fas fa-user-friends me-2 my-2 mr-2"></i> Following
+                        </div>
+                        <span>1000</span>
+                    </li>
+                </a>
+                <li class="d-flex justify-content-between text-dark">
+                    <div>
+                        <i class="fas fa-users me-2 my-2 mr-2"></i><strong >Followers</strong>
+                    </div>
+                    <span><strong>197</strong></span>
+                </li>
+                <a href ="/CompaniesList" wire:navigate>
+                    <li class="d-flex justify-content-between text-muted">
+                        <div>
+                            <i class="fas fa-building me-2 my-2 mr-2" style="padding: 0 4px;"></i>Companies
+                        </div>
+                        <span>30</span>
+                    </li>
+                </a>
             </ul>
         </div>
 
@@ -16,21 +40,20 @@
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4 class="mt-2">Companies</h4>
             </div>
-            @foreach($companies as $company)
-            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                <div class="d-flex align-items-center">
-                    <!-- صورة افتراضية للشركة -->
-                    <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}" 
-                         alt="Logo" class="rounded-circle" width="50" height="50">
-                    <div class="ms-3">
-                        <strong>{{ $company['name'] }}</strong>
-                        <div class="text-muted">{{ $company['id'] }} followers</div>
+            @foreach ($companies as $company)
+                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <div class="d-flex align-items-center">
+                        <!-- صورة افتراضية للشركة -->
+                        <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}" alt="Logo"
+                            class="rounded-circle" width="50" height="50">
+                        <div class="ms-3">
+                            <strong>{{ $company['name'] }}</strong>
+                            <div class="text-muted">{{ $company['id'] }} followers</div>
+                        </div>
                     </div>
+                    <button class="btn btn-outline-primary btn-sm">Following</button>
                 </div>
-                <button class="btn btn-outline-primary btn-sm">Following</button>
-            </div>
             @endforeach
         </div>
     </div>
 </div>
-
