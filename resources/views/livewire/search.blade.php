@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-{{-- @include('livewire.navigation-bar') --}}
->>>>>>> dd2c72dde4d8ad7f21b59177b331b718309c110d
 
 <div class="container mt-5 col-md-8">
     <div class="row">

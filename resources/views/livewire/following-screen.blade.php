@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 
-=======
-{{-- @include('livewire.navigation-bar') --}}
-{{-- <br>
-<br> --}}
->>>>>>> dd2c72dde4d8ad7f21b59177b331b718309c110d
 <div class="container mt-4">
     <div class="row">
         <!-- قسم إدارة الشبكة -->

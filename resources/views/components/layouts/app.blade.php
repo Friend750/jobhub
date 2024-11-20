@@ -19,16 +19,11 @@
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
     <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
-<<<<<<< HEAD
     <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
-=======
-
-
 
 
     {{-- make all css files above this line --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
->>>>>>> dd2c72dde4d8ad7f21b59177b331b718309c110d
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
 
@@ -45,16 +40,10 @@
             </form>
         </li>
     </ul> --}}
-<<<<<<< HEAD
-@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home']))
+
+@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home','route']))
 @include('livewire.navigation-bar');
 @endif
-=======
-
-    @include('livewire.navigation-bar')
-
-
->>>>>>> dd2c72dde4d8ad7f21b59177b331b718309c110d
     {{ $slot }}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
