@@ -1,29 +1,29 @@
 
-<div class="container mt-4">
+<div class="container mt-4 col-6">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
         <div class="col-md-3">
-            <h5><i class="bi bi-arrow-left"></i> Manage my network</h5>
+            <h4 class="mt-3"> Manage my network</h4>
 
             <ul class="list-unstyled">
                 <a href="/Following" wire:navigate>
                     <li class="d-flex justify-content-between text-muted">
                         <div>
-                            <i class="fas fa-user-friends me-2 my-2 mr-2"></i> Following
+                            <i class="fas fa-user-friends me-2 my-2"></i> Following
                         </div>
                         <span>1000</span>
                     </li>
                 </a>
                 <li class="d-flex justify-content-between text-dark">
                     <div>
-                        <i class="fas fa-users me-2 my-2 mr-2"></i><strong >Followers</strong>
+                        <i class="fas fa-users me-2 my-2 "></i><strong >Followers</strong>
                     </div>
                     <span><strong>197</strong></span>
                 </li>
                 <a href ="/CompaniesList" wire:navigate>
                     <li class="d-flex justify-content-between text-muted">
                         <div>
-                            <i class="fas fa-building me-2 my-2 mr-2" style="padding: 0 4px;"></i>Companies
+                            <i class="fas fa-building me-2 my-2 " style="padding: 0 4px;"></i>Companies
                         </div>
                         <span>30</span>
                     </li>
@@ -34,7 +34,7 @@
         <!-- قسم قائمة الشركات -->
         <div class="col-md-9 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h4 class="mt-2">Companies</h4>
+                <h4 class="mt-3">Companies</h4>
             </div>
             @foreach ($companies as $company)
                 <div class="d-flex justify-content-between align-items-center border-bottom py-2">

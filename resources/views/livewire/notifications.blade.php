@@ -1,8 +1,8 @@
 
-<div class="container mt-4 col-8">
+<div class="container mt-4 col-6">
     <div class="row">
         <!-- قسم الإحصائيات -->
-        <div class="col-md-3">
+        <div class="col-md-3 mt-3">
             <div class="card">
                 <div class="card-header text-secondary">
                    NOTIFICATIONS
@@ -19,7 +19,7 @@
         </div>
 
         <!-- قسم الإشعارات -->
-        <div class="col-md-9">
+        <div class="col-md-9 mt-3">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <span>Notifications</span>

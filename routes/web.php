@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\Chat;
-
+use App\Livewire\ChatAndFeed;
 use App\Livewire\PostCard;
 
 use App\Livewire\UserProfile;
@@ -34,12 +34,14 @@ Route::get('/login',SignIn::class)->name("login");
 Route::get('/typeaccount',Typeaccount::class)->name("typeaccount");
 Route::get('/interests',SelectInterests::class)->name("interests");
 Route::get('/home',HomePage::class)->name("home");
-Route::get('/',Typeaccount::class)->name("route");
+Route::get('/',ChatAndFeed::class)->name("route");
 Route::get('/user-profile',UserProfile::class);
 Route::get('/JobScreen',JobScreen::class);
 Route::get('/Search',Search::class);
 Route::get('/EnhanceProfile',EnhanceProfile::class);
 Route::get('/posts',PostCard::class);
+Route::get('/chat',Chat::class)->name("chat");
+Route::get('/notifications',Notifications::class)->name("notifications");
 Auth::routes();
 
 

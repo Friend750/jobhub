@@ -1,12 +1,5 @@
 /* ////////JPB_SCREEN///// */
 
-.hero-section {
-    padding: 60px 0;
-}
-
-.feature-section {
-    padding: 60px 0;
-}
 
 .footer {
     background-color: #f8f9fa;
@@ -17,6 +10,7 @@
     color: #6c757d;
     margin-right: 15px;
 }
+
 
 .btn-primary {
     border: 1px solid #2B6DAE;

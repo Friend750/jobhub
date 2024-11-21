@@ -1,4 +1,4 @@
-<div class="col-8">
+<div class="col-8 mt-5">
 <body>
     <!-- Hero Section -->
     <section class="hero-section text-center">
