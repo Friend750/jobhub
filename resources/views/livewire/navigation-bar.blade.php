@@ -1,12 +1,12 @@
 
     <!-- Navbar -->
-    <nav class="navbar navbar-light nav-bg-light">
+    <nav class="navbar navbar-light nav-bg-light col-12">
 
         <div class="container-fluid">
             <div class="nav-left d-flex justify-content-center">
                 <a class="navbar-brand" href="#">
-                    <span class="logoName">YEMEN</span>
-                    <i class="bi bi-linkedin text-primary"></i>
+                    <span class="logoName">YemenJob</span>
+                    
                 </a>
                 @livewire('searchbar')
             </div>

@@ -9,7 +9,7 @@
                             <button class="btn custom-btn" type="button">Search</button>
                         </div>
                     </div>
-                    <h4 class="mb-4">JOBS FOR YOU</h4>
+                    <h4 class="mb-4 text-center">JOBS FOR YOU</h4>
     
                     <!-- Job Card -->
                     <div class="job-card p-3 bg-white mb-4">
