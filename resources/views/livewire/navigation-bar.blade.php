@@ -1,6 +1,6 @@
 
     <!-- Navbar -->
-    <nav class="navbar navbar-light nav-bg-light col-12">
+    <nav class="navbar navbar-light nav-bg-light w-100">
 
         <div class="container-fluid">
             <div class="nav-left d-flex justify-content-center">

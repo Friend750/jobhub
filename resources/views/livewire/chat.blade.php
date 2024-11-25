@@ -1,4 +1,4 @@
-<div class="container mt-4 col-6">
+<div class="container mt-4 col-6 mb-4">
     <div class="row">
         <!-- القائمة الجانبية -->
         <div class="col-md-4 border-end">
@@ -37,6 +37,7 @@
             width="50" 
             height="50"
         >
+        <strong>{{ $chat['name'] }}</strong>
                 <div class="chat-container">
                     @foreach($messages as $message)
                     <div class="d-flex {{ $message['from_me'] ? 'justify-content-end' : 'justify-content-start' }} mb-3">
