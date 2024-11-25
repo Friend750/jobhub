@@ -39,7 +39,7 @@ Route::get('/user-profile',UserProfile::class);
 Route::get('/JobScreen',JobScreen::class);
 Route::get('/Search',Search::class);
 Route::get('/EnhanceProfile',EnhanceProfile::class);
-Route::get('/posts',PostCard::class);
+Route::get('/feed',PostCard::class);
 Route::get('/chat',Chat::class)->name("chat");
 Route::get('/notifications',Notifications::class)->name("notifications");
 Auth::routes();

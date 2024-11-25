@@ -42,7 +42,7 @@
     </ul> --}}
 
 @if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home','route']))
-@include('livewire.navigation-bar');
+@include('livewire.navigation-bar')
 @endif
     {{ $slot }}
 
