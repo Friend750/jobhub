@@ -7,10 +7,14 @@
 }
 
 .form-control {
-    width: 250px;
+    width: 100%;
     background-color: #f0f4fb;
 }
-
+.navbar
+{
+    width: 100%!important;
+    box-sizing: border-box; 
+}
 .navbar-brand{
     font-size: x-large;
 }
@@ -34,6 +38,11 @@
     /* border-bottom: #1e4b8b 3px solid; */
     width: 50px;
     padding: 0;
+}
+
+
+html, body {
+    overflow-x: hidden;
 }
 
 .navbar-icons i {

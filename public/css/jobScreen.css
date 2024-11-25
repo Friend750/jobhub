@@ -1,5 +1,9 @@
 /* ////////JPB_SCREEN///// */
 
+.container
+{
+    background-color: white;
+}
 
 .footer {
     background-color: #f8f9fa;
