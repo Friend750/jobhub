@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
+Route::get('/',ChatAndFeed::class)->name("route");
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
@@ -34,10 +35,10 @@ Route::get('/login',SignIn::class)->name("login");
 Route::get('/typeaccount',Typeaccount::class)->name("typeaccount");
 Route::get('/interests',SelectInterests::class)->name("interests");
 Route::get('/home',HomePage::class)->name("home");
-Route::get('/',ChatAndFeed::class)->name("route");
 Route::get('/user-profile',UserProfile::class)->name("user-profile");
 Route::get('/JobScreen',JobScreen::class)->name("jobScreen");
 Route::get('/Search',Search::class);
+Route::get('/feed',PostCard::class);
 Route::get('/EnhanceProfile',EnhanceProfile::class)->name("EnhanceProfile");
 Route::get('/posts',PostCard::class);
 Route::get('/chat',Chat::class)->name("chat");
