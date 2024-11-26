@@ -97,6 +97,6 @@ html, body {
     justify-content: center;
 }
  .container-fluid{
-    display: flex;
+    
     justify-content: space-around !important;
  }
