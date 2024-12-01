@@ -55,8 +55,8 @@
                             <div>
                                 <strong>Ashwin Bose</strong> is requesting access to Design File - Final Project.
                                 <div>
-                                    <button class="btn btn-sm blue">Accept</button>
-                                    <button class="btn btn-sm ">Decline</button>
+                                    <button class="btn btn-sm blue mt-2">Accept</button>
+                                    <button class="btn btn-sm mt-2">Decline</button>
                                 </div>
                             </div>
                             <span>15h</span>
