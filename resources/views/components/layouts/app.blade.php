@@ -22,10 +22,8 @@
     @endif
     
     
-    @if (in_array(Route::currentRouteName(), ['intrests']))
+    @if (in_array(Route::currentRouteName(), ['interests']))
     <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
 

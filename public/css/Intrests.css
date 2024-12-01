@@ -1,5 +1,23 @@
-.btn.active {
-    background-color: #0d6efd !important;
-    color: #fff !important;
-    border-color: #0d6efd !important;
+.interest-btn {
+    color: #2B6DAE
+    ; /* اللون الأزرق الافتراضي */
+    border-color: #2B6DAE;
+    background-color: white;
+    transition: all 0.3s ease-in-out; /* تأثير الانتقال */
+}
+
+.interest-btn:hover {
+    background-color: #EAF0F7; /* لون عند المرور */
+    color: #2B6DAE; /* لون الخط عند المرور */
+    border-color: #2B6DAE;
+}
+.logo
+{
+    color: #2B6DAE;
+}
+
+.interest-btn.active {
+    background-color: #EAF0F7; /* لون الخلفية عند التفعيل */
+    color: #2B6DAE; /* لون النص عند التفعيل */
+    border-color: #2B6DAE;
 }
