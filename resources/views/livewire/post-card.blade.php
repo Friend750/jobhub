@@ -1,55 +1,5 @@
 <div>
 
-    <style>
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-body img {
-            max-height: 300px;
-            object-fit: cover;
-        }
-
-        .image-container {
-            position: relative;
-            width: 100%;
-            min-height: 300px;
-            /* Adjust height as needed */
-            /* background-image: url('https://via.placeholder.com/600x400'); */
-            /* URL of the virtual background image */
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .image-container img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 10px;
-        }
-
-        .create-post-card {
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .create-post-card .form-control {
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .create-post-card .btn {
-            border-radius: 5px;
-            font-size: 14px;
-        }
-    </style>
-
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-3"></div>
@@ -154,10 +104,10 @@
             </div>
 
             <div class="col-md-3 p-0">
-                @livewire('ChatAndFeed')
+               @livewire('ChatAndFeed') 
 
             </div>
         </div>
     </div>
-
+   
 </div>

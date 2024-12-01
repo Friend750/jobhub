@@ -40,7 +40,7 @@ Route::get('/JobScreen',JobScreen::class)->name("jobScreen");
 Route::get('/Search',Search::class);
 Route::get('/feed',PostCard::class);
 Route::get('/EnhanceProfile',EnhanceProfile::class)->name("EnhanceProfile");
-Route::get('/posts',PostCard::class);
+Route::get('/posts',PostCard::class)->name("post");
 Route::get('/chat',Chat::class)->name("chat");
 Route::get('/notifications',Notifications::class)->name("notifications");
 Auth::routes();

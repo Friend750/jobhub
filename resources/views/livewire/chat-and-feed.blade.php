@@ -1,4 +1,4 @@
- <div class="col-md-3 ml-auto">
+ <div class="">
             {{-- chat card --}}
             <div>
                 <div class="bg-white rounded shadow-sm flex-grow-1">
