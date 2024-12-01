@@ -3,7 +3,7 @@
         <!-- قسم الإحصائيات -->
         <div class="col-md-3 mt-3">
             <div class="card">
-                <div class="card-header text-secondary">
+                <div class="card-header">
                    NOTIFICATIONS
                 </div>
                 <div class="card-body text-center" >

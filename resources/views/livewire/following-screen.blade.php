@@ -2,12 +2,13 @@
 <div class="container mt-4 col-6">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
-        <div class="col-md-3">
-            <h4 class="mt-3">Manage my network</h4>
+        <div class="col-md-3 ">
+            <h4 class="mt-3">My Network</h4>
+            <hr>
             <ul class="list-unstyled">
                 <nav>
-             <li><i class="fas fa-user-friends me-2 mb-3 mt-3"></i><strong>Following</strong> <span class="text-muted">1000</span></li>
-            <a href="/Followers" wire:navigate>  <li><i class="fas fa-users me-2 mb-3 "></i>Followers <span class="text-muted">200</span></li> </a>
+             <li><i class="fas fa-user-friends mb-3"></i><strong class="ml-1">Following</strong> <span class="text-muted">100</span></li>
+            <a href="/Followers" wire:navigate>  <li><i class="fas fa-users me-1 mb-3 "></i>Followers <span class="text-muted">200</span></li> </a>
             <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building me-2 "></i>Companies <span class="text-muted">30</span></li> </a>
         </nav>
             </ul>
@@ -16,7 +17,7 @@
         <!-- قسم قائمة الشركات -->
         <div class="col-md-9 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h4 class="mt-3">Companies</h4>
+                <h4 class="mt-3">Followings</h4>
             </div>
             @foreach($companies as $company)
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">

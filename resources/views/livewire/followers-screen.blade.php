@@ -3,38 +3,21 @@
     <div class="row">
         <!-- قسم إدارة الشبكة -->
         <div class="col-md-3">
-            <h4 class="mt-3"> Manage my network</h4>
-
+            <h4 class="mt-3">My Network</h4>
+            <hr>
             <ul class="list-unstyled">
-                <a href="/Following" wire:navigate>
-                    <li class="d-flex justify-content-between text-muted">
-                        <div>
-                            <i class="fas fa-user-friends me-2 my-2"></i> Following
-                        </div>
-                        <span>1000</span>
-                    </li>
-                </a>
-                <li class="d-flex justify-content-between text-dark">
-                    <div>
-                        <i class="fas fa-users me-2 my-2 "></i><strong >Followers</strong>
-                    </div>
-                    <span><strong>197</strong></span>
-                </li>
-                <a href ="/CompaniesList" wire:navigate>
-                    <li class="d-flex justify-content-between text-muted">
-                        <div>
-                            <i class="fas fa-building me-2 my-2 " style="padding: 0 4px;"></i>Companies
-                        </div>
-                        <span>30</span>
-                    </li>
-                </a>
+                <nav>
+            <a href="/Following" wire:navigate>   <li><i class="fas fa-user-friends mb-3"></i><strong class="ml-1">Following</strong> <span class="text-muted">100</span></li></a>
+             <li><i class="fas fa-users me-1 mb-3 "></i>Followers <span class="text-muted">200</span></li> 
+            <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building me-2 "></i>Companies <span class="text-muted">30</span></li> </a>
+        </nav>
             </ul>
         </div>
 
         <!-- قسم قائمة الشركات -->
         <div class="col-md-9 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h4 class="mt-3">Companies</h4>
+                <h4 class="mt-3">Followers</h4>
             </div>
             @foreach ($companies as $company)
                 <div class="d-flex justify-content-between align-items-center border-bottom py-2">
