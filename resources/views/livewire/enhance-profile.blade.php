@@ -449,3 +449,22 @@
         document.getElementById('employmentHistoryContainer').appendChild(newEmployment);
     }
 </script>
+
+<script>
+    function addLanguage() {
+        // Create a new row for the additional language input field
+        const newLanguage = document.createElement('div');
+        newLanguage.classList.add('form-row', 'mb-3');
+
+        // Add the new language input field
+        newLanguage.innerHTML = `
+            <div class="form-group col-md-6">
+                <label for="language" style="min-width: 150px;"><i class="fas fa-language"></i> Language</label>
+                <input type="text" class="form-control" placeholder="Language">
+            </div>
+        `;
+        
+        // Append the new language field to the container
+        document.getElementById('languagesContainer').appendChild(newLanguage);
+    }
+</script>
