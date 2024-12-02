@@ -71,12 +71,12 @@
                 <div id="linksContainer">
                     <div class="form-row justify-content-center mb-3">
                         <div class="form-group col-md-6">
-                            <label for="label">Label</label>
+                            <label for="label">WebsiteName</label>
                             <input type="text" class="form-control" placeholder="Label">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="link">Link</label>
-                            <input type="text" class="form-control" placeholder="Link">
+                            <input type="text" class="form-control" placeholder="Label">
                         </div>
                     </div>
                 </div>
@@ -281,10 +281,10 @@
         // Add input fields for "Label"
         newLink.innerHTML = `
             <div class="form-group col-md-6">
-                <label for="label">Label</label>
+                <label for="label">WebsiteName</label>
                 <input type="text" class="form-control" placeholder="Label">
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
                 <label for="link">Link</label>
                 <input type="text" class="form-control" placeholder="Link">
             </div>
