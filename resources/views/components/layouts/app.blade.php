@@ -27,8 +27,9 @@
     @endif
 
 
-    @if (in_array(Route::currentRouteName(), ['post']))
+    @if (in_array(Route::currentRouteName(), ['post','route']))
     <link rel="stylesheet" href="{{ asset('css/post.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
@@ -86,7 +87,7 @@
         </li>
     </ul> --}}
 
-@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home','route','EnhanceProfile']))
+@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
 @include('livewire.navigation-bar')
 @endif
 
