@@ -1,3 +1,7 @@
+body {
+    background-color: #e9f0f7;
+}
+
 .form-section {
     background-color: white;
     padding: 20px;
@@ -37,6 +41,18 @@
     padding: 10px 20px;
     margin: 10PX 20PX;
     font-size: 16px;
-    color: aliceblue;
+}
+.btn-add {
+    text-align: left;
 }
 
+.separator {
+    border: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+.label-width {
+    display: inline-block;
+    width: 100; /* Adjust this to match your desired width */
+    font-weight: bold;
+}
