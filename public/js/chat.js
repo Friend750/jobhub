@@ -1,9 +1,9 @@
 function showChatScreen() {
     if (window.innerWidth <= 768) {
-  
-    document.querySelector('#chat-list').classList.add("d-none");
 
-    document.querySelector('#chat-messages').classList.add("d-block");
+        document.querySelector('#chat-list').classList.add("d-none");
+
+        document.querySelector('#chat-messages').classList.add("d-block");
     }
 }
 
@@ -19,8 +19,12 @@ function handleResponsive() {
         chatList.style.display = 'block';
         chatMessages.style.display = 'none';
     } else {
-        chatList.style.display = 'none';
-        chatMessages.style.display = 'block';
+        if (chatList && chatMessages) {
+            chatList.style.display = 'none';
+            chatMessages.style.display = 'block';
+        } else {
+            console.error('chatList or chatMessages is missing from the DOM.');
+        }
     }
 }
 
