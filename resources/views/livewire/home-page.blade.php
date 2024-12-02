@@ -1,16 +1,29 @@
-<div class="col-8 mt-5">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Platform</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
 <body>
+
     <!-- Hero Section -->
     <section class="hero-section text-center">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <h1>Connect, Discover, and Thrive in Your Career</h1>
-                    <p>Unlock new opportunities with our innovative platform designed for job seekers, companies, and professionals.</p>
+                    <p>Unlock new opportunities with our innovative platform designed for job seekers, companies, and
+                        professionals.</p>
                     <a href="#" class="btn btn-primary mb-3">Join</a>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://placehold.co/400x300" alt="Hero Image" class="img-fluid">
+                    <img src="https://as1.ftcdn.net/v2/jpg/06/29/48/12/1000_F_629481245_PTuYrTe2aQTQ66aqz8jWyaxRLeBTd8ww.jpg"
+                        alt="Hero Image" class="img-fluid custom-image">
                 </div>
             </div>
         </div>
@@ -21,7 +34,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <img src="https://placehold.co/400x300" alt="Feature Image" class="img-fluid">
+                    <img src="https://th.bing.com/th/id/OIF.KUg54VaaOClOK7gdLpbwMw?rs=1&pid=ImgDetMain"
+                        alt="Hero Image" class="img-fluid custom-image">
                 </div>
                 <div class="col-md-6">
                     <h2>Resume, alerts, career control, all in <span class="text-primary">one.</span></h2>
@@ -50,7 +64,8 @@
                     <a href="#" class="btn btn-primary mb-3">Sign Up</a>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://placehold.co/400x300" alt="Feature Image" class="img-fluid">
+                    <img src="https://th.bing.com/th/id/OIF.x40Up2jcVpqd6nJPE1BaIw?rs=1&pid=ImgDetMain"
+                        alt="Hero Image" class="img-fluid custom-image">
                 </div>
             </div>
         </div>
@@ -66,5 +81,9 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</div>
+
+</html>
