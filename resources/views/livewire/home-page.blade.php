@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="mt-5">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Platform</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
 
-<body>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+    <section class="hero-section text-center mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -23,19 +14,19 @@
                 </div>
                 <div class="col-md-6">
                     <img src="https://as1.ftcdn.net/v2/jpg/06/29/48/12/1000_F_629481245_PTuYrTe2aQTQ66aqz8jWyaxRLeBTd8ww.jpg"
-                        alt="Hero Image" class="img-fluid custom-image">
+                        alt="Hero Image" class="img-fluid custom-image w-100 ">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="feature-section">
+    <section class="feature-section mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <img src="https://th.bing.com/th/id/OIF.KUg54VaaOClOK7gdLpbwMw?rs=1&pid=ImgDetMain"
-                        alt="Hero Image" class="img-fluid custom-image">
+                        alt="Hero Image" class="img-fluid custom-image w-100">
                 </div>
                 <div class="col-md-6">
                     <h2>Resume, alerts, career control, all in <span class="text-primary">one.</span></h2>
@@ -51,7 +42,7 @@
     </section>
 
     <!-- More Features Section -->
-    <section class="feature-section">
+    <section class="feature-section mb-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -65,7 +56,7 @@
                 </div>
                 <div class="col-md-6">
                     <img src="https://th.bing.com/th/id/OIF.x40Up2jcVpqd6nJPE1BaIw?rs=1&pid=ImgDetMain"
-                        alt="Hero Image" class="img-fluid custom-image">
+                        alt="Hero Image" class="img-fluid custom-image w-100">
                 </div>
             </div>
         </div>
@@ -80,10 +71,4 @@
             <a href="#">Cookies Settings</a>
         </div>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+    </div>
