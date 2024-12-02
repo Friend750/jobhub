@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-light nav-bg-light w-100">
     <div class="container-fluid">
-        <div class="nav-left d-flex justify-content-center">
+        <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="navbar-brand" href="#">
                 <span class="logoName">YemenJob</span>
             </a>

@@ -8,6 +8,7 @@ use Livewire\WithFileUploads;
 class CreatePostOverlay extends Component
 {
     use WithFileUploads;
+    
     public $content;
     public $media;
     public $showCard;

@@ -19,8 +19,9 @@ class PostCard extends Component
         'media' => 'nullable|image|max:2048',
     ];
 
-    public function setShowCard($showCard){
-        $this->showCard = $showCard;
+    public function setShowCard()
+    {
+        $this->showCard = true;
     }
 
 
@@ -46,7 +47,7 @@ class PostCard extends Component
         // ]);
 
         session()->flash('message', 'Post created successfully!');
-        $this->reset(['content', 'media', 'mediaPreview']);
+        $this->reset(['content', 'media', 'mediaPreview','showCard']);
     }
 
     public function render()
