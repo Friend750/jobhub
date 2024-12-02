@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-   
+
     @if (in_array(Route::currentRouteName(), ['user-profile']))
     <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
-    
+
+
     @if (in_array(Route::currentRouteName(), ['intrests']))
     <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -34,29 +34,29 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
+
     @if (in_array(Route::currentRouteName(), ['FollowersScreen','CompaniesScreen','FollowingsScreen']))
     <link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
+
     @if (in_array(Route::currentRouteName(), ['notifications']))
     <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
+
     @if (in_array(Route::currentRouteName(), ['home']))
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     @endif
-    
+
     @if (in_array(Route::currentRouteName(), ['jobScreen']))
     <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
+
     @if (in_array(Route::currentRouteName(), ['EnhanceProfile']))
     <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
     @endif
@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
-    
+
 
 
     {{-- make all css files above this line --}}
@@ -97,7 +97,7 @@
         {{ $slot }}
     </div>
 </div>
-       
+
 
 
 
