@@ -34,3 +34,7 @@ a:hover
     text-decoration-line: none;
 
 }
+.list-unstyled
+{
+    font-size: 14px !important;
+}

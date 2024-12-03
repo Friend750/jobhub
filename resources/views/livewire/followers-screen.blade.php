@@ -2,20 +2,20 @@
 <div class="container mt-4 col-6">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
-        <div class="col-md-3">
-            <h4 class="mt-3">My Network</h4>
-            <hr>
+        <div class="col-md-4">
+            <h4 class="mt-3 mb-3">Manage My Network</h4>
+    
             <ul class="list-unstyled">
                 <nav>
-            <a href="/Following" wire:navigate>   <li><i class="fas fa-user-friends mb-3"></i><strong class="ml-1">Following</strong> <span class="text-muted">100</span></li></a>
-             <li><i class="fas fa-users me-1 mb-3 "></i>Followers <span class="text-muted">200</span></li> 
-            <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building me-2 "></i>Companies <span class="text-muted">30</span></li> </a>
+            <a href="/Following" wire:navigate>   <li><i class="fas fa-user-friends mb-3 mr-2"></i><strong >Following</strong> <span class="ml-2 text-muted">100</span></li></a>
+             <li><i class="fas fa-users mr-2 mb-3"></i><strong>Followers</strong> <span class="ml-2 text-muted">200</span></li> 
+            <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building ml-1 mr-2"></i><strong>Companies</strong> <span class="ml-1 text-muted">30</span></li> </a>
         </nav>
             </ul>
         </div>
 
         <!-- قسم قائمة الشركات -->
-        <div class="col-md-9 containerOfNetwork">
+        <div class="col-md-8 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4 class="mt-3">Followers</h4>
             </div>
