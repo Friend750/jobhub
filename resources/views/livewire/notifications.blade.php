@@ -59,20 +59,35 @@
                                     <button class="btn btn-sm mt-2">Decline</button>
                                 </div>
                             </div>
-                            <span>15h</span>
+                            <span class="float-right d-flex flex-column">15h  <i class="fa-solid fa-ellipsis"></i></span>
                         </div>
                         <!-- إشعارات أخرى -->
-                        <div class="alert alert-light">
-                            <strong>Patrick</strong> added a comment on Design Assets - Smart Tags file: "Looks perfect, send it for technical review tomorrow!"
-                            <span class="float-right">15h</span>
-                        </div>
+                       <div class="alert alert-light">
+    <strong>Patrick</strong> added a comment on Design Assets - Smart Tags file: 
+    "Looks perfect, send it for technical review tomorrow!"
+    <span class="float-right d-flex flex-column">
+        15h  
+        <!-- عنصر القائمة المنسدلة -->
+        <div class="dropdown">
+            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton" 
+               data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                <li><a class="dropdown-item" href="#">Archive</a></li>
+                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
+            </ul>
+        </div>
+    </span>
+    <br>
+    <br>
+</div>
                         <div class="alert alert-light">
                             <strong>Samantha</strong> has shared a file with you
-                            <span class="float-right">14h</span>
+                            <span class="float-right d-flex flex-column">12h  <i class="fa-solid fa-ellipsis"></i></span>
                         </div>
                         <div class="alert alert-light">
                             <strong>Steve and 8 others</strong> added comments on Design Assets - Smart Tags file
-                            <span class="float-right">15h</span>
+                            <span class="float-right d-flex flex-column">10h  <i class="fa-solid fa-ellipsis"></i></span>
                         </div>
                             </div>
                             <!-- محتوى التبويبة 2 -->
