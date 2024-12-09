@@ -2,6 +2,7 @@
 
     <div class="card p-4 shadow-sm mt-5 col-md-4 col-sm-8">
         <h2 class="mb-4">Register</h2>
+        
         <form wire:submit.prevent="register">
             @csrf
             <div class="mb-3">
