@@ -12,6 +12,7 @@ use App\Livewire\FollowersScreen;
 use App\Livewire\FollowingScreen;
 use App\Livewire\HomePage;
 use App\Livewire\JobScreen;
+use App\Livewire\NavigationBar;
 use App\Livewire\Notifications;
 use App\Livewire\Register;
 use App\Livewire\Search;
@@ -26,12 +27,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/',PostCard::class)->name("route");
+Route::get('/',NavigationBar::class)->name("route");
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
-Route::get('/register-new',Register::class)->name("register");
-Route::get('/login-new',SignIn::class)->name("login");
 // Route::get('/register',Register::class)->name("register");
 // Route::get('/login',SignIn::class)->name("login");
 Route::get('/typeaccount',Typeaccount::class)->name("typeaccount");

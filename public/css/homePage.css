@@ -1,6 +1,7 @@
 body {
     background-color: #f0f4f8;
-    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+
 }
 
 .profile-img {
@@ -113,3 +114,22 @@ body {
     width: 400px;
     height: 300px;
 }
+
+section{
+    height: 80vh !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.logoName {
+    color: #2B6DAE;
+    font-family: 'Rubik', Arial, sans-serif;
+    font-weight: 700;
+}
+
+.btn {
+    border-radius: 0px !important;!i;!;
+    /* background-color: #277a1f; */
+
+}
+
