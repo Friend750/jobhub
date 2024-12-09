@@ -33,15 +33,14 @@
         
                     <div class="dropdown">
                         <!-- الأيقونة -->
-                        <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton{{ $company['id'] }}" 
+                        <i class="fa-solid fa-ellipsis-vertical btn" id="dropdownMenuButton{{ $company['id'] }}" 
                             data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
                         <!-- القائمة المنسدلة -->
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $company['id'] }}">
-                            <li><a class="dropdown-item" href="#">Send Message</a></li>
                             <li><a class="dropdown-item" href="#">Remove Follower</a></li>
                             <li><a class="dropdown-item" href="#">View Profile</a></li>
                         </ul>
-                        <a href="#"><i class="ml-3 fa-regular fa-paper-plane"></i></a>
+                        <a href="#"><i class="fa-regular fa-paper-plane btn"></i></a>
                     </div>
                 </div>
             @endforeach
