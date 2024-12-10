@@ -56,8 +56,8 @@
 
                                 <!-- Right Section -->
                                 <div class="d-flex mt-3">
-                                    <button class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
-                                        Profile</button>
+                                   <a href="/EnhanceProfile"> <button class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
+                                        Profile</button></a>
                                     <button id="toggleOptionsBtn" class="btn btn-outline-secondary btn-custom"
                                         onclick="toggleOptionsCard()">More</button>
 

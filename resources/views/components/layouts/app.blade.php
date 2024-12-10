@@ -12,10 +12,16 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     
     @if (in_array(Route::currentRouteName(), ['typeaccount']))
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    @endif
+
+    @if (in_array(Route::currentRouteName(), ['search']))
     <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
+
 
     @if (in_array(Route::currentRouteName(), ['user-profile']))
     <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">

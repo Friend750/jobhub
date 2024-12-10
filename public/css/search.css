@@ -7,11 +7,19 @@
     background-color: #2B6DAE;
     border-color: #2B6DAE;
 }
-
-.btn {
-    border-radius: 30px !important;
+.stick{
+    color: #2B6DAE;
 }
 
+.btn {
+   
+}
+.btnFollowing
+{
+    width: 100px !important;
+    border-radius: 30px !important;
+
+}
 .list-group-item {
     border-bottom: none;
 }
