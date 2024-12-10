@@ -10,10 +10,11 @@ class SelectInterests extends Component
         'Marketing',
         'Technology',
         'Economy',
-        'Business & Finance',
-        'Business Administration',
+        'Business',
+        'Administration',
         'E-commerce',
         'IT Management',
+      
     ];
     public $selectedInterests = [];
 

@@ -16,6 +16,7 @@ body {
 .nav-bg-light {
     background-color: var(--color-whight) !important;
 }
+
 .border {
     border-color: var(--color-light-gray) !important;
 }
@@ -49,6 +50,10 @@ body {
     background-color: var(--color-whight) !important;
     color: darkred !important;
     border-radius: 30px !important;
+}
+
+.text-primary{
+    color: var(--color-primary) !important;
 }
 
 /*

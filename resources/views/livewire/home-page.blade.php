@@ -1,41 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Platform</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
+<div class="bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ml-5 mr-5">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <span class="logoName">YemenJobs</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        {{-- <a class="nav-link " aria-current="page" href="#">About</a> --}}
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    {{-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> --}}
+                    <a class="btn text-primary mr-2" type="submit"><b>Join now</b> </a>
+                    <button class="btn btn-outline-primary" type="submit"><b>Sign in</b> </button>
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+
+    <section class="hero-section text-center mb-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-6 text-start">
                     <h1>Connect, Discover, and Thrive in Your Career</h1>
                     <p>Unlock new opportunities with our innovative platform designed for job seekers, companies, and
                         professionals.</p>
                     <a href="#" class="btn btn-primary mb-3">Join</a>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://as1.ftcdn.net/v2/jpg/06/29/48/12/1000_F_629481245_PTuYrTe2aQTQ66aqz8jWyaxRLeBTd8ww.jpg"
-                        alt="Hero Image" class="img-fluid custom-image">
+                    <img src="https://via.placeholder.com/1200x400/cccccc/000000" alt="Hero Image"
+                        class="img-fluid custom-image w-100">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="feature-section">
+    <section class="feature-section mb-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <img src="https://th.bing.com/th/id/OIF.KUg54VaaOClOK7gdLpbwMw?rs=1&pid=ImgDetMain"
-                        alt="Hero Image" class="img-fluid custom-image">
+                <div class="col-md-6 text-start">
+                    <img src="https://via.placeholder.com/1200x400/cccccc/000000" alt="Hero Image"
+                        class="img-fluid custom-image w-100">
+
                 </div>
                 <div class="col-md-6">
                     <h2>Resume, alerts, career control, all in <span class="text-primary">one.</span></h2>
@@ -51,10 +65,10 @@
     </section>
 
     <!-- More Features Section -->
-    <section class="feature-section">
+    <section class="feature-section mb-5">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
+                <div class="col-md-6 text-start">
                     <h2>Empower Your Hiring with Our Platform</h2>
                     <p>Save time and effort with our intelligent platform.</p>
                     <ul>
@@ -64,15 +78,15 @@
                     <a href="#" class="btn btn-primary mb-3">Sign Up</a>
                 </div>
                 <div class="col-md-6">
-                    <img src="https://th.bing.com/th/id/OIF.x40Up2jcVpqd6nJPE1BaIw?rs=1&pid=ImgDetMain"
-                        alt="Hero Image" class="img-fluid custom-image">
+                    <img src="https://via.placeholder.com/1200x400/cccccc/000000" alt="Hero Image"
+                        class="img-fluid custom-image w-100">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer text-center">
+    <footer class="footer text-center py-4">
         <div class="container">
             <p>© 2024 All rights reserved.</p>
             <a href="#">Privacy Policy</a>
@@ -80,10 +94,4 @@
             <a href="#">Cookies Settings</a>
         </div>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+</div>
