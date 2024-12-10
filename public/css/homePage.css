@@ -111,8 +111,8 @@ body {
 }
 
 .custom-image {
-    width: 400px;
-    height: 300px;
+    width: auto !important;
+    /* height: 300px; */
 }
 
 section{
@@ -128,8 +128,15 @@ section{
 }
 
 .btn {
-    border-radius: 0px !important;!i;!;
+    border-radius: 0px !important;
     /* background-color: #277a1f; */
-
 }
 
+footer{
+    /* background-color: #ddd; */
+    height: 100px;
+}
+
+footer .container{
+    padding-top: 50px;
+}

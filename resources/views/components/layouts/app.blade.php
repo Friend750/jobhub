@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    
+
     @if (in_array(Route::currentRouteName(), ['typeaccount']))
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
@@ -56,6 +56,8 @@
 
     @if (in_array(Route::currentRouteName(), ['home']))
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/homePageNav.css') }}">
+
     @endif
 
     @if (in_array(Route::currentRouteName(), ['jobScreen']))
@@ -77,7 +79,7 @@
 
 
     {{-- make all css files above this line --}}
-   
+
     <title>{{ $title ?? 'Page Title' }}</title>
     @livewireStyles
 

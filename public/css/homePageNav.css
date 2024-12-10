@@ -1,0 +1,17 @@
+/* special font for the logo 'Rubik' */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-brand{
+    font-size: x-large;
+}
+
+.logoName {
+    color: #2B6DAE;
+    font-family: 'Rubik', Arial, sans-serif;
+    font-weight: 700;
+}

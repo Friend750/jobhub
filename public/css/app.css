@@ -56,6 +56,14 @@ body {
     color: var(--color-primary) !important;
 }
 
+.bg-wight{
+    background-color: var(--color-whight) !important;
+}
+
+.color-bg-blue-light{
+    background-color: var(--color-bg-blue-light);
+}
+
 /*
 black
 181818
