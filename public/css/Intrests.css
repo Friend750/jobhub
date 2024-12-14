@@ -1,9 +1,9 @@
 .interest-btn {
-    color: #2B6DAE
+    color: #000000
     ; /* اللون الأزرق الافتراضي */
-    border-color: #2B6DAE;
-    background-color: white;
+    background-color: #EAF0F7;
     transition: all 0.3s ease-in-out; /* تأثير الانتقال */
+    border-radius: 1px !important;
 }
 
 .interest-btn:hover {
