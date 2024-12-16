@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div class="d-flex">
-                                        <div class="row m-0">
+                                        <div class="row m-0 w-100">
                                             <div class="col-6 pl-0"> <!-- Job Location -->
                                                 <div class="form-group">
                                                     <label for="job_location">Job Location</label>
