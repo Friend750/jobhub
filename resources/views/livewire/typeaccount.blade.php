@@ -1,5 +1,5 @@
-<div class="container  col-5  mt-8">
-    <div class="container mt-5">
+<div class="container  col-5 mt-3">
+    <div class=" mt-5">
         <h2>What is your account?</h2>
         <p>Select whether your account will be for a company or  a personal account</p>
         <hr>

@@ -12,12 +12,11 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     @if (in_array(Route::currentRouteName(), ['typeaccount']))
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
+
     @endif
 
     @if (in_array(Route::currentRouteName(), ['search']))
-    <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
@@ -85,7 +84,11 @@
 
 </head>
 
-<body>
+@if (in_array(Route::currentRouteName(), ['typeaccount','interests']))
+<body style="background-color: white !important;">
+@else
+<body>  
+@endif
     {{-- <ul>
         <li><a href="{{ route('login') }}">Login</a></li>
         <li><a href="{{ route('register') }}">Register</a></li>

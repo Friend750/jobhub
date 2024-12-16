@@ -1,4 +1,4 @@
-/* ////////JPB_SCREEN///// */
+/* ////////JPB_SCREEN/////*/
 
 .container
 {
@@ -10,18 +10,22 @@
     padding: 20px 0;
 }
 
-.footer a {	
+.footer a {    
     color: #6c757d;
     margin-right: 15px;
 }
 
-
-.btn-primary {
+/* .btn-primary {
     border: 1px solid #2B6DAE;
     border-radius: 3px;
     padding: 4px 7px;
     color: #2B6DAE;
     background-color: transparent;
-    transition: background-color 0.3s, color 0.3s;
+} */
+
+
+.more-button {
+    font-size: 16px; /* حجم الخط */
+    font-weight: bold; /* خط عريض */
 }
 
