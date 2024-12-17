@@ -18,6 +18,6 @@
                     </label>
                 </div>
             </div>
-            <button class="btn btn-primary">Next ➔</button>
+            <a href="/interests"><button class="btn btn-primary">Next ➔</button></a>
         </div>
     </div>

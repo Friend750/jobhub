@@ -33,8 +33,13 @@ class SelectInterests extends Component
             session()->flash('error', 'Please select at least 2 interests.');
             return;
         }
+        else
+        {
+            session()->flash('success', 'Interests saved successfully!');
+            redirect('posts');
+        }
         // تنفيذ عملية التخزين أو الانتقال للخطوة التالية
-        session()->flash('success', 'Interests saved successfully!');
+        
     }
 
     public function render()

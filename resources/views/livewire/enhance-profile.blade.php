@@ -30,18 +30,15 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="country">Country</label>
-                        <input type="text" class="form-control" id="country" placeholder="Country">
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="phone">Phone</label>
                         <input type="text" class="form-control" id="phone" placeholder="Phone">
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" placeholder="City">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" placeholder="City">
-                </div>
+                
             </div>
         </div>
 

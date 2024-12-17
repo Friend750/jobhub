@@ -5,6 +5,6 @@
            <a href="/user-profile" class="btn btn-outline-primary profile">View Profile</a>
            <div class="mt-3">
                <a href="#" class="d-block mb-2 nav-link">Language</a>
-               <a href="#" class="d-block mb-1 nav-link">Sign Out</a>
+               <a href="/login" class="d-block mb-1 nav-link">Sign Out</a>
            </div>
        </div>
