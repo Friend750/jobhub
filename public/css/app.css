@@ -18,7 +18,7 @@ body {
 }
 
 .border {
-    border-color: var(--color-light-gray) !important;
+    border-color: var(--color-light-gray-border) !important;
 }
 
 .btn-primary {
@@ -63,6 +63,13 @@ body {
 .color-bg-blue-light{
     background-color: var(--color-bg-blue-light);
 }
+
+.rounded{
+    border-radius: 10px !important;
+}
+
+
+
 
 /*
 black

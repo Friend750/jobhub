@@ -45,3 +45,13 @@
     border-radius: 5px;
     font-size: 14px;
 }
+
+.hover_color:hover {
+    background-color: #EAF0F7;
+}
+
+.overlay-card {
+    width: 150px;
+    z-index: 1050;
+}
+
