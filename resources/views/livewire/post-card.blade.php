@@ -56,8 +56,6 @@
                                                                     anyone</small> </a></li>
                                                         <li><a class="dropdown-item" href="#"><small>Connections
                                                                     only</small> </a></li>
-                                                        <li><a class="dropdown-item" href="#"><small>Specific
-                                                                    group</small> </a></li>
                                                     </ul>
                                                 </div>
 

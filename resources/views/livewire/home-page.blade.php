@@ -34,12 +34,9 @@
             <div class="nav-right">
                 <div class="d-flex" role="search">
                     {{-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> --}}
-                    <a class="btn text-primary mr-2" type="submit"><b>Join now</b> </a>
-                    <button class="btn btn-outline-primary" type="submit"><b>Sign in</b> </button>
+                    <a href="register"  class="btn text-primary mr-2" type="submit"><b>Join now</b> </a>
+                    <a href="login"><button class="btn btn-outline-primary" type="submit"><b>Sign in</b> </button></a>
                 </div>
-
-
-
             </div>
         </div>
     </nav>
@@ -47,14 +44,14 @@
 
     <!-- Hero Section -->
 
-    <section class="hero-section text-center mb-5">
+    <section class="hero-section text-center mb-5 mt-5">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-start">
                     <h1>Connect, Discover, and Thrive in Your Career</h1>
                     <p>Unlock new opportunities with our innovative platform designed for job seekers, companies, and
                         professionals.</p>
-                    <a href="#" class="btn btn-primary mb-3">Join</a>
+                    <a href="register"  class="btn btn-primary mb-3">Join</a>
                     <button class="btn color-bg-blue-light mb-3">
                         {{-- <i class="fab fa-google"></i> --}}
                         Or you can Continue with
@@ -87,7 +84,7 @@
                         <li><strong>Resume Builder:</strong> Create a standout resume effortlessly.</li>
                         <li><strong>Job Alerts:</strong> Receive instant notifications for job openings.</li>
                     </ul>
-                    <a href="#" class="btn btn-primary mb-3 mt-2">Start Now</a>
+                    <a href="login" class="btn btn-primary mb-3 mt-2">Start Now</a>
                 </div>
             </div>
         </div>
@@ -101,10 +98,10 @@
                     <h2>Empower Your Hiring with Our Platform</h2>
                     <p>Save time and effort with our intelligent platform.</p>
                     <ul>
-                        <li><strong>Job Postings:</strong> Easily create and manage job listings.</li>
+                        <li><strong>Job Postings:</strong> Easily create and manage job listings (soon).</li>
                         <li><strong>Social Media Platform:</strong> Connect and grow your audience.</li>
                     </ul>
-                    <a href="#" class="btn btn-primary mb-3">Sign Up</a>
+                    <a href="register"  class="btn btn-primary mb-3">Sign Up</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('images/more features.png') }}" alt="Hero Image"

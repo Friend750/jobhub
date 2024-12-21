@@ -18,6 +18,10 @@
                     </label>
                 </div>
             </div>
-            <a href="/interests"><button class="btn btn-primary">Next ➔</button></a>
+            <a href="/interests"> <div class="text-center mt-4">
+                <button class="btn btn-primary">
+                    Next <i class="bi bi-chevron-right"></i>
+                </button>
+            </div></button></a>
         </div>
     </div>

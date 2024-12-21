@@ -26,7 +26,6 @@
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Interests</h5>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link active text-dark" id="tab1-tab" data-toggle="tab"
@@ -51,15 +50,26 @@
                             <!-- محتوى التبويبة 1 -->
                             <div class="tab-pane fade show active text-center" id="All" role="tabpanel" aria-labelledby="tab1-tab">
                                  <!-- إشعار -->
-                        <div class="alert alert-light d-flex justify-content-between align-items-center">
+                        <div class="alert alert-light d-flex justify-content-between align-items-center color-bg-blue-light">
                             <div>
                                 <strong>Ashwin Bose</strong> is requesting access to Design File - Final Project.
                                 <div>
                                     <button class="btn btn-sm blue mt-2">Accept</button>
-                                    <button class="btn btn-sm mt-2">Decline</button>
+                                    <button class="btn btn-outline-primary btn-sm mt-2">Decline</button>
                                 </div>
                             </div>
-                            <span class="float-right d-flex flex-column">15h  <i class="fa-solid fa-ellipsis"></i></span>
+                            <span class="float-right d-flex flex-column">15h  
+                                
+                                <div class="dropdown">
+                                    <i class="fa-solid fa-ellipsis" id="dropdownMenuButton" 
+                                       data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                        <li><a class="dropdown-item" href="#">Archive</a></li>
+                                        <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
+                                    </ul>
+                                </div>
+                            </span>
                         </div>
                         <!-- إشعارات أخرى -->
                        <div class="alert alert-light">
@@ -83,11 +93,31 @@
 </div>
                         <div class="alert alert-light">
                             <strong>Samantha</strong> has shared a file with you
-                            <span class="float-right d-flex flex-column">12h  <i class="fa-solid fa-ellipsis"></i></span>
+                            <span class="float-right d-flex flex-column">12h  
+                                <div class="dropdown">
+                                    <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton" 
+                                       data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                        <li><a class="dropdown-item" href="#">Archive</a></li>
+                                        <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
+                                    </ul>
+                                </div>
+                            </span>
                         </div>
                         <div class="alert alert-light">
                             <strong>Steve and 8 others</strong> added comments on Design Assets - Smart Tags file
-                            <span class="float-right d-flex flex-column">10h  <i class="fa-solid fa-ellipsis"></i></span>
+                            <span class="float-right d-flex flex-column">10h  
+                                <div class="dropdown">
+                                    <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton" 
+                                       data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"></i>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                        <li><a class="dropdown-item" href="#">Archive</a></li>
+                                        <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
+                                    </ul>
+                                </div>
+                            </span>
                         </div>
                             </div>
                             <!-- محتوى التبويبة 2 -->

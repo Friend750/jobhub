@@ -6,7 +6,7 @@
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="card p-4 shadow-sm mt-5 col-md-4 col-sm-8">
+            <div class="card p-4 shadow-sm mt-1 col-md-4 col-sm-8">
 
                 <div class="card-body">
                     <h2 class="mb-4">{{ __('Login') }}</h2>

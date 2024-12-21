@@ -21,8 +21,8 @@
             </div>
 
             <div class="text-center mt-4">
-                <button class="btn btn-primary px-4 py-2" wire:click="nextStep">
-                    Next ➔
+                <button class="btn btn-primary" wire:click="nextStep">
+                    Next <i class="bi bi-chevron-right"></i>
                 </button>
             </div>
         </div>

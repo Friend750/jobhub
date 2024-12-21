@@ -2,7 +2,7 @@
 <body>
     <div class="container mt-5">
         <!-- Personal Details -->
-        <div class="form-section">
+        <div class="form-section rounded">
             <h5>
                 <span>Personal Details</span>
                 <i class="fas fa-caret-down caret-icon" data-toggle="collapse" data-target="#personalDetails"></i>
@@ -11,60 +11,65 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="lastName">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter Your Last Name">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="jobTitle">Job Title</label>
-                        <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
+                        <input type="text" class="form-control" id="jobTitle" placeholder="Enter Your Job Title">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="firstName">First Name</label>
-                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter Your First Name">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" placeholder="Enter Your Email">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="phone">Phone</label>
-                        <input type="text" class="form-control" id="phone" placeholder="Phone">
+                        <input type="text" class="form-control" id="phone" placeholder="Enter Your Phone Number">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="city">City</label>
-                        <input type="text" class="form-control" id="city" placeholder="City">
+                        <input type="text" class="form-control" id="city" placeholder="Enter Your City Name">
                     </div>
                 </div>
                 
             </div>
+           
+                <button class="btn btn-primary rounded ">Confirm</button>
+          
         </div>
+       
 
         <!-- Professional Summary -->
-        <div class="form-section">
+        <div class="form-section rounded">
             <h5>
                 <span>Professional Summary</span>
                 <i class="fas fa-caret-down caret-icon" data-toggle="collapse" data-target="#professionalSummary"></i>
             </h5>
             <p>Write 2-4 short, energetic sentences about how great you are. Mention the role and what you did. What were the big achievements? Describe your motivation and list your skills.</p>
-            <div id="professionalSummary" class="collapse show">
+            <div id="professionalSummary" class="collapse">
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3" placeholder="Add a description here..."></textarea>
                 </div>
             </div>
         </div>
+        
 
         <!-- Websites & Social Links -->
-        <section class="form-section">
+        <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#websitesLinks">
                 Websites & Social Links
                 <i class="fas fa-caret-down"></i>
             </h5>
             <p>You can add links to websites you want hiring managers to see! Perhaps it will be a link to your portfolio, or personal website.</p>
-            <div id="websitesLinks" class="collapse show">
+            <div id="websitesLinks" class="collapse">
                 <div id="linksContainer">
                     <div class="form-row justify-content-center mb-3">
                         <div class="form-group col-md-6">
@@ -77,19 +82,19 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-add btn btn-link" onclick="addLink()">+ Add one more Link</span>
+                <button class="btn btn-primary rounded " onclick="addLink()">+ Add one more Link</button>   
             </div>
         </section>
        
         
         <!-- Education -->
-        <section class="form-section">
+        <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#education">
                 Education
                 <i class="fas fa-caret-down"></i>
             </h5>
             <p>Add information about your educational background. You can include multiple entries.</p>
-            <div id="education" class="collapse show">
+            <div id="education" class="collapse ">
                 <div id="educationContainer">
                     <div class="education-block">
                         <div class="form-row mb-3">
@@ -122,17 +127,18 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-add btn btn-link" onclick="addEducation()">+ Add one more Education</span>
+                <button class="btn btn-primary rounded "onclick="addEducation()">+ Add one more Education</button>
             </div>
         </section>
       
         <!-- Courses -->
-        <div class="form-section">
+        <div class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#courses">
                 Courses
                 <i class="fas fa-caret-down"></i>
             </h5>
-            <div id="courses" class="collapse show">
+            <p>List any certifications or additional training programs you have completed that are relevant to the position.</p>
+            <div id="courses" class="collapse">
                 <div id="coursesContainer">
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -159,47 +165,55 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-add btn btn-link" onclick="addCourse()">+ Add one more Course</span>
+                <button class="btn btn-primary rounded "onclick="addCourse()">+ Add one more Course</button>
             </div>
         </div>
       
         
 
         <!-- Skills -->
-        <div class="form-section">
+        <div class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#skills">
                 Skills
                 <i class="fas fa-caret-down"></i>
             </h5>
             <p>Choose 3 important skills that show you fit the position. Make sure they match the key skills mentioned in the job listing (especially when applying via an online system).</p>
-            <div id="skills" class="collapse show">
+            <div id="skills" class="collapse">
                 <div id="skillsContainer">
                     <!-- Initial skill entries -->
-                    <div class="form-row mb-3">
+                    <div class="row mb-3">
                         <div class="form-group col-md-6">
                             <label for="skill1" style="min-width: 150px;">Skill 1</label>
-                            <input type="text" class="form-control" placeholder="Skill name">
+                            <div class="d-flex">
+                                <input type="text" class="form-control" placeholder="Skill name">
+                                <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1"></i>
+                            </div>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="skill2" style="min-width: 150px;">Skill 2</label>
-                            <input type="text" class="form-control" placeholder="Skill name">
+                            <div class="d-flex">
+                                <input type="text" class="form-control" placeholder="Skill name">
+                                <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1"></i>
+                            </div>
+                          
                         </div>
                     </div>
                 </div>
                 <!-- Add more skill button -->
-                    <span class="btn-add btn btn-link" onclick="addSkill()">+ Add one more Skill</span>
+                <button class="btn btn-primary rounded " onclick="addSkill()">+ Add one more Skill</button>
+
             </div>
         </div>   
         
         
         <!-- Employment History -->
-        <section class="form-section">
+        <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#employmentHistory">
                 Employment History
                 <i class="fas fa-caret-down"></i>
             </h5>
             <p>Add details about your previous work experience. You can include multiple positions.</p>
-            <div id="employmentHistory" class="collapse show">
+            <div id="employmentHistory" class="collapse">
                 <div id="employmentHistoryContainer">
                     <div class="employment-block">
                         <div class="form-row mb-3">
@@ -232,28 +246,31 @@
                         </div>
                     </div>
                 </div>
-                <span class="btn-add btn btn-link" onclick="addEmployment()">+ Add one more Employment</span>
+                <button class="btn btn-primary rounded "onclick="addEmployment()">+ Add one more Employment</button>
+
             </div>
         </section>
        
         
         
         <!-- Languages -->
-        <section class="form-section">
+        <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#languages">
                 Languages
                 <i class="fas fa-caret-down"></i>
             </h5>
-            <div id="languages" class="collapse show">
+            <p>Enter the language(s) you speak  .</p>
+
+            <div id="languages" class="collapse">
                 <div id="languagesContainer">
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-6">
-                            <label for="language" style="min-width: 150px;"><i class="fas fa-language"></i> Language</label>
-                            <input type="text" class="form-control" placeholder="Language">
+                    <div class="form-row mb-3 w-100">
+                        <div class="form-group d-flex align-items-center justify-content-around w-100">
+                            <label for="language" style="min-width: fit-content;"><i class="fas fa-language"></i> Language</label>
+                            <input type="text" class="form-control ml-3 w-100" placeholder="Language Name">
                         </div>
                     </div>
                 </div>
-                <span class="btn-add btn btn-link" onclick="addLanguage()">+ Add one more language</span>
+                <button class="btn btn-primary rounded "onclick="addLanguage()">+ Add one more language</button>
             </div>
         </section>
         
@@ -388,14 +405,27 @@
 
         // Create a new div for the additional skill field
         const newSkill = document.createElement('div');
-        newSkill.classList.add('form-row', 'mb-3');
+        newSkill.classList.add('mb-3');
 
+        
         // Add the label and input field for the new skill
         newSkill.innerHTML = `
-            <div class="form-group col-md-6">
-                <label for="skill${skillCount}" style="min-width: 150px;">Skill ${skillCount}</label>
-                <input type="text" class="form-control" placeholder="Enter skill name">
-            </div>
+            <div class="row mb-3">
+                        <div class="form-group col-md-6">
+                            <label for="skill${skillCount}" style="min-width: 150px;">Skill ${skillCount}</label>
+                            <div class="d-flex">
+                                <input type="text" class="form-control" placeholder="Skill name">
+                                <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1"></i>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="skill${++skillCount}" style="min-width: 150px;">Skill ${skillCount}</label>
+                            <div class="d-flex">
+                                <input type="text" class="form-control" placeholder="Skill name">
+                                <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
         `;
 
         // Append the new skill field to the skills container
@@ -451,14 +481,16 @@
     function addLanguage() {
         // Create a new row for the additional language input field
         const newLanguage = document.createElement('div');
-        newLanguage.classList.add('form-row', 'mb-3');
+        newLanguage.classList.add('form-row');
 
         // Add the new language input field
         newLanguage.innerHTML = `
-            <div class="form-group col-md-6">
-                <label for="language" style="min-width: 150px;"><i class="fas fa-language"></i> Language</label>
-                <input type="text" class="form-control" placeholder="Language">
-            </div>
+            <div class="form-row mb-3 w-100">
+                        <div class="form-group d-flex align-items-center justify-content-around w-100">
+                            <label for="language" style="min-width: fit-content;"><i class="fas fa-language ml-1"></i> Language</label>
+                            <input type="text" class="form-control ml-3 w-100" placeholder="Language Name">
+                        </div>
+                    </div>
         `;
         
         // Append the new language field to the container

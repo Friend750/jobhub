@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/',Typeaccount::class)->name("route");
+Route::get('/',HomePage::class)->name("route");
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");

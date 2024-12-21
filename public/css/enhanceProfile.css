@@ -19,6 +19,10 @@ body {
     align-items: center;
     cursor: pointer;
 }
+.btn:hover
+{
+    border-radius: 10px !important;
+}
 
 .form-section .collapse.show {
     margin-top: 10px;

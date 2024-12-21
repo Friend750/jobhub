@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
-    @if (in_array(Route::currentRouteName(), ['home']))
+    @if (in_array(Route::currentRouteName(), ['home','route']))
     <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homePageNav.css') }}">
 
@@ -100,7 +100,7 @@
         </li>
     </ul> --}}
 
-@if (!in_array(Route::currentRouteName(), ['login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
+@if (!in_array(Route::currentRouteName(), ['route','login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
 @include('livewire.navigation-bar')
 @endif
 

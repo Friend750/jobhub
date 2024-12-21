@@ -36,7 +36,7 @@ class SelectInterests extends Component
         else
         {
             session()->flash('success', 'Interests saved successfully!');
-            redirect('posts');
+            redirect('EnhanceProfile');
         }
         // تنفيذ عملية التخزين أو الانتقال للخطوة التالية
         

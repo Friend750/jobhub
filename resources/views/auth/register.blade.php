@@ -6,14 +6,14 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="card p-4 shadow-sm mt-5 col-md-4 col-sm-8">
+            <div class="card p-4 shadow-sm mt-1 col-md-4 col-sm-8">
 
                 <div class="card-body">
                     <h2 class="">{{ __('Register') }}</h2>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="mb-3">
+                        <div class="">
                             <label for="name" class="col-form-label text-md-end">{{ __('Name') }}</label>
 
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
@@ -26,7 +26,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <div class="">
                             <label for="email" class="col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
@@ -39,7 +39,7 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
+                        <div class="">
                             <label for="password" class="col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <input id="password" type="password"
