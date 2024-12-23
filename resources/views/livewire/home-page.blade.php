@@ -1,4 +1,12 @@
-<div class="bg-wight">
+
+<div class="row" x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 2000)" style="height: 100vh;">
+    <div class="col-12 d-flex justify-content-center align-items-center" x-show="loading" x-cloak>
+        <div class="text-center">
+            <img src="{{ asset('images/Logo-removebg-preview.png') }}" alt="Loading" class="mb-3 beating-image">  
+        </div>
+    </div>
+<div class="bg-wight" x-show="!loading">
+ 
     {{-- <nav class="navbar navbar-expand-lg bg-body-tertiary ml-5 mr-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">

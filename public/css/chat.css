@@ -39,3 +39,48 @@
 .input-group .btn {
     margin-left: 8px;
 }
+.container-fluid
+{
+    background-color: #f8f9fa !important;
+}
+.navbar
+{
+    border: 1px solid #f0f4fb ;
+    padding: 0 !important;
+}
+/* Apply custom scrollbar for all scrollable containers */
+.chat-messages-area,
+.chat-list ul {
+    scrollbar-width: thin; /* Firefox: Thin scrollbar */
+    scrollbar-color: #bbb #f0f0f0; /* Firefox: Thumb and track colors */
+}
+
+/* Chrome, Edge, Safari: Scrollbar styling */
+.chat-messages-area::-webkit-scrollbar,
+.chat-list ul::-webkit-scrollbar {
+    width: 8px; /* Width of the vertical scrollbar */
+    height: 8px; /* Height of the horizontal scrollbar */
+}
+
+.chat-messages-area::-webkit-scrollbar-track,
+.chat-list ul::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Track background color */
+    border-radius: 8px; /* Rounded corners for the track */
+}
+
+.chat-messages-area {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scroll-behavior: smooth; /* Adds smooth scrolling animation */
+}
+
+.chat-messages-area::-webkit-scrollbar-thumb,
+.chat-list ul::-webkit-scrollbar-thumb {
+    background: #bbb; /* Scrollbar thumb color */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 2px solid #f0f0f0; /* Space between the thumb and the track */
+}
+
+.chat-messages-area::-webkit-scrollbar-thumb:hover,
+.chat-list ul::-webkit-scrollbar-thumb:hover {
+    background: #888; /* Thumb color on hover */
+}

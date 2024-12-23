@@ -15,7 +15,12 @@
                     <button 
                         class="btn interest-btn py-1 mb-3 mr-2 {{ in_array($interest, $selectedInterests) ? 'active' : '' }}"
                         wire:click="toggleInterest('{{ $interest }}')">
-                        {{ $interest }} <i class="fa-solid fa-plus"></i>
+                        {{ $interest }}
+                        @if (in_array($interest, $selectedInterests))
+                            <i class="fa-solid fa-check"></i> <!-- Check icon for selected -->
+                        @else
+                            <i class="fa-solid fa-plus"></i> <!-- Add icon for not selected -->
+                        @endif
                     </button>
                 @endforeach
             </div>

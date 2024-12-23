@@ -34,7 +34,7 @@
     @endif
 
 
-    @if (in_array(Route::currentRouteName(), ['post','route']))
+    @if (in_array(Route::currentRouteName(), ['post']))
     <link rel="stylesheet" href="{{ asset('css/post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
@@ -105,10 +105,13 @@
 @endif
 
 <div class="row">
-    <div class="col-12">
+    <div>
         {{ $slot }}
     </div>
 </div>
+
+</div>
+
 
 
 

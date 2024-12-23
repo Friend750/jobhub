@@ -140,3 +140,15 @@ footer{
 footer .container{
     padding-top: 50px;
 }
+@keyframes beat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+.beating-image {
+    animation: beat 1.5s infinite ease-in-out;
+    max-width: 145px;
+}

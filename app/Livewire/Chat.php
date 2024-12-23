@@ -28,6 +28,18 @@ class Chat extends Component
             ['text' => 'Hi, Kyle. How are you doing?', 'from_me' => true, 'time' => '4:20 PM'],
             ['text' => 'Nope, they kicked me out of the office!', 'from_me' => false, 'time' => '4:29 PM'],
             ['text' => 'Wow! I can invite you in my new project.', 'from_me' => true, 'time' => '4:30 PM'],
+            ['text' => 'Hi, Kyle. How are you doing?', 'from_me' => true, 'time' => '4:20 PM'],
+            ['text' => 'Nope, they kicked me out of the office!', 'from_me' => false, 'time' => '4:29 PM'],
+            ['text' => 'Wow! I can invite you in my new project.', 'from_me' => true, 'time' => '4:30 PM'],
+            ['text' => 'Hi, Kyle. How are you doing?', 'from_me' => true, 'time' => '4:20 PM'],
+            ['text' => 'Nope, they kicked me out of the office!', 'from_me' => false, 'time' => '4:29 PM'],
+            ['text' => 'Wow! I can invite you in my new project.', 'from_me' => true, 'time' => '4:30 PM'],
+            ['text' => 'Hi, Kyle. How are you doing?', 'from_me' => true, 'time' => '4:20 PM'],
+            ['text' => 'Nope, they kicked me out of the office!', 'from_me' => false, 'time' => '4:29 PM'],
+            ['text' => 'Wow! I can invite you in my new project.', 'from_me' => true, 'time' => '4:30 PM'],
+            ['text' => 'Hi, Kyle. How are you doing?', 'from_me' => true, 'time' => '4:20 PM'],
+            ['text' => 'Nope, they kicked me out of the office!', 'from_me' => false, 'time' => '4:29 PM'],
+            ['text' => 'Wow! I can invite you in my new project.', 'from_me' => true, 'time' => '4:30 PM'],
         ];
     }
 
