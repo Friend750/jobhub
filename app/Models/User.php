@@ -16,11 +16,31 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use HasFactory;
+
     protected $fillable = [
-        'name',
         'email',
+        'email_verified_at',
+        'user_name',
         'password',
+        'user_image',
+        'professional_summary',
     ];
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'sender_id');
+    }
+
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class, 'first_chat')->orWhere('second_chat', $this->id);
+    }
+
+    public function educationUsers()
+    {
+        return $this->hasMany(EducationUser::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
