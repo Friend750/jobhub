@@ -1,9 +1,8 @@
-
 <div>
     <div class="container mt-4">
 
         <div class="row justify-content-center">
-            <div class="col-8 ">
+            <div class="col-lg-8 ">
 
                 <!-- Profile Header -->
                 <div class="card mb-3">
@@ -21,7 +20,7 @@
                                     <h3>First name + last name</h3>
                                     <span>User Specialist</span><br>
                                     <span>Sana‘a, Yemen
-                                        <a href="#" class="text-primary" data-toggle="modal"
+                                        <a href="#" class="text-primary text-decoration-none" data-toggle="modal"
                                             data-target="#contactModal">Contact info</a>
                                     </span>
 
@@ -56,13 +55,19 @@
 
                                 <!-- Right Section -->
                                 <div class="d-flex mt-3">
-                                   <a href="/EnhanceProfile"> <button class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
-                                        Profile</button></a>
+                                    <a href="/EnhanceProfile"> <button
+                                            class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
+                                            Profile</button></a>
                                     <button id="toggleOptionsBtn" class="btn btn-outline-secondary btn-custom"
                                         onclick="toggleOptionsCard()">More</button>
 
                                     <div id="optionsCard" class="options-card mt-5">
                                         <ul>
+                                            <li>
+                                                <label for="profilePicture" class="mb-0">Edit profile picture</label>
+                                                <input type="file" name="profilePicture" id="profilePicture"
+                                                    class="d-none">
+                                            </li>
                                             <li>Share profile link</li>
                                             <li data-toggle="modal" data-target="#aboutProfileModal">About this profile
                                             </li>
@@ -107,7 +112,10 @@
                 <!-- General Information Section -->
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5>General Information</h5>
+                        <div class="d-flex justify-content-between">
+                            <h5>General Information</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ornare odio. Curabitur vitae
                             velit
                             ultricies, lobortis tellus quis, tempus ante.</p>
@@ -115,15 +123,15 @@
                 </div>
 
                 <!-- Actions Section -->
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
                     <div class="card-body">
-                        <h5>Actions <small>(Posts)</small></h5>
+                        <div class="d-flex justify-content-between">
+                            <h5>Actions <small>(Posts)</small></h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
+
                         <p style="margin-top: -10px; color: gray;">K followers</p>
 
-                        <div class="d-flex mb-3">
-                            {{-- <button class="btn btn-outline-secondary btn-sm mx-1">Posts</button> --}}
-                            {{-- <button class="btn btn-outline-secondary btn-sm mx-1">Comments</button> --}}
-                        </div>
                         <p>Posts created</p>
 
                         <div class="text-center mt-3 position-relative">
@@ -133,24 +141,88 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Experience Section -->
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5>Experience</h5>
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5>Experience</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
+
                         <div class="mb-3">
                             <ul class="list-unstyled">
-                                <li><strong>Job Title | Date From - To</strong></li>
-                                <li>Company Name | Place Name</li>
-                                <li class="text-muted">Work Time: Full time / One shift</li>
+                                <div class="d-flex justify-content-between">
+                                    <li><strong> Job Title | Company Name | Location</strong></li>
+                                    <strong class="">[Month/Year – Month/Year]</strong>
+                                </div>
+
+                                <li class="text-muted">what has been done at this postion</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Education Section -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5>Education</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
+
                         <div class="mb-3">
                             <ul class="list-unstyled">
-                                <li><strong>Job Title | Date From - To</strong></li>
-                                <li>Company Name | Place Name</li>
-                                <li class="text-muted">Work Time: Full time / One shift</li>
+                                <div class="d-flex justify-content-between">
+                                    <li><strong>[Degree/Certification Name]</strong></li>
+                                    <strong class="">[Month/Year of Graduation]</strong>
+                                </div>
+                                <li>[Institution Name] | [Location]</li>
+                                <li>[Include any relevant coursework, honors, or GPA if applicable]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses Section -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5>Certifications | Courses</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
+
+                        <div class="mb-3">
+                            <ul class="list-unstyled">
+                                <div class="d-flex justify-content-between">
+                                    <li><strong>Certification Name | Institution/Provider | Location</strong></li>
+                                    <strong class="">Completion Date</strong>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Section -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5>Projects</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
+                        </div>
+
+                        <div class="mb-3">
+                            <ul class="list-unstyled">
+                                <div class="d-flex justify-content-between">
+                                    <li><strong>Project Title</strong></li>
+                                </div>
+                                <ul>
+
+                                    <li>[Description of the project, including tools and technologies used]</li>
+                                    <li>[Key outcomes or contributions made during the project]</li>
+
+                                </ul>
                             </ul>
                         </div>
                     </div>
@@ -159,67 +231,22 @@
                 <!-- Skills Section -->
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5>Skills</h5>
-                        <ul class="list-unstyled">
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Lorem ipsum dolor sit</li>
-                        </ul>
-                        <div class="text-center mt-3 position-relative">
-                            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-                            <a href="#" class="text-decoration-none"><strong class="text-dark">Show all Skills
-                                    →</strong>
-                            </a>
+                        <div class="d-flex justify-content-between">
+                            <h5>Skills</h5>
+                            <i class="bi bi-pencil-square p-1 btn"></i>
                         </div>
+
+                        <ul class="list-unstyled d-flex flex-wrap" x-data="{ skills: @entangle('skills'), limit: 7 }">
+                            <template x-for="(skill, index) in skills" :key="index">
+                                <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill"></li>
+                            </template>
+                            <li class="btn btn-secondary m-1" x-show="skills.length > limit"
+                                @click="limit = skills.length" x-text="'+' + (skills.length - limit) + ' more'">
+                            </li>
+                        </ul>
+
                     </div>
                 </div>
-
-                <!-- old Interests Section -->
-                {{-- <div class="card mb-3">
-                    <div class="card-body">
-                        <h5>Interests</h5>
-                        <p>Companies</p>
-
-                        <div class="d-flex flex-wrap justify-content-around">
-
-                            <div class="card d-flex flex-row align-items-start mr-1 p-2" style="height:fit-content;">
-                                <img src="https://via.placeholder.com/50" alt="logo" class="rounded-circle">
-                                <div class="card-body text-start py-0 pl-2">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><strong class="text-dark">Lorem ipsum dolor sit</strong></li>
-                                        <li class="text-muted" style="margin-top: -6px;"><small>10k
-                                                followers</small></li>
-                                        <li> <button
-                                                class="btn btn-outline-secondary btn-custom mt-1 py-1">Tracking</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card d-flex flex-row align-items-start mr-1 p-2" style="height:fit-content;">
-                                <img src="https://via.placeholder.com/50" alt="logo" class="rounded-circle">
-                                <div class="card-body text-start py-0 pl-2">
-                                    <ul class="list-unstyled mb-0">
-                                        <li><strong class="text-dark">Lorem ipsum dolor sit</strong></li>
-                                        <li class="text-muted" style="margin-top: -6px;"><small>122k
-                                                followers</small></li>
-                                        <li> <button
-                                                class="btn btn-outline-secondary btn-custom mt-1 py-1">Tracking</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="text-center mt-3 position-relative">
-                            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-                            <a href="#" class="text-decoration-none"><strong class="text-dark">Show all
-                                    →</strong>
-                            </a>
-                        </div>
-                    </div>
-                </div> --}}
 
                 {{-- new interests Section --}}
                 <div class="card mb-3">
@@ -232,8 +259,9 @@
                                     aria-selected="true">Companies</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link text-dark" id="connections-tab" data-toggle="tab" href="#connections"
-                                    role="tab" aria-controls="connections" aria-selected="false">Connections</a>
+                                <a class="nav-link text-dark" id="connections-tab" data-toggle="tab"
+                                    href="#connections" role="tab" aria-controls="connections"
+                                    aria-selected="false">Connections</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
@@ -251,7 +279,8 @@
                                                     <h6 class="mb-0">Lorem ipsum dolor sit</h6>
                                                     <small class="text-muted">10k followers</small>
                                                     <div class="mt-1">
-                                                        <span class="badge text-dark badge-light border btn">Tracking</span>
+                                                        <span
+                                                            class="badge text-dark badge-light border btn">Tracking</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,7 +297,8 @@
                                                     <h6 class="mb-0">Lorem ipsum dolor sit</h6>
                                                     <small class="text-muted">122k followers</small>
                                                     <div class="mt-1">
-                                                        <span class="badge badge-light text-dark border btn">Tracking</span>
+                                                        <span
+                                                            class="badge badge-light text-dark border btn">Tracking</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,7 +308,8 @@
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="connections" role="tabpanel" aria-labelledby="connections-tab">
+                            <div class="tab-pane fade" id="connections" role="tabpanel"
+                                aria-labelledby="connections-tab">
                                 <div class="row mt-3">
                                     <div class="col-md-6 mb-3">
                                         <a href="" class="text-decoration-none text-dark">
@@ -289,7 +320,8 @@
                                                 <div>
                                                     <h6 class="mb-0">connection 1</h6>
                                                     <div class="mt-1">
-                                                        <span class="badge badge-light text-dark border btn">Following</span>
+                                                        <span
+                                                            class="badge badge-light text-dark border btn">Following</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,7 +336,8 @@
                                                 <div>
                                                     <h6 class="mb-0">connection 2</h6>
                                                     <div class="mt-1">
-                                                        <span class="badge badge-light text-dark border btn">Following</span>
+                                                        <span
+                                                            class="badge badge-light text-dark border btn">Following</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,7 +359,7 @@
 
             </div>
 
-            <div class="col-md-3 p-0">
+            <div class="col-lg-3 p-0">
 
                 @livewire('ChatAndFeed')
 
