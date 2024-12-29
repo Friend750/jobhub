@@ -7,9 +7,9 @@
     
             <ul class="list-unstyled">
                 <nav>
-            <a href="/Following" wire:navigate>   <li><i class="fas fa-user-friends mb-3 mr-2"></i><strong >Following</strong> <span class="ml-2 text-muted">100</span></li></a>
+            <a href="/Following">   <li><i class="fas fa-user-friends mb-3 mr-2"></i><strong >Following</strong> <span class="ml-2 text-muted">100</span></li></a>
              <li><i class="fas fa-users mr-2 mb-3"></i><strong>Followers</strong> <span class="ml-2 text-muted">200</span></li> 
-            <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building ml-1 mr-2"></i><strong>Companies</strong> <span class="ml-1 text-muted">30</span></li> </a>
+            <a href ="/CompaniesList" >   <li><i class="fas fa-building ml-1 mr-2"></i><strong>Companies</strong> <span class="ml-1 text-muted">30</span></li> </a>
         </nav>
             </ul>
         </div>

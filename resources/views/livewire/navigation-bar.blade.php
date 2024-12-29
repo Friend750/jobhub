@@ -11,23 +11,23 @@
         <div class="nav-right">
 
             <div class="navbar-icons ms-auto">
-                <a href="/posts" wire:navigate class="nav-link d-flex flex-column align-items-center">
+                <a href="/posts"  class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-house-door-fill"></i>
                     <span>Home</span>
                 </a>
-                <a href="/Following" wire:navigate class="nav-link d-flex flex-column align-items-center">
+                <a href="/Following"  class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-people-fill"></i>
                     <span>Network</span>
                 </a>
-                <a href="/JobScreen" wire:navigate class="nav-link d-flex flex-column align-items-center">
+                <a href="/JobScreen"  class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-briefcase-fill"></i>
                     <span>Jobs</span>
                 </a>
-                <a href="/chat" wire:navigate class="nav-link d-flex flex-column align-items-center">
+                <a href="/chat"  class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-chat-dots-fill"></i>
                     <span>Messages</span>
                 </a>
-                <a href="/notifications" wire:navigate class="nav-link d-flex flex-column align-items-center">
+                <a href="/notifications"  class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-bell-fill"></i>
                     <span>Notifications</span>
                 </a>
