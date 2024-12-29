@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('personal_details_with_user', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('personal_detail_id')->constrained('personal_details')->onDelete('cascade'); // Foreign key referencing 'personal_details'
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('personal_detail_id')->references('id')->on('personal_details');
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

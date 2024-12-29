@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('website_name'); // Name of the website
             $table->string('link')->unique(); // URL link (unique)
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

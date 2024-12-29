@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('first_name'); // First name of the person
             $table->string('last_name'); // Last name of the person
             $table->string('job_title')->nullable(); // Job title (nullable)
-            $table->string('email')->unique(); // Email address (unique)
+            // $table->string('email')->unique(); // Email address (unique)
             $table->string('phone')->nullable(); // Phone number (nullable)
             $table->string('city')->nullable(); // City (nullable)
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('interactions', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
-            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade'); // Foreign key referencing 'posts'
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('post_id')->references('id')->on('posts');
             $table->enum('type', ['comment', 'like', 'share']); // Interaction type (comment, like, share)
             $table->text('comment')->nullable(); // Comment content (optional)
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

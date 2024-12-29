@@ -17,4 +17,14 @@ class PersonalDetailUser extends Pivot
         'personal_detail_id',
         'user_id',
     ];
+
+    public function personaldetail()
+    {
+        return $this->belongsTo(PersonalDetail::class,'personal_detail_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

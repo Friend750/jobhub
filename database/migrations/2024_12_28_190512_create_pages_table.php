@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id(); // Primary key (ID)
             $table->string('name'); // Name of the page
             $table->text('description')->nullable(); // Description of the page (nullable)
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

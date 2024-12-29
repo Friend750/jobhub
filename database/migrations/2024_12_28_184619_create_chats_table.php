@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->id(); // Auto-incrementing primary key
             $table->text('message'); // Chat message content
+            $table->foreignId('conversation_id')->references('id')->on('conversations');
+            $table->foreignId('receiver_id')->references('id')->on('users');
+            $table->foreignId('sender_id')->references('id')->on('users');
+            //$table->foreignId('')->constrained('users')->onDelete('cascade'); // Foreign key referencing users table
+            $table->softDeletes(); // Adds the 'deleted_at' column
             $table->timestamps(); // created_at and updated_at columns
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing users table
-            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing users table
         });
     }
 

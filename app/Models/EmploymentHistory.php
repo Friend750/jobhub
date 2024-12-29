@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmploymentHistory extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
+
 
     protected $fillable = [
         'job_title',
@@ -21,8 +23,8 @@ class EmploymentHistory extends Model
      * Define the relationship with the User model.
      * Employment history belongs to a user.
      */
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'employment_histories_with_user', 'employment_history_id', 'user_id');
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'employment_histories_with_user', 'employment_history_id', 'user_id');
+    // }
 }

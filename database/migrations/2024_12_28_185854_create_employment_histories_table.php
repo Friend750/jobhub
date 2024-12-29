@@ -19,7 +19,9 @@ return new class extends Migration
             $table->date('end_date')->nullable(); // End date of employment
             $table->text('describe')->nullable(); // Description of the employment role
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
+        
     }
 
     /**

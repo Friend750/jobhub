@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('links_with_user', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('link_id')->constrained('links')->onDelete('cascade'); // Foreign key referencing 'links'
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('link_id')->references('id')->on('links');
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

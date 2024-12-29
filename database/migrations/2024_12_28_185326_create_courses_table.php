@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('start_date')->nullable(); // Start date of the course
             $table->date('end_date')->nullable(); // End date of the course
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

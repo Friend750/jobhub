@@ -4,21 +4,22 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    use HasFactory;
 
     protected $fillable = [
+        'user_name',
         'email',
         'email_verified_at',
         'user_name',
@@ -27,20 +28,6 @@ class User extends Authenticatable
         'professional_summary',
     ];
 
-    public function chats()
-    {
-        return $this->hasMany(Chat::class, 'sender_id');
-    }
-
-    public function conversations()
-    {
-        return $this->hasMany(Conversation::class, 'first_chat')->orWhere('second_chat', $this->id);
-    }
-
-    public function educationUsers()
-    {
-        return $this->hasMany(EducationUser::class);
-    }
 
     /**
      * The attributes that should be hidden for serialization.

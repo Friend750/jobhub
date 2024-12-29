@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('courses_with_user', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade'); // Foreign key referencing 'courses'
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
+            $table->foreignId('course_id')->references('id')->on('courses');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

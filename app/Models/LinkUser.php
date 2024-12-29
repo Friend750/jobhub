@@ -17,4 +17,14 @@ class LinkUser extends Pivot
         'link_id',
         'user_id',
     ];
+
+    public function link()
+    {
+        return $this->belongsTo(Link::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

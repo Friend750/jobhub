@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // Primary key (ID)
             $table->string('name'); // Name of the interest
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 

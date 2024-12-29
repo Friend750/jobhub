@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('languages_with_user', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('language_id')->constrained('languages')->onDelete('cascade'); // Foreign key referencing 'languages'
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Foreign key referencing 'users'
+            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('language_id')->references('id')->on('languages');
             $table->timestamps(); // created_at and updated_at columns
+            $table->softDeletes(); // Adds the 'deleted_at' column
         });
     }
 
