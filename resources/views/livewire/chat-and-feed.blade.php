@@ -7,7 +7,7 @@
 
              <!-- Chat List -->
              <div class="card-body">
-                 <a href="#" class="text-decoration-none text-dark">
+                 <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
                          <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
                          <div>
@@ -16,7 +16,7 @@
                          </div>
                      </div>
                  </a>
-                 <a href="#" class="text-decoration-none text-dark">
+                 <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
                          <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
                          <div>
@@ -25,7 +25,7 @@
                          </div>
                      </div>
                  </a>
-                 <a href="#" class="text-decoration-none text-dark">
+                 <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
                          <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
                          <div>
@@ -57,7 +57,7 @@
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
                  </div>
-                 <button class="btn btn-primary btn-sm text-light">Follow</button>
+                 <button class="btn btn-primary btn-sm text-light" x-data ="{state: false}" x-text ="state === false? 'follow': 'following'" @click="state = !state"></button>
              </div>
 
              <div class="d-flex align-items-center mb-3">
@@ -66,7 +66,7 @@
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
                  </div>
-                 <button class="btn btn-primary btn-sm text-light">Follow</button>
+                 <button class="btn btn-primary btn-sm text-light" x-data ="{state: false}" x-text ="state === false? 'follow': 'following'" @click="state = !state"></button>
              </div>
 
              <div class="d-flex align-items-center ">
@@ -75,7 +75,7 @@
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
                  </div>
-                 <button class="btn btn-primary btn-sm text-light">Follow</button>
+                 <button class="btn btn-primary btn-sm text-light" x-data ="{state: false}" x-text ="state === false? 'follow': 'following'" @click="state = !state"></button>
              </div>
          </div>
      </div>

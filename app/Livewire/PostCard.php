@@ -15,14 +15,9 @@ class PostCard extends Component
     public $showCard = false;
 
     protected $rules = [
-        'content' => 'required|min:10',
+        'content' => 'required|min:2',
         'media' => 'nullable|image|max:2048',
     ];
-
-    public function setShowCard()
-    {
-        $this->showCard = true;
-    }
 
 
     public function updatedMedia()

@@ -7,8 +7,8 @@
             <ul class="list-unstyled">
                 <nav>
              <li><i class="fas fa-user-friends mb-3 mr-2"></i><strong>Following</strong> <span class="ml-2 text-muted">100</span></li>
-            <a href="/Followers" wire:navigate>  <li><i class="fas fa-users mb-3 mr-2"></i><strong>Followers</strong> <span class="ml-2 text-muted">100</span></li> </a>
-            <a href ="/CompaniesList" wire:navigate>   <li><i class="fas fa-building ml-1 mr-2 "></i><strong>Companies</strong> <span class="ml-1 text-muted">30</span></li> </a>
+            <a href="/Followers" >  <li><i class="fas fa-users mb-3 mr-2"></i><strong>Followers</strong> <span class="ml-2 text-muted">100</span></li> </a>
+            <a href ="/CompaniesList" >   <li><i class="fas fa-building ml-1 mr-2 "></i><strong>Companies</strong> <span class="ml-1 text-muted">30</span></li> </a>
         </nav>
             </ul>
         </div>
