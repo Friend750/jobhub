@@ -7,6 +7,7 @@ use Livewire\Component;
 class UserProfile extends Component
 {
     public $skills =[];
+    // public $modalName ="null";
 
     public function mount(){
         $this->skills =[
