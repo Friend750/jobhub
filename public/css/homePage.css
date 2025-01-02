@@ -140,15 +140,32 @@ footer{
 footer .container{
     padding-top: 50px;
 }
-@keyframes beat {
-    0%, 100% {
-        transform: scale(1);
+
+/* spinner effect */
+.loader {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: block;
+    margin:15px auto;
+    position: relative;
+    background: #FFF;
+    box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+    box-sizing: border-box;
+    animation: shadowPulse 2s linear infinite;
+  }
+
+  @keyframes shadowPulse {
+    33% {
+      background: #FFF;
+      box-shadow: -24px 0 #2B6DAE, 24px 0 #FFF;
     }
-    50% {
-        transform: scale(1.1);
+    66% {
+      background: #2B6DAE;
+      box-shadow: -24px 0 #FFF, 24px 0 #FFF;
     }
-}
-.beating-image {
-    animation: beat 1.5s infinite ease-in-out;
-    max-width: 145px;
-}
+    100% {
+      background: #FFF;
+      box-shadow: -24px 0 #FFF, 24px 0 #2B6DAE;
+    }
+  }
