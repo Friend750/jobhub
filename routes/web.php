@@ -2,11 +2,13 @@
 
 use App\Livewire\Chat;
 use App\Livewire\ChatAndFeed;
+use App\Livewire\Dashboard\UsersTable;
 use App\Livewire\PostCard;
 
 use App\Livewire\UserProfile;
 
 use App\Livewire\CompanyList;
+use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\EnhanceProfile;
 use App\Livewire\FollowersScreen;
 use App\Livewire\FollowingScreen;
@@ -23,9 +25,6 @@ use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/',function() {
-//     return view('welcome');
-// });
 
 
 Route::get('/',HomePage::class)->name("route");
@@ -45,6 +44,12 @@ Route::get('/EnhanceProfile',EnhanceProfile::class)->name("EnhanceProfile");
 Route::get('/posts',PostCard::class)->name("post");
 Route::get('/chat',Chat::class)->name("chat");
 Route::get('/notifications',Notifications::class)->name("notifications");
+
+// dashboard routes here
+Route::get('/dashboard',Dashboard::class)->name("dashboard");
+Route::get('/users-table',UsersTable::class)->name("users-table");
+
+
 Auth::routes();
 
 
