@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 
 class SelectInterests extends Component
@@ -17,6 +18,12 @@ class SelectInterests extends Component
       
     ];
     public $selectedInterests = [];
+    public $userId; // معرف المستخدم
+
+    public function mount()
+    {
+        $this->userId = auth()->id(); // استخدم معرف المستخدم المسجل
+    }
 
     public function toggleInterest($interest)
     {
@@ -36,6 +43,10 @@ class SelectInterests extends Component
         else
         {
             session()->flash('success', 'Interests saved successfully!');
+            $user = User::find($this->userId);
+            $user->interests = $this->selectedInterests;
+            $user->save();
+            session()->flash('success', 'Your interests have been saved successfully!');
             redirect('EnhanceProfile');
         }
         // تنفيذ عملية التخزين أو الانتقال للخطوة التالية

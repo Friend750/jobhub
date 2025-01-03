@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interests', function (Blueprint $table) {
-            $table->id(); // Primary key (ID)
-            $table->string('name'); // Name of the interest
-            $table->timestamps(); // created_at and updated_at columns
-            $table->softDeletes(); // Adds the 'deleted_at' column
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interests');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };
