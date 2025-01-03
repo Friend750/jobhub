@@ -31,10 +31,10 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-sm text-secondary">
-                        <thead class="text-uppercase bg-light">
+                        <thead class=" bg-light">
                             <tr>
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'name',
+                                    'name' => 'user_name',
                                     'display_name' => 'Name',
                                 ])
 
@@ -64,7 +64,7 @@
                             @foreach ($users as $user)
                                 <tr wire:key={{ $user->id }} class="border-bottom">
                                     <th scope="row" class="px-3 py-2 text-dark fw-bold">
-                                        {{ $user->name }}
+                                        {{ $user->user_name }}
                                     </th>
                                     <td class="px-3 py-2">{{ $user->email }}</td>
                                     <td class="px-3 py-2 text-{{ $user->is_admin ? 'success' : 'primary' }}">
@@ -101,7 +101,7 @@
                                                             aria-labelledby="modalTitle" aria-describedby="modalDesc">
                                                             <h2 id="modalTitle" class="fs-5 fw-bold mb-3">
                                                                 Are you sure you want to delete <span
-                                                                    class="text-danger">{{ $user->name }}</span>?
+                                                                    class="text-danger">{{ $user->user_name }}</span>?
                                                             </h2>
                                                             <p id="modalDesc">This action cannot be undone.</p>
                                                             <div class="d-flex justify-content-center gap-3">
@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                    {{ $users->links() }}
+                    {{ $users->links('livewire::bootstrap') }}
 
                 </div>
 

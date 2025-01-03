@@ -1,5 +1,5 @@
 <th scope="col" class="px-3 py-2" wire:click="SetSortBy('{{ $name }}')">
-    <button class="d-flex align-items-center btn btn-link text-decoration-none p-0 text-muted">
+    <button class="d-flex align-items-center btn btn-link text-decoration-none p-0 text-muted ">
         {{ $display_name }}
         @if ($sortBy !== $name)
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
