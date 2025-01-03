@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('links', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->string('website_name'); // Name of the website
-            $table->string('link')->unique(); // URL link (unique)
+            $table->text('last_message')->nullable(); // Last message content
+            $table->foreignId('first_user')->references('id')->on('users');
+            $table->foreignId('second_user')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
+
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('conversations');
     }
 };

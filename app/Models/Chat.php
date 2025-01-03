@@ -10,7 +10,7 @@ class Chat extends Model
 {
     use HasFactory,SoftDeletes;
     
-    protected $fillable = ['message', 'sender_id', 'receiver_id'];
+    protected $fillable = ['message', 'sender_id', 'receiver_id','conversation_id'];
 
     public function sender()
     {
@@ -21,4 +21,9 @@ class Chat extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+
+    // public function conversation()
+    // {
+    //     return $this->belongsTo(Conversation::class, 'conversation_id');
+    // }
 }

@@ -11,13 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('links_with_user', function (Blueprint $table) {
+        Schema::create('experiences', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
+
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('link_id')->references('id')->on('links');
+
+            $table->string('job_title'); // Job title
+            $table->string('company_name'); // Employer's name    
+            $table->date('start_date')->nullable(); // Start date of employment
+            $table->date('end_date')->nullable(); // End date of employment
+            $table->text('description')->nullable(); // Description of the employment role
+            $table->text('location')->nullable(); // Description of the employment role
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
         });
+        
     }
 
     /**
@@ -25,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('links_with_user');
+        Schema::dropIfExists('experiences');
     }
 };

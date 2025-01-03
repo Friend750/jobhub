@@ -16,11 +16,11 @@ class InterestUser extends Model
     ];
     public function interest()
     {
-        return $this->belongsTo(Interest::class);
+        return $this->belongsTo(Interest::class, 'interest_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }

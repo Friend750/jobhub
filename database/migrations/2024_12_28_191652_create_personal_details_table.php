@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id(); // Primary key (ID)
             $table->string('first_name'); // First name of the person
             $table->string('last_name'); // Last name of the person
-            $table->string('job_title')->nullable(); // Job title (nullable)
+            $table->string('specialist')->nullable(); // Job title (nullable)
+            $table->foreignId('user_id')->references('id')->on('users');
             // $table->string('email')->unique(); // Email address (unique)
             $table->string('phone')->nullable(); // Phone number (nullable)
             $table->string('city')->nullable(); // City (nullable)

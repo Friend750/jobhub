@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('courses_with_user', function (Blueprint $table) {
+        Schema::create('website_links', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('course_id')->references('id')->on('courses');
+            $table->string('website_name'); // Name of the website
+            $table->string('link'); // URL link (unique)
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('courses_with_user');
+        Schema::dropIfExists('links');
     }
 };

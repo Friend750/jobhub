@@ -19,6 +19,12 @@ class PersonalDetail extends Model
         'city',
     ];
 
+
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * Define the relationship with the User model.
      * A personal detail belongs to a user.

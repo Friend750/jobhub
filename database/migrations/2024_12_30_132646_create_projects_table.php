@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employment_histories_with_user', function (Blueprint $table) {
-            $table->id(); // Primary key (ID)
-            $table->foreignId('employment_history_id')->references('id')->on('employment_histories');
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->timestamps(); // created_at and updated_at columns
-            $table->softDeletes(); // Adds the 'deleted_at' column
+
+            $table->string('title');
+            $table->text('description'); // make validation 500
+            $table->text('contributions'); // make validation 1000
+
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employment_histories_with_user');
+        Schema::dropIfExists('projects');
     }
 };
