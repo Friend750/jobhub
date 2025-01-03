@@ -1,0 +1,34 @@
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    color: #fff;
+}
+
+.nav-link i {
+    font-size: 1.2rem;
+}
+
+.active{
+    background-color: #495057;
+    color: #fff;
+}
+/* fixed sidebar */
+.fixed-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16.666%; /* Match the width of the col-md-2 */
+    height: 100vh !important; /* Make it full height */
+    z-index: 1030; /* Ensure it stays above other elements if necessary */
+}
+
+.col-md-10 {
+    margin-left: 16.666%; /* Offset for the fixed sidebar */
+}
+
