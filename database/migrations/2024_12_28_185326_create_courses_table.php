@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
+
+            $table->foreignId('user_id')->references('id')->on('users');
+
             $table->string('course_name'); // Name of the course
-            $table->string('institution'); // Institution offering the course
-            $table->date('start_date')->nullable(); // Start date of the course
+            $table->string('institution_name'); // Institution offering the course
             $table->date('end_date')->nullable(); // End date of the course
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column

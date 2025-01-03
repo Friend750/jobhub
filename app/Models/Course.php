@@ -10,13 +10,19 @@ class Course extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable = 
+    [
         'course_name',
-        'institution',
-        'start_date',
+        'institution_name',
         'end_date',
+        'user_id',
     ];
 
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
     /**
      * Define the relationship with the User model.
      * A course can belong to many users.

@@ -15,6 +15,11 @@ class Link extends Model
         'link',
     ];
 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * Define the relationship with the User model.
      * A link can belong to many users.

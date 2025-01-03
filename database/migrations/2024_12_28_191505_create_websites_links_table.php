@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('links', function (Blueprint $table) {
+        Schema::create('website_links', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
             $table->string('website_name'); // Name of the website
-            $table->string('link')->unique(); // URL link (unique)
+            $table->string('link'); // URL link (unique)
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
         });
