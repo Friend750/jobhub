@@ -87,7 +87,7 @@
         </section>
         
         <!-- Education -->
-        <section class="form-section rounded">
+        {{-- <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#education">
                 Education
                 <i class="fas fa-caret-down"></i>
@@ -126,7 +126,49 @@
                     <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
                 </div>
             </div>
+        </section> --}}
+
+        <section class="form-section rounded">
+            <h5 data-toggle="collapse" data-target="#education">
+                Education
+                <i class="fas fa-caret-down"></i>
+            </h5>
+            <p>Add information about your educational background. You can include multiple entries.</p>
+            <div id="education" class="collapse">
+                <div id="educationContainer">
+                    <div class="row mb-3 education-block" id="initialEducation">
+                        <div class="form-group col-md-6">
+                            <label for="degree1" style="min-width: 150px;">Degree</label>
+                            <input type="text" class="form-control" placeholder="Degree (e.g., Bachelor's, Master's)">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="certification1" style="min-width: 150px;">Certification Name</label>
+                            <input type="text" class="form-control" placeholder="Certification Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="institution1" style="min-width: 150px;">Institution Name</label>
+                            <input type="text" class="form-control" placeholder="Institution Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="location1" style="min-width: 150px;">Location</label>
+                            <input type="text" class="form-control" placeholder="Location">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="graduationDate1" style="min-width: 150px;">Month/Year of Graduation</label>
+                            <input type="text" class="form-control" placeholder="MM / YYYY">
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="description1" style="min-width: 150px;">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Include any relevant coursework, honors, or GPA if applicable"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
+                </div>
+            </div>
         </section>
+        
 
         <!-- Courses -->
         <div class="form-section rounded">
@@ -268,7 +310,6 @@
             </div>
         </section>
         
-        
         <!-- Confirm Button -->
         <div class="center-container">
             <button class="btn-confirm btn btn-primary">Confirm</button>
@@ -333,7 +374,7 @@
         
 
         <!-- Education -->
-        <script>
+        {{-- <script>
             let educationCount = 1; // Initial count of education entries
         
             function addEducation() {
@@ -429,8 +470,78 @@
                     }
                 });
             }
-        </script>
+        </script> --}}
 
+        <script>
+            let educationCount = 1; // Initial count of education entries
+        
+            function addEducation() {
+                const educations = document.querySelectorAll('.education-block');
+                educationCount = educations.length + 1;
+        
+                const newEducation = document.createElement('div');
+                newEducation.classList.add('row', 'mb-3', 'education-block');
+                newEducation.innerHTML = `
+                    <div class="form-group col-md-6">
+                        <label for="degree${educationCount}" style="min-width: 150px;">Degree ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="Degree">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="certification${educationCount}" style="min-width: 150px;">Certification Name ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="Certification Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="institution${educationCount}" style="min-width: 150px;">Institution Name ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="Institution Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="location${educationCount}" style="min-width: 150px;">Location ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="Location">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="graduationDate${educationCount}" style="min-width: 150px;">Month/Year of Graduation ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="MM / YYYY">
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="description${educationCount}" style="min-width: 150px;">Description ${educationCount}</label>
+                        <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+                    </div>
+                    <div class="text-right mt-3">
+                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeEducation(this)"></i>
+                    </div>
+                `;
+                document.getElementById('educationContainer').appendChild(newEducation);
+            }
+        
+            function removeEducation(element) {
+                const educationBlock = element.closest('.education-block');
+                if (educationBlock && educationBlock.id !== 'initialEducation') {
+                    educationBlock.remove();
+                }
+        
+                const educations = document.querySelectorAll('.education-block');
+                educations.forEach((education, index) => {
+                    const newNumber = index + 1;
+                    updateFieldLabels(education, newNumber, 'degree', 'Degree');
+                    updateFieldLabels(education, newNumber, 'certification', 'Certification Name');
+                    updateFieldLabels(education, newNumber, 'institution', 'Institution Name');
+                    updateFieldLabels(education, newNumber, 'location', 'Location');
+                    updateFieldLabels(education, newNumber, 'graduationDate', 'Month/Year of Graduation');
+                    updateFieldLabels(education, newNumber, 'description', 'Description');
+                });
+            }
+        
+            function updateFieldLabels(education, newNumber, fieldPrefix, labelText) {
+                const label = education.querySelector(`label[for^="${fieldPrefix}"]`);
+                const input = education.querySelector(`[id^="${fieldPrefix}"]`);
+                if (label && input) {
+                    label.setAttribute('for', `${fieldPrefix}${newNumber}`);
+                    label.textContent = `${labelText} ${newNumber}`;
+                    input.setAttribute('id', `${fieldPrefix}${newNumber}`);
+                }
+            }
+        </script>
+        
         <!-- Courses -->
         <script>
             let courseCount = 1; // Initial count of courses
