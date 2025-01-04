@@ -48,7 +48,7 @@ class UsersTable extends Component
             [
                 'users' => User::search($this->search)
                     ->when($this->role !== '', function ($query) {
-                        $query->where('is_admin', $this->role);
+                        $query->where('type', $this->role);
                     })
                     ->orderBy($this->sortBy, $this->sortDirection)
                     ->paginate($this->per_page)
