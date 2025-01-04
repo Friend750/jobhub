@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,13 +21,17 @@ class User extends Authenticatable
     protected $fillable = [
         'user_name',
         'email',
-        'email_verified_at',
+        'is_admin',
         'user_name',
         'password',
         'user_image',
         'professional_summary',
     ];
 
+    public function scopeSearch($query, $value)
+    {
+        $query->where('user_name', 'like', "%{$value}%")->orWhere('email', 'like', "%{$value}%");
+    }
 
     /**
      * The attributes that should be hidden for serialization.

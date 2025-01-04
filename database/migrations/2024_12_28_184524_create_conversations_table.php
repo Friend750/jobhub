@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('interests', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->string('name'); // Name of the interest
+            $table->text('last_message')->nullable(); // Last message content
+            $table->foreignId('first_user')->references('id')->on('users');
+            $table->foreignId('second_user')->references('id')->on('users');
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
+
         });
     }
 
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('interests');
+        Schema::dropIfExists('conversations');
     }
 };

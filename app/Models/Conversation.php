@@ -10,7 +10,7 @@ class Conversation extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['first_user','second_user','chat_id', 'last_message', 'image_first_chat', 'image_second_chat'];
+    protected $fillable = ['first_user','second_user','chat_id', 'last_message',];
 
     public function chat()
     {

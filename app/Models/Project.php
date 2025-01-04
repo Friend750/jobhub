@@ -6,30 +6,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Education extends Model
+class Project extends Model
 {
     use HasFactory,SoftDeletes;
 
+    // $table->foreignId('user_id')->references('id')->on('users');
 
+    // $table->string('title');
+    // $table->text('description'); // make validation 500
+    // $table->text('contributions'); // make validation 1000
 
     protected $fillable = 
     [
-    'institution_name',
-     'certification_name', 
-     'location', 
-     'degree',
-     'description',
-     'graduation_date',
-     'user_id'
+        'user_id',
+        'title',
+        'description',
+        'contributions'
     ];
 
-    
     public function user()
     {
         return $this->belongsTo(User::class,'user_id');
     }
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'educations_with_user', 'education_id', 'user_id');
-    // }
+
 }

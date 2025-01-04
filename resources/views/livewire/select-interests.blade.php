@@ -9,6 +9,11 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if (session()->has('success'))
+          <div class="alert alert-success">
+           {{ session('success') }}
+          </div>
+         @endif
           <hr>
             <div class="d-flex flex-wrap justify-content-center gap-3 mt-3">
                 @foreach ($interests as $interest)

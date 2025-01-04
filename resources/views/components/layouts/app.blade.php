@@ -75,6 +75,10 @@
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
+    @if (in_array(Route::currentRouteName(), ['dashboard']))
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    @endif
+
 
 
     {{-- make all css files above this line --}}
@@ -87,7 +91,8 @@
 @if (in_array(Route::currentRouteName(), ['typeaccount','interests']))
 <body style="background-color: white !important;">
 @else
-<body>  
+
+<body>
 @endif
     {{-- <ul>
         <li><a href="{{ route('login') }}">Login</a></li>
@@ -104,7 +109,7 @@
 @include('livewire.navigation-bar')
 @endif
 
-<div class="row">
+<div class="">
     <div>
         {{ $slot }}
     </div>
