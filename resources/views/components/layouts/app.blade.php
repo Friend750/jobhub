@@ -105,7 +105,7 @@
         </li>
     </ul> --}}
 
-@if (!in_array(Route::currentRouteName(), ['route','login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
+@if (!in_array(Route::currentRouteName(), ['route','login', 'register', 'typeaccount', 'interests','home','EnhanceProfile','dashboard']))
 @include('livewire.navigation-bar')
 @endif
 
