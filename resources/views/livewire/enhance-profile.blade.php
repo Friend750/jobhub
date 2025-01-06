@@ -1,4 +1,3 @@
-
 <body>
     <div class="container mt-5">
         <!-- Personal Details -->
@@ -38,45 +37,48 @@
                         <input type="text" class="form-control" id="city" placeholder="Enter Your City Name">
                     </div>
                 </div>
-                
+
             </div>
-           
-                <button class="btn btn-primary rounded ">Confirm</button>
-          
+
+            <button class="btn btn-primary rounded ">Confirm</button>
+
         </div>
-       
+
         <!-- Professional Summary -->
         <div class="form-section rounded">
             <h5>
                 <span>Professional Summary</span>
                 <i class="fas fa-caret-down caret-icon" data-toggle="collapse" data-target="#professionalSummary"></i>
             </h5>
-            <p>Write 2-4 short, energetic sentences about how great you are. Mention the role and what you did. What were the big achievements? Describe your motivation and list your skills.</p>
+            <p>Write 2-4 short, energetic sentences about how great you are. Mention the role and what you did. What
+                were the big achievements? Describe your motivation and list your skills.</p>
             <div id="professionalSummary" class="collapse">
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Add a description here..."></textarea>
+                    <textarea class="form-control" id="description" rows="3"
+                        placeholder="Add a description here..."></textarea>
                 </div>
             </div>
         </div>
-        
+
         <!-- Websites & Social Links -->
         <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#websitesLinks">
                 Websites & Social Links
                 <i class="fas fa-caret-down"></i>
             </h5>
-            <p>You can add links to websites you want hiring managers to see! Perhaps it will be a link to your portfolio, or personal website.</p>
+            <p>You can add links to websites you want hiring managers to see! Perhaps it will be a link to your
+                portfolio, or personal website.</p>
             <div id="websitesLinks" class="collapse">
                 <div id="linksContainer">
                     <div class="row mb-3 link-block" id="initialLink">
                         <div class="form-group col-md-6">
                             <label for="website1" style="min-width: 150px;">Website Name 1</label>
-                            <input type="text" class="form-control" placeholder="Website Name">
+                            <input type="text" class="form-control" placeholder="e.g., LinkedIn, GitHub, Portfolio">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="link1" style="min-width: 150px;">Link 1</label>
-                            <input type="text" class="form-control" placeholder="Website Link">
+                            <input type="text" class="form-control" placeholder="e.g., https://linkedin.com/in/yourprofile">
                         </div>
                     </div>
                 </div>
@@ -85,9 +87,9 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Education -->
-        <section class="form-section rounded">
+        {{-- <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#education">
                 Education
                 <i class="fas fa-caret-down"></i>
@@ -126,7 +128,49 @@
                     <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
                 </div>
             </div>
-        </section>
+        </section> --}}
+<section class="form-section rounded">
+    <h5 data-toggle="collapse" data-target="#education">
+        Education
+        <i class="fas fa-caret-down"></i>
+    </h5>
+    <p>Add information about your educational background. You can include multiple entries.</p>
+    <div id="education" class="collapse">
+        <div id="educationContainer">
+            <div class="row mb-3 education-block" id="initialEducation">
+                <div class="form-group col-md-6">
+                    <label for="degree1" style="min-width: 150px;">Degree</label>
+                    <input type="text" class="form-control" placeholder="Degree (e.g., Bachelor's, Master's)">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="certification1" style="min-width: 150px;">Certification Name</label>
+                    <input type="text" class="form-control" placeholder="e.g., AWS Certified Solutions Architect">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="institution1" style="min-width: 150px;">Institution Name</label>
+                    <input type="text" class="form-control" placeholder="e.g., Harvard University">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="location1" style="min-width: 150px;">Location</label>
+                    <input type="text" class="form-control" placeholder="e.g., Cambridge, MA">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="graduationDate1" style="min-width: 150px;">Month/Year of Graduation</label>
+                    <input type="text" class="form-control" placeholder="e.g., 05 / 2022">
+                </div>
+                <div class="form-group col-12">
+                    <label for="description1" style="min-width: 150px;">Description</label>
+                    <textarea class="form-control" rows="3" placeholder="Include any relevant coursework, honors, or GPA if applicable"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
+        </div>
+    </div>
+</section>
+
+
 
         <!-- Courses -->
         <div class="form-section rounded">
@@ -134,31 +178,32 @@
                 Courses
                 <i class="fas fa-caret-down"></i>
             </h5>
-            <p>List any certifications or additional training programs you have completed that are relevant to the position.</p>
+            <p>List any certifications or additional training programs you have completed that are relevant to the
+                position.</p>
             <div id="courses" class="collapse">
                 <div id="coursesContainer">
                     <div class="form-row course-block" id="initialCourse">
                         <div class="form-group col-md-6">
                             <label for="courseName1" style="min-width: 150px;">Course Name 1</label>
-                            <input type="text" class="form-control" placeholder="Course name">
+                            <input type="text" class="form-control" placeholder="e.g., Data Science Bootcamp">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="institution1" style="min-width: 150px;">Institution 1</label>
-                            <input type="text" class="form-control" placeholder="Institution">
+                            <input type="text" class="form-control" placeholder="e.g., Coursera, Udemy">
                         </div>
                     </div>
                     <div class="form-row course-block">
                         <div class="form-group col-md-3">
                             <label for="courseStartDate1" style="min-width: 150px;">Start Date 1</label>
-                            <input type="text" class="form-control" id="courseStartDate1" placeholder="MM / YYYY">
+                            <input type="text" class="form-control" id="courseStartDate1" placeholder="MM / YYYY" title="Enter the start date in MM / YYYY format">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="courseEndDate1" style="min-width: 150px;">End Date 1</label>
-                            <input type="text" class="form-control" id="courseEndDate1" placeholder="MM / YYYY">
+                            <input type="text" class="form-control" id="courseEndDate1" placeholder="MM / YYYY" title="Enter the end date in MM / YYYY format">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="city1" style="min-width: 150px;">City 1</label>
-                            <input type="text" class="form-control" placeholder="City">
+                            <input type="text" class="form-control" placeholder="e.g., New York">
                         </div>
                     </div>
                 </div>
@@ -167,7 +212,9 @@
                 </div>
             </div>
         </div>
-        
+
+
+
 
         <!-- Skills -->
         <div class="form-section rounded">
@@ -175,7 +222,8 @@
                 Skills
                 <i class="fas fa-caret-down"></i>
             </h5>
-            <p>Choose 3 important skills that show you fit the position. Make sure they match the key skills mentioned in the job listing (especially when applying via an online system).</p>
+            <p>Choose 3 important skills that show you fit the position. Make sure they match the key skills mentioned
+                in the job listing (especially when applying via an online system).</p>
             <div id="skills" class="collapse">
                 <div id="skillsContainer">
                     <div class="row mb-3 skill-block" id="initialSkill">
@@ -197,54 +245,49 @@
                     <button class="btn btn-primary rounded" onclick="addSkill()">+ Add one more Skill</button>
                 </div>
             </div>
-        </div>   
-        
-        <!-- Employment History -->
+        </div>
+
+        <!-- Experiences --> 
         <section class="form-section rounded">
-            <h5 data-toggle="collapse" data-target="#employmentHistory">
-                Employment History
+            <h5 data-toggle="collapse" data-target="#Experience">
+                Experiences
                 <i class="fas fa-caret-down"></i>
             </h5>
             <p>Add details about your previous work experience. You can include multiple positions.</p>
-            <div id="employmentHistory" class="collapse">
-                <div id="employmentHistoryContainer">
-                    <div class="employment-block" id="initialEmployment">
+            <div id="Experience" class="collapse">
+                <div id="ExperienceContainer">
+                    <div class="experiences-block" id="initialExperiences">
                         <div class="form-row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="jobTitle1" style="min-width: 150px;">Job Title 1</label>
-                                <input type="text" class="form-control" placeholder="Job title">
+                                <input type="text" class="form-control" placeholder="e.g., Software Engineer">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="employer1" style="min-width: 150px;">Employer 1</label>
-                                <input type="text" class="form-control" placeholder="Employer">
+                                <input type="text" class="form-control" placeholder="e.g., ABC Corp">
                             </div>
                         </div>
                         <div class="form-row mb-3">
                             <div class="form-group col-md-3">
-                                <label for="employmentStartDate1" style="min-width: 150px;">Start Date 1</label>
-                                <input type="text" class="form-control" placeholder="MM / YYYY">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="employmentEndDate1" style="min-width: 150px;">End Date 1</label>
-                                <input type="text" class="form-control" placeholder="MM / YYYY">
+                                <label for="experiencesEndDate1" style="min-width: 150px;">Dura 1</label>
+                                <input type="text" class="form-control" placeholder="e.g., 2023">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="city1" style="min-width: 150px;">City 1</label>
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" placeholder="e.g., New York">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description1" style="min-width: 150px;">Description 1</label>
-                            <textarea class="form-control" rows="3" placeholder="Describe"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Describe your role and achievements"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
-                    <button class="btn btn-primary rounded" onclick="addEmployment()">+ Add one more Employment</button>
+                    <button class="btn btn-primary rounded" onclick="addExperiences()">+ Add one more Experience</button>
                 </div>
             </div>
         </section>
-        
 
         <!-- Languages -->
         <section class="form-section rounded">
@@ -257,8 +300,9 @@
                 <div id="languagesContainer">
                     <div class="form-row mb-3 language-block" id="initialLanguage">
                         <div class="form-group d-flex align-items-center justify-content-around w-100">
-                            <label for="language1" style="min-width: fit-content;"><i class="fas fa-language"></i> Language 1</label>
-                            <input type="text" class="form-control ml-3 w-100" placeholder="Language Name">
+                            <label for="language1" style="min-width: fit-content;"><i class="fas fa-language"></i>
+                                Language 1</label>
+                            <input type="text" class="form-control ml-3 w-100" placeholder="English">
                         </div>
                     </div>
                 </div>
@@ -267,8 +311,7 @@
                 </div>
             </div>
         </section>
-        
-        
+
         <!-- Confirm Button -->
         <div class="center-container">
             <button class="btn-confirm btn btn-primary">Confirm</button>
@@ -276,11 +319,10 @@
     </div>
 </body>
 
-
         <!-- Websites & Social Links -->
         <script>
             let linkCount = 1; // Initial count of links
-        
+                
             function addLink() {
                 const links = document.querySelectorAll('.link-block');
                 linkCount = links.length + 1;
@@ -290,11 +332,11 @@
                 newLink.innerHTML = `
                     <div class="form-group col-md-6">
                         <label for="website${linkCount}" style="min-width: 150px;">Website Name ${linkCount}</label>
-                        <input type="text" class="form-control" placeholder="Website Name">
+                        <input type="text" class="form-control" placeholder="e.g., LinkedIn, GitHub, Portfolio">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="link${linkCount}" style="min-width: 150px;">Link ${linkCount}</label>
-                        <input type="text" class="form-control" placeholder="Website Link">
+                        <input type="text" class="form-control" placeholder="e.g., https://linkedin.com/in/yourprofile">
                     </div>
                     <div class="text-right mt-3">
                         <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeLink(this)"></i>
@@ -331,7 +373,7 @@
             }
         </script>
         
-
+        
         <!-- Education -->
         <script>
             let educationCount = 1; // Initial count of education entries
@@ -344,28 +386,28 @@
                 newEducation.classList.add('row', 'mb-3', 'education-block');
                 newEducation.innerHTML = `
                     <div class="form-group col-md-6">
-                        <label for="jobTitle${educationCount}" style="min-width: 150px;">Job Title ${educationCount}</label>
-                        <input type="text" class="form-control" placeholder="Job Title">
+                        <label for="degree${educationCount}" style="min-width: 150px;">Degree ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., Bachelor's in Computer Science">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="employer${educationCount}" style="min-width: 150px;">Employer ${educationCount}</label>
-                        <input type="text" class="form-control" placeholder="Employer">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="startDate${educationCount}" style="min-width: 150px;">Start Date ${educationCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="endDate${educationCount}" style="min-width: 150px;">End Date ${educationCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY">
+                        <label for="certification${educationCount}" style="min-width: 150px;">Certification Name ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., AWS Certified Solutions Architect">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="city${educationCount}" style="min-width: 150px;">City ${educationCount}</label>
-                        <input type="text" class="form-control" placeholder="City">
+                        <label for="institution${educationCount}" style="min-width: 150px;">Institution Name ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., Harvard University">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="location${educationCount}" style="min-width: 150px;">Location ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., Cambridge, MA">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="graduationDate${educationCount}" style="min-width: 150px;">Month/Year of Graduation ${educationCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
                     </div>
                     <div class="form-group col-12">
                         <label for="description${educationCount}" style="min-width: 150px;">Description ${educationCount}</label>
-                        <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="Include any relevant coursework, honors, or GPA if applicable"></textarea>
                     </div>
                     <div class="text-right mt-3">
                         <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeEducation(this)"></i>
@@ -383,55 +425,29 @@
                 const educations = document.querySelectorAll('.education-block');
                 educations.forEach((education, index) => {
                     const newNumber = index + 1;
-                    const titleLabel = education.querySelector('label[for^="jobTitle"]');
-                    const titleInput = education.querySelector('input[id^="jobTitle"]');
-                    if (titleLabel && titleInput) {
-                        titleLabel.setAttribute('for', `jobTitle${newNumber}`);
-                        titleLabel.textContent = `Job Title ${newNumber}`;
-                        titleInput.setAttribute('id', `jobTitle${newNumber}`);
-                    }
-        
-                    const employerLabel = education.querySelector('label[for^="employer"]');
-                    const employerInput = education.querySelector('input[id^="employer"]');
-                    if (employerLabel && employerInput) {
-                        employerLabel.setAttribute('for', `employer${newNumber}`);
-                        employerLabel.textContent = `Employer ${newNumber}`;
-                        employerInput.setAttribute('id', `employer${newNumber}`);
-                    }
-        
-                    const startDateLabel = education.querySelector('label[for^="startDate"]');
-                    const startDateInput = education.querySelector('input[id^="startDate"]');
-                    if (startDateLabel && startDateInput) {
-                        startDateLabel.setAttribute('for', `startDate${newNumber}`);
-                        startDateInput.setAttribute('id', `startDate${newNumber}`);
-                    }
-        
-                    const endDateLabel = education.querySelector('label[for^="endDate"]');
-                    const endDateInput = education.querySelector('input[id^="endDate"]');
-                    if (endDateLabel && endDateInput) {
-                        endDateLabel.setAttribute('for', `endDate${newNumber}`);
-                        endDateInput.setAttribute('id', `endDate${newNumber}`);
-                    }
-        
-                    const cityLabel = education.querySelector('label[for^="city"]');
-                    const cityInput = education.querySelector('input[id^="city"]');
-                    if (cityLabel && cityInput) {
-                        cityLabel.setAttribute('for', `city${newNumber}`);
-                        cityInput.setAttribute('id', `city${newNumber}`);
-                    }
-        
-                    const descriptionLabel = education.querySelector('label[for^="description"]');
-                    const descriptionTextarea = education.querySelector('textarea[id^="description"]');
-                    if (descriptionLabel && descriptionTextarea) {
-                        descriptionLabel.setAttribute('for', `description${newNumber}`);
-                        descriptionLabel.textContent = `Description ${newNumber}`;
-                        descriptionTextarea.setAttribute('id', `description${newNumber}`);
-                    }
+                    updateFieldLabels(education, newNumber, 'degree', 'Degree');
+                    updateFieldLabels(education, newNumber, 'certification', 'Certification Name');
+                    updateFieldLabels(education, newNumber, 'institution', 'Institution Name');
+                    updateFieldLabels(education, newNumber, 'location', 'Location');
+                    updateFieldLabels(education, newNumber, 'graduationDate', 'Month/Year of Graduation');
+                    updateFieldLabels(education, newNumber, 'description', 'Description');
                 });
             }
+        
+            function updateFieldLabels(education, newNumber, fieldPrefix, labelText) {
+                const label = education.querySelector(`label[for^="${fieldPrefix}"]`);
+                const input = education.querySelector(`[id^="${fieldPrefix}"]`);
+                if (label && input) {
+                    label.setAttribute('for', `${fieldPrefix}${newNumber}`);
+                    label.textContent = `${labelText} ${newNumber}`;
+                    input.setAttribute('id', `${fieldPrefix}${newNumber}`);
+                }
+            }
         </script>
+        
 
         <!-- Courses -->
+        
         <script>
             let courseCount = 1; // Initial count of courses
         
@@ -451,27 +467,27 @@
                 newCourse.classList.add('form-row', 'mb-3', 'course-block');
                 newCourse.innerHTML = `
                     <div class="form-group col-md-6">
-                        <label for="courseName${courseCount}" style="min-width: 150px;">Course Name ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="Course name">
+                        <label for="courseName${courseCount}" style="min-width: 150px;" title="Enter the name of the course">Course Name ${courseCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., Advanced JavaScript" title="Enter the course name">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="institution${courseCount}" style="min-width: 150px;">Institution ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="Institution">
+                        <label for="institution${courseCount}" style="min-width: 150px;" title="Enter the institution offering the course">Institution ${courseCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., Code Academy" title="Enter the institution name">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="courseStartDate${courseCount}" style="min-width: 150px;">Start Date ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY">
+                        <label for="courseStartDate${courseCount}" style="min-width: 150px;" title="Enter the start date in MM/YYYY format">Start Date ${courseCount}</label>
+                        <input type="text" class="form-control" placeholder="MM / YYYY" title="Format: MM / YYYY">
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="courseEndDate${courseCount}" style="min-width: 150px;">End Date ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY">
+                        <label for="courseEndDate${courseCount}" style="min-width: 150px;" title="Enter the end date in MM/YYYY format">End Date ${courseCount}</label>
+                        <input type="text" class="form-control" placeholder="MM / YYYY" title="Format: MM / YYYY">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="city${courseCount}" style="min-width: 150px;">City ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="City">
+                        <label for="city${courseCount}" style="min-width: 150px;" title="Enter the city where the course was taken">City ${courseCount}</label>
+                        <input type="text" class="form-control" placeholder="e.g., New York" title="Enter the city">
                     </div>
                     <div class="text-right mt-3">
-                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeCourse(this)"></i>
+                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeCourse(this)" title="Remove this course"></i>
                     </div>
                 `;
                 document.getElementById('coursesContainer').appendChild(newCourse);
@@ -526,141 +542,142 @@
                 });
             }
         </script>
-
+        
         <!-- Skills -->
         <script>
             let skillCount = 2; // Initial count of skills
-        
-            function addSkill() {
-                const skills = document.querySelectorAll('.skill-block');
-                skillCount = skills.length + 2;
-        
-                const newSkill = document.createElement('div');
-                newSkill.classList.add('row', 'mb-3', 'skill-block');
-                newSkill.innerHTML = `
-                    <div class="form-group col-md-6">
-                        <label for="skill${skillCount}" style="min-width: 150px;">Skill ${skillCount}</label>
-                        <div class="d-flex">
-                            <input type="text" class="form-control" placeholder="Skill name">
-                            <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1" onclick="removeSkill(this)"></i>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('skillsContainer').appendChild(newSkill);
-            }
-            function removeSkill(element) {
-                const skillBlock = element.closest('.skill-block');
-                if (skillBlock && skillBlock.id !== 'initialSkill') {
-                    skillBlock.remove();
-                }
-                const skills = document.querySelectorAll('.skill-block');
-                skills.forEach((skill, index) => {
-                    const newNumber = index + 1;
-                    const skillLabel = skill.querySelector('label[for^="skill"]');
-                    const skillInput = skill.querySelector('input[id^="skill"]');
-                    if (skillLabel && skillInput) {
-                        skillLabel.setAttribute('for', `skill${newNumber}`);
-                        skillLabel.textContent = `Skill ${newNumber}`;
-                        skillInput.setAttribute('id', `skill${newNumber}`);
+                
+                    function addSkill() {
+                        const skills = document.querySelectorAll('.skill-block');
+                        skillCount = skills.length + 2;
+                
+                        const newSkill = document.createElement('div');
+                        newSkill.classList.add('row', 'mb-3', 'skill-block');
+                        newSkill.innerHTML = `
+                            <div class="form-group col-md-6">
+                                <label for="skill${skillCount}" style="min-width: 150px;">Skill ${skillCount}</label>
+                                <div class="d-flex">
+                                    <input type="text" class="form-control" placeholder="Skill name">
+                                    <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1" onclick="removeSkill(this)"></i>
+                                </div>
+                            </div>
+                        `;
+                        document.getElementById('skillsContainer').appendChild(newSkill);
                     }
-                });
-            }
+                    function removeSkill(element) {
+                        const skillBlock = element.closest('.skill-block');
+                        if (skillBlock && skillBlock.id !== 'initialSkill') {
+                            skillBlock.remove();
+                        }
+                        const skills = document.querySelectorAll('.skill-block');
+                        skills.forEach((skill, index) => {
+                            const newNumber = index + 1;
+                            const skillLabel = skill.querySelector('label[for^="skill"]');
+                            const skillInput = skill.querySelector('input[id^="skill"]');
+                            if (skillLabel && skillInput) {
+                                skillLabel.setAttribute('for', `skill${newNumber}`);
+                                skillLabel.textContent = `Skill ${newNumber}`;
+                                skillInput.setAttribute('id', `skill${newNumber}`);
+                            }
+                        });
+                    }
         </script>
         
-        <!-- Employment History -->
+        <!-- Experiences -->
+        
         <script>
-            let employmentCount = 1; // Initial count of employment entries
+            let experiencesCount = 1; // Initial count of experiences entries
+                
+            function addExperiences() {
+                const experiences = document.querySelectorAll('.experiences-block');
+                experiencesCount = experiences.length + 1;
         
-            function addEmployment() {
-                const employments = document.querySelectorAll('.employment-block');
-                employmentCount = employments.length + 1;
-        
-                const newEmployment = document.createElement('div');
-                newEmployment.classList.add('employment-block', 'mb-3');
-                newEmployment.innerHTML = `
+                const newExperiences = document.createElement('div');
+                newExperiences.classList.add('experiences-block', 'mb-3');
+                newExperiences.innerHTML = `
                     <div class="form-row mb-3">
                         <div class="form-group col-md-6">
-                            <label for="jobTitle${employmentCount}" style="min-width: 150px;">Job Title ${employmentCount}</label>
-                            <input type="text" class="form-control" placeholder="Job title">
+                            <label for="jobTitle${experiencesCount}" style="min-width: 150px;">Job Title ${experiencesCount}</label>
+                            <input type="text" class="form-control" placeholder="e.g., Software Engineer">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="employer${employmentCount}" style="min-width: 150px;">Employer ${employmentCount}</label>
-                            <input type="text" class="form-control" placeholder="Employer">
+                            <label for="employer${experiencesCount}" style="min-width: 150px;">Employer ${experiencesCount}</label>
+                            <input type="text" class="form-control" placeholder="e.g., ABC Corp">
                         </div>
                     </div>
                     <div class="form-row mb-3">
                         <div class="form-group col-md-3">
-                            <label for="employmentStartDate${employmentCount}" style="min-width: 150px;">Start Date ${employmentCount}</label>
-                            <input type="text" class="form-control" placeholder="MM / YYYY">
+                            <label for="experiencesStartDate${experiencesCount}" style="min-width: 150px;">Start Date ${experiencesCount}</label>
+                            <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="employmentEndDate${employmentCount}" style="min-width: 150px;">End Date ${employmentCount}</label>
-                            <input type="text" class="form-control" placeholder="MM / YYYY">
+                            <label for="experiencesEndDate${experiencesCount}" style="min-width: 150px;">End Date ${experiencesCount}</label>
+                            <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="city${employmentCount}" style="min-width: 150px;">City ${employmentCount}</label>
-                            <input type="text" class="form-control" placeholder="City">
+                            <label for="city${experiencesCount}" style="min-width: 150px;">City ${experiencesCount}</label>
+                            <input type="text" class="form-control" placeholder="e.g., New York">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="description${employmentCount}" style="min-width: 150px;">Description ${employmentCount}</label>
-                        <textarea class="form-control" rows="3" placeholder="Describe"></textarea>
+                        <label for="description${experiencesCount}" style="min-width: 150px;">Description ${experiencesCount}</label>
+                        <textarea class="form-control" rows="3" placeholder="Describe your role and achievements"></textarea>
                     </div>
                     <div class="text-right mt-3">
-                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeEmployment(this)"></i>
+                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeExperiences(this)"></i>
                     </div>
                 `;
-                document.getElementById('employmentHistoryContainer').appendChild(newEmployment);
+                document.getElementById('ExperienceContainer').appendChild(newExperiences);
             }
         
-            function removeEmployment(element) {
-                const employmentBlock = element.closest('.employment-block');
-                if (employmentBlock && employmentBlock.id !== 'initialEmployment') {
-                    employmentBlock.remove();
+            function removeExperiences(element) {
+                const experiencesBlock = element.closest('.experiences-block');
+                if (experiencesBlock && experiencesBlock.id !== 'initialExperiences') {
+                    experiencesBlock.remove();
                 }
         
-                const employments = document.querySelectorAll('.employment-block');
-                employments.forEach((employment, index) => {
+                const experiences = document.querySelectorAll('.experiences-block');
+                experiences.forEach((experience, index) => {
                     const newNumber = index + 1;
-                    const jobTitleLabel = employment.querySelector('label[for^="jobTitle"]');
-                    const jobTitleInput = employment.querySelector('input[id^="jobTitle"]');
+                    const jobTitleLabel = experience.querySelector('label[for^="jobTitle"]');
+                    const jobTitleInput = experience.querySelector('input[id^="jobTitle"]');
                     if (jobTitleLabel && jobTitleInput) {
                         jobTitleLabel.setAttribute('for', `jobTitle${newNumber}`);
                         jobTitleLabel.textContent = `Job Title ${newNumber}`;
                         jobTitleInput.setAttribute('id', `jobTitle${newNumber}`);
                     }
         
-                    const employerLabel = employment.querySelector('label[for^="employer"]');
-                    const employerInput = employment.querySelector('input[id^="employer"]');
+                    const employerLabel = experience.querySelector('label[for^="employer"]');
+                    const employerInput = experience.querySelector('input[id^="employer"]');
                     if (employerLabel && employerInput) {
                         employerLabel.setAttribute('for', `employer${newNumber}`);
                         employerLabel.textContent = `Employer ${newNumber}`;
                         employerInput.setAttribute('id', `employer${newNumber}`);
                     }
         
-                    const startDateLabel = employment.querySelector('label[for^="employmentStartDate"]');
-                    const startDateInput = employment.querySelector('input[id^="employmentStartDate"]');
+                    const startDateLabel = experience.querySelector('label[for^="experiencesStartDate"]');
+                    const startDateInput = experience.querySelector('input[id^="experiencesStartDate"]');
                     if (startDateLabel && startDateInput) {
-                        startDateLabel.setAttribute('for', `employmentStartDate${newNumber}`);
-                        startDateInput.setAttribute('id', `employmentStartDate${newNumber}`);
+                        startDateLabel.setAttribute('for', `experiencesStartDate${newNumber}`);
+                        startDateInput.setAttribute('id', `experiencesStartDate${newNumber}`);
                     }
         
-                    const endDateLabel = employment.querySelector('label[for^="employmentEndDate"]');
-                    const endDateInput = employment.querySelector('input[id^="employmentEndDate"]');
+                    const endDateLabel = experience.querySelector('label[for^="experiencesEndDate"]');
+                    const endDateInput = experience.querySelector('input[id^="experiencesEndDate"]');
                     if (endDateLabel && endDateInput) {
-                        endDateLabel.setAttribute('for', `employmentEndDate${newNumber}`);
-                        endDateInput.setAttribute('id', `employmentEndDate${newNumber}`);
+                        endDateLabel.setAttribute('for', `experiencesEndDate${newNumber}`);
+                        endDateInput.setAttribute('id', `experiencesEndDate${newNumber}`);
                     }
         
-                    const cityLabel = employment.querySelector('label[for^="city"]');
-                    const cityInput = employment.querySelector('input[id^="city"]');
+                    const cityLabel = experience.querySelector('label[for^="city"]');
+                    const cityInput = experience.querySelector('input[id^="city"]');
                     if (cityLabel && cityInput) {
                         cityLabel.setAttribute('for', `city${newNumber}`);
                         cityInput.setAttribute('id', `city${newNumber}`);
                     }
         
-                    const descriptionLabel = employment.querySelector('label[for^="description"]');
-                    const descriptionTextarea = employment.querySelector('textarea[id^="description"]');
+                    const descriptionLabel = experience.querySelector('label[for^="description"]');
+                    const descriptionTextarea = experience.querySelector('textarea[id^="description"]');
                     if (descriptionLabel && descriptionTextarea) {
                         descriptionLabel.setAttribute('for', `description${newNumber}`);
                         descriptionLabel.textContent = `Description ${newNumber}`;
@@ -669,53 +686,44 @@
                 });
             }
         </script>
-        
 
         <!-- Languages -->
         <script>
             let languageCount = 1; // Initial count of languages
-        
-            function addLanguage() {
-                const languages = document.querySelectorAll('.language-block');
-                languageCount = languages.length + 1;
-        
-                const newLanguage = document.createElement('div');
-                newLanguage.classList.add('form-row', 'mb-3', 'language-block');
-                newLanguage.innerHTML = `
-                    <div class="form-group d-flex align-items-center justify-content-around w-100">
-                        <label for="language${languageCount}" style="min-width: fit-content;"><i class="fas fa-language"></i> Language ${languageCount}</label>
-                        <input type="text" class="form-control ml-3 w-100" placeholder="Language Name">
-                        <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1" onclick="removeLanguage(this)"></i>
-                    </div>
-                `;
-                document.getElementById('languagesContainer').appendChild(newLanguage);
-            }
-        
-            function removeLanguage(element) {
-                const languageBlock = element.closest('.language-block');
-                if (languageBlock && languageBlock.id !== 'initialLanguage') {
-                    languageBlock.remove();
-                }
-        
-                const languages = document.querySelectorAll('.language-block');
-                languages.forEach((language, index) => {
-                    const newNumber = index + 1;
-                    const languageLabel = language.querySelector('label[for^="language"]');
-                    const languageInput = language.querySelector('input[id^="language"]');
-                    if (languageLabel && languageInput) {
-                        languageLabel.setAttribute('for', `language${newNumber}`);
-                        languageLabel.textContent = `Language ${newNumber}`;
-                        languageInput.setAttribute('id', `language${newNumber}`);
+                
+                    function addLanguage() {
+                        const languages = document.querySelectorAll('.language-block');
+                        languageCount = languages.length + 1;
+                
+                        const newLanguage = document.createElement('div');
+                        newLanguage.classList.add('form-row', 'mb-3', 'language-block');
+                        newLanguage.innerHTML = `
+                            <div class="form-group d-flex align-items-center justify-content-around w-100">
+                                <label for="language${languageCount}" style="min-width: fit-content;"><i class="fas fa-language"></i> Language ${languageCount}</label>
+                                <input type="text" class="form-control ml-3 w-100" placeholder="English">
+                                <i class="bi bi-trash-fill btn btn-outline-danger rounded ml-1" onclick="removeLanguage(this)"></i>
+                            </div>
+                        `;
+                        document.getElementById('languagesContainer').appendChild(newLanguage);
                     }
-                });
-            }
+                
+                    function removeLanguage(element) {
+                        const languageBlock = element.closest('.language-block');
+                        if (languageBlock && languageBlock.id !== 'initialLanguage') {
+                            languageBlock.remove();
+                        }
+                
+                        const languages = document.querySelectorAll('.language-block');
+                        languages.forEach((language, index) => {
+                            const newNumber = index + 1;
+                            const languageLabel = language.querySelector('label[for^="language"]');
+                            const languageInput = language.querySelector('input[id^="language"]');
+                            if (languageLabel && languageInput) {
+                                languageLabel.setAttribute('for', `language${newNumber}`);
+                                languageLabel.textContent = `Language ${newNumber}`;
+                                languageInput.setAttribute('id', `language${newNumber}`);
+                            }
+                        });
+                    }
         </script>
         
-
-
-
-
-
-
-
-

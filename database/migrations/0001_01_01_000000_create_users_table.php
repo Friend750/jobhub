@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('is_connected',true);
 
             
+            
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column
             $table->timestamps();

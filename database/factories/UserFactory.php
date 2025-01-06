@@ -24,12 +24,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'user_name' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
-            'is_admin' => $this->faker->boolean(20), // 20% chance of being admin
-            'password' => bcrypt('password'), // or use Hash::make('password') if you prefer
-            'user_image' => $this->faker->optional()->imageUrl(100, 100, 'people', true, 'Faker'), // can be null
-            'professional_summary' => $this->faker->sentence(15), // 15-word summary
+            'email_verified_at' => $this->faker->optional()->dateTime,
+            'user_name' => $this->faker->unique()->userName,
+            'password' => bcrypt('password'), // Default password
+            'user_image' => $this->faker->optional()->imageUrl(),
+            'type' => $this->faker->randomElement(['admin', 'user', 'company']),
+            'professional_summary' => $this->faker->optional()->paragraph,
         ];
     }
     /**
