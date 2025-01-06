@@ -20,8 +20,11 @@ return new class extends Migration
 
             $table->string('password');
             $table->string('user_image')->nullable();
-            $table->enum('type', ['admin', 'user', 'company']); // Interaction type (comment, like, share)
+            $table->enum('type', ['admin', 'user', 'company']);
             $table->text('professional_summary')->nullable();
+            $table->boolean('is_active',true);
+            $table->boolean('is_connected',true);
+
             
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column
