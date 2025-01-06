@@ -23,8 +23,9 @@
                             <label class="form-label me-2 mb-0 w-40 text-muted small">User Type:</label>
                             <select wire:model.live="role" class="form-select">
                                 <option value="">All</option>
-                                <option value="0">User</option>
-                                <option value="1">Admin</option>
+                                <option value="user">Member</option>
+                                <option value="admin">Admin</option>
+                                <option value="company">Company</option>
                             </select>
                         </div>
                     </div>
@@ -44,7 +45,7 @@
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'is_admin',
+                                    'name' => 'type',
                                     'display_name' => 'Role',
                                 ])
 
@@ -53,7 +54,7 @@
                                     'display_name' => 'Joined',
                                 ])
 
-                                <th scope="col" class="px-3 py-2" wire:click="SetSortBy('updated_at')">Last Update
+                                <th scope="col" class="px-3 py-2 text-muted" wire:click="SetSortBy('updated_at')">Last Update
                                 </th>
                                 <th scope="col" class="px-3 py-2">
                                     <span class="visually-hidden">Actions</span>
@@ -63,12 +64,19 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr wire:key={{ $user->id }} class="border-bottom">
-                                    <th scope="row" class="px-3 py-2 text-dark fw-bold">
+                                    <td scope="row" class="px-3 py-2">
                                         {{ $user->user_name }}
-                                    </th>
+                                    </td>
                                     <td class="px-3 py-2">{{ $user->email }}</td>
-                                    <td class="px-3 py-2 text-{{ $user->is_admin ? 'success' : 'primary' }}">
-                                        {{ $user->is_admin ? 'Admin' : 'Member' }}
+                                    <td
+                                        class="px-3 py-2 text-{{ $user->type === 'admin' ? 'success' : ($user->type === 'user' ? 'primary' : 'secondary') }}">
+                                        @if ($user->type === 'admin')
+                                            Admin
+                                        @elseif ($user->type === 'user')
+                                            Member
+                                        @else
+                                            Company
+                                        @endif
                                     </td>
                                     <td class="px-3 py-2">{{ $user->created_at }}</td>
                                     <td class="px-3 py-2">{{ $user->updated_at }}</td>
@@ -131,7 +139,7 @@
                     <div class="d-flex">
                         <div class="d-flex align-items-center mb-3">
                             <label class="form-label me-2 mb-0 text-muted small">Per Page:</label>
-                            <select wire:model.live="per_page" class="form-select">
+                            <select wire:model.live="per_page" class="form-select" title="Per Page">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
