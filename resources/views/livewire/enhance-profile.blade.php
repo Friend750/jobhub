@@ -319,8 +319,6 @@
     </div>
 </body>
 
-
-
         <!-- Websites & Social Links -->
         <script>
             let linkCount = 1; // Initial count of links
@@ -544,8 +542,6 @@
                 });
             }
         </script>
-        
-        
         
         <!-- Skills -->
         <script>
