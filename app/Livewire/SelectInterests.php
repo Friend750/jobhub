@@ -3,10 +3,12 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class SelectInterests extends Component
 {
+    #[Title('Interests')]
     public $interests = [
         'Marketing',
         'Technology',
@@ -15,7 +17,7 @@ class SelectInterests extends Component
         'Administration',
         'E-commerce',
         'IT Management',
-      
+
     ];
     public $selectedInterests = [];
     public $userId; // معرف المستخدم
@@ -50,7 +52,7 @@ class SelectInterests extends Component
             redirect('EnhanceProfile');
         }
         // تنفيذ عملية التخزين أو الانتقال للخطوة التالية
-        
+
     }
 
     public function render()

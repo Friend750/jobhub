@@ -39,7 +39,6 @@ Route::get('/home',HomePage::class)->name("home");
 Route::get('/user-profile',UserProfile::class)->name("user-profile");
 Route::get('/JobScreen',JobScreen::class)->name("jobScreen");
 Route::get('/Search',Search::class)->name("search");
-Route::get('/feed',PostCard::class);
 Route::get('/EnhanceProfile',EnhanceProfile::class)->name("EnhanceProfile");
 Route::get('/posts',PostCard::class)->name("post");
 Route::get('/chat',Chat::class)->name("chat");

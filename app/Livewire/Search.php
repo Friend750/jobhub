@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Search extends Component
 {
+    #[Title('Search')]
     public $activeTab = 'people'; // العنصر النشط افتراضيًا
 
     public function switchTab($tab)
@@ -21,7 +23,7 @@ class Search extends Component
 
         // Add more people as needed
     ];
- 
+
     public function toggleFollow($id)
     {
         foreach ($this->people as &$person) {

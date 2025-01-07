@@ -12,71 +12,69 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     @if (in_array(Route::currentRouteName(), ['typeaccount']))
-    <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('css/typeaccount.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['search']))
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
 
     @if (in_array(Route::currentRouteName(), ['user-profile']))
-    <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
 
     @if (in_array(Route::currentRouteName(), ['interests']))
-    <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
     @endif
 
 
     @if (in_array(Route::currentRouteName(), ['post']))
-    <link rel="stylesheet" href="{{ asset('css/post.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/post.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
-    @if (in_array(Route::currentRouteName(), ['FollowersScreen','CompaniesScreen','FollowingsScreen']))
-    <link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    @if (in_array(Route::currentRouteName(), ['FollowersScreen', 'CompaniesScreen', 'FollowingsScreen']))
+        <link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['notifications']))
-    <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
-    @if (in_array(Route::currentRouteName(), ['home','route']))
-    <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/homePageNav.css') }}">
-
+    @if (in_array(Route::currentRouteName(), ['home', 'route']))
+        <link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/homePageNav.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['jobScreen']))
-    <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['EnhanceProfile']))
-    <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['chat']))
-    <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
     @if (in_array(Route::currentRouteName(), ['dashboard']))
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     @endif
 
 
@@ -88,13 +86,14 @@
 
 </head>
 
-@if (in_array(Route::currentRouteName(), ['typeaccount','interests']))
-<body style="background-color: white !important;">
-@else
+@if (in_array(Route::currentRouteName(), ['typeaccount', 'interests']))
 
-<body>
+    <body style="background-color: white !important;">
+    @else
+
+        <body>
 @endif
-    {{-- <ul>
+{{-- <ul>
         <li><a href="{{ route('login') }}">Login</a></li>
         <li><a href="{{ route('register') }}">Register</a></li>
         <li>
@@ -105,12 +104,19 @@
         </li>
     </ul> --}}
 
-<<<<<<< HEAD
-@if (!in_array(Route::currentRouteName(), ['dashboard','users-table','route','login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
-=======
-
->>>>>>> 3322a0c8c37b94f19409a07a2e59ce1983634eb6
-@include('livewire.navigation-bar')
+@if (
+    !in_array(Route::currentRouteName(), [
+        'dashboard',
+        'users-table',
+        'route',
+        'login',
+        'register',
+        'typeaccount',
+        'interests',
+        'home',
+        'EnhanceProfile',
+    ]))
+    @include('livewire.navigation-bar')
 @endif
 
 <div class="">
@@ -126,12 +132,12 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/chat.js') }}"></script>
-    @livewireScripts
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="{{ asset('js/chat.js') }}"></script>
+@livewireScripts
 </body>
 
 </html>

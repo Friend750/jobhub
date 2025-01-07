@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class PostCard extends Component
 {
     use WithFileUploads;
+    #[Title('Feed')]
 
     public $content; // For the text input
     public $media; // For the uploaded file (image or video)

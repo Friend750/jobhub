@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Chat extends Component
 {
+    #[Title('Chat')]
     public $chats; // قائمة الدردشات
     public $selectedChat = null; // المحادثة المختارة
     public $messages = []; // الرسائل

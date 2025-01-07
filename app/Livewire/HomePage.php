@@ -2,11 +2,12 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class HomePage extends Component
 {
-
+    #[Title('Welcome Home')]
 
     public function loadData()
     {
