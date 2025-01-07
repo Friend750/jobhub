@@ -16,7 +16,7 @@
                             <i class="bi bi-people"></i> <span>Users</span>
                         </a>
                     </li>
-                    <li class="nav-item mb-2 {{ $currentSection === 'posts' ? 'active' : '' }}">
+                    {{-- <li class="nav-item mb-2 {{ $currentSection === 'posts' ? 'active' : '' }}">
                         <a class="nav-link text-white" href="#" wire:click.prevent="switchSection('posts')">
                             <i class="bi bi-stickies"></i> <span>Posts</span>
                         </a>
@@ -24,6 +24,11 @@
                     <li class="nav-item mb-2 {{ $currentSection === 'pages' ? 'active' : '' }}">
                         <a class="nav-link text-white" href="#" wire:click.prevent="switchSection('pages')">
                             <i class="bi bi-file-earmark"></i> <span>Pages</span>
+                        </a>
+                    </li> --}}
+                    <li class="nav-item mb-2 {{ $currentSection === 'pages' ? 'active' : '' }}">
+                        <a class="nav-link text-white" href="#" wire:click.prevent="switchSection('jobs')">
+                            <i class="bi bi-file-earmark"></i> <span>Jobs</span>
                         </a>
                     </li>
                     <li class="nav-item mb-2">
@@ -49,8 +54,7 @@
                 @elseif ($currentSection === 'pages')
                     <h1>Welcome to the pages page</h1>
                 @elseif($currentSection === 'home')
-                    <h1>Welcome to the Dashboard home page</h1>
-                    <p>This is your main content area.</p>
+                    @include('livewire.includes.dashboard.home')
                 @endif
             </div>
         </div>
