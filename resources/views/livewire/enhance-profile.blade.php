@@ -89,7 +89,7 @@
         </section>
 
         <!-- Education -->
-        {{-- <section class="form-section rounded">
+        <section class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#education">
                 Education
                 <i class="fas fa-caret-down"></i>
@@ -99,28 +99,28 @@
                 <div id="educationContainer">
                     <div class="row mb-3 education-block" id="initialEducation">
                         <div class="form-group col-md-6">
-                            <label for="jobTitle1" style="min-width: 150px;">Job Title 1</label>
-                            <input type="text" class="form-control" placeholder="Job Title">
+                            <label for="degree1" style="min-width: 150px;">Degree</label>
+                            <input type="text" class="form-control" placeholder="Degree (e.g., Bachelor's, Master's)">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="employer1" style="min-width: 150px;">Employer 1</label>
-                            <input type="text" class="form-control" placeholder="Employer">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="startDate1" style="min-width: 150px;">Start Date 1</label>
-                            <input type="text" class="form-control" placeholder="MM / YYYY">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="endDate1" style="min-width: 150px;">End Date 1</label>
-                            <input type="text" class="form-control" placeholder="MM / YYYY">
+                            <label for="certification1" style="min-width: 150px;">Certification Name</label>
+                            <input type="text" class="form-control" placeholder="e.g., AWS Certified Solutions Architect">
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="city1" style="min-width: 150px;">City 1</label>
-                            <input type="text" class="form-control" placeholder="City">
+                            <label for="institution1" style="min-width: 150px;">Institution Name</label>
+                            <input type="text" class="form-control" placeholder="e.g., Harvard University">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="location1" style="min-width: 150px;">Location</label>
+                            <input type="text" class="form-control" placeholder="e.g., Cambridge, MA">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="graduationDate1" style="min-width: 150px;">Month/Year of Graduation</label>
+                            <input type="text" class="form-control" placeholder="e.g., 05 / 2022">
                         </div>
                         <div class="form-group col-12">
-                            <label for="description1" style="min-width: 150px;">Description 1</label>
-                            <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+                            <label for="description1" style="min-width: 150px;">Description</label>
+                            <textarea class="form-control" rows="3" placeholder="Include any relevant coursework, honors, or GPA if applicable"></textarea>
                         </div>
                     </div>
                 </div>
@@ -128,50 +128,8 @@
                     <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
                 </div>
             </div>
-        </section> --}}
-<section class="form-section rounded">
-    <h5 data-toggle="collapse" data-target="#education">
-        Education
-        <i class="fas fa-caret-down"></i>
-    </h5>
-    <p>Add information about your educational background. You can include multiple entries.</p>
-    <div id="education" class="collapse">
-        <div id="educationContainer">
-            <div class="row mb-3 education-block" id="initialEducation">
-                <div class="form-group col-md-6">
-                    <label for="degree1" style="min-width: 150px;">Degree</label>
-                    <input type="text" class="form-control" placeholder="Degree (e.g., Bachelor's, Master's)">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="certification1" style="min-width: 150px;">Certification Name</label>
-                    <input type="text" class="form-control" placeholder="e.g., AWS Certified Solutions Architect">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="institution1" style="min-width: 150px;">Institution Name</label>
-                    <input type="text" class="form-control" placeholder="e.g., Harvard University">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="location1" style="min-width: 150px;">Location</label>
-                    <input type="text" class="form-control" placeholder="e.g., Cambridge, MA">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="graduationDate1" style="min-width: 150px;">Month/Year of Graduation</label>
-                    <input type="text" class="form-control" placeholder="e.g., 05 / 2022">
-                </div>
-                <div class="form-group col-12">
-                    <label for="description1" style="min-width: 150px;">Description</label>
-                    <textarea class="form-control" rows="3" placeholder="Include any relevant coursework, honors, or GPA if applicable"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
-        </div>
-    </div>
-</section>
-
-
-
+        </section>
+        
         <!-- Courses -->
         <div class="form-section rounded">
             <h5 data-toggle="collapse" data-target="#courses">
@@ -212,9 +170,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
         <!-- Skills -->
         <div class="form-section rounded">
@@ -285,6 +240,36 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <button class="btn btn-primary rounded" onclick="addExperiences()">+ Add one more Experience</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="form-section rounded">
+            <h5 data-toggle="collapse" data-target="#projects">
+                Projects
+                <i class="fas fa-caret-down"></i>
+            </h5>
+            <p>List your projects, their descriptions, and key outcomes or contributions.</p>
+            <div id="projects" class="collapse">
+                <div id="projectsContainer">
+                    <div class="project-block mb-3" id="initialProject">
+                        <div class="form-group">
+                            <label for="projectTitle1">Project Title 1</label>
+                            <input type="text" class="form-control" id="projectTitle1" placeholder="Enter Project Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectDescription1">Description of the Project</label>
+                            <textarea class="form-control" id="projectDescription1" rows="3" placeholder="Describe the project"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="keyOutcomes1">Key Outcomes or Contributions</label>
+                            <textarea class="form-control" id="keyOutcomes1" rows="2" placeholder="Mention key outcomes or contributions"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <button class="btn btn-primary rounded" onclick="addProject()">+ Add one more Project</button>
                 </div>
             </div>
         </section>
@@ -373,7 +358,6 @@
             }
         </script>
         
-        
         <!-- Education -->
         <script>
             let educationCount = 1; // Initial count of education entries
@@ -444,10 +428,8 @@
                 }
             }
         </script>
-        
 
         <!-- Courses -->
-        
         <script>
             let courseCount = 1; // Initial count of courses
         
@@ -584,7 +566,6 @@
         </script>
         
         <!-- Experiences -->
-        
         <script>
             let experiencesCount = 1; // Initial count of experiences entries
                 
@@ -684,6 +665,42 @@
                         descriptionTextarea.setAttribute('id', `description${newNumber}`);
                     }
                 });
+            }
+        </script>
+
+        <!-- Projects -->
+        <script>
+            let projectCount = 1;
+        
+            function addProject() {
+                projectCount++;
+                const newProject = document.createElement('div');
+                newProject.classList.add('project-block', 'mb-3');
+                newProject.innerHTML = `
+                    <div class="form-group">
+                        <label for="projectTitle${projectCount}">Project Title ${projectCount}</label>
+                        <input type="text" class="form-control" id="projectTitle${projectCount}" placeholder="Enter Project Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription${projectCount}">Description of the Project</label>
+                        <textarea class="form-control" id="projectDescription${projectCount}" rows="3" placeholder="Describe the project"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyOutcomes${projectCount}">Key Outcomes or Contributions</label>
+                        <textarea class="form-control" id="keyOutcomes${projectCount}" rows="2" placeholder="Mention key outcomes or contributions"></textarea>
+                    </div>
+                    <div class="text-right mt-3">
+                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeProject(this)"></i>
+                    </div>
+                `;
+                document.getElementById('projectsContainer').appendChild(newProject);
+            }
+        
+            function removeProject(element) {
+                const projectBlock = element.closest('.project-block');
+                if (projectBlock && projectBlock.id !== 'initialProject') {
+                    projectBlock.remove();
+                }
             }
         </script>
 
