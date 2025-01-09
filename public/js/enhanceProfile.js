@@ -142,29 +142,23 @@ function addCourse() {
     const newCourse = document.createElement('div');
     newCourse.classList.add('form-row', 'mb-3', 'course-block');
     newCourse.innerHTML = `
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="courseName${courseCount}" style="min-width: 150px;" title="Enter the name of the course">Course Name ${courseCount}</label>
                         <input type="text" class="form-control" placeholder="e.g., Advanced JavaScript" title="Enter the course name">
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="institution${courseCount}" style="min-width: 150px;" title="Enter the institution offering the course">Institution ${courseCount}</label>
                         <input type="text" class="form-control" placeholder="e.g., Code Academy" title="Enter the institution name">
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="courseStartDate${courseCount}" style="min-width: 150px;" title="Enter the start date in MM/YYYY format">Start Date ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY" title="Format: MM / YYYY">
+                    <div class="form-group flex-grow-1 me-1">
+                            <label for="courseStartDate${courseCount}" style="min-width: 150px;">Completion date ${courseCount}</label>
+                            <input type="text" class="form-control" id="courseStartDate1" placeholder="MM / YYYY"
+                                title="Enter the start date in MM / YYYY format">
                     </div>
-                    <div class="form-group col-md-3">
-                        <label for="courseEndDate${courseCount}" style="min-width: 150px;" title="Enter the end date in MM/YYYY format">End Date ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="MM / YYYY" title="Format: MM / YYYY">
+                    <div class="form-group d-flex align-items-end">
+                         <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeCourse(this)" title="Remove this course"></i>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="city${courseCount}" style="min-width: 150px;" title="Enter the city where the course was taken">City ${courseCount}</label>
-                        <input type="text" class="form-control" placeholder="e.g., New York" title="Enter the city">
-                    </div>
-                    <div class="text-right mt-3">
-                        <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeCourse(this)" title="Remove this course"></i>
-                    </div>
+
                 `;
     document.getElementById('coursesContainer').appendChild(newCourse);
 }

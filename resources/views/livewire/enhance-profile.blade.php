@@ -145,30 +145,20 @@
             <div id="courses" class="collapse">
                 <div id="coursesContainer">
                     <div class="form-row course-block" id="initialCourse">
-                        <div class="form-group col-md-6">
-                            <label for="courseName1" style="min-width: 150px;">Course Name 1</label>
+                        <div class="form-group col-md-4">
+                            <label for="courseName1" style="min-width: 150px;">Course name</label>
                             <input type="text" class="form-control" placeholder="e.g., Data Science Bootcamp">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="institution1" style="min-width: 150px;">Institution 1</label>
+                        <div class="form-group col-md-4">
+                            <label for="institution1" style="min-width: 150px;">Institution name</label>
                             <input type="text" class="form-control" placeholder="e.g., Coursera, Udemy">
                         </div>
-                    </div>
-                    <div class="form-row course-block">
-                        <div class="form-group col-md-3">
-                            <label for="courseStartDate1" style="min-width: 150px;">Start Date 1</label>
+                        <div class="form-group col-md-4">
+                            <label for="courseStartDate1" style="min-width: 150px;">Completion date</label>
                             <input type="text" class="form-control" id="courseStartDate1" placeholder="MM / YYYY"
                                 title="Enter the start date in MM / YYYY format">
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="courseEndDate1" style="min-width: 150px;">End Date 1</label>
-                            <input type="text" class="form-control" id="courseEndDate1" placeholder="MM / YYYY"
-                                title="Enter the end date in MM / YYYY format">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="city1" style="min-width: 150px;">City 1</label>
-                            <input type="text" class="form-control" placeholder="e.g., New York">
-                        </div>
+
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">

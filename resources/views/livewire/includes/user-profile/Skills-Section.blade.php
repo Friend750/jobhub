@@ -1,11 +1,11 @@
-<div class="card mb-3">
+<div class="card mb-3 rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h5>Skills</h5>
             <div>
                 <!-- Bootstrap 4 Modal Triggers -->
                 <i class="bi bi-plus-circle btn p-1" data-toggle="modal" data-target="#NewSkills"></i>
-                <i class="bi bi-pencil-square p-1 btn" data-toggle="modal" data-target="#EditSkills"></i>
+                {{-- <i class="bi bi-pencil-square p-1 btn" data-toggle="modal" data-target="#EditSkills"></i> --}}
             </div>
         </div>
 
@@ -33,7 +33,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">Add rows here</div>
+                <div class="form-group flex-grow-1">
+                    <label for="skill1" style="min-width: 150px;">Skill name</label>
+                    <div class="d-flex">
+                        <input type="text" class="form-control" placeholder="Type the skill name">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -55,7 +60,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">Add rows here</div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

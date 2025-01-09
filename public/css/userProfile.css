@@ -27,7 +27,7 @@
 }
 
 .options-card {
-    display: none;
+    /* display: none; */
     position: absolute;
     background-color: #f8f9fa;
     border: 1px solid #ccc;

@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3 rounded">
     <div class="card-body">
         <h5 class="card-title">Interests</h5>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
