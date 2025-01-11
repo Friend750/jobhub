@@ -31,8 +31,6 @@ Route::get('/',HomePage::class)->name("route");
 Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
 Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
 Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
-// Route::get('/register',Register::class)->name("register");
-// Route::get('/login',SignIn::class)->name("login");
 Route::get('/typeaccount',Typeaccount::class)->name("typeaccount");
 Route::get('/interests',SelectInterests::class)->name("interests");
 Route::get('/home',HomePage::class)->name("home");

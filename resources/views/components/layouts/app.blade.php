@@ -105,13 +105,6 @@
 
 </head>
 
-@if (in_array(Route::currentRouteName(), ['typeaccount', 'interests']))
-
-    <body style="background-color: white !important;">
-    @else
-
-        <body>
-@endif
 
 @if (
     !in_array(Route::currentRouteName(), [
@@ -128,11 +121,7 @@
     @include('livewire.navigation-bar')
 @endif
 
-<div class="">
-    <div>
-        {{ $slot }}
-    </div>
-</div>
+{{ $slot }}
 
 
 
@@ -141,7 +130,7 @@
 
 
 
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
