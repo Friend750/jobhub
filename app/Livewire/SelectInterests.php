@@ -17,7 +17,6 @@ class SelectInterests extends Component
         'Administration',
         'E-commerce',
         'IT Management',
-
     ];
     public $selectedInterests = [];
     public $userId; // معرف المستخدم
