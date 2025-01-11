@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,17 +15,17 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('user_name')->unique();
-            
+
 
             $table->string('password');
             $table->string('user_image')->nullable();
             $table->enum('type', ['admin', 'user', 'company']);
             $table->text('professional_summary')->nullable();
-            $table->boolean('is_active',true);
-            $table->boolean('is_connected',true);
+            $table->boolean('is_active')->default(true);
+            $table->boolean('is_connected')->default(false);
 
-            
-            
+
+
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column
             $table->timestamps();

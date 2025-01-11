@@ -22,10 +22,11 @@ class User extends Authenticatable
         'user_name',
         'email',
         'type',
-        'user_name',
         'password',
         'user_image',
         'professional_summary',
+        'is_active',
+        'is_connected'
     ];
 
     public function scopeSearch($query, $value)

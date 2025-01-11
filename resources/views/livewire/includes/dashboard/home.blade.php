@@ -8,19 +8,19 @@
                     <div class="d-flex flex-wrap justify-content-evenly align-items-center rounded py-2 ">
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>Admins</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $adminCount }}</h6>
                         </div>
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>Users</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $userCount }}</h6>
                         </div>
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>Activated</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $activatedCount }}</h6>
                         </div>
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>Connected</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $connectedCount }}</h6>
                         </div>
 
                     </div>
