@@ -97,3 +97,16 @@
 
 
 
+.select2-container {
+    margin-right: .5rem;
+    height: 100%;
+
+}
+
+.select2-selection__rendered{
+    flex-wrap: wrap;
+}
+
+.select2-selection__choice__display{
+    font-size: small;
+}

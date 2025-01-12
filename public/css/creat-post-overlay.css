@@ -18,7 +18,7 @@
 /* Card Styling */
 .post-card {
     /* width: 43%; */
-    max-height: 80vh;
+    max-height: 90vh;
     /* Ensures the card doesn't exceed 80% of the viewport height */
     margin: auto;
     z-index: 1060;

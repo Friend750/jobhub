@@ -2,10 +2,13 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Notifications extends Component
 {
+    #[Title('Notifications')]
+
     public $statistics = [];
     public $notifications = [];
 

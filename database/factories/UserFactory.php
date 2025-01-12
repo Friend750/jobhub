@@ -27,18 +27,20 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => $this->faker->optional()->dateTime,
             'user_name' => $this->faker->unique()->userName,
-            'password' => bcrypt('password'), // Default password
-            'user_image' => $this->faker->optional()->imageUrl(),
+            'password' => bcrypt('password'), // You can use Hash::make if needed
+            'user_image' => $this->faker->optional()->imageUrl(200, 200, 'people'),
             'type' => $this->faker->randomElement(['admin', 'user', 'company']),
-            'professional_summary' => $this->faker->optional()->paragraph,
+            'professional_summary' => $this->faker->optional()->paragraphs(3, true),
+            'is_active' => $this->faker->boolean(80), // 80% chance of being true
+            'is_connected' => $this->faker->boolean(20), // 20% chance of being true
+            'remember_token' => Str::random(10),
         ];
-    }
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
+    }    /**
+         * Indicate that the model's email address should be unverified.
+         */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

@@ -2,12 +2,15 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class PostCard extends Component
 {
     use WithFileUploads;
+    #[Title('Feed')]
 
     public $content; // For the text input
     public $media; // For the uploaded file (image or video)
@@ -19,6 +22,17 @@ class PostCard extends Component
         'media' => 'nullable|image|max:2048',
     ];
 
+    #[Url()]
+    public $selectedCities = [];
+    public $interests = [
+        'Marketing',
+        'Technology',
+        'Economy',
+        'Business',
+        'Administration',
+        'E-commerce',
+        'IT Management',
+    ];
 
     public function updatedMedia()
     {
@@ -40,7 +54,7 @@ class PostCard extends Component
         //     'content' => $this->content,
         //     'media_path' => $mediaPath ?? null,
         // ]);
-
+        dd($this->selectedCities);
         session()->flash('message', 'Post created successfully!');
         $this->reset(['content', 'media', 'mediaPreview','showCard']);
     }
