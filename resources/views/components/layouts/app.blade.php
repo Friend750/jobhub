@@ -105,11 +105,7 @@
         </li>
     </ul> --}}
 
-<<<<<<< HEAD
 @if (!in_array(Route::currentRouteName(), ['dashboard','users-table','route','login', 'register', 'typeaccount', 'interests','home','EnhanceProfile']))
-=======
-
->>>>>>> 3322a0c8c37b94f19409a07a2e59ce1983634eb6
 @include('livewire.navigation-bar')
 @endif
 
