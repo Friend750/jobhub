@@ -77,7 +77,7 @@
                             <button class="btn btn-light w-100 mb-3">
                                 {{-- <i class="fab fa-google"></i> --}}
                                 Continue with
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"  loading="lazy"
                                     alt="Google G Logo" style="width: 50px; height: auto;">
                             </button>
                             <p class="text-center">Doesn't have an Account? <a href="/register"

@@ -23,7 +23,7 @@
                         <div class="card-body" x-data="{ selected: 'content-article' }">
                             <div class="mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center ">
-                                    <img src="https://via.placeholder.com/50" alt="User"
+                                    <img src="https://via.placeholder.com/50" alt="User" loading="lazy"
                                         class="rounded-circle me-3 h-100">
 
                                     <div class="userInfo">
@@ -108,7 +108,7 @@
                                     <!-- Single Image -->
                                     <div class="my-3">
                                         <div class="rounded">
-                                            <img src="{{ $mediaPreview }}" alt="Image Preview"
+                                            <img src="{{ $mediaPreview }}" alt="Image Preview" loading="lazy"
                                                 class="post-image rounded">
                                         </div>
                                     </div>

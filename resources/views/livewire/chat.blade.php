@@ -30,6 +30,7 @@
                         <img
                             src="https://via.placeholder.com/35?text=User"
                             alt="Profile Picture"
+                             loading="lazy"
                             class="profile-picture rounded-circle mr-2"
                         >
                         <div class="w-100">
@@ -56,6 +57,7 @@
                     <img
                         src="https://via.placeholder.com/35?text=User"
                         alt="Profile Picture"
+                         loading="lazy"
                         class="profile-picture rounded-circle mr-2"
                     >
                     <strong>{{ $selectedChat['name'] }}</strong>

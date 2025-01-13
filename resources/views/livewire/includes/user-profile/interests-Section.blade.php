@@ -19,7 +19,7 @@
                         <a href="" class="text-decoration-none text-dark">
 
                             <div class="d-flex align-items-start justify-content-start">
-                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                <img src="https://via.placeholder.com/50" loading="lazy" class="rounded-circle mr-3"
                                     alt="Company Logo">
                                 <div>
                                     <h6 class="mb-0">Lorem ipsum dolor sit</h6>
@@ -36,7 +36,7 @@
                         <a href="" class="text-decoration-none text-dark">
 
                             <div class="d-flex align-items-start justify-content-start">
-                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                <img src="https://via.placeholder.com/50" loading="lazy" class="rounded-circle mr-3"
                                     alt="Company Logo">
                                 <div>
                                     <h6 class="mb-0">Lorem ipsum dolor sit</h6>
@@ -58,7 +58,7 @@
                         <a href="" class="text-decoration-none text-dark">
 
                             <div class="d-flex align-items-start justify-content-start">
-                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                <img src="https://via.placeholder.com/50" loading="lazy" class="rounded-circle mr-3"
                                     alt="Company Logo">
                                 <div>
                                     <h6 class="mb-0">connection 1</h6>
@@ -73,7 +73,7 @@
                         <a href="" class="text-decoration-none text-dark">
 
                             <div class="d-flex align-items-start justify-content-start">
-                                <img src="https://via.placeholder.com/50" class="rounded-circle mr-3"
+                                <img src="https://via.placeholder.com/50" loading="lazy" class="rounded-circle mr-3"
                                     alt="Company Logo">
                                 <div>
                                     <h6 class="mb-0">connection 2</h6>
