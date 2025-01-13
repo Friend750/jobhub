@@ -12,7 +12,7 @@
         </nav>
             </ul>
         </div>
-       
+
         <!-- قسم قائمة الشركات -->
         <div class="col-md-8 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
@@ -22,8 +22,8 @@
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                 <div class="d-flex align-items-center">
                     <!-- صورة افتراضية للشركة -->
-                    <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}" 
-                         alt="Logo" class="rounded-circle" width="50" height="50">
+                    <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}"
+                         alt="Logo" loading="lazy" class="rounded-circle" width="50" height="50">
                     <div class="ms-3">
                         <strong>{{ $company['name'] }}</strong>
                         <div class="text-muted">{{ $company['id'] }} followers</div>

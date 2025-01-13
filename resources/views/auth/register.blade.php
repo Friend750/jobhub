@@ -84,7 +84,7 @@
                                     </div>
                                     <button class="btn btn-light w-100 mb-3">
                                         Register with
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"  loading="lazy"
                                             alt="Google G Logo" style="width: 50px; height: auto;">
                                     </button>
                                     <div class="text-center">

@@ -46,7 +46,7 @@
 
                                 @include('livewire.includes.dashboard.users-table-header', [
                                     'name' => 'type',
-                                    'display_name' => 'Role',
+                                    'display_name' => 'Account type',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [

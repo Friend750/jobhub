@@ -9,7 +9,7 @@
              <div class="card-body">
                  <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
-                         <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
+                         <img src="https://via.placeholder.com/50"  loading="lazy" alt="User" class="rounded-circle me-3 mr-3">
                          <div>
                              <strong>Company name</strong>
                              <p class="text-muted small mb-0">Hey, how is your project?</p>
@@ -18,7 +18,7 @@
                  </a>
                  <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
-                         <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
+                         <img src="https://via.placeholder.com/50" alt="User"  loading="lazy" class="rounded-circle me-3 mr-3">
                          <div>
                              <strong>Company name</strong>
                              <p class="text-muted small mb-0">Hey, how is your project?</p>
@@ -27,7 +27,7 @@
                  </a>
                  <a href="{{route('chat')}}" class="text-decoration-none text-dark">
                      <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
-                         <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 mr-3">
+                         <img src="https://via.placeholder.com/50" alt="User"  loading="lazy" class="rounded-circle me-3 mr-3">
                          <div>
                              <strong>Company name</strong>
                              <p class="text-muted small">Hey, how is your project?</p>
@@ -52,7 +52,7 @@
          <!-- Feed List -->
          <div class="card-body">
              <div class="d-flex align-items-center mb-3">
-                 <img src="https://via.placeholder.com/50" alt="Company Logo" class="rounded-circle me-3 mr-3">
+                 <img src="https://via.placeholder.com/50" alt="Company Logo"  loading="lazy" class="rounded-circle me-3 mr-3">
                  <div class="flex-grow-1">
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
@@ -61,7 +61,7 @@
              </div>
 
              <div class="d-flex align-items-center mb-3">
-                 <img src="https://via.placeholder.com/50" alt="Company Logo" class="rounded-circle me-3 mr-3">
+                 <img src="https://via.placeholder.com/50" alt="Company Logo"  loading="lazy" class="rounded-circle me-3 mr-3">
                  <div class="flex-grow-1">
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
@@ -70,7 +70,7 @@
              </div>
 
              <div class="d-flex align-items-center ">
-                 <img src="https://via.placeholder.com/50" alt="Company Logo" class="rounded-circle me-3 mr-3">
+                 <img src="https://via.placeholder.com/50" alt="Company Logo"  loading="lazy" class="rounded-circle me-3 mr-3">
                  <div class="flex-grow-1">
                      <a href="#" class="text-dark font-weight-bold">Company name</a>
                      <p class="text-muted small mb-0">Company Major</p>
