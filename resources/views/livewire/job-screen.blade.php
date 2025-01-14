@@ -26,7 +26,7 @@
             <div class="job-listings">
                 <div class="job-listing-card" data-job="1">
                     <div class="profile-photo-container">
-                        <img src="" alt="Profile Photo" class="profile-photo">
+                        <img src="" loading="lazy" alt="Profile Photo" class="profile-photo">
                     </div>
                     <div>
                         <h4>DevOps Engineer</h4>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="job-listing-card" data-job="2">
                     <div class="profile-photo-container">
-                        <img src="" alt="Profile Photo" class="profile-photo">
+                        <img src="" loading="lazy" alt="Profile Photo" class="profile-photo">
                     </div>
                     <div>
                         <h4>DevOps Engineer</h4>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="job-listing-card" data-job="3">
                     <div class="profile-photo-container">
-                        <img src="" alt="Profile Photo" class="profile-photo">
+                        <img src=""  loading="lazy" alt="Profile Photo" class="profile-photo">
                     </div>
                     <div>
                         <h4>Infrastructure Engineer</h4>
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-   
+
 
 
 
@@ -106,10 +106,10 @@ function showJobDetails(jobId) {
     `;
     jobDetails.classList.add('active');
 }
-</script> 
+</script>
 
-  
-{{-- 
+
+{{--
 <script>
  const jobsData = {
     1: {

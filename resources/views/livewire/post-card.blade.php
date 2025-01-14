@@ -26,7 +26,7 @@
                                 <a href="#" class="text-decoration-none text-dark">
 
                                     <div class="d-flex">
-                                        <img src="https://via.placeholder.com/50" alt="User"
+                                        <img src="https://via.placeholder.com/50" alt="User" loading="lazy"
                                             class="rounded-circle me-3 mr-3">
                                         <div class="">
                                             <h5 class="mb-0">Elon Musk</h5>
@@ -75,7 +75,7 @@
                                 to
                                 customers, the production must be better.</p>
                             <div class="image-container">
-                                <img src="https://via.placeholder.com/300" alt="Post Image"
+                                <img src="https://via.placeholder.com/300" alt="Post Image" loading="lazy"
                                     class="img-fluid rounded w-100">
                             </div>
 
@@ -97,7 +97,7 @@
                             {{-- comments section --}}
                             <div class="comments mt-3" x-show="showComments" x-transition x-cloak>
                                 <div class="d-flex align-items-start mb-3">
-                                    <img src="https://via.placeholder.com/40"
+                                    <img src="https://via.placeholder.com/40" loading="lazy"
                                         class="bg-secondary profile-picture-placeholder me-2" style="min-width: 40px;">
                                     </img>
                                     <form action="" method="post" class="d-flex flex-grow-1">
@@ -111,7 +111,7 @@
                                 <div class="comment">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex align-items-center">
-                                            <img src="https://via.placeholder.com/40"
+                                            <img src="https://via.placeholder.com/40"  loading="lazy"
                                                 class="bg-secondary profile-picture-placeholder"></img>
                                             <div class="ms-3">
                                                 <div class="d-flex align-items-center">

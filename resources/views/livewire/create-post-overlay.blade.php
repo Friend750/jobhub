@@ -1,5 +1,5 @@
 <div>
-   
+
 
     <!-- Overlay -->
     <div class="overlay @if ($showCard) d-flex @else d-none @endif ">
@@ -7,7 +7,7 @@
 
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center ">
-                    <img src="https://via.placeholder.com/50" alt="User" class="rounded-circle me-3 h-100">
+                    <img src="https://via.placeholder.com/50" alt="User" loading="lazy" class="rounded-circle me-3 h-100">
                     <div>
                         <h5 class="mb-0">Elon Musk</h5>
                         <div class="dropdown">
@@ -40,7 +40,7 @@
                     <!-- Single Image -->
                     <div class="mt-3">
                         <div class="image-container">
-                            <img src="{{ $mediaPreview }}" alt="Image Preview" class="post-image">
+                            <img src="{{ $mediaPreview }}" loading="lazy" alt="Image Preview" class="post-image">
                         </div>
                     </div>
                 @endif

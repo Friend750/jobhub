@@ -27,26 +27,32 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/',HomePage::class)->name("route");
-Route::get('/Followers',FollowersScreen::class)->name("FollowersScreen");
-Route::get('/CompaniesList',CompanyList::class)->name("CompaniesScreen");
-Route::get('/Following',FollowingScreen::class)->name("FollowingsScreen");
-Route::get('/typeaccount',Typeaccount::class)->name("typeaccount");
-Route::get('/interests',SelectInterests::class)->name("interests");
-Route::get('/home',HomePage::class)->name("home");
-Route::get('/user-profile',UserProfile::class)->name("user-profile");
-Route::get('/JobScreen',JobScreen::class)->name("jobScreen");
-Route::get('/Search',Search::class)->name("search");
-Route::get('/EnhanceProfile',EnhanceProfile::class)->name("EnhanceProfile");
-Route::get('/posts',PostCard::class)->name("post");
-Route::get('/chat',Chat::class)->name("chat");
-Route::get('/notifications',Notifications::class)->name("notifications");
-
-// dashboard routes here
-Route::get('/dashboard',Dashboard::class)->name("dashboard");
-Route::get('/users-table',UsersTable::class)->name("users-table");
-
-
+// Publicly accessible routes
+Route::get('/', HomePage::class)->name("route");
+Route::get('/unauthorized-access', function () {
+    return view('unauthorized'); // Use a clearer view name
+})->name('error');
 Auth::routes();
 
+// Secured routes: Only accessible to authenticated users
+Route::middleware(['auth'])->group(function () {
+    Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
+    Route::get('/interests', SelectInterests::class)->name("interests");
+    Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
+    Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
+    Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
+    Route::get('/home', HomePage::class)->name("home");
+    Route::get('/user-profile', UserProfile::class)->name("user-profile");
+    Route::get('/JobScreen', JobScreen::class)->name("jobScreen");
+    Route::get('/Search', Search::class)->name("search");
+    Route::get('/EnhanceProfile', EnhanceProfile::class)->name("EnhanceProfile");
+    Route::get('/posts', PostCard::class)->name("post");
+    Route::get('/chat', Chat::class)->name("chat");
+    Route::get('/notifications', Notifications::class)->name("notifications");
+});
+
+Route::middleware(['auth', 'IsAdmin'])->group(function () {
+    Route::get('/dashboard', Dashboard::class)->name("dashboard");
+    Route::get('/users-table', UsersTable::class)->name("users-table");
+});
 
