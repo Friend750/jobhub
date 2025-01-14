@@ -21,11 +21,6 @@
                             <i class="bi bi-file-earmark"></i> <span>Jobs</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item mb-2">
-                        <a class="nav-link text-white" href="#">
-                            <i class="bi bi-box-arrow-right"></i> <span>Logout</span>
-                        </a>
-                    </li> --}}
                 </ul>
 
             </div>
