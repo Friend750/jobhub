@@ -1,6 +1,5 @@
 <div>
-    <div wire:loading.target="loadData" wire:loading.class="d-block">
-        <!-- Spinner: Shows while `loadData` is running -->
+    <div wire:loading wire:loading.target="loadData" style="width: 100%;">
         <div class="d-flex justify-content-center align-items-center vh-100 bg-white">
             <div class="d-flex flex-column align-items-center">
                 <h1 class="logoName mb-2">YemenJobs</h1>

@@ -3,16 +3,13 @@
 
         <div class="row justify-content-center">
             <div class="col-lg-8 ">
-
                 <!-- Profile Header -->
-                <div class="card mb-3">
+                <div class="card mb-3 rounded">
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
-                            <img src="https://via.placeholder.com/100?text=User" alt="Profile Picture" loading="lazy"
-                                class="profile-picture rounded-circle">
-                            {{-- <i class="bi bi-person-circle profile-picture" style=""></i> --}}
-
+                            <img src="{{ $temporaryUrl ?? 'https://via.placeholder.com/100?text=User' }}"
+                                alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
 
                             <div class="d-flex align-items-end justify-content-between w-100">
                                 <!-- Left Section -->
@@ -54,31 +51,58 @@
                                 </div>
 
                                 <!-- Right Section -->
-                                <div class="d-flex mt-3">
-                                    <a href="/EnhanceProfile"> <button
-                                            class="btn btn-outline-secondary btn-custom me-2 mr-2">Enhance
-                                            Profile</button></a>
+                                <div class="d-flex mt-3 align-items-center">
+                                    <div class="spinner-border text-dark me-2" role="status" wire:loading
+                                        wire:target='profilePicture'>
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+
+                                    <label for="profilePicture"
+                                        class="mb-0 btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
+                                        <i class="fas fa-camera"></i> Change Photo
+                                    </label>
+                                    <input type="file" id="profilePicture" wire:model="profilePicture" class="d-none"
+                                        accept="image/*">
+
+                                    {{-- <a href="/EnhanceProfile"> <button
+                                            class="btn btn-outline-secondary btn-custom me-2 mr-2 rounded">Enhance
+                                            Profile</button></a> --}}
 
                                     <div x-data="{ open: false }">
 
                                         <button @click="open = !open"
-                                            class="btn btn-outline-secondary btn-custom">More</button>
+                                            class="btn btn-outline-secondary btn-custom rounded">More</button>
 
-                                        <div x-show="open" class="options-card mt-5">
-                                            <ul>
+                                        <div x-show="open" x-cloak x-on:click ="open=false" @click.outside="open=false"
+                                            class="options-card mt-2">
+                                            <ul class="list-unstyled ">
                                                 <li>
-                                                    <label for="profilePicture" class="mb-0">Edit profile picture</label>
-                                                    <input type="file" name="profilePicture" id="profilePicture" class="d-none">
+                                                    <a href="/EnhanceProfile"
+                                                        class=" text-decoration-none text-dark d-flex align-items-center">
+                                                        <i class="fas fa-user-edit me-2"></i>
+                                                        <!-- Font Awesome icon for editing -->
+                                                        Enhance Profile
+                                                    </a>
                                                 </li>
 
-                                                <li data-toggle="modal" data-target="#personalDatails">Edit personal details </li>
-
-                                                <li>Share profile link</li>
-
-                                                <li data-toggle="modal" data-target="#aboutProfileModal">About this
-                                                    profile
+                                                <li class="d-flex align-items-center">
+                                                    <i class="fas fa-share-alt me-2"></i>
+                                                    <!-- Font Awesome icon for sharing -->
+                                                    Share profile link
                                                 </li>
-                                                <li>Activity</li>
+
+                                                <li class="d-flex align-items-center" data-toggle="modal"
+                                                    data-target="#aboutProfileModal">
+                                                    <i class="fas fa-info-circle me-2"></i>
+                                                    <!-- Font Awesome icon for info -->
+                                                    About this profile
+                                                </li>
+
+                                                <li class="d-flex align-items-center">
+                                                    <i class="fas fa-history me-2"></i>
+                                                    <!-- Font Awesome icon for activity -->
+                                                    Activity
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -115,6 +139,11 @@
                         </div>
                     </div>
                 </div>
+
+                @error('profilePicture')
+                    <span class="alert alert-danger d-flex flex-wrap w-100">{{ $message }}</span>
+                @enderror
+
 
                 <!-- General Information Section -->
                 @include('livewire.includes.user-profile.General-Information-Section')

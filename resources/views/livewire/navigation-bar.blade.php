@@ -8,26 +8,34 @@
             @livewire('searchbar')
         </div>
 
+        @if (auth()->user()->type === 'admin')
+            <div class="dashboard-link">
+                <a href="/dashboard" class="nav-link d-flex align-items-center alert alert-success p-0 px-2 m-0">
+                    <span>Admin</span>
+                </a>
+            </div>
+        @endif
+
         <div class="nav-right">
 
             <div class="navbar-icons ms-auto">
-                <a href="/posts"  class="nav-link d-flex flex-column align-items-center">
+                <a href="/posts" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-house-door-fill"></i>
                     <span>Home</span>
                 </a>
-                <a href="/Following"  class="nav-link d-flex flex-column align-items-center">
+                <a href="/Following" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-people-fill"></i>
                     <span>Network</span>
                 </a>
-                <a href="/JobScreen"  class="nav-link d-flex flex-column align-items-center">
+                <a href="/JobScreen" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-briefcase-fill"></i>
                     <span>Jobs</span>
                 </a>
-                <a href="/chat"  class="nav-link d-flex flex-column align-items-center">
+                <a href="/chat" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-chat-dots-fill"></i>
                     <span>Messages</span>
                 </a>
-                <a href="/notifications"  class="nav-link d-flex flex-column align-items-center">
+                <a href="/notifications" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-bell-fill"></i>
                     <span>Notifications</span>
                 </a>

@@ -46,7 +46,7 @@
 
                                 @include('livewire.includes.dashboard.users-table-header', [
                                     'name' => 'type',
-                                    'display_name' => 'Role',
+                                    'display_name' => 'Account type',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
@@ -54,8 +54,20 @@
                                     'display_name' => 'Joined',
                                 ])
 
-                                <th scope="col" class="px-3 py-2 text-muted" wire:click="SetSortBy('updated_at')">Last Update
-                                </th>
+                                @include('livewire.includes.dashboard.users-table-header', [
+                                    'name' => 'is_active',
+                                    'display_name' => 'Account',
+                                ])
+
+                                @include('livewire.includes.dashboard.users-table-header', [
+                                    'name' => 'is_connected',
+                                    'display_name' => 'State',
+                                ])
+
+
+                                {{-- <th scope="col" class="px-3 py-2 text-muted" wire:click="SetSortBy('updated_at')">
+                                    Last Update
+                                </th> --}}
                                 <th scope="col" class="px-3 py-2">
                                     <span class="visually-hidden">Actions</span>
                                 </th>
@@ -79,7 +91,23 @@
                                         @endif
                                     </td>
                                     <td class="px-3 py-2">{{ $user->created_at }}</td>
-                                    <td class="px-3 py-2">{{ $user->updated_at }}</td>
+                                    <td
+                                        class="px-3 py-2 text-{{ $user->is_active == true ? 'success' : 'danger' }}">
+                                        @if ($user->is_active)
+                                            Activated
+                                        @else
+                                            Not activated
+                                        @endif
+                                    </td>
+                                    <td
+                                        class="px-3 py-2 text-{{ $user->is_connected == true ? 'success' : 'secondary' }}">
+                                        @if ($user->is_connected)
+                                            Connected
+                                        @else
+                                            Offline
+                                        @endif
+                                    </td>
+                                    {{-- <td class="px-3 py-2">{{ $user->updated_at }}</td> --}}
                                     <td class="px-3 py-2 text-end">
                                         <div class="d-flex">
                                             {{-- update method --}}

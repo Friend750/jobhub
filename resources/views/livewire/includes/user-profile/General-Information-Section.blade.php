@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card mb-3 rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h5>General Information</h5>
@@ -22,7 +22,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="container-fluid">Add rows here</div>
+                <!-- Professional Summary -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Add a description here..."></textarea>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

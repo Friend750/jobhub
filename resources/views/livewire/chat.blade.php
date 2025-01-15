@@ -1,5 +1,5 @@
-<div 
-    class="container-fluid vh-100 d-flex flex-column" 
+<div
+    class="container-fluid d-flex flex-column" style="height: 93vh;"
     x-data="{
         selectedChat: null,
         isMobile: window.innerWidth <= 768,
@@ -9,32 +9,33 @@
                 container.scrollTop = container.scrollHeight;
             }
         }
-    }" 
+    }"
     @resize.window="isMobile = window.innerWidth <= 768"
 >
     <div class="row flex-grow-1 overflow-hidden">
         <!-- Side Chat List -->
-        <div 
-            class="col-md-4 border-end chat-list d-flex flex-column" 
-            id="chat-list" 
+        <div
+            class="col-md-4 border-end chat-list d-flex flex-column"
+            id="chat-list"
             :class="isMobile && selectedChat ? 'd-none' : ''"
         >
-            <h4 class="mb-3 mt-3 px-3">Chats</h4>
+            {{-- <h4 class="mb-3 mt-3 px-3">Chats</h4> --}}
             <ul class="list-unstyled flex-grow-1 overflow-auto px-3">
                 @foreach($chats as $chat)
-                    <li 
-                        class="d-flex align-items-center p-2 border-bottom" 
-                        @click="$wire.selectChat({{ $chat['id'] }}); selectedChat = true; $nextTick(() => scrollToBottom())" 
+                    <li
+                        class="d-flex align-items-center p-2 border-bottom"
+                        @click="$wire.selectChat({{ $chat['id'] }}); selectedChat = true; $nextTick(() => scrollToBottom())"
                         style="cursor: pointer;"
                     >
-                        <img 
-                            src="https://via.placeholder.com/35?text=User" 
+                        <img
+                            src="https://via.placeholder.com/35?text=User"
                             alt="Profile Picture"
+                             loading="lazy"
                             class="profile-picture rounded-circle mr-2"
                         >
                         <div class="w-100">
                             <strong>{{ $chat['name'] }}</strong>
-                            <p class="text-muted m-0 text-truncate" 
+                            <p class="text-muted m-0 text-truncate"
                                 style="max-width: 12ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                 {{ $chat['last_message'] }}
                             </p>
@@ -45,17 +46,18 @@
         </div>
 
         <!-- Chat Messages -->
-        <div 
-            class="col-md-8 d-flex flex-column" 
+        <div
+            class="col-md-8 d-flex flex-column"
             id="chat-messages"
         >
             @if($selectedChat)
             <!-- Chat Header -->
             <div class="d-flex justify-content-between align-items-center p-1 border-bottom">
                 <div>
-                    <img 
-                        src="https://via.placeholder.com/35?text=User" 
+                    <img
+                        src="https://via.placeholder.com/35?text=User"
                         alt="Profile Picture"
+                         loading="lazy"
                         class="profile-picture rounded-circle mr-2"
                     >
                     <strong>{{ $selectedChat['name'] }}</strong>
@@ -65,15 +67,15 @@
             <!-- Scrollable Chat Messages with Input -->
             <div class="chat-container d-flex flex-column flex-grow-1 overflow-hidden">
                 <!-- Messages Area -->
-                <div 
-                    class="flex-grow-1 overflow-auto p-3 chat-messages-area" 
+                <div
+                    class="flex-grow-1 overflow-auto p-3 chat-messages-area"
                     x-ref="messagesContainer"
                 >
                     @foreach($messages as $message)
-                    <div 
+                    <div
                         class="d-flex {{ $message['from_me'] ? 'justify-content-end' : 'justify-content-start' }} mb-3"
                     >
-                        <div 
+                        <div
                             class="message {{ $message['from_me'] ? 'from-me' : 'from-them' }}"
                         >
                             {{ $message['text'] }}
@@ -84,16 +86,16 @@
                 </div>
 
                 <!-- Input Section -->
-                <div class="chat-input-section p-3 border-top">
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            class="form-control" 
+                <div class="chat-input-section border-top">
+                    <div class="input-group pt-3">
+                        <input
+                            type="text"
+                            class="form-control"
                             placeholder="Write your message"
                             @focus="$nextTick(() => scrollToBottom())"
                         >
-                        <button 
-                            class="btn btn-primary text-white ml-2" 
+                        <button
+                            class="btn btn-primary text-white ml-2 rounded"
                             type="button"
                             @click="$wire.sendMessage(); $nextTick(() => scrollToBottom())"
                         >
