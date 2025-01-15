@@ -204,13 +204,14 @@
                             </div>
 
                             {{-- card footer --}}
-                            <div class="d-flex align-items-start justify-content-between">
-                                <div class="flex-grow-1 me-2">
+                            <div class="d-flex  align-items-end justify-content-between">
+                                <div class="me-2 w-100 flex-grow-1">
 
                                     {{-- ignore must be in a parent container --}}
                                     <div wire:ignore>
 
-                                        <select id="multiDropdown" style="width: 100%;" multiple>
+                                        <select id="multiDropdown" class="form-select"
+                                            data-placeholder="Add any tag(s) to your Post to reach more" multiple>
                                             @foreach ($interests as $key => $interest)
                                                 <option value="{{ $interest }}">{{ $interest }}</option>
                                             @endforeach
@@ -249,7 +250,11 @@
             // Initialize the select2 widget with a placeholder text and allow multiple selection
             $(document).ready(function() {
                 $('#multiDropdown').select2({
-                    placeholder: 'Select a tag(s) to reach more',
+                    theme: "bootstrap-5",
+                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                        'style',
+                    placeholder: $(this).data('placeholder'),
+                    // closeOnSelect: false,
                     allowClear: true,
 
                 });
