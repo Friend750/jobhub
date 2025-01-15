@@ -1,4 +1,4 @@
-<div class="container container d-flex justify-content-center align-items-center vh-100">
+<div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="row col-md-8">
         <div class="rounded p-3 bg-light shadow-sm">
             <h2 class="">What do you want to see on <span class="logo">Yemen Jobs?</span></h2>

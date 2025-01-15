@@ -12,7 +12,7 @@ class Connection extends Model
     use HasFactory,SoftDeletes;
     protected $fillable = 
     [
-'following_id','follower_id'
+'following_id','follower_id','is_accepted'
     ];
     
 

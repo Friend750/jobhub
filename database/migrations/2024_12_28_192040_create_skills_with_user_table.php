@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('skills_with_user', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('skill_id')->references('id')->on('skills');
+
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('skill_id')->references('id')->on('skills')->onDelete('cascade');
+
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
 
