@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('connections', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('following_id')->references('id')->on('users');
-            $table->foreignId('follower_id')->references('id')->on('users');
+            $table->foreignId('following_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('follower_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('is_accepted')->default(false);
 
 
 

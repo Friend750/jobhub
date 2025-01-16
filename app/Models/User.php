@@ -26,7 +26,8 @@ class User extends Authenticatable
         'user_image',
         'professional_summary',
         'is_active',
-        'is_connected'
+        'is_connected',
+        'interests'
     ];
 
     public function scopeSearch($query, $value)
@@ -54,6 +55,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'interests' => 'array'
         ];
     }
 }

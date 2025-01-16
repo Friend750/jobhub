@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id(); // Auto-incrementing primary key
 
             
-            $table->foreignId('conversation_id')->references('id')->on('conversations');
-            $table->foreignId('receiver_id')->references('id')->on('users');
-            $table->foreignId('sender_id')->references('id')->on('users');
+            $table->foreignId('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
+            $table->foreignId('receiver_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('sender_id')->references('id')->on('users')->onDelete('cascade');
 
 
             $table->text('message'); // Chat message content

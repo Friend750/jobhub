@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->text('professional_summary')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_connected')->default(false);
+            $table->json('interests')->nullable();
 
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column

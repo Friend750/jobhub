@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
 
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('course_name'); // Name of the course
             $table->string('institution_name'); // Institution offering the course

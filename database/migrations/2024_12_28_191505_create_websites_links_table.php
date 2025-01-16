@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id(); // Primary key (ID)
             $table->string('website_name'); // Name of the website
             $table->string('link'); // URL link (unique)
-            $table->foreignId('user_id')->references('id')->on('users');
+
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
         });

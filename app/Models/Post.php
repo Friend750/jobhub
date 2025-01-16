@@ -11,12 +11,12 @@ class Post extends Model
     use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'user_created',
+        'creator',
         'page_id',
         'title',
         'content',
         'post_image',
-        'job_post',
+        'tags'
     ];
 
     /**
@@ -25,7 +25,14 @@ class Post extends Model
      */
     public function creator()
     {
-        return $this->belongsTo(User::class, 'user_created');
+        return $this->belongsTo(User::class, 'creator');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'tags' => 'array'
+        ];
     }
 
     /**
@@ -34,6 +41,6 @@ class Post extends Model
      */
     public function page()
     {
-        return $this->belongsTo(Page::class);
+        return $this->belongsTo(Page::class,'page_id');
     }
 }
