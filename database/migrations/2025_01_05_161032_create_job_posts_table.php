@@ -30,7 +30,6 @@ return new class extends Migration
             $table->timestamps(); // created_at و updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      */
