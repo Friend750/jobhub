@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('post_image')->nullable(); // Path or URL of the post image (nullable)
             // $table->boolean('job_post')->default(false); // Boolean field indicating if it's a job post
             $table->json('tags')->nullable();
+            $table->integer('views')->default(0);
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
         });

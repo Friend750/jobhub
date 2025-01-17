@@ -35,6 +35,47 @@ class User extends Authenticatable
         $query->where('user_name', 'like', "%{$value}%")->orWhere('email', 'like', "%{$value}%");
     }
 
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
+
+    public function languages()
+    {
+        return $this->belongsToMany(language::class);
+    }
+
+    public function Experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function Courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function Educations()
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    public function Links()
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function Projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function PersonalDetail()
+    {
+        return $this->hasOne(PersonalDetail::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

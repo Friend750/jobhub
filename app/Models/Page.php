@@ -14,6 +14,7 @@ class Page extends Model
         'name',
         'description',
         'user_id',
+        'views'
     ];
 
     /**

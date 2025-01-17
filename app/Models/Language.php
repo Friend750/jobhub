@@ -10,9 +10,15 @@ class Language extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable = 
+    [
         'language',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
     /**
      * Define the relationship with the User model.

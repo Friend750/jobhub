@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('skills_with_user', function (Blueprint $table) {
-            $table->id(); // Primary key (ID)
-
+        Schema::create('language_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('skill_id')->references('id')->on('skills')->onDelete('cascade');
-
-            $table->timestamps(); // created_at and updated_at columns
-            $table->softDeletes(); // Adds the 'deleted_at' column
-
+            $table->foreignId('language_id')->references('id')->on('languages')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('skills_with_user');
+        Schema::dropIfExists('language_user');
     }
 };

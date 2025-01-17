@@ -10,7 +10,8 @@ class Interaction extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = [
+    protected $fillable = 
+    [
         'user_id',
         'post_id',
         'type',
