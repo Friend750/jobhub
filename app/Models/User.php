@@ -99,4 +99,9 @@ class User extends Authenticatable
             'interests' => 'array'
         ];
     }
+
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'users.'.$this->id;
+    }
 }
