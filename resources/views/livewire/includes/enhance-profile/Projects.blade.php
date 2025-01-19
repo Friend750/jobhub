@@ -1,7 +1,13 @@
 <section class="form-section rounded">
     <h5 data-toggle="collapse" data-target="#projects">
         Projects
-        <i class="fas fa-caret-down"></i>
+        <div class="d-flex align-items-center">
+            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)" title="Remove section">
+                <i class="fas fa-trash"></i>
+            </button>
+
+            <i class="fas fa-caret-down caret-icon"></i>
+        </div>
     </h5>
     <p>List your projects, their descriptions, and key outcomes or contributions.</p>
     <div id="projects" class="collapse">

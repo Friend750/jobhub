@@ -37,14 +37,13 @@
                         {{-- <i class="fab fa-google"></i> --}}
                         Or you can Continue with
                         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
-                            loading="lazy" alt="Google G Logo" style="width: 50px; height: auto;">
+                            alt="Google G Logo" style="width: 50px; height: auto;">
                     </button>
 
 
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ asset('images/hero.png') }}" loading="lazy" alt="Hero Image"
-                        class="img-fluid custom-image w-100">
+                    <img src="{{ asset('images/hero.png') }}" alt="Hero Image" class="img-fluid custom-image w-100">
                 </div>
             </div>
         </div>

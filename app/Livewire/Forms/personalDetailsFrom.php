@@ -2,37 +2,35 @@
 
 namespace App\Livewire\Forms;
 
+use App\Livewire\EnhanceProfile;
+use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
+use Livewire\Component;
 use Livewire\Form;
 
 class personalDetailsFrom extends Form
 {
-    public $firstName;
-    public $lastName;
-    public $jobTitle;
-    public $email;
-    public $phone;
-    public $city;
+    #[Rule('required|string|max:255')]
+    public $firstName = "";
 
-    public function rules()
-    {
-        return [
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
-            'jobTitle' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|numeric|digits_between:10,15',
-            'city' => 'required|string|max:255',
-        ];
-    }
+    #[Rule('required|string|max:255')]
+    public $lastName = "";
 
+    #[Rule('required|string|max:255')]
+    public $jobTitle = "";
 
+    #[Rule('required|email|max:255')]
+    public $email = "";
+
+    #[Rule('required|numeric|digits_between:10,15')]
+    public $phone = "";
+
+    #[Rule('required|string|max:255')]
+    public $city = "";
 
     public function submit()
     {
         $this->validate();
-        $this->reset();
-        // Perform the necessary action (e.g., saving data)
-        session()->flash('success', 'Personal details submitted successfully!');
+        // $this->reset();
     }
 }

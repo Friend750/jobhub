@@ -2,23 +2,21 @@
 
 namespace App\Livewire\Forms;
 
+use App\Livewire\EnhanceProfile;
+use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
+use Livewire\Component;
 use Livewire\Form;
 
 class ProfessionalSummaryForm extends Form
 {
-    public $description;
-    public function rules()
-    {
-        return [
-            'description' => 'required|string|min:50|max:500',
-        ];
-    }
+    #[Rule('required|string|min:50|max:500')]
+    public $description = "";
 
     public function submit()
     {
         $this->validate();
-        $this->reset();
-        // Handle the submission logic (e.g., save to the database)
+        // $this->reset();
     }
+
 }

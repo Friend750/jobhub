@@ -58,32 +58,26 @@
                                     </div>
 
                                     <label for="profilePicture"
-                                        class="mb-0 btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
-                                        <i class="fas fa-camera"></i> Change Photo
+                                        class="mb-0 text-dark btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
+                                        <i class="fas fa-camera"></i> Edit Photo
                                     </label>
                                     <input type="file" id="profilePicture" wire:model="profilePicture" class="d-none"
                                         accept="image/*">
 
-                                    {{-- <a href="/EnhanceProfile"> <button
-                                            class="btn btn-outline-secondary btn-custom me-2 mr-2 rounded">Enhance
-                                            Profile</button></a> --}}
+                                    <a href="/EnhanceProfile"
+                                        class=" text-decoration-none text-dark d-flex align-items-center btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
+                                        <i class="fas fa-user-edit me-2"></i>
+                                        Enhance Profile
+                                    </a>
 
                                     <div x-data="{ open: false }">
 
                                         <button @click="open = !open"
-                                            class="btn btn-outline-secondary btn-custom rounded">More</button>
+                                            class="btn text-dark btn-outline-secondary btn-custom rounded">More</button>
 
                                         <div x-show="open" x-cloak x-on:click ="open=false" @click.outside="open=false"
                                             class="options-card mt-2">
                                             <ul class="list-unstyled ">
-                                                <li>
-                                                    <a href="/EnhanceProfile"
-                                                        class=" text-decoration-none text-dark d-flex align-items-center">
-                                                        <i class="fas fa-user-edit me-2"></i>
-                                                        <!-- Font Awesome icon for editing -->
-                                                        Enhance Profile
-                                                    </a>
-                                                </li>
 
                                                 <li class="d-flex align-items-center">
                                                     <i class="fas fa-share-alt me-2"></i>

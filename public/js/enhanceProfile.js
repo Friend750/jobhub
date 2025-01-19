@@ -1,57 +1,3 @@
-// <!-- Websites & Social Links -->
-
-let linkCount = 1; // Initial count of links
-
-function addLink() {
-    const links = document.querySelectorAll('.link-block');
-    linkCount = links.length + 1;
-
-    const newLink = document.createElement('div');
-    newLink.classList.add('row', 'mb-3', 'link-block');
-    newLink.innerHTML = `
-                <div class="form-group col-md-6">
-                    <label for="website${linkCount}" style="min-width: 150px;">Website Name ${linkCount}</label>
-                    <input type="text" class="form-control" placeholder="e.g., LinkedIn, GitHub, Portfolio">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="link${linkCount}" style="min-width: 150px;">Link ${linkCount}</label>
-                    <input type="text" class="form-control" placeholder="e.g., https://linkedin.com/in/yourprofile">
-                </div>
-                <div class="text-right mt-3">
-                    <i class="bi bi-trash-fill btn btn-outline-danger rounded" onclick="removeLink(this)"></i>
-                </div>
-            `;
-    document.getElementById('linksContainer').appendChild(newLink);
-}
-
-function removeLink(element) {
-    const linkBlock = element.closest('.link-block');
-    if (linkBlock && linkBlock.id !== 'initialLink') {
-        linkBlock.remove();
-    }
-
-    const links = document.querySelectorAll('.link-block');
-    links.forEach((link, index) => {
-        const newNumber = index + 1;
-        const nameLabel = link.querySelector('label[for^="website"]');
-        const nameInput = link.querySelector('input[id^="website"]');
-        if (nameLabel && nameInput) {
-            nameLabel.setAttribute('for', `website${newNumber}`);
-            nameLabel.textContent = `Website Name ${newNumber}`;
-            nameInput.setAttribute('id', `website${newNumber}`);
-        }
-
-        const linkLabel = link.querySelector('label[for^="link"]');
-        const linkInput = link.querySelector('input[id^="link"]');
-        if (linkLabel && linkInput) {
-            linkLabel.setAttribute('for', `link${newNumber}`);
-            linkLabel.textContent = `Link ${newNumber}`;
-            linkInput.setAttribute('id', `link${newNumber}`);
-        }
-    });
-}
-
-
 // <!-- Education -->
 
 let educationCount = 1; // Initial count of education entries
@@ -428,3 +374,4 @@ function removeLanguage(element) {
         }
     });
 }
+

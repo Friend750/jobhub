@@ -1,7 +1,13 @@
 <section class="form-section rounded">
     <h5 data-toggle="collapse" data-target="#Experience">
         Experiences
-        <i class="fas fa-caret-down"></i>
+        <div class="d-flex align-items-center">
+            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)" title="Remove section">
+                <i class="fas fa-trash"></i>
+            </button>
+
+            <i class="fas fa-caret-down caret-icon"></i>
+        </div>
     </h5>
     <p>Add details about your previous work experience. You can include multiple positions.</p>
     <div id="Experience" class="collapse">
