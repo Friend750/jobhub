@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->foreignId('creator')->references('id')->on('users')->onDelete('cascade');
 
-
             $table->string('job_title');
             $table->text('about_job');
             $table->text('job_tasks');
@@ -28,10 +27,10 @@ return new class extends Migration
             $table->enum('target', ['to_any_one', 'connection_only']);
             $table->boolean('is_active')->default(true);
             $table->boolean('job_post')->default(true); 
+            $table->integer('views')->default(0);
             $table->timestamps(); // created_at و updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      */

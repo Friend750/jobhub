@@ -11,16 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) 
+        {
             $table->id(); // Primary key (ID)
             $table->string('name'); // Name of the page
             $table->text('description')->nullable(); // Description of the page (nullable)
+            $table->integer('views')->default(0);
 
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-
+            
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
-        });
+        }
+        );
     }
 
     /**

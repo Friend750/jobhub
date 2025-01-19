@@ -21,7 +21,8 @@ class JobPost extends Model
         'tags',
         'target',
         'is_active',
-        'job_post'
+        'job_post',
+        'views'
     ];
 
     public function creator()

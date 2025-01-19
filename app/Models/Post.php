@@ -16,7 +16,8 @@ class Post extends Model
         'title',
         'content',
         'post_image',
-        'tags'
+        'tags',
+        'views'
     ];
 
     /**
