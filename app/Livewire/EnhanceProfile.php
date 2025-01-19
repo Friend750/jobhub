@@ -31,7 +31,7 @@ class EnhanceProfile extends Component
 
     public function saveAllForms()
     {
-        $this->PDFrom->validate();
+        $this->validate();
     }
         public function render()
     {
