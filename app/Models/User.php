@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,75 @@ class User extends Authenticatable
     {
         $query->where('user_name', 'like', "%{$value}%")->orWhere('email', 'like', "%{$value}%");
     }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
+                    ->withPivot('is_accepted')
+                    ->withTimestamps();
+    }
+    
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'connections', 'follower_id', 'following_id')
+                    ->withPivot('is_accepted')
+                    ->withTimestamps();
+    }
+    
+
+public function acceptedFollowers()
+{
+    return $this->Followers()
+    ->wherePivot('is_accepted', 1)
+    ->where('type', '!=', 'company');
+}
+
+public function acceptedFollowings()
+{
+    return $this->Followings()
+    ->wherePivot('is_accepted', 1)
+    ->where('type', '!=', 'company');
+}
+
+// public function nonCompanyFollowers()
+// {
+//     return $this->followers()->where('type', '!=', 'company');
+// }
+
+// public function nonCompanyFollowings()
+// {
+//     return $this->followings()->where('type', '!=', 'company');
+// }
+
+public function companies()
+{
+    return User::where('type', 'company')
+        ->where(function ($query) {
+            $query->whereHas('followers', function ($subQuery) {
+                $subQuery->where('follower_id', Auth::id());
+            })
+            ->orWhereHas('followings', function ($subQuery) {
+                $subQuery->where('following_id', Auth::id());
+            });
+        })
+        ->with([
+            'followers' => function ($query) {
+                $query->where('follower_id', Auth::id())
+                      ->withPivot('is_accepted'); // جلب العمود المحوري
+            },
+            'followings' => function ($query) {
+                $query->where('following_id', Auth::id())
+                      ->withPivot('is_accepted'); // جلب العمود المحوري
+            }
+        ]);
+}
+
+
+
+public function Page()
+{
+    return $this->hasOne(Page::class);
+}
 
 
     public function skills()

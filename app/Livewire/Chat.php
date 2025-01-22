@@ -20,12 +20,11 @@ class Chat extends Component
     public $newMessage = false; // لتحديد إذا كانت هناك رسالة جديدة
     public $currentUserId; // معرف المستخدم الحالي
 
-    protected $listeners = ['messageReceived' => 'loadMore'];
+    protected $listeners = ['messageReceived' => 'loadMore','refreshSelected' => 'conversationSelected'];
     public $paginateVar =10;
 
-    public function mount()
+    public function mount($conversationId = null)
     {  
-        
         $this->chats = Conversation::with(['firstUser', 'secondUser'])
         ->orderBy('updated_at', 'desc') // ترتيب المحادثات حسب آخر تحديث
         ->take(5) // جلب أول 5 محادثات
@@ -41,16 +40,13 @@ class Chat extends Component
             ];
         })            
         ->toArray();  
+        if($conversationId != null)
+        {
+       $this->selectChat($conversationId);
+        }
         $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
         
     }
-
-
-    // protected $listeners = 
-    // [
-    //     'loadMore' => 'loadMore',
-    // ];
-   
 
     public function sendMessage()
 {
@@ -144,7 +140,7 @@ public function loadMessages()
 public function selectChat($chatId)
 {
     $this->selectedChat = collect($this->chats)->firstWhere('id', $chatId);
-
+    
     // عدد الرسائل المحملة مبدئيًا
     $this->paginateVar = 10;
 

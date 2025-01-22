@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Search', Search::class)->name("search");
     Route::get('/EnhanceProfile', EnhanceProfile::class)->name("EnhanceProfile");
     Route::get('/posts', PostCard::class)->name("post");
-    Route::get('/chat', Chat::class)->name("chat");
+    Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
     Route::get('/notifications', Notifications::class)->name("notifications");
 });
 
