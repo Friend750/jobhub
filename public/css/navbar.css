@@ -42,9 +42,6 @@
 }
 
 
-html, body {
-    overflow-x: hidden;
-}
 
 .navbar-icons i {
     font-size: 22px; /* حجم الأيقونة */
