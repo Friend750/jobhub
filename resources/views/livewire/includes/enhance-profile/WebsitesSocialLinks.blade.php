@@ -2,7 +2,7 @@
     <h5 data-toggle="collapse" data-target="#websitesLinks">
         Websites & Social Links
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)"  title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('websites_social_links')"  title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
             <i class="fas fa-caret-down caret-icon"></i>

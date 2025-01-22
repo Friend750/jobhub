@@ -13,7 +13,7 @@
 
 
 
-    
+
     {{-- favicon --}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
@@ -29,7 +29,7 @@
     {{-- bootstrap theme link with select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.0.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 
-    <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script>
+    {{-- <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script> --}}
 
 
 

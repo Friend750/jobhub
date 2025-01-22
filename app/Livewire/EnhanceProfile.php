@@ -33,12 +33,12 @@ class EnhanceProfile extends Component
         // method 1
         // This will validate all forms but can't run submit methods for each form
         // $this->validate();
-        
+
         // method 2 -- access only validataions -- don't work
         // $this->PDFrom->validate();
         // $this->PSForm->validate();
         // $this->WLForm->validate();
-        
+
         // method 3 with buildin validation -- works!
         $this->PDFrom->submit();
         $this->PSForm->submit();

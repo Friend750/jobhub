@@ -2,7 +2,8 @@
     <h5 data-toggle="collapse" data-target="#skills">
         Skills
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)" title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('skills')"
+                title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
 
@@ -20,8 +21,8 @@
                         {{-- ignore must be in a parent container --}}
                         <div wire:ignore>
 
-                            <select class="form-select" id="multiDropdown" data-placeholder="Add any skill(s) to your profile"
-                                multiple>
+                            <select class="form-select" id="multiDropdown"
+                                data-placeholder="Add any skill(s) to your profile" multiple>
                                 @foreach ($skills as $key => $skill)
                                     <option value="{{ $skill->name }}">{{ $skill->name }}</option>
                                 @endforeach
@@ -35,3 +36,37 @@
         </div>
     </div>
 </div>
+
+
+@script()
+    <script>
+        // Initialize the select2 widget with a placeholder text and allow multiple selection
+        $(document).ready(function() {
+            $('#multiDropdown').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                closeOnSelect: false,
+                allowClear: true,
+            });
+
+            // Add custom event listeners to the select2 widget
+            $('#multiDropdown').on('change', function() {
+                // Get the selected options
+                let $data = $(this).val();
+
+                // Update the selectedCities property from the Blade
+                // with false indicating that no server request is made or simply use the method 2
+
+                // method 1
+                $wire.set('SelectedSkills', $data, false);
+
+                // method 2
+                // $wire.selectedCities =$data;
+            });
+
+
+        });
+    </script>
+@endscript
