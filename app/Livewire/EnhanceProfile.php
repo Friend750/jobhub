@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
@@ -21,6 +22,7 @@ class EnhanceProfile extends Component
     public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
     public EducationForm $EDForm;
+    public CoursesForm $CoursesForm;
 
     // WebsitesLinksForm
     public function addRow()
@@ -40,6 +42,14 @@ class EnhanceProfile extends Component
     public function removeEducationRow($index)
     {
         $this->EDForm->removeRow($index);
+    }
+
+    // CoursesForm
+    public function addCourseRow(){
+        $this->CoursesForm->addRow();
+    }
+    public function removeCourseRow($index){
+        $this->CoursesForm->removeRow($index);
     }
 
     public function IsActive($section)
@@ -62,6 +72,10 @@ class EnhanceProfile extends Component
 
         if ($this->IsActive('education')) {
             $this->EDForm->submit();
+        }
+
+        if ($this->IsActive('courses')) {
+            $this->CoursesForm->submit();
         }
 
         // sesstion flash message

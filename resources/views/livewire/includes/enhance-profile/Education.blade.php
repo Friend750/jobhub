@@ -6,7 +6,6 @@
                 title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
-
             <i class="fas fa-caret-down caret-icon"></i>
         </div>
     </h5>

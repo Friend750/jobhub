@@ -2,7 +2,8 @@
     <h5 data-toggle="collapse" data-target="#professionalSummary">
         <span>Professional Summary</span>
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('professional_summary')" title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button"
+                x-on:click="toggleSection('professional_summary')" title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
 
@@ -15,8 +16,9 @@
         <div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" wire:model="PSForm.description" rows="3"
-                    placeholder="Add a description here..."></textarea>
+                <textarea class="form-control @error('PSForm.description') is-invalid
+                @enderror" id="description"
+                    wire:model="PSForm.description" rows="3" placeholder="Add a description here..."></textarea>
                 @error('PSForm.description')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
