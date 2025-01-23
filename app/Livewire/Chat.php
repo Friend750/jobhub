@@ -20,11 +20,13 @@ class Chat extends Component
     public $newMessage = false; // لتحديد إذا كانت هناك رسالة جديدة
     public $currentUserId; // معرف المستخدم الحالي
 
-    protected $listeners = ['messageReceived' => 'loadMore','refreshSelected' => 'conversationSelected'];
+    protected $listeners = ['messageReceived' => 'loadMore'];
     public $paginateVar =10;
 
     public function mount($conversationId = null)
     {  
+        $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
+
         $this->chats = Conversation::with(['firstUser', 'secondUser'])
         ->orderBy('updated_at', 'desc') // ترتيب المحادثات حسب آخر تحديث
         ->take(5) // جلب أول 5 محادثات
@@ -42,10 +44,32 @@ class Chat extends Component
         ->toArray();  
         if($conversationId != null)
         {
-       $this->selectChat($conversationId);
+            $conversation = Conversation::with(['firstUser', 'secondUser'])->find($conversationId);
+            if($this->isUserPartOfConversation($conversation))
+            {
+                $this->selectChat($conversationId);
+            }
+            else
+            {
+                redirect('/unauthorized-access');
+            }
+            
         }
-        $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
         
+    }
+
+    public function  isUserPartOfConversation($conversation)
+    {
+        if ($conversation->firstUser->id === $this->currentUserId || $conversation->secondUser->id === $this->currentUserId) 
+        {
+            // Auth user is either firstUser or secondUser
+            return true;
+        } 
+        else 
+        {
+            // Auth user is not part of the conversation
+            return false;
+        }
     }
 
     public function sendMessage()

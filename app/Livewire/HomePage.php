@@ -13,6 +13,12 @@ class HomePage extends Component
     {
         sleep(3); // Simulate a delay for the database query
     }
+    public function mount()
+    {
+        if (auth()) {
+            redirect('/posts');
+        }
+    }
     public function render()
     {
         return view('livewire.home-page');

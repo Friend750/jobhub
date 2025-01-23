@@ -24,7 +24,7 @@
                             <select class="form-select" id="multiDropdown"
                                 data-placeholder="Add any skill(s) to your profile" multiple>
                                 @foreach ($skills as $key => $skill)
-                                    <option value="{{ $skill->name }}">{{ $skill->name }}</option>
+                                    <option value="{{ $skill->id }}">{{ $skill->name }}</option>
                                 @endforeach
                             </select>
 
