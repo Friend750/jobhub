@@ -29,7 +29,7 @@
     {{-- bootstrap theme link with select2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.0.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
 
-    {{-- <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script> --}}
+    <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script>
 
 
 

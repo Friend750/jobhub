@@ -24,8 +24,8 @@
     @php
     // التحقق من حالات المتابعة
     $connection = DB::table('connections')
-        ->where('follower_id', auth()->id())
-        ->where('following_id', $following['id'])
+        ->where('follower_id', $following['id'])
+        ->where('following_id', auth()->id())
         ->first();
 
     // تحقق من حالات مختلفة
@@ -37,7 +37,7 @@
     class="btn 
         {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }} 
         btn-sm"
-    wire:click="{{ $isFollowing ? 'unFollow(' . $following['id'] . ')' : 'follow(' . $following['id'] . ')' }}">
+        wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $following['id'] . ')' : 'follow(' . $following['id'] . ')') : '' }}">
     {{ $isFollowing ? 'UnFollow' : ($isRequested ? 'Requested' : 'Follow') }}
 </button>
 

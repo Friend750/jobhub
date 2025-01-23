@@ -102,3 +102,10 @@
  {
     color: #f0f4fb;
  }
+
+ .notification-badge {
+    font-size: 4px; /* تصغير حجم النص داخل الشارة */
+    padding: 2px 4px; /* ضبط الحجم الداخلي للشارة */
+    border-radius: 50%; /* جعل الشكل دائريًا */
+    color: white; /* لون النص */
+}

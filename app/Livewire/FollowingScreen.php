@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Experience;
+use App\Notifications\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -26,15 +27,15 @@ public function mount()
             'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title,
             'user_image' => $follower->user_image ?? null,
         ];
-    })->toArray();
+    });
 }    
 
 public function unFollow($connectionId)
     {
         // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
              DB::table('connections')
-            ->where('follower_id',Auth::id()) // المستخدم الحالي هو المتابع
-            ->where('following_id',  $connectionId) // ID الذي تم تمريره
+            ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
+            ->where('following_id',  Auth::id()) // ID الذي تم تمريره
             ->delete(); // Soft Delete
 
 
@@ -44,16 +45,24 @@ public function unFollow($connectionId)
 
     public function follow($connectionId)
     {
+        
+        $receiver = $this->getUserById($connectionId);
+        
         DB::table('connections')->insert([
-            'follower_id' => Auth::id(),
-            'following_id' => $connectionId,
+            'follower_id' => $connectionId,
+            'following_id' => Auth::id(),
             'is_accepted' => 0,
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        $receiver->notify(new Request( auth()->user(),$receiver));
         
     }
 
+    public function getUserById($receiverId)
+    {
+    return User::find($receiverId); 
+    }
     public function render()
     {
         return view('livewire.following-screen');

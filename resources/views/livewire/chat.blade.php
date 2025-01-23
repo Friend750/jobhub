@@ -17,11 +17,13 @@
         class="row flex-grow-1 overflow-hidden"
         x-data 
         x-init="
-            console.log('Echo initialized');
-            let channel = Echo.private('users.{{ auth()->user()->id }}');
-            channel.notification((notification) => {
-                $wire.dispatch('messageReceived');
-            });
+             console.log('Echo initialized');
+    let channel = Echo.private('users.{{ auth()->user()->id }}');
+    channel.notification((notification) => {
+        if (notification.type === 'App\\Notifications\\SentMessage') {
+            $wire.dispatch('messageReceived');
+        } 
+        });
         "
     >
         <!-- Side Chat List -->

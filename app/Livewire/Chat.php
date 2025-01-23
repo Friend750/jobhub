@@ -103,7 +103,7 @@ class Chat extends Component
 
 public function getUserById($receiverId)
 {
-    return User::find($receiverId)->first(); // جلب كائن User باستخدام المعرف
+    return User::find($receiverId); // جلب كائن User باستخدام المعرف
 }
 
 
@@ -121,8 +121,7 @@ public function loadMore()
     $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
         ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
         ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
-        ->get()
-        ->toArray();
+        ->get();
 
     // دمج الرسائل الجديدة مع الرسائل الحالية
     $this->messages = array_merge($this->messages, $newMessages);
@@ -148,8 +147,7 @@ public function loadMessages()
         ->take(10) // تحميل 10 رسائل فقط
         ->get()
         ->sortBy('created_at') // إعادة الترتيب ليصبح الأقدم أولاً
-        ->values()
-        ->toArray();
+        ->values();
 
     // تحديث عدد الرسائل المحملة
     $this->paginateVar += count($newMessages);
@@ -174,8 +172,7 @@ public function selectChat($chatId)
         ->take($this->paginateVar)
         ->get()
         ->sortBy('created_at') // إعادة ترتيب الرسائل ليصبح الأقدم أولاً
-        ->values()
-        ->toArray();
+        ->values();
 }
 
 

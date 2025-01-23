@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('livewire.navigation-bar', function ($view) {
+            $countNotifications = DB::table('notifications')
+                ->where('notifiable_id', auth()->id())
+                ->where('type', '!=', 'App\\Notifications\\SentMessage')
+                ->whereNull('read_at')
+                ->count();
+    
+            $view->with('countNotifications', $countNotifications);
+        });
     }
 }
