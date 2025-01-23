@@ -15,6 +15,7 @@ class EnhanceProfile extends Component
 {
     #[Title('Profile Enhancement')]
     public $SelectedSkills = [];
+    public $activeSections = ['Personal_Details'];
     public personalDetailsFrom $PDFrom;
     public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
@@ -28,22 +29,29 @@ class EnhanceProfile extends Component
         $this->WLForm->removeRow($index);
     }
 
+    public function IsActive($section)
+    {
+        return in_array($section, $this->activeSections);
+    }
+
     public function saveAllForms()
     {
-        // method 1
-        // This will validate all forms but can't run submit methods for each form
-        // $this->validate();
 
-        // method 2 -- access only validataions -- don't work
-        // $this->PDFrom->validate();
-        // $this->PSForm->validate();
-        // $this->WLForm->validate();
+        if ($this->IsActive('personal_details')) {
+            $this->PDFrom->submit();
+        }
 
-        // method 3 with buildin validation -- works!
-        $this->PDFrom->submit();
-        $this->PSForm->submit();
-        $this->WLForm->submit();
-        dd('All forms are valid');
+        if ($this->IsActive('professional_summary')) {
+            $this->PSForm->submit();
+        }
+
+        if ($this->IsActive('websites_social_links')) {
+            $this->WLForm->submit();
+        }
+
+        // sesstion flash message
+        session()->flash('message', 'Profile Updated Successfully');
+
     }
 
 

@@ -3,16 +3,22 @@
         <form wire:submit.prevent="saveAllForms" class="row d-flex justify-content-center">
 
             <!-- Main Layout -->
-            <div x-data="sectionManager">
+            <div x-data="sectionManager(@this)">
                 <div class="row">
 
                     <!-- Content Area -->
                     <div class="col-md-9">
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
+                        @if (session()->has('message'))
+                            <div class="form-section p-0 mt-0">
+                                <div class="alert alert-success alert-dismissible rounded fade show" role="alert">
+                                    {{ session('message') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             </div>
                         @endif
+
+
                         @include('livewire.includes.enhance-profile.PersonalDetails')
 
                         <div x-show="activeSections.includes('professional_summary')" x-cloak class="mb-4">
@@ -123,17 +129,19 @@
         </form>
     </div>
 </div>
-<!-- Alpine.js Data Script -->
+
 <script>
+    // if we want to use $wire in alpine scope we need to pass wire to the component name 'sectionManager' then receive as '@this'
     document.addEventListener('alpine:init', () => {
-        Alpine.data('sectionManager', () => ({
-            activeSections: [],
+        Alpine.data('sectionManager', (wire) => ({ // 'wire' important to access Livewire properties
+            activeSections: ['Personal_Details'],
             toggleSection(section) {
                 if (this.activeSections.includes(section)) {
                     this.activeSections = this.activeSections.filter(s => s !== section);
                 } else {
                     this.activeSections.push(section);
                 }
+                wire.set('activeSections', this.activeSections);
             }
         }));
     });
