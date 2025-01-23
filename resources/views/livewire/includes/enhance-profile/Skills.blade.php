@@ -2,7 +2,8 @@
     <h5 data-toggle="collapse" data-target="#skills">
         Skills
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)" title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)"
+                title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
 
@@ -20,10 +21,10 @@
                         {{-- ignore must be in a parent container --}}
                         <div wire:ignore>
 
-                            <select class="form-select" id="multiDropdown" data-placeholder="Add any skill(s) to your profile"
-                                multiple>
+                            <select class="form-select" id="multiDropdown"
+                                data-placeholder="Add any skill(s) to your profile" multiple>
                                 @foreach ($skills as $key => $skill)
-                                    <option value="{{ $skill->name }}">{{ $skill->name }}</option>
+                                    <option value="{{ $skill->id }}">{{ $skill->name }}</option>
                                 @endforeach
                             </select>
 

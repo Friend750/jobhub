@@ -1,6 +1,6 @@
 <div>
     <div class="container mt-5" x-data="app">
-        <div >
+        <div>
             <form wire:submit.prevent="saveAllForms" class="row row d-flex justify-content-center">
                 <!-- Content area -->
                 <div class="col-md-7">
@@ -53,64 +53,56 @@
                             <i class="bi bi-person"></i> Personal Details
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('professional_summary')"
-                            :class="{
+                            @click.prevent="toggleSection('professional_summary')" :class="{
                                 'disabled': activeSections.includes('professional_summary'),
                                 'text-muted': activeSections.includes('professional_summary')
                             }">
                             <i class="bi bi-card-text"></i> Professional Summary
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('websites_social_links')"
-                            :class="{
+                            @click.prevent="toggleSection('websites_social_links')" :class="{
                                 'disabled': activeSections.includes('websites_social_links'),
                                 'text-muted': activeSections.includes('websites_social_links')
                             }">
                             <i class="bi bi-link"></i> Websites & Social Links
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('education')"
-                            :class="{
+                            @click.prevent="toggleSection('education')" :class="{
                                 'disabled': activeSections.includes('education'),
                                 'text-muted': activeSections.includes('education')
                             }">
                             <i class="bi bi-pencil"></i> Education
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('courses')"
-                            :class="{
+                            @click.prevent="toggleSection('courses')" :class="{
                                 'disabled': activeSections.includes('courses'),
                                 'text-muted': activeSections.includes('courses')
                             }">
                             <i class="bi bi-journal"></i> Courses
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('skills')"
-                            :class="{
+                            @click.prevent="toggleSection('skills')" :class="{
                                 'disabled': activeSections.includes('skills'),
                                 'text-muted': activeSections.includes('skills')
                             }">
                             <i class="bi bi-lightbulb"></i> Skills
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('experiences')"
-                            :class="{
+                            @click.prevent="toggleSection('experiences')" :class="{
                                 'disabled': activeSections.includes('experiences'),
                                 'text-muted': activeSections.includes('experiences')
                             }">
                             <i class="bi bi-briefcase"></i> Experiences
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('projects')"
-                            :class="{
+                            @click.prevent="toggleSection('projects')" :class="{
                                 'disabled': activeSections.includes('projects'),
                                 'text-muted': activeSections.includes('projects')
                             }">
                             <i class="bi bi-folder"></i> Projects
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('languages')"
-                            :class="{
+                            @click.prevent="toggleSection('languages')" :class="{
                                 'disabled': activeSections.includes('languages'),
                                 'text-muted': activeSections.includes('languages')
                             }">
@@ -154,8 +146,8 @@
 </script>
 
 @script()
-    <script>
-        // Initialize the select2 widget with a placeholder text and allow multiple selection
+<script>
+    // Initialize the select2 widget with a placeholder text and allow multiple selection
         $(document).ready(function() {
             $('#multiDropdown').select2({
                 theme: "bootstrap-5",
@@ -180,8 +172,6 @@
                 // method 2
                 // $wire.selectedCities =$data;
             });
-
-
         });
-    </script>
+</script>
 @endscript

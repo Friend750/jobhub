@@ -35,33 +35,33 @@
                         <thead class=" bg-light">
                             <tr>
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'user_name',
-                                    'display_name' => 'Name',
+                                'name' => 'user_name',
+                                'display_name' => 'Name',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'email',
-                                    'display_name' => 'Email',
+                                'name' => 'email',
+                                'display_name' => 'Email',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'type',
-                                    'display_name' => 'Account type',
+                                'name' => 'type',
+                                'display_name' => 'Account type',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'created_at',
-                                    'display_name' => 'Joined',
+                                'name' => 'created_at',
+                                'display_name' => 'Joined',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'is_active',
-                                    'display_name' => 'Account',
+                                'name' => 'is_active',
+                                'display_name' => 'Account',
                                 ])
 
                                 @include('livewire.includes.dashboard.users-table-header', [
-                                    'name' => 'is_connected',
-                                    'display_name' => 'State',
+                                'name' => 'is_connected',
+                                'display_name' => 'State',
                                 ])
 
 
@@ -75,89 +75,86 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                                <tr wire:key={{ $user->id }} class="border-bottom">
-                                    <td scope="row" class="px-3 py-2">
-                                        {{ $user->user_name }}
-                                    </td>
-                                    <td class="px-3 py-2">{{ $user->email }}</td>
-                                    <td
-                                        class="px-3 py-2 text-{{ $user->type === 'admin' ? 'success' : ($user->type === 'user' ? 'primary' : 'secondary') }}">
-                                        @if ($user->type === 'admin')
-                                            Admin
-                                        @elseif ($user->type === 'user')
-                                            Member
-                                        @else
-                                            Company
-                                        @endif
-                                    </td>
-                                    <td class="px-3 py-2">{{ $user->created_at }}</td>
-                                    <td
-                                        class="px-3 py-2 text-{{ $user->is_active == true ? 'success' : 'danger' }}">
-                                        @if ($user->is_active)
-                                            Activated
-                                        @else
-                                            Not activated
-                                        @endif
-                                    </td>
-                                    <td
-                                        class="px-3 py-2 text-{{ $user->is_connected == true ? 'success' : 'secondary' }}">
-                                        @if ($user->is_connected)
-                                            Connected
-                                        @else
-                                            Offline
-                                        @endif
-                                    </td>
-                                    {{-- <td class="px-3 py-2">{{ $user->updated_at }}</td> --}}
-                                    <td class="px-3 py-2 text-end">
-                                        <div class="d-flex">
-                                            {{-- update method --}}
-                                            <button class="btn btn-primary btn-sm me-2">
-                                                <i class="bi bi-file-text-fill"></i>
+                            <tr wire:key={{ $user->id }} class="border-bottom">
+                                <td scope="row" class="px-3 py-2">
+                                    {{ $user->user_name }}
+                                </td>
+                                <td class="px-3 py-2">{{ $user->email }}</td>
+                                <td
+                                    class="px-3 py-2 text-{{ $user->type === 'admin' ? 'success' : ($user->type === 'user' ? 'primary' : 'secondary') }}">
+                                    @if ($user->type === 'admin')
+                                    Admin
+                                    @elseif ($user->type === 'user')
+                                    Member
+                                    @else
+                                    Company
+                                    @endif
+                                </td>
+                                <td class="px-3 py-2">{{ $user->created_at }}</td>
+                                <td class="px-3 py-2 text-{{ $user->is_active == true ? 'success' : 'danger' }}">
+                                    @if ($user->is_active)
+                                    Activated
+                                    @else
+                                    Not activated
+                                    @endif
+                                </td>
+                                <td class="px-3 py-2 text-{{ $user->is_connected == true ? 'success' : 'secondary' }}">
+                                    @if ($user->is_connected)
+                                    Connected
+                                    @else
+                                    Offline
+                                    @endif
+                                </td>
+                                {{-- <td class="px-3 py-2">{{ $user->updated_at }}</td> --}}
+                                <td class="px-3 py-2 text-end">
+                                    <div class="d-flex">
+                                        {{-- update method --}}
+                                        <button class="btn btn-primary btn-sm me-2">
+                                            <i class="bi bi-file-text-fill"></i>
+                                        </button>
+
+                                        {{-- read method --}}
+                                        <button class="btn btn-primary btn-sm me-2">
+                                            <i class="bi bi-pen-fill"></i>
+                                        </button>
+
+                                        {{-- delete method --}}
+                                        <div x-data="{ showOverlay: false }">
+                                            <!-- Button to show the overlay -->
+                                            <button @click="showOverlay = !showOverlay" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash-fill"></i>
                                             </button>
 
-                                            {{-- read method --}}
-                                            <button class="btn btn-primary btn-sm me-2">
-                                                <i class="bi bi-pen-fill"></i>
-                                            </button>
-
-                                            {{-- delete method --}}
-                                            <div x-data="{ showOverlay: false }">
-                                                <!-- Button to show the overlay -->
-                                                <button @click="showOverlay = !showOverlay"
-                                                    class="btn btn-danger btn-sm">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-
-                                                <div x-show="showOverlay" x-cloak>
-                                                    <!-- Overlay -->
-                                                    <div style="z-index: 999"
-                                                        class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
-                                                        <div class="bg-white p-4 rounded shadow-lg text-center"
-                                                            @click.outside="showOverlay = !showOverlay" role="dialog"
-                                                            aria-labelledby="modalTitle" aria-describedby="modalDesc">
-                                                            <h2 id="modalTitle" class="fs-5 fw-bold mb-3">
-                                                                Are you sure you want to delete <span
-                                                                    class="text-danger">{{ $user->user_name }}</span>?
-                                                            </h2>
-                                                            <p id="modalDesc">This action cannot be undone.</p>
-                                                            <div class="d-flex justify-content-center gap-3">
-                                                                <!-- Confirm Deletion -->
-                                                                <button wire:click="delete(@js($user->id))"
-                                                                    class="btn btn-danger">
-                                                                    Yes, Delete
-                                                                </button>
-                                                                <!-- Cancel -->
-                                                                <button @click="showOverlay = false"
-                                                                    class="btn btn-secondary">Cancel</button>
-                                                            </div>
+                                            <div x-show="showOverlay" x-cloak>
+                                                <!-- Overlay -->
+                                                <div style="z-index: 999"
+                                                    class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+                                                    <div class="bg-white p-4 rounded shadow-lg text-center"
+                                                        @click.outside="showOverlay = !showOverlay" role="dialog"
+                                                        aria-labelledby="modalTitle" aria-describedby="modalDesc">
+                                                        <h2 id="modalTitle" class="fs-5 fw-bold mb-3">
+                                                            Are you sure you want to delete <span class="text-danger">{{
+                                                                $user->user_name }}</span>?
+                                                        </h2>
+                                                        <p id="modalDesc">This action cannot be undone.</p>
+                                                        <div class="d-flex justify-content-center gap-3">
+                                                            <!-- Confirm Deletion -->
+                                                            <button wire:click="delete(@js($user->id))"
+                                                                class="btn btn-danger">
+                                                                Yes, Delete
+                                                            </button>
+                                                            <!-- Cancel -->
+                                                            <button @click="showOverlay = false"
+                                                                class="btn btn-secondary">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
-                                    </td>
-                                </tr>
+
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
