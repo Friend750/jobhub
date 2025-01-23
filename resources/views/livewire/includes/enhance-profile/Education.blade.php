@@ -2,7 +2,8 @@
     <h5 data-toggle="collapse" data-target="#education">
         Education
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" @click="removeSection(section)" title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('education')"
+                title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
 
@@ -15,13 +16,11 @@
             <div class="row mb-3 education-block" id="initialEducation">
                 <div class="form-group col-md-6">
                     <label for="degree1" style="min-width: 150px;">Degree</label>
-                    <input type="text" class="form-control"
-                        placeholder="Degree (e.g., Bachelor's, Master's)">
+                    <input type="text" class="form-control" placeholder="Degree (e.g., Bachelor's, Master's)">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="certification1" style="min-width: 150px;">Certification Name</label>
-                    <input type="text" class="form-control"
-                        placeholder="e.g., AWS Certified Solutions Architect">
+                    <input type="text" class="form-control" placeholder="e.g., AWS Certified Solutions Architect">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="institution1" style="min-width: 150px;">Institution Name</label>
@@ -43,7 +42,8 @@
             </div>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <button class="btn btn-primary rounded" onclick="addEducation()">+ Add one more Education</button>
+            <button type="button" class="btn btn-primary rounded" onclick="addEducation()">+ Add one more
+                Education</button>
         </div>
     </div>
 </section>

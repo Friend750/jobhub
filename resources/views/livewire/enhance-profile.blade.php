@@ -1,50 +1,51 @@
 <div>
-    <div class="container mt-5" x-data="app">
-        <div>
-            <form wire:submit.prevent="saveAllForms" class="row row d-flex justify-content-center">
-                <!-- Content area -->
-                <div class="col-md-7">
-                    @include('livewire.includes.enhance-profile.PersonalDetails')
+    <div class="container mt-5">
+        <form wire:submit.prevent="saveAllForms" class="row d-flex justify-content-center">
 
-                    <template x-for="section in activeSections" :key="section">
-                        <div class="rounded position-relative">
-                            <!-- Section content -->
+            <!-- Main Layout -->
+            <div x-data="sectionManager(@this)">
+                <div class="row">
 
-                            <div x-show="section === 'professional_summary'">
-                                @include('livewire.includes.enhance-profile.ProfessionalSummary')
+                    <!-- Content Area -->
+                    <div class="col-md-9">
+                        @if (session()->has('message'))
+                            <div class="form-section p-0 mt-0">
+                                <div class="alert alert-success alert-dismissible rounded fade show" role="alert">
+                                    {{ session('message') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
                             </div>
+                        @endif
 
-                            <div x-show="section === 'websites_social_links'">
-                                @include('livewire.includes.enhance-profile.WebsitesSocialLinks')
-                            </div>
 
-                            <div x-show="section === 'education'">
+                        @include('livewire.includes.enhance-profile.PersonalDetails')
 
-                                @include('livewire.includes.enhance-profile.Education')
-                            </div>
-
-                            <div x-show="section === 'courses'">
-                                @include('livewire.includes.enhance-profile.Courses')
-                            </div>
-
-                            <div x-show="section === 'skills'">
-                                @include('livewire.includes.enhance-profile.Skills')
-                            </div>
-
-                            <div x-show="section === 'experiences'">
-                                @include('livewire.includes.enhance-profile.Experiences')
-                            </div>
-
-                            <div x-show="section === 'projects'">
-                                @include('livewire.includes.enhance-profile.Projects')
-                            </div>
-
-                            <div x-show="section === 'languages'">
-                                @include('livewire.includes.enhance-profile.Languages')
-                            </div>
+                        <div x-show="activeSections.includes('professional_summary')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.ProfessionalSummary')
                         </div>
-                    </template>
-                </div>
+                        <div x-show="activeSections.includes('websites_social_links')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.WebsitesSocialLinks')
+                        </div>
+                        <div x-show="activeSections.includes('education')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Education')
+                        </div>
+                        <div x-show="activeSections.includes('courses')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Courses')
+                        </div>
+                        <div x-show="activeSections.includes('skills')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Skills')
+                        </div>
+                        <div x-show="activeSections.includes('experiences')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Experiences')
+                        </div>
+                        <div x-show="activeSections.includes('projects')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Projects')
+                        </div>
+                        <div x-show="activeSections.includes('languages')" x-cloak class="mb-4">
+                            @include('livewire.includes.enhance-profile.Languages')
+                        </div>
+                    </div>
 
                 <!-- Sidebar with options -->
                 <div class="col-md-3">
@@ -53,101 +54,102 @@
                             <i class="bi bi-person"></i> Personal Details
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('professional_summary')" :class="{
+                            @click.prevent="toggleSection('professional_summary')"
+                            :class="{
                                 'disabled': activeSections.includes('professional_summary'),
                                 'text-muted': activeSections.includes('professional_summary')
                             }">
                             <i class="bi bi-card-text"></i> Professional Summary
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('websites_social_links')" :class="{
+                            @click.prevent="toggleSection('websites_social_links')"
+                            :class="{
                                 'disabled': activeSections.includes('websites_social_links'),
                                 'text-muted': activeSections.includes('websites_social_links')
                             }">
                             <i class="bi bi-link"></i> Websites & Social Links
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('education')" :class="{
+                            @click.prevent="toggleSection('education')"
+                            :class="{
                                 'disabled': activeSections.includes('education'),
                                 'text-muted': activeSections.includes('education')
                             }">
                             <i class="bi bi-pencil"></i> Education
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('courses')" :class="{
+                            @click.prevent="toggleSection('courses')"
+                            :class="{
                                 'disabled': activeSections.includes('courses'),
                                 'text-muted': activeSections.includes('courses')
                             }">
                             <i class="bi bi-journal"></i> Courses
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('skills')" :class="{
+                            @click.prevent="toggleSection('skills')"
+                            :class="{
                                 'disabled': activeSections.includes('skills'),
                                 'text-muted': activeSections.includes('skills')
                             }">
                             <i class="bi bi-lightbulb"></i> Skills
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('experiences')" :class="{
+                            @click.prevent="toggleSection('experiences')"
+                            :class="{
                                 'disabled': activeSections.includes('experiences'),
                                 'text-muted': activeSections.includes('experiences')
                             }">
                             <i class="bi bi-briefcase"></i> Experiences
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('projects')" :class="{
+                            @click.prevent="toggleSection('projects')"
+                            :class="{
                                 'disabled': activeSections.includes('projects'),
                                 'text-muted': activeSections.includes('projects')
                             }">
                             <i class="bi bi-folder"></i> Projects
                         </a>
                         <a href="#" class="list-group-item list-group-item-action"
-                            @click.prevent="toggleSection('languages')" :class="{
+                            @click.prevent="toggleSection('languages')"
+                            :class="{
                                 'disabled': activeSections.includes('languages'),
                                 'text-muted': activeSections.includes('languages')
                             }">
                             <i class="bi bi-translate"></i> Languages
                         </a>
 
-                        <!-- Confirm Button -->
-                        <button class="btn btn-primary rounded flex-grow-1 mt-2" type="submit">Confirm &
-                            Save all</button>
-
+                            <!-- Confirm Button -->
+                            <button class="btn btn-primary rounded flex-grow-1 mt-2">Confirm &
+                                Save all</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
 
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
-<script src="{{ asset('js/enhanceProfile.js') }}"></script>
-
 <script>
+    // if we want to use $wire in alpine scope we need to pass wire to the component name 'sectionManager' then receive as '@this'
     document.addEventListener('alpine:init', () => {
-        Alpine.data('app', () => ({
-            activeSections: [],
-
+        Alpine.data('sectionManager', (wire) => ({ // 'wire' important to access Livewire properties
+            activeSections: ['Personal_Details'],
             toggleSection(section) {
                 if (this.activeSections.includes(section)) {
-                    // Remove the section if it exists
                     this.activeSections = this.activeSections.filter(s => s !== section);
                 } else {
-                    // Add the section if it doesn't exist
                     this.activeSections.push(section);
                 }
-            },
-            removeSection(section) {
-                // Remove the section from activeSections
-                this.activeSections = this.activeSections.filter(s => s !== section);
+                wire.set('activeSections', this.activeSections);
             }
         }));
     });
 </script>
 
 @script()
-<script>
-    // Initialize the select2 widget with a placeholder text and allow multiple selection
+    <script>
+        // Initialize the select2 widget with a placeholder text and allow multiple selection
         $(document).ready(function() {
             $('#multiDropdown').select2({
                 theme: "bootstrap-5",
@@ -172,6 +174,8 @@
                 // method 2
                 // $wire.selectedCities =$data;
             });
+
+
         });
-</script>
+    </script>
 @endscript
