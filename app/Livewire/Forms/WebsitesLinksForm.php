@@ -17,10 +17,7 @@ class WebsitesLinksForm extends Form
     public $websites = [
         ['website_name' => '', 'link' => '']
     ];
-    // protected $rules = [
-    //     'websites.*.name' => 'required|string|max:255',
-    //     'websites.*.link' => 'required|url'
-    // ];
+
     protected $messages = [
         'websites.*.website_name.required' => 'The website :position name is required.',
         'websites.*.link.required' => 'The website :position link is required.',
