@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\EducationForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\WebsitesLinksForm;
@@ -15,11 +16,13 @@ class EnhanceProfile extends Component
 {
     #[Title('Profile Enhancement')]
     public $SelectedSkills = [];
-    public $activeSections = ['Personal_Details'];
+    public $activeSections = [];
     public personalDetailsFrom $PDFrom;
     public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
+    public EducationForm $EDForm;
 
+    // WebsitesLinksForm
     public function addRow()
     {
         $this->WLForm->addRow();
@@ -29,6 +32,16 @@ class EnhanceProfile extends Component
         $this->WLForm->removeRow($index);
     }
 
+    // EducationForm
+    public function addEducationRow()
+    {
+        $this->EDForm->addRow();
+    }
+    public function removeEducationRow($index)
+    {
+        $this->EDForm->removeRow($index);
+    }
+
     public function IsActive($section)
     {
         return in_array($section, $this->activeSections);
@@ -36,10 +49,8 @@ class EnhanceProfile extends Component
 
     public function saveAllForms()
     {
-
-        if ($this->IsActive('personal_details')) {
-            $this->PDFrom->submit();
-        }
+        // dd($this->activeSections);
+        $this->PDFrom->submit();
 
         if ($this->IsActive('professional_summary')) {
             $this->PSForm->submit();
@@ -47,6 +58,10 @@ class EnhanceProfile extends Component
 
         if ($this->IsActive('websites_social_links')) {
             $this->WLForm->submit();
+        }
+
+        if ($this->IsActive('education')) {
+            $this->EDForm->submit();
         }
 
         // sesstion flash message

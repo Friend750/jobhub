@@ -18,9 +18,8 @@
                             </div>
                         @endif
 
-
                         @include('livewire.includes.enhance-profile.PersonalDetails')
-
+                        
                         <div x-show="activeSections.includes('professional_summary')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.ProfessionalSummary')
                         </div>
@@ -134,7 +133,7 @@
     // if we want to use $wire in alpine scope we need to pass wire to the component name 'sectionManager' then receive as '@this'
     document.addEventListener('alpine:init', () => {
         Alpine.data('sectionManager', (wire) => ({ // 'wire' important to access Livewire properties
-            activeSections: ['Personal_Details'],
+            activeSections: [],
             toggleSection(section) {
                 if (this.activeSections.includes(section)) {
                     this.activeSections = this.activeSections.filter(s => s !== section);
