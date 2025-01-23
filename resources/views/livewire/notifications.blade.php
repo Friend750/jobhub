@@ -1,4 +1,12 @@
-<div class="container mt-4 col-8">
+<div class="container mt-4 col-8" x-data x-init="
+     console.log('Echo initialized');
+let channel = Echo.private('users.{{ auth()->user()->id }}');
+channel.notification((notification) => {
+if (notification.type === 'App\\Notifications\\Request') {
+    $wire.dispatch('messageReceived');
+} 
+});
+">
     <div class="row">
         <!-- قسم الإحصائيات -->
         <div class="col-md-3 mt-3">
@@ -46,183 +54,44 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content mt-3" id="myTabContent">
-                            <!-- محتوى التبويبة 1 -->
-                            <div class="tab-pane fade show active text-center" id="All" role="tabpanel"
-                                aria-labelledby="tab1-tab">
-                                <!-- إشعار -->
-                                <div class="alert alert-light color-bg-blue-light">
-                                    <strong>Patrick</strong> added a comment on Design Assets - Smart Tags file:
-                                    "Looks perfect, send it for technical review tomorrow!"
-                                    <span class="float-right d-flex flex-column">
-                                        15h
-                                        <!-- عنصر القائمة المنسدلة -->
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div
-                                    class="alert alert-light d-flex justify-content-between align-items-center color-bg-blue-light">
-                                    <div>
-                                        <strong>Ashwin Bose</strong> is requesting access to Design File - Final
-                                        Project.
-                                        <div>
-                                            <button class="btn btn-sm blue mt-2">Accept</button>
-                                            <button class="btn btn-outline-primary btn-sm mt-2">Decline</button>
-                                        </div>
-                                    </div>
-                                    <span class="float-right d-flex flex-column">15h
-
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                </div>
-                                <div
-                                    class="alert alert-light d-flex justify-content-between align-items-center color-bg-blue-light">
-                                    <div>
-                                        <strong>Ashwin Bose</strong> is requesting access to Design File - Final
-                                        Project.
-                                        <div>
-                                            <button class="btn btn-sm blue mt-2">Accept</button>
-                                            <button class="btn btn-outline-primary btn-sm mt-2">Decline</button>
-                                        </div>
-                                    </div>
-                                    <span class="float-right d-flex flex-column">15h
-
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                </div>
-                                <!-- إشعارات أخرى -->
-                                <div class="alert alert-light">
-                                    <strong>Patrick</strong> added a comment on Design Assets - Smart Tags file:
-                                    "Looks perfect, send it for technical review tomorrow!"
-                                    <span class="float-right d-flex flex-column">
-                                        15h
-                                        <!-- عنصر القائمة المنسدلة -->
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div class="alert alert-light">
-                                    <strong>Samantha</strong> has shared a file with you
-                                    <span class="float-right d-flex flex-column">12h
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                </div>
-                                <div class="alert alert-light">
-                                    <strong>Steve and 8 others</strong> added comments on Design Assets - Smart Tags
-                                    file
-                                    <span class="float-right d-flex flex-column">10h
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- محتوى التبويبة 2 -->
-                            <div class="tab-pane fade text-center" id="Unread" role="tabpanel"
-                                aria-labelledby="tab3-tab">
-                                <!-- إشعارات أخرى -->
-                                <div class="alert alert-light color-bg-blue-light">
-                                    <strong>Patrick</strong> added a comment on Design Assets - Smart Tags file:
-                                    "Looks perfect, send it for technical review tomorrow!"
-                                    <span class="float-right d-flex flex-column">
-                                        15h
-                                        <!-- عنصر القائمة المنسدلة -->
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"
-                                                style="cursor: pointer;"></i>
-                                            <ul class="dropdown-menu dropdown-menu-end"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                <li><a class="dropdown-item" href="#">Turn off notifications</a></li>
-                                            </ul>
-                                        </div>
-                                    </span>
-                                    <br>
-                                    <br>
-                                </div>
-                                <div>
+                        <div>
+                            <div class="tab-content mt-3" id="myTabContent">
+                                <div class="tab-pane fade show active" id="All" role="tabpanel">
+                                    @foreach ($notifications as $notification)
                                     <div
-                                        class="alert alert-light d-flex justify-content-between align-items-center color-bg-blue-light">
+                                        class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
                                         <div>
-                                            <strong>Ashwin Bose</strong> is requesting access to Design File - Final
-                                            Project.
+                                            <strong>
+                                                {{ $notification['user_name'] ?? 'Unknown Sender' }}
+                                            </strong>
+                                            @if ($notification['type'] === 'App\\Notifications\\Request')
+                                            wants to follow you.
                                             <div>
-                                                <button class="btn btn-sm blue mt-2">Accept</button>
-                                                <button class="btn btn-outline-primary btn-sm mt-2">Decline</button>
+                                                <button class="btn btn-sm blue mt-2"
+                                                    wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">Accept</button>
+                                                <button class="btn btn-outline-primary btn-sm mt-2"
+                                                    wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">Decline</button>
                                             </div>
+                                            @else
+                                            added a comment: "{{ $notification['data']['message'] ?? 'No message
+                                            provided' }}"
+                                            @endif
                                         </div>
-                                        <span class="float-right d-flex flex-column">15h
-
+                                        <span class="float-right d-flex flex-column">
+                                            {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ??
+                                            'Unknown time' }}
                                             <div class="dropdown">
                                                 <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
                                                     data-bs-toggle="dropdown" aria-expanded="false"
                                                     style="cursor: pointer;"></i>
                                                 <ul class="dropdown-menu dropdown-menu-end"
                                                     aria-labelledby="dropdownMenuButton">
-                                                    <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                                    <li>
+                                                        <button class="dropdown-item"
+                                                            wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                            Mark as read
+                                                        </button>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
                                                     <li><a class="dropdown-item" href="#">Turn off notifications</a>
                                                     </li>
@@ -230,25 +99,45 @@
                                             </div>
                                         </span>
                                     </div>
+                                    @endforeach
+                                </div>
+                                <div class="tab-pane fade text-center" id="Unread" role="tabpanel"
+                                    aria-labelledby="tab3-tab">
+                                    @foreach ($notifications->where('read_at', null) as $notification)
                                     <div
-                                        class="alert alert-light d-flex justify-content-between align-items-center color-bg-blue-light">
+                                        class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
                                         <div>
-                                            <strong>Ashwin Bose</strong> is requesting access to Design File - Final
-                                            Project.
+                                            <strong>
+                                                {{ $notification['user_name'] ?? 'Unknown Sender' }}
+                                            </strong>
+                                            @if ($notification['type'] === 'App\\Notifications\\Request')
+                                            wants to follow you.
                                             <div>
-                                                <button class="btn btn-sm blue mt-2">Accept</button>
-                                                <button class="btn btn-outline-primary btn-sm mt-2">Decline</button>
+                                                <button class="btn btn-sm blue mt-2"
+                                                    wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">Accept</button>
+                                                <button class="btn btn-outline-primary btn-sm mt-2"
+                                                    wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">Decline</button>
                                             </div>
+                                            @else
+                                            added a comment: "{{ $notification['data']['message'] ?? 'No message
+                                            provided' }}"
+                                            @endif
                                         </div>
-                                        <span class="float-right d-flex flex-column">15h
-
+                                        <span class="float-right d-flex flex-column">
+                                            {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ??
+                                            'Unknown time' }}
                                             <div class="dropdown">
                                                 <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
                                                     data-bs-toggle="dropdown" aria-expanded="false"
                                                     style="cursor: pointer;"></i>
                                                 <ul class="dropdown-menu dropdown-menu-end"
                                                     aria-labelledby="dropdownMenuButton">
-                                                    <li><a class="dropdown-item" href="#">Mark as read</a></li>
+                                                    <li>
+                                                        <button class="dropdown-item"
+                                                            wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                            Mark as read
+                                                        </button>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
                                                     <li><a class="dropdown-item" href="#">Turn off notifications</a>
                                                     </li>
@@ -256,55 +145,12 @@
                                             </div>
                                         </span>
                                     </div>
-                                </div>
-                            </div>
+                                    @endforeach
 
-                            <div class="tab-pane fade text-center" id="Mentions" role="tabpanel"
-                                aria-labelledby="tab2-tab">
-                                <div>
-                                    <div class="alert alert-light d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <strong>Samantha</strong> has shared a file with you
-                                        </div>
-                                        <span class="float-right d-flex flex-column">12h
-                                            <div class="dropdown">
-                                                <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                    style="cursor: pointer;"></i>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                    <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                    <li><a class="dropdown-item" href="#">Turn off notifications</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </span>
-                                    </div>
-                                    <div class="alert alert-light d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <strong>Steve and 8 others</strong> added comments on Design Assets - Smart
-                                            Tags
-                                        </div>
-                                        {{-- file --}}
-                                        <span class="float-right d-flex flex-column">10h
-                                            <div class="dropdown">
-                                                <i class="fa-solid fa-ellipsis pb-2" id="dropdownMenuButton"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                    style="cursor: pointer;"></i>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    <li><a class="dropdown-item" href="#">Mark as read</a></li>
-                                                    <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                    <li><a class="dropdown-item" href="#">Turn off notifications</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

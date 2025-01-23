@@ -38,14 +38,14 @@ class User extends Authenticatable
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
+        return $this->belongsToMany(User::class, 'connections', 'follower_id', 'following_id')
                     ->withPivot('is_accepted')
                     ->withTimestamps();
     }
     
     public function followings()
     {
-        return $this->belongsToMany(User::class, 'connections', 'follower_id', 'following_id')
+        return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
                     ->withPivot('is_accepted')
                     ->withTimestamps();
     }

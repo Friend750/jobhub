@@ -37,7 +37,14 @@
                 </a>
                 <a href="/notifications" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-bell-fill"></i>
-                    <span>Notifications</span>
+                    <span>
+                        Notifications
+                        @if ($countNotifications > 0)
+                        <span class="ml-4 badge badge-danger notification-badge">
+                            {{ $countNotifications }}
+                        </span>
+                    @endif                    
+                    </span>
                 </a>
             </div>
 
