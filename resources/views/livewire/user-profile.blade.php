@@ -166,7 +166,9 @@
             </div>
 
             <div class="col-lg-3 p-0">
-                @livewire('ChatAndFeed')
+                <div class="MakeSticky">
+                    @livewire('ChatAndFeed')
+                </div>
             </div>
         </div>
     </div>

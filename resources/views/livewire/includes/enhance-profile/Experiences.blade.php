@@ -84,7 +84,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="d-flex justify-content-end align-items-center mt-3">
+        <div class="d-flex justify-content-end align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click="addExperience">Add Experience</button>
             @if ($index > 0)
                 <i class="bi bi-trash-fill btn btn-primary rounded ms-2"

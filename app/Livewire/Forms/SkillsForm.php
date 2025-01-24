@@ -8,7 +8,7 @@ use Livewire\Form;
 
 class SkillsForm extends Form
 {
-    #[Validate([
+    #[Rule([
         'skills' => 'required|array|min:2',
         'skills.*' => 'exists:skills,id',
     ])]

@@ -50,7 +50,7 @@
 
                     <!-- Sidebar with options -->
                     <div class="col-md-3">
-                        <div class="list-group rounded">
+                        <div class="list-group rounded MakeSticky">
                             <a href="#" class="list-group-item list-group-item-action disabled text-muted">
                                 <i class="bi bi-person"></i> Personal Details
                             </a>
