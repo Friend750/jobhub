@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
+use App\Livewire\Forms\ExperienceForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
+use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
 use App\Models\Skill;
@@ -24,6 +26,8 @@ class EnhanceProfile extends Component
     public EducationForm $EDForm;
     public CoursesForm $CoursesForm;
     public SkillsForm $SkillsForm;
+    public ExperienceForm $ExperienceForm;
+    public ProjectsForm $ProjectsForm;
     public $SelectedSkills;
 
     // WebsitesLinksForm
@@ -56,6 +60,22 @@ class EnhanceProfile extends Component
         $this->CoursesForm->removeRow($index);
     }
 
+    // ExperienceForm
+    public function addExperience(){
+        $this->ExperienceForm->addRow();
+    }
+    public function removeExperience($index){
+        $this->ExperienceForm->removeRow($index);
+    }
+
+    // ProjectsForm
+    public function addProject(){
+        $this->ProjectsForm->addRow();
+    }
+    public function removeProject($index){
+        $this->ProjectsForm->removeRow($index);
+    }
+
     public function IsActive($section)
     {
         return in_array($section, $this->activeSections);
@@ -84,6 +104,14 @@ class EnhanceProfile extends Component
 
         if ($this->IsActive('skills')) {
             $this->SkillsForm->submit($this->SelectedSkills);
+        }
+
+        if ($this->IsActive('experiences')) {
+            $this->ExperienceForm->submit();
+        }
+
+        if ($this->IsActive('projects')) {
+            $this->ProjectsForm->submit();
         }
 
         // sesstion flash message

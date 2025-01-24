@@ -16,6 +16,8 @@ class SkillsForm extends Form
 
     public function submit($SelectedSkills)
     {
+        // the name of current property must be different
+        // it will not work if set $this->SelectedSkills = $SelectedSkills
         $this->skills = $SelectedSkills;
 
         // dd($this->SelectedSkills);

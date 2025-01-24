@@ -59,8 +59,6 @@
             @if ($index > 0)
             <i class="bi bi-trash-fill btn btn-primary rounded ms-2"
                 wire:click="removeCourseRow({{ $index }})"></i>
-                {{-- <div class="d-flex align-items-center justify-content-end">
-                </div> --}}
             @endif
         </div>
     </div>
