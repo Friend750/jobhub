@@ -116,7 +116,6 @@
     !in_array(Route::currentRouteName(), [
         'dashboard',
         'users-table',
-        'route',
         'login',
         'register',
         'typeaccount',

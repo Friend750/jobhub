@@ -9,12 +9,20 @@
             </div>
         </div>
 
-        <ul class="list-unstyled d-flex flex-wrap" x-data="{ skills: @entangle('skills'), limit: 7 }">
+        <ul class="list-unstyled d-flex flex-wrap" x-data="{ skills: @entangle('skills'), limit: 7, defaultLimit: 7 }">
+            <!-- Display a message when no skills are available -->
+            <li class="text-muted" x-show="skills.length === 0">No skills added yet</li>
+
+            <!-- Display each skill -->
             <template x-for="(skill, index) in skills" :key="index">
                 <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill"></li>
             </template>
-            <li class="btn btn-secondary m-1" x-show="skills.length > limit" @click="limit = skills.length"
-                x-text="'+' + (skills.length - limit) + ' more'">
+
+            <!-- Show 'More' or 'Less' button -->
+            <li class="btn btn-secondary m-1"
+                x-show="skills.length > defaultLimit"
+                @click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
+                x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
             </li>
         </ul>
 

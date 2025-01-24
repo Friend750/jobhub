@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -15,8 +16,8 @@ class HomePage extends Component
     }
     public function mount()
     {
-        if (auth()) {
-            redirect('/posts');
+        if (Auth::check()) { // Only redirect if the user is authenticated
+            return redirect('/posts');
         }
     }
     public function render()
