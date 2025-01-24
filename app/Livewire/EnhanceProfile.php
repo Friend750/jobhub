@@ -6,6 +6,7 @@ use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
+use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
 use App\Models\Skill;
 use Livewire\Attributes\Rule;
@@ -16,13 +17,14 @@ use Livewire\Component;
 class EnhanceProfile extends Component
 {
     #[Title('Profile Enhancement')]
-    public $SelectedSkills = [];
     public $activeSections = [];
     public personalDetailsFrom $PDFrom;
     public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
     public EducationForm $EDForm;
     public CoursesForm $CoursesForm;
+    public SkillsForm $SkillsForm;
+    public $SelectedSkills;
 
     // WebsitesLinksForm
     public function addRow()
@@ -45,10 +47,12 @@ class EnhanceProfile extends Component
     }
 
     // CoursesForm
-    public function addCourseRow(){
+    public function addCourseRow()
+    {
         $this->CoursesForm->addRow();
     }
-    public function removeCourseRow($index){
+    public function removeCourseRow($index)
+    {
         $this->CoursesForm->removeRow($index);
     }
 
@@ -59,7 +63,7 @@ class EnhanceProfile extends Component
 
     public function saveAllForms()
     {
-        // dd($this->activeSections);
+        // dd($this->SkillsForm->SelectedSkills);
         $this->PDFrom->submit();
 
         if ($this->IsActive('professional_summary')) {
@@ -78,6 +82,10 @@ class EnhanceProfile extends Component
             $this->CoursesForm->submit();
         }
 
+        if ($this->IsActive('skills')) {
+            $this->SkillsForm->submit($this->SelectedSkills);
+        }
+
         // sesstion flash message
         session()->flash('message', 'Profile Updated Successfully');
 
@@ -87,7 +95,7 @@ class EnhanceProfile extends Component
     public function render()
     {
         return view('livewire.enhance-profile', [
-            'skills' => Skill::select('name')->get()
+            'skills' => Skill::select('id', 'name')->get()
         ]);
     }
 }

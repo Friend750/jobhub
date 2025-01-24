@@ -12,24 +12,25 @@
     </h5>
     <p>Choose 3 important skills that show you fit the position. Make sure they match the key skills mentioned
         in the job listing (especially when applying via an online system).</p>
-    <div id="skills" class="collapse">
+    <div id="skills" class="collapse show">
         <div id="skillsContainer">
             <div class="row mb-3 skill-block" id="initialSkill">
                 <div class="form-group col-md-12">
                     <div class="flex-grow-1 me-2">
-
                         {{-- ignore must be in a parent container --}}
                         <div wire:ignore>
 
-                            <select class="form-select" id="multiDropdown"
-                                data-placeholder="Add any skill(s) to your profile" multiple>
+                            <select class="form-select @error('SkillsForm.skills') is-invalid @enderror"
+                                id="multiDropdown" data-placeholder="Add any skill(s) to your profile" multiple>
                                 @foreach ($skills as $key => $skill)
                                     <option value="{{ $skill->id }}">{{ $skill->name }}</option>
                                 @endforeach
                             </select>
 
                         </div>
-
+                        @error('SkillsForm.skills')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                 width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
                     'style',
                 placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
+                closeOnSelect: true,
                 allowClear: true,
             });
 
