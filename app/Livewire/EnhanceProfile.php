@@ -5,15 +5,15 @@ namespace App\Livewire;
 use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
 use App\Livewire\Forms\ExperienceForm;
+use App\Livewire\Forms\LanguagesForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
+use App\Models\Language;
 use App\Models\Skill;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class EnhanceProfile extends Component
@@ -28,7 +28,9 @@ class EnhanceProfile extends Component
     public SkillsForm $SkillsForm;
     public ExperienceForm $ExperienceForm;
     public ProjectsForm $ProjectsForm;
+    public LanguagesForm $LanguagesForm;
     public $SelectedSkills;
+    public $Selectedlanguages;
 
     // WebsitesLinksForm
     public function addRow()
@@ -114,6 +116,10 @@ class EnhanceProfile extends Component
             $this->ProjectsForm->submit();
         }
 
+        if ($this->IsActive('languages')) {
+            $this->LanguagesForm->submit($this->Selectedlanguages);
+        }
+
         // sesstion flash message
         session()->flash('message', 'Profile Updated Successfully');
 
@@ -123,7 +129,8 @@ class EnhanceProfile extends Component
     public function render()
     {
         return view('livewire.enhance-profile', [
-            'skills' => Skill::select('id', 'name')->get()
+            'skills' => Skill::select('id', 'name')->get(),
+            'languages' => Language::select('id', 'language')->get(),
         ]);
     }
 }

@@ -9,7 +9,10 @@
                     <!-- Content Area -->
                     <div class="col-md-9">
                         @if (session()->has('message'))
-                            <div class=" form-section mt-0 alert alert-success alert-dismissible rounded fade show"
+                            <div class="mt-0 alert alert-success alert-dismissible rounded fade show"
+                                style="
+                            width: 800px;
+                            margin: 10px auto;"
                                 role="alert">
                                 {{ session('message') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -144,36 +147,3 @@
         }));
     });
 </script>
-
-@script()
-    <script>
-        // Initialize the select2 widget with a placeholder text and allow multiple selection
-        $(document).ready(function() {
-            $('#multiDropdown').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-                allowClear: true,
-            });
-
-            // Add custom event listeners to the select2 widget
-            $('#multiDropdown').on('change', function() {
-                // Get the selected options
-                let $data = $(this).val();
-
-                // Update the selectedCities property from the Blade
-                // with false indicating that no server request is made or simply use the method 2
-
-                // method 1
-                $wire.set('SelectedSkills', $data, false);
-
-                // method 2
-                // $wire.selectedCities =$data;
-            });
-
-
-        });
-    </script>
-@endscript
