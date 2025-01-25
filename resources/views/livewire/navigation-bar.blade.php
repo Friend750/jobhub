@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="navbar navbar-light nav-bg-light w-100">
+<nav id="navbar" class="navbar navbar-light nav-bg-light w-100">
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="navbar-brand" href="#">
@@ -17,7 +17,6 @@
         @endif
 
         <div class="nav-right">
-
             <div class="navbar-icons ms-auto">
                 <a href="/posts" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-house-door-fill"></i>
@@ -40,10 +39,10 @@
                     <span>
                         Notifications
                         @if ($countNotifications > 0)
-                        <span class="ml-4 badge badge-danger notification-badge">
-                            {{ $countNotifications }}
-                        </span>
-                    @endif                    
+                            <span class="ml-4 badge badge-danger notification-badge">
+                                {{ $countNotifications }}
+                            </span>
+                        @endif
                     </span>
                 </a>
             </div>
@@ -59,7 +58,24 @@
                     @livewire('user-profile-card')
                 </ul>
             </div>
-
         </div>
     </div>
 </nav>
+<script>
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+            // Scrolling down - hide navbar
+            navbar.classList.add('hidden');
+        } else {
+            // Scrolling up - show navbar
+            navbar.classList.remove('hidden');
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative scroll
+    });
+</script>

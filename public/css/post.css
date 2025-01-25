@@ -1,3 +1,8 @@
+.container {
+    margin-top: 5.5rem !important;
+}
+
+
 .card {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -12,9 +17,6 @@
     position: relative;
     width: 100%;
     min-height: 300px;
-    /* Adjust height as needed */
-    /* background-image: url('https://via.placeholder.com/600x400'); */
-    /* URL of the virtual background image */
     background-size: cover;
     background-position: center;
     border-radius: 10px;
@@ -102,10 +104,10 @@
 
 }
 
-.select2-selection__rendered{
+.select2-selection__rendered {
     flex-wrap: wrap;
 }
 
-.select2-selection__choice__display{
+.select2-selection__choice__display {
     font-size: small;
 }

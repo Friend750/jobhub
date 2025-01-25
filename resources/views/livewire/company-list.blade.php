@@ -1,5 +1,5 @@
 
-<div class="container mt-4 col-8">
+<div class="container" style="margin-top: 5.5rem !important;">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
         @livewire('manage-network')
@@ -12,7 +12,7 @@
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                 <div class="d-flex align-items-center">
                     <!-- صورة افتراضية للشركة -->
-                    <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}"   
+                    <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}"
                          alt="Logo" class="rounded-circle" width="50" height="50">
                     <div class="ms-3">
                         <strong>{{ $company['user_name'] }}</strong>
