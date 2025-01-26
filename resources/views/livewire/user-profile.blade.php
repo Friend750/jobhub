@@ -1,5 +1,5 @@
 <div>
-    <div class="container mt-4">
+    <div class="container">
 
         <div class="row justify-content-center">
             <div class="col-lg-8 ">
@@ -166,7 +166,9 @@
             </div>
 
             <div class="col-lg-3 p-0">
-                @livewire('ChatAndFeed')
+                <div class="MakeSticky">
+                    @livewire('ChatAndFeed')
+                </div>
             </div>
         </div>
     </div>

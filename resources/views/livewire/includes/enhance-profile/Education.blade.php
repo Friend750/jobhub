@@ -6,7 +6,6 @@
                 title="Remove section">
                 <i class="fas fa-trash"></i>
             </button>
-
             <i class="fas fa-caret-down caret-icon"></i>
         </div>
     </h5>
@@ -87,7 +86,7 @@
                 @enderror
             </div>
         @endforeach
-        <div class="d-flex justify-content-end align-items-center mt-3">
+        <div class="d-flex justify-content-end align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click='addEducationRow'> Add
                 Education </button>
             @if ($index > 0)

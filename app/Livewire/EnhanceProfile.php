@@ -2,25 +2,35 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
+use App\Livewire\Forms\ExperienceForm;
+use App\Livewire\Forms\LanguagesForm;
 use App\Livewire\Forms\personalDetailsFrom;
 use App\Livewire\Forms\ProfessionalSummaryForm;
+use App\Livewire\Forms\ProjectsForm;
+use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
+use App\Models\Language;
 use App\Models\Skill;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class EnhanceProfile extends Component
 {
     #[Title('Profile Enhancement')]
-    public $SelectedSkills = [];
     public $activeSections = [];
     public personalDetailsFrom $PDFrom;
     public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
     public EducationForm $EDForm;
+    public CoursesForm $CoursesForm;
+    public SkillsForm $SkillsForm;
+    public ExperienceForm $ExperienceForm;
+    public ProjectsForm $ProjectsForm;
+    public LanguagesForm $LanguagesForm;
+    public $SelectedSkills;
+    public $Selectedlanguages;
 
     // WebsitesLinksForm
     public function addRow()
@@ -42,6 +52,32 @@ class EnhanceProfile extends Component
         $this->EDForm->removeRow($index);
     }
 
+    // CoursesForm
+    public function addCourseRow()
+    {
+        $this->CoursesForm->addRow();
+    }
+    public function removeCourseRow($index)
+    {
+        $this->CoursesForm->removeRow($index);
+    }
+
+    // ExperienceForm
+    public function addExperience(){
+        $this->ExperienceForm->addRow();
+    }
+    public function removeExperience($index){
+        $this->ExperienceForm->removeRow($index);
+    }
+
+    // ProjectsForm
+    public function addProject(){
+        $this->ProjectsForm->addRow();
+    }
+    public function removeProject($index){
+        $this->ProjectsForm->removeRow($index);
+    }
+
     public function IsActive($section)
     {
         return in_array($section, $this->activeSections);
@@ -49,7 +85,7 @@ class EnhanceProfile extends Component
 
     public function saveAllForms()
     {
-        // dd($this->activeSections);
+        // dd($this->SkillsForm->SelectedSkills);
         $this->PDFrom->submit();
 
         if ($this->IsActive('professional_summary')) {
@@ -64,6 +100,26 @@ class EnhanceProfile extends Component
             $this->EDForm->submit();
         }
 
+        if ($this->IsActive('courses')) {
+            $this->CoursesForm->submit();
+        }
+
+        if ($this->IsActive('skills')) {
+            $this->SkillsForm->submit($this->SelectedSkills);
+        }
+
+        if ($this->IsActive('experiences')) {
+            $this->ExperienceForm->submit();
+        }
+
+        if ($this->IsActive('projects')) {
+            $this->ProjectsForm->submit();
+        }
+
+        if ($this->IsActive('languages')) {
+            $this->LanguagesForm->submit($this->Selectedlanguages);
+        }
+
         // sesstion flash message
         session()->flash('message', 'Profile Updated Successfully');
 
@@ -73,7 +129,8 @@ class EnhanceProfile extends Component
     public function render()
     {
         return view('livewire.enhance-profile', [
-            'skills' => Skill::select('name')->get()
+            'skills' => Skill::select('id', 'name')->get(),
+            'languages' => Language::select('id', 'language')->get(),
         ]);
     }
 }

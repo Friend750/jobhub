@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // Publicly accessible routes
-Route::get('/', HomePage::class)->name("route");
+Route::get('/', HomePage::class)->name("home");
 Route::get('/unauthorized-access', function () {
     return view('unauthorized'); // Use a clearer view name
 })->name('error');

@@ -1,5 +1,5 @@
 
-<div class="container mt-4 col-8">
+<div class="container" style="margin-top: 5.5rem !important;">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
         @livewire('manage-network')
@@ -31,8 +31,8 @@
                             <li><button wire:click='deleteConnection({{$follower['id']}})' class="dropdown-item">Remove Follower</button></li>
                             <li><a class="dropdown-item" href="#">View Profile</a></li>
                         </ul>
-                        <a 
-                        href="#" 
+                        <a
+                        href="#"
                         wire:click.prevent="startConversation({{ $follower['id'] }})"
                         class="btn"
                     >

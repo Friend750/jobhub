@@ -16,7 +16,7 @@ body {
     background-color: white;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,7 +50,7 @@ body {
     flex: 2;
     background-color: white;
     padding: 15px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 5px;
     overflow-y: auto;
 }
@@ -58,7 +58,7 @@ body {
 
 .job-listing-card {
     padding: 15px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     cursor: pointer;
     transition: background-color 0.3s ease;
     display: flex;
@@ -115,10 +115,11 @@ body {
 }
 
 .job-details {
+    height: fit-content;
     flex: 3;
     background-color: white;
     padding: 20px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 5px;
     display: none; /* Hidden by default */
 }
@@ -127,6 +128,10 @@ body {
     display: block; /* Shown when active */
 }
 
+.make-sticky{
+    position: sticky;
+    top: 1rem;
+}
 @media (max-width: 768px) {
     .job-content {
         flex-direction: column;

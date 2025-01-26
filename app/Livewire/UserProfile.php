@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Skill;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -32,25 +33,7 @@ class UserProfile extends Component
     }
     public function mount()
     {
-        $this->skills = [
-            'skill 1',
-            'skill 2',
-            'skill 3',
-            'skill 4',
-            'skill 5',
-            'skill 6',
-            'skill 6',
-            'skill 7',
-            'skill 8',
-            'skill 9',
-            'skill 10'
-            ,
-            'skill 11',
-            'skill 12',
-            'skill 13',
-            'skill 14',
-            'skill 15'
-        ];
+        $this->skills = Skill::pluck('name')->toArray(); // Get a flat array of skill names
     }
 
     public function render()

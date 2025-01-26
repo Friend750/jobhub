@@ -37,11 +37,6 @@
              </div>
          </div>
 
-         <!-- Start New Chat Button -->
-         {{-- <div class="bg-white p-3 text-center rounded shadow-sm"
-                    style="border-radius: 0 0 .25rem .25rem  !important; margin-top: -5px;">
-                    <button class="btn btn-primary w-100 text-light">START NEW CHAT</button>
-                </div> --}}
      </div>
 
      {{-- feed card --}}

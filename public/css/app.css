@@ -68,6 +68,11 @@ body {
     border-radius: 10px !important;
 }
 
+.MakeSticky
+{
+    position: sticky;
+    top: 1rem !important;
+}
 
 
 

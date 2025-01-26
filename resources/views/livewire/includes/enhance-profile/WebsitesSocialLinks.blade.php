@@ -43,7 +43,7 @@
         </div>
 
 
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="d-flex justify-content-between align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click="addRow">+ Add one more
                 Link</button>
         </div>
