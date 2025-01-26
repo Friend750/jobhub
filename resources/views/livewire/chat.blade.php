@@ -14,7 +14,7 @@
     
 >
     <div
-        class="row flex-grow-1 overflow-hidden"
+        class="row flex-grow-1 overflow-hidden  mt-4"
         x-data 
         x-init="
              console.log('Echo initialized');

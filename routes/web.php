@@ -41,7 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
-    Route::get('/home', HomePage::class)->name("home");
     Route::get('/user-profile', UserProfile::class)->name("user-profile");
     Route::get('/JobScreen', JobScreen::class)->name("jobScreen");
     Route::get('/Search', Search::class)->name("search");

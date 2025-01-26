@@ -15,7 +15,7 @@ class HomePage extends Component
     }
     public function mount()
     {
-        if (auth()) {
+        if (auth()->user()) {
             redirect('/posts');
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        App::setLocale('ar'); // تبديل اللغة إلى العربية
         View::composer('livewire.navigation-bar', function ($view) {
             $countNotifications = DB::table('notifications')
                 ->where('notifiable_id', auth()->id())
