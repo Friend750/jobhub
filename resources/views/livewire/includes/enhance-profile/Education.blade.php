@@ -85,6 +85,7 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            
         @endforeach
         <div class="d-flex justify-content-end align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click='addEducationRow'> Add

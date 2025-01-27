@@ -10,10 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-
-
-
-
     {{-- favicon --}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
@@ -31,8 +27,6 @@
 
     {{-- <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script> --}}
 
-
-
     {{-- main app css --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
@@ -46,18 +40,15 @@
         <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
-
     @if (in_array(Route::currentRouteName(), ['user-profile']))
         <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
         <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
         <link rel="stylesheet" href="{{ asset('css/search.css') }}">
     @endif
 
-
     @if (in_array(Route::currentRouteName(), ['interests']))
         <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
     @endif
-
 
     @if (in_array(Route::currentRouteName(), ['post']))
         <link rel="stylesheet" href="{{ asset('css/post.css') }}">
@@ -103,12 +94,7 @@
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     @endif
 
-
-
-    {{-- make all css files above this line --}}
-
-    <title>{{ $title ?? 'Page Title' }}</title>
-
+    <title>Yemen Jobs | {{ $title ?? 'Page Title' }}</title>
 </head>
 
 
@@ -129,15 +115,8 @@
 {{ $slot }}
 
 
-
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
