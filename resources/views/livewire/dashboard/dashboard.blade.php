@@ -1,3 +1,6 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+@endpush
 <div>
     <div class="row w-100">
         <!-- Sidebar -->

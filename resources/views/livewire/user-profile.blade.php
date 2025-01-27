@@ -1,3 +1,8 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
 <div>
     <div class="container">
 

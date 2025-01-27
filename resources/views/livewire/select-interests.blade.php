@@ -1,3 +1,6 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
+@endpush
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="row col-md-8">
         <div class="rounded p-3 bg-light shadow-sm">

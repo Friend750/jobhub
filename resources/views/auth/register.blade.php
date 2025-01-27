@@ -11,12 +11,12 @@
                 <div class="card p-4 shadow-sm mt-1 col-md-4 col-sm-8">
 
                     <div class="card-body">
-                        <h2 class="">{{ __('Register') }}</h2>
+                        <h2 class="">{{ __('general.Register') }}</h2>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
 
                             <div class="">
-                                <label for="username" class="col-form-label text-md-end">{{ __('Username') }}</label>
+                                <label for="username" class="col-form-label text-md-end">{{ __('general.Username') }}</label>
 
                                 <input id="username" type="text"
                                     class="form-control @error('username') is-invalid @enderror" name="username"
@@ -31,7 +31,7 @@
 
 
                             <div class="">
-                                <label for="email" class="col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                <label for="email" class="col-form-label text-md-end">{{ __('general.Email_Address') }}</label>
 
                                 <input id="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="">
-                                <label for="password" class="col-form-label text-md-end">{{ __('Password') }}</label>
+                                <label for="password" class="col-form-label text-md-end">{{ __('general.Password') }}</label>
 
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
@@ -60,7 +60,7 @@
 
                             <div class="mb-3">
                                 <label for="password-confirm"
-                                    class="col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                    class="col-form-label text-md-end">{{ __('general.Confirm Password') }}</label>
 
                                 <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" autocomplete="new-password">
@@ -79,17 +79,17 @@
                                     <div class="mb-3">
 
                                         <button type="submit" class="btn btn-primary w-100">
-                                            {{ __('Register') }}
+                                            {{ __('general.Register') }}
                                         </button>
                                     </div>
                                     <button class="btn btn-light w-100 mb-3">
-                                        Register with
+                                        {{__('general.Register')}}
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"  loading="lazy"
                                             alt="Google G Logo" style="width: 50px; height: auto;">
                                     </button>
                                     <div class="text-center">
-                                        <span>Already have an account?</span>
-                                        <a href="/login" class="text-decoration-none"> Sign in</a>
+                                        <span>{{__('general.Already have an account?')}}</span>
+                                        <a href="/login" class="text-decoration-none"> {{__('general.Login')}}</a>
                                     </div>
                                 </div>
                             </div>

@@ -1,3 +1,6 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
+@endpush
 <div>
     <div class="container mt-5">
         <form wire:submit.prevent="saveAllForms" class="row d-flex justify-content-center">

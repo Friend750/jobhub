@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        App::setLocale('ar'); // تبديل اللغة إلى العربية
+
         View::composer('livewire.navigation-bar', function ($view) {
             $countNotifications = DB::table('notifications')
                 ->where('notifiable_id', auth()->id())
@@ -30,5 +33,11 @@ class AppServiceProvider extends ServiceProvider
     
             $view->with('countNotifications', $countNotifications);
         });
+
+        View::composer('*', function ($view) {
+            $query = session('searchQuery', ''); // Retrieve the query from the session or default to an empty string
+            $view->with('query', $query);
+        });
+        
     }
 }

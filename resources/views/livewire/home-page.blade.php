@@ -1,3 +1,7 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/homePage.css') }}">
+<link rel="stylesheet" href="{{ asset('css/homePageNav.css') }}">
+@endpush
 <div>
     <div wire:loading wire:loading.target="loadData" style="width: 100%;">
         <div class="d-flex justify-content-center align-items-center vh-100 bg-white">

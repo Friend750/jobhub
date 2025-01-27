@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav id="navbar" class="navbar navbar-light nav-bg-light w-100">
+<nav id="navbar" class="navbar navbar-light nav-bg-light w-100 mb-5">
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="navbar-brand" href="#">

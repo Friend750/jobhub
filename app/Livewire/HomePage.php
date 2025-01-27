@@ -16,8 +16,8 @@ class HomePage extends Component
     }
     public function mount()
     {
-        if (Auth::check()) { // Only redirect if the user is authenticated
-            return redirect('/posts');
+        if (auth()->user()) {
+            redirect('/posts');
         }
     }
     public function render()

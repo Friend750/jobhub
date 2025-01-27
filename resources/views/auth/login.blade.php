@@ -11,12 +11,12 @@
                 <div class="card p-4 shadow-sm mt-1 col-md-4 col-sm-8">
 
                     <div class="card-body">
-                        <h2 class="mb-4">{{ __('Login') }}</h2>
+                        <h2 class="mb-4">{{ __('general.Login') }}</h2>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="mb-3">
-                                <label for="email" class="col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                <label for="email" class="col-form-label text-md-end">{{ __('general.Email_Address') }}</label>
 
                                 <input id="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="col-form-label text-md-end">{{ __('Password') }}</label>
+                                <label for="password" class="col-form-label text-md-end">{{ __('general.Password') }}</label>
 
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
@@ -54,7 +54,7 @@
                                             {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('general.Remember_Me') }}
                                         </label>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                             <div class="row mb-3">
                                 <div class="">
                                     <button type="submit" class="btn btn-primary w-100">
-                                        {{ __('Login') }}
+                                        {{ __('general.Login') }}
                                     </button>
 
 
@@ -76,17 +76,17 @@
                             </div>
                             <button class="btn btn-light w-100 mb-3">
                                 {{-- <i class="fab fa-google"></i> --}}
-                                Continue with
+                                {{__('general.Continue_with')}}
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"  loading="lazy"
                                     alt="Google G Logo" style="width: 50px; height: auto;">
                             </button>
-                            <p class="text-center">Doesn't have an Account? <a href="/register"
-                                    class="text-decoration-none">Register</a></p>
+                            <p class="text-center">{{__('general.Doesnt_have_an_Account?')}}  <a href="/register"
+                                    class="text-decoration-none">{{__('general.Register')}}</a></p>
                             @if (Route::has('password.request'))
                                 <div class="text-center">
 
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('general.Forgot Your Password?') }}
                                     </a>
                                 </div>
                             @endif
