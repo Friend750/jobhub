@@ -13,27 +13,12 @@ class Search extends Component
 {
     #[Title('Search')]
     public $activeTab = 'people'; // العنصر النشط افتراضيًا
-
-    public function switchTab($tab)
-    {
-        $this->activeTab = $tab; // تحديث العنصر النشط
-        if($tab == 'people')
-        {
-            $this->people = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', auth()->user()->user_name) // Exclude the current user
-            ->where('type', 'user') // Filter by user type
-            ->get();
-        }
-        else if($tab == 'company')
-        {
-            $this->people = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', auth()->user()->user_name) // Exclude the current user
-            ->where('type', 'company') // Filter by user type
-            ->get();
-        }
-    }
+    public $paginateVar = 5;
+    public $hasMore = false;
     public $people;
     public $query;
+    
+
 
     public function mount()
     {
@@ -44,7 +29,60 @@ class Search extends Component
     
     }
 
-  
+    public function switchTab($tab)
+    {
+        $this->activeTab = $tab; // تحديث العنصر النشط
+        if($tab == 'people')
+        {   $this->paginateVar = 5;
+            $this->loadPeople();
+
+        }
+        else if($tab == 'company')
+        {
+            $this->paginateVar = 5;
+            $this->loadCompany();
+        }
+    }
+
+    public function loadMore()
+    {
+        $this->paginateVar += 5; // Increase the limit
+        if($this->activeTab == 'people')
+        {   
+        $this->loadPeople(); // Reload the data
+        }
+        else if($this->activeTab == 'company')
+        {
+            $this->loadCompany(); // Reload the data
+        }
+    }
+
+    public function loadPeople()
+    {
+        $results = User::where('user_name', 'like', '%' . $this->query . '%')
+            ->where('user_name', '!=', auth()->user()->user_name)
+            ->where('type', 'user')
+            ->take($this->paginateVar + 1) // Fetch one extra record to check for more pages
+            ->get()
+            ->values();
+
+        $this->hasMore = $results->count() > $this->paginateVar; // Check if there are more records
+        $this->people = $results->take($this->paginateVar); // Only take the current page's data
+    }
+
+    public function loadCompany()
+    {
+        $results = User::where('user_name', 'like', '%' . $this->query . '%')
+            ->where('user_name', '!=', auth()->user()->user_name)
+            ->where('type', 'company')
+            ->take($this->paginateVar + 1) // Fetch one extra record to check for more pages
+            ->get()
+            ->values();
+
+        $this->hasMore = $results->count() > $this->paginateVar; // Check if there are more records
+        $this->people = $results->take($this->paginateVar); // Only take the current page's data
+    }
+
 
     public function unFollow($connectionId)
     {

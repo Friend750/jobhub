@@ -53,8 +53,6 @@
                     style="cursor: pointer;"
                 >
                     <img 
-                        src="https://via.placeholder.com/35?text=User" 
-                        alt="Profile Picture"
                         class="profile-picture rounded-circle mr-2"
                     >
                     <div class="w-100">
@@ -92,8 +90,6 @@
                 <div class="d-flex justify-content-between align-items-center p-1 border-bottom">
                     <div>
                         <img 
-                            src="https://via.placeholder.com/35?text=User" 
-                            alt="Profile Picture"
                             class="profile-picture rounded-circle mr-2"
                         >
                         <strong>{{ $selectedChat['name'] }}</strong>

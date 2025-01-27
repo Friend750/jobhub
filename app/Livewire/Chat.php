@@ -90,7 +90,7 @@ class Chat extends Component
 
 // dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
 
-   $this->messages[] = $message->toArray();
+$this->messages[] = $message;
     $this->getUserById($receiverId)->notify(new SentMessage( auth()->user(),$message,$conversation,$receiverId));
 
     
@@ -121,7 +121,7 @@ public function loadMore()
     $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
         ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
         ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
-        ->get();
+        ->get()->toArray();
 
     // دمج الرسائل الجديدة مع الرسائل الحالية
     $this->messages = array_merge($this->messages, $newMessages);
@@ -147,13 +147,19 @@ public function loadMessages()
         ->take(10) // تحميل 10 رسائل فقط
         ->get()
         ->sortBy('created_at') // إعادة الترتيب ليصبح الأقدم أولاً
-        ->values();
+        ->values()->toArray();
 
-    // تحديث عدد الرسائل المحملة
-    $this->paginateVar += count($newMessages);
-
-    // إضافة الرسائل الجديدة إلى الرسائل الحالية
-    $this->messages = array_merge($newMessages, $this->messages);
+        if (count($newMessages) > 0) {
+            // زيادة العدد الإجمالي للرسائل
+            $this->paginateVar += count($newMessages);
+        
+            // إضافة الرسائل الجديدة إلى الرسائل الحالية
+            $this->messages = array_merge($newMessages, $this->messages);
+        } else {
+            // لا توجد رسائل إضافية
+            // يمكن تنفيذ إجراء إضافي هنا إذا لزم الأمر
+        }
+        
 
     return $newMessages;
 }
@@ -172,7 +178,7 @@ public function selectChat($chatId)
         ->take($this->paginateVar)
         ->get()
         ->sortBy('created_at') // إعادة ترتيب الرسائل ليصبح الأقدم أولاً
-        ->values();
+        ->values()->toArray();
 }
 
 
