@@ -31,7 +31,7 @@ public function mount()
 }    
 
 public function unFollow($connectionId)
-    {
+{
         // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
              DB::table('connections')
             ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
@@ -40,11 +40,11 @@ public function unFollow($connectionId)
 
 
     $this->dispatch('connectionUpdated');
-    }
+}
 
 
-    public function follow($connectionId)
-    {
+public function follow($connectionId)
+{
         
         $receiver = $this->getUserById($connectionId);
         
@@ -57,7 +57,7 @@ public function unFollow($connectionId)
         ]);
         $receiver->notify(new Request( auth()->user(),$receiver));
         
-    }
+}
 
     public function getUserById($receiverId)
     {

@@ -1,3 +1,8 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/chat.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
 <div 
 
     x-data="{
@@ -11,10 +16,10 @@
         }
     }" 
     @resize.window="isMobile = window.innerWidth <= 768"
-    
+     style="margin-top: 5.2rem !important;"
 >
     <div
-        class="row flex-grow-1 overflow-hidden  mt-4"
+        class="row flex-grow-1 overflow-hidden"
         x-data 
         x-init="
              console.log('Echo initialized');

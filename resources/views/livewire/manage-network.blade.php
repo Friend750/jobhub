@@ -1,3 +1,8 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/myNetwork.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
 <div class="col-md-4">
     <h4 class="mt-3 mb-3">Manage My Network</h4>
 

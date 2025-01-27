@@ -1,4 +1,9 @@
-<div class="container mt-4 col-8" x-data x-init="
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
+<div class="container  col-8" x-data x-init="
      console.log('Echo initialized');
 let channel = Echo.private('users.{{ auth()->user()->id }}');
 channel.notification((notification) => {
@@ -6,7 +11,9 @@ if (notification.type === 'App\\Notifications\\Request') {
     $wire.dispatch('messageReceived');
 } 
 });
-">
+"
+ style="margin-top: 5rem !important;"
+>
     <div class="row">
         <!-- قسم الإحصائيات -->
         <div class="col-md-3 mt-3">

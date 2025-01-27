@@ -1,5 +1,10 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/post.css') }}">
+<link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
 <div>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-3"></div>

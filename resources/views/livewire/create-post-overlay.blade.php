@@ -1,6 +1,4 @@
 <div>
-
-
     <!-- Overlay -->
     <div class="overlay @if ($showCard) d-flex @else d-none @endif ">
         <div class="card post-card">

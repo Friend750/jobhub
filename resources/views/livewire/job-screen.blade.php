@@ -1,3 +1,8 @@
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/jobScreen.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+@endpush
 <div class="container mb-3" style="margin-top: 5.5rem !important;">
     <!-- Filters Section -->
     <div class="filters-section  rounded">
