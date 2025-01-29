@@ -1,20 +1,20 @@
 <div class="comments mt-3" x-show="showComments" x-transition x-cloak>
     <div class="d-flex align-items-start mb-3">
-        <img src="https://via.placeholder.com/40" loading="lazy" class="bg-secondary profile-picture-placeholder me-2"
+        <img src="https://ui-avatars.com/api/?name=user" loading="lazy" class="bg-secondary profile-picture-placeholder me-2"
             style="min-width: 40px;">
         </img>
         <form action="" method="post" class="d-flex flex-grow-1">
-            
+
             <textarea class="form-control me-2 comment-input" rows="1" placeholder="Add a comment..." required
                 oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, parseInt(getComputedStyle(this).lineHeight) * 4) + 'px';"></textarea>
-            <button type="submit" class="btn btn-primary">Comment</button>
+            <button type="submit" class="btn btn-primary rounded">Comment</button>
         </form>
     </div>
 
     <div class="comment">
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <img src="https://via.placeholder.com/40" loading="lazy"
+                <img src="https://ui-avatars.com/api/?name=user" loading="lazy"
                     class="bg-secondary profile-picture-placeholder"></img>
                 <div class="ms-3">
                     <div class="d-flex align-items-center">
@@ -41,5 +41,8 @@
         </div>
     </div>
 
-    <button type="button" class="btn btn-link text-decoration-none mt-3">Load more comments</button>
+    <div class="text-center">
+
+        <button type="button" class="btn btn-link text-decoration-none mt-3 ">Load more comments</button>
+    </div>
 </div>

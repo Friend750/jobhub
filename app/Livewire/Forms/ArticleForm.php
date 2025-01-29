@@ -19,23 +19,34 @@ class ArticleForm extends Form
     public $media; // For the uploaded file (image or video)
     public $mediaPreview; // For displaying preview
 
-    public function updatedMedia()
+    public function updateMedia($media)
     {
+        $this->media = $media;
         $this->validateOnly('media');
         $this->mediaPreview = $this->media->temporaryUrl();
     }
 
+    public function removeMedia()
+    {
+        $this->media = null;
+        $this->mediaPreview = null;
+    }
+
+    public function resetForm(){
+        // dump('reset article form');
+        $this->reset();
+    }
+
     public function submit()
     {
-        dump('article submit');
-        // $this->validate();
+        $this->validate();
 
-        // // Save the media to storage
-        // if ($this->media) {
-        //     $mediaPath = $this->media->store('uploads', 'public');
-        // }
+        // Save the media to storage
+        if ($this->media) {
+            $mediaPath = $this->media->store('uploads', 'public');
+        }
 
-        // $this->reset();
+        $this->reset();
     }
 
 }

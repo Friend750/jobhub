@@ -17,7 +17,7 @@ class JobOfferForm extends Form
         'job_location' => 'required|string|max:255',
         'job_timing' => 'required|string|max:255',
     ])]
-    
+
     public $job_title = "";
     public $about_job = "";
     public $job_tasks = "";
@@ -26,9 +26,15 @@ class JobOfferForm extends Form
     public $job_location = "";
     public $job_timing = "";
 
+        public function resetForm(){
+        // dump('reset job offer form');
+        $this->reset();
+    }
+
 
     public function submit()
     {
-        dump('job offer submit');
+        $this->validate();
+        $this->reset();
     }
 }

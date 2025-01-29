@@ -21,7 +21,31 @@ class PostCard extends Component
     public $selected;
     public $selectedInterests = [];
     public $interests;
+    public $media; // For the uploaded file (image or video)
 
+    public function updatedMedia()
+    {
+        $this->articleForm->updateMedia($this->media);
+    }
+
+    // removeMedia
+    public function removeMedia(){
+        $this->articleForm->removeMedia();
+    }
+
+    public function resetForm($selectedForm){
+        if($selectedForm == 'content-article'){
+            $this->articleForm->resetForm();
+        }else{
+            $this->JOForm->resetForm();
+        }
+    }
+
+    public function resetAllForms(){
+        $this->articleForm->resetForm();
+        $this->JOForm->resetForm();
+    }
+    
     public function mount()
     {
         $this->showCard = false;
