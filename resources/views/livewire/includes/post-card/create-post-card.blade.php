@@ -157,8 +157,10 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('FormType', (wire) => ({
             selected: 'content-article',
+
             resetForms() {
                 wire.resetForm(this.selected);
+
             },
             init() {
                 this.$watch('selected', () => this.resetForms());

@@ -29,23 +29,28 @@ class PostCard extends Component
     }
 
     // removeMedia
-    public function removeMedia(){
+    public function removeMedia()
+    {
         $this->articleForm->removeMedia();
     }
 
-    public function resetForm($selectedForm){
-        if($selectedForm == 'content-article'){
+    public function resetForm($selectedForm)
+    {
+        if ($selectedForm == 'content-article') {
             $this->articleForm->resetForm();
-        }else{
+        } else {
             $this->JOForm->resetForm();
         }
+
     }
 
-    public function resetAllForms(){
+    public function resetAllForms()
+    {
         $this->articleForm->resetForm();
         $this->JOForm->resetForm();
+        $this->selectedInterests = [];
     }
-    
+
     public function mount()
     {
         $this->showCard = false;
@@ -56,10 +61,14 @@ class PostCard extends Component
     public function SubmitArticleForm()
     {
         $this->articleForm->submit();
+
+        $this->dispatch('article-posted', ['message' => 'Article posted successfully']);
     }
     public function SubmitJobOfferForm()
     {
         $this->JOForm->submit();
+
+        $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }
 
 
