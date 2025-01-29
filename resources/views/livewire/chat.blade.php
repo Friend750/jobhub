@@ -36,7 +36,7 @@
                         $nextTick(() => scrollToBottom());
                     "
                         style="cursor: pointer;">
-                        <img class="profile-picture rounded-circle mr-2">
+                        <img  src="https://ui-avatars.com/api/?name=Image" style="width: 40px" class="profile-picture rounded-circle me-2">
                         <div class="w-100">
                             <strong>{{ $chat['name'] }}</strong>
                             <p class="text-muted m-0 text-truncate"

@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
     
             $view->with('countNotifications', $countNotifications);
         });
-
+       
         View::composer('*', function ($view) {
             $query = session('searchQuery', ''); // Retrieve the query from the session or default to an empty string
             $view->with('query', $query);

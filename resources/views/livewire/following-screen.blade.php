@@ -13,8 +13,8 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                     <div class="d-flex align-items-center">
                         <!-- صورة افتراضية للشركة -->
-                        <img src="'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=Logo' }}" alt="Logo"
-                            loading="lazy" class="rounded-circle" width="50" height="50">
+                        <img src="https://ui-avatars.com/api/?name=Image" alt="Logo"
+                            loading="lazy" class="rounded-circle" width="40">
                         <div class="ms-3">
                             <strong>{{ $following['user_name'] }}</strong>
                             <div class="text-muted">{{ $following['position'] }}</div>
