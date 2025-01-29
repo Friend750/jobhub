@@ -11,26 +11,7 @@
 .card-body img {
     height: fit-content;
     object-fit: cover;
-}
-
-.image-container {
-    position: relative;
-    width: 100%;
-    min-height: 300px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.image-container img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 10px;
+    width: 40px;
 }
 
 .create-post-card {
@@ -110,4 +91,13 @@
 
 .select2-selection__choice__display {
     font-size: small;
+}
+
+#text-muted
+{
+    font-size: .65rem;
+}
+
+.no-scroll {
+    overflow: hidden;
 }

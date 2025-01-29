@@ -19,16 +19,16 @@
                 <div class="col-lg-6">
                     <div class="card post-card rounded " @click.outside="showCard = false">
 
-                        <div class="card-body" x-data="{ selected: 'content-article' }">
+                        <div class="card-body" x-data="FormType(@this)">
                             <div class="mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center ">
-                                    <img src="https://via.placeholder.com/50" alt="User"
-                                        class="rounded-circle me-3 h-100">
+                                    <img src="https://ui-avatars.com/api/?name=User" alt="User"
+                                        class="rounded-circle me-2 h-100">
 
                                     <div class="userInfo">
                                         <h5 class="mb-0">Elon Musk</h5>
                                         <div class="d-flex align-items-center ">
-                                            <small class="text-muted mr-3 ">CEO of SpaceX</small>
+                                            <small class="text-muted me-3 ">CEO of SpaceX</small>
 
                                             {{-- post visibality --}}
                                             <div class="dropdown me-1">
@@ -87,7 +87,7 @@
                                     {{-- ignore must be in a parent container --}}
                                     <div wire:ignore>
                                         <select id="multiDropdown" class="form-select"
-                                            data-placeholder="Add any tag(s) to your Post to reach more" multiple>
+                                            data-placeholder="Optional: Add tag(s) to reach more when public" multiple>
                                             @foreach ($interests as $key => $interest)
                                                 <option value="{{ $interest->id }}">{{ $interest->name }}
                                                 </option>
@@ -152,3 +152,17 @@
         });
     </script>
 @endscript
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('FormType', (wire) => ({
+            selected: 'content-article',
+            resetForms() {
+                wire.resetForm(this.selected);
+            },
+            init() {
+                this.$watch('selected', () => this.resetForms());
+            }
+        }));
+    });
+</script>

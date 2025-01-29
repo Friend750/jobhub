@@ -10,7 +10,7 @@
         @enderror
     </div>
 
-    <div class="form-row">
+    <div class="row">
         <!-- Job Location -->
         <div class="form-group col-md-6">
             <label for="job_location">Job Location</label>
