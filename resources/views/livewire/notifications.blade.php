@@ -84,31 +84,22 @@ if (notification.type === 'App\\Notifications\\Request') {
                                             provided' }}"
                                             @endif
                                         </div>
-                                        <span class="float-right d-flex flex-column">
-                                            {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ??
-                                            'Unknown time' }}
-                                            <div class="dropdown">
-                                                <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                    style="cursor: pointer;"></i>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    <li>
-                                                        <button class="dropdown-item"
-                                                            wire:click="markAsRead('{{ $notification['id'] }}')">
-                                                            Mark as read
-                                                        </button>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                    <li><a class="dropdown-item" href="#">Turn off notifications</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </span>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="text-muted small text-center mb-2">
+                                                {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ?? 'Unknown time' }}
+                                            </span>
+                                            @if (is_null($notification['read_at']))
+                                            <button class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
+                                                wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                <i class="bi bi-check-circle"></i> Mark as Read
+                                            </button>
+                                        @endif
+                                        
+                                        </div>                             
                                     </div>
                                     @endforeach
                                 </div>
-                                <div class="tab-pane fade text-center" id="Unread" role="tabpanel"
+                                <div class="tab-pane fade" id="Unread" role="tabpanel"
                                     aria-labelledby="tab3-tab">
                                     @foreach ($notifications->where('read_at', null) as $notification)
                                     <div
@@ -130,27 +121,15 @@ if (notification.type === 'App\\Notifications\\Request') {
                                             provided' }}"
                                             @endif
                                         </div>
-                                        <span class="float-right d-flex flex-column">
-                                            {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ??
-                                            'Unknown time' }}
-                                            <div class="dropdown">
-                                                <i class="fa-solid fa-ellipsis" id="dropdownMenuButton"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                                    style="cursor: pointer;"></i>
-                                                <ul class="dropdown-menu dropdown-menu-end"
-                                                    aria-labelledby="dropdownMenuButton">
-                                                    <li>
-                                                        <button class="dropdown-item"
-                                                            wire:click="markAsRead('{{ $notification['id'] }}')">
-                                                            Mark as read
-                                                        </button>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                    <li><a class="dropdown-item" href="#">Turn off notifications</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </span>
+                                       <div class="d-flex flex-column align-items-center">
+                                            <span class="text-muted small text-center mb-2">
+                                                {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ?? 'Unknown time' }}
+                                            </span>
+                                            <button class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
+                                                wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                <i class="bi bi-check-circle"></i> Mark as Read
+                                            </button>
+                                        </div>        
                                     </div>
                                     @endforeach
 

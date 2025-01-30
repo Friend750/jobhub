@@ -39,71 +39,71 @@ class User extends Authenticatable
     public function followers()
     {
         return $this->belongsToMany(User::class, 'connections', 'follower_id', 'following_id')
-                    ->withPivot('is_accepted')
-                    ->withTimestamps();
+            ->withPivot('is_accepted')
+            ->withTimestamps();
     }
-    
+
     public function followings()
     {
         return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
-                    ->withPivot('is_accepted')
-                    ->withTimestamps();
+            ->withPivot('is_accepted')
+            ->withTimestamps();
     }
-    
 
-public function acceptedFollowers()
-{
-    return $this->Followers()
-    ->wherePivot('is_accepted', 1)
-    ->where('type', '!=', 'company');
-}
 
-public function acceptedFollowings()
-{
-    return $this->Followings()
-    ->wherePivot('is_accepted', 1)
-    ->where('type', '!=', 'company');
-}
+    public function acceptedFollowers()
+    {
+        return $this->Followers()
+            ->wherePivot('is_accepted', 1)
+            ->where('type', '!=', 'company');
+    }
 
-// public function nonCompanyFollowers()
-// {
-//     return $this->followers()->where('type', '!=', 'company');
-// }
+    public function acceptedFollowings()
+    {
+        return $this->Followings()
+            ->wherePivot('is_accepted', 1)
+            ->where('type', '!=', 'company');
+    }
 
-// public function nonCompanyFollowings()
-// {
-//     return $this->followings()->where('type', '!=', 'company');
-// }
+    // public function nonCompanyFollowers()
+    // {
+    //     return $this->followers()->where('type', '!=', 'company');
+    // }
 
-public function companies()
-{
-    return User::where('type', 'company')
-        ->where(function ($query) {
-            $query->whereHas('followers', function ($subQuery) {
-                $subQuery->where('follower_id', Auth::id());
+    // public function nonCompanyFollowings()
+    // {
+    //     return $this->followings()->where('type', '!=', 'company');
+    // }
+
+    public function companies()
+    {
+        return User::where('type', 'company')
+            ->where(function ($query) {
+                $query->whereHas('followers', function ($subQuery) {
+                    $subQuery->where('follower_id', Auth::id());
+                })
+                    ->orWhereHas('followings', function ($subQuery) {
+                        $subQuery->where('following_id', Auth::id());
+                    });
             })
-            ->orWhereHas('followings', function ($subQuery) {
-                $subQuery->where('following_id', Auth::id());
-            });
-        })
-        ->with([
-            'followers' => function ($query) {
-                $query->where('follower_id', Auth::id())
-                      ->withPivot('is_accepted'); // جلب العمود المحوري
-            },
-            'followings' => function ($query) {
-                $query->where('following_id', Auth::id())
-                      ->withPivot('is_accepted'); // جلب العمود المحوري
-            }
-        ]);
-}
+            ->with([
+                'followers' => function ($query) {
+                    $query->where('follower_id', Auth::id())
+                        ->withPivot('is_accepted'); // جلب العمود المحوري
+                },
+                'followings' => function ($query) {
+                    $query->where('following_id', Auth::id())
+                        ->withPivot('is_accepted'); // جلب العمود المحوري
+                }
+            ]);
+    }
 
 
 
-public function Page()
-{
-    return $this->hasOne(Page::class);
-}
+    public function Page()
+    {
+        return $this->hasOne(Page::class);
+    }
 
 
     public function skills()
@@ -146,6 +146,16 @@ public function Page()
         return $this->hasOne(PersonalDetail::class);
     }
 
+    public function getProfilePictureAttribute()
+    {
+        return $this->attributes['profile_picture']
+            ? $this->attributes['profile_picture']
+            : 'https://ui-avatars.com/api/?name=Image';
+    }
+
+    // Conversation.php
+    
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -172,6 +182,6 @@ public function Page()
 
     public function receivesBroadcastNotificationsOn(): string
     {
-        return 'users.'.$this->id;
+        return 'users.' . $this->id;
     }
 }

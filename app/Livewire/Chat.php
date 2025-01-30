@@ -21,165 +21,170 @@ class Chat extends Component
     public $currentUserId; // معرف المستخدم الحالي
 
     protected $listeners = ['messageReceived' => 'loadMore'];
-    public $paginateVar =10;
+    public $paginateVar = 10;
 
     public function mount($conversationId = null)
-    {  
+    {
         $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
 
-        $this->chats = Conversation::with(['firstUser', 'secondUser'])
-        ->orderBy('updated_at', 'desc') // ترتيب المحادثات حسب آخر تحديث
-        ->take(5) // جلب أول 5 محادثات
-        ->get()
-        ->map(function ($conversation) {
-            return [
-                'id' => $conversation->id,
-                'name' => auth()->id() === $conversation->first_user 
-                            ? $conversation->secondUser->user_name 
-                            : $conversation->firstUser->user_name, // عرض اسم الشخص الآخر
-                'last_message' => $conversation->last_message,
-                'profile' => 'default-profile.png', // يمكنك تخصيص صورة الملف الشخصي هنا
-            ];
-        })            
-        ->toArray();  
-        if($conversationId != null)
-        {
-            $conversation = Conversation::with(['firstUser', 'secondUser'])->find($conversationId);
-            if($this->isUserPartOfConversation($conversation))
-            {
+        $this->chats = Conversation::with([
+            'firstUser:id,user_name,user_image', 
+            'secondUser:id,user_name,user_image'
+        ])
+            ->orderBy('updated_at', 'desc')
+            ->take(5)
+            ->get(['id', 'first_user', 'second_user', 'last_message']) // Fetch only necessary fields
+            ->map(function ($conversation) {
+                $otherUser = auth()->id() === $conversation->first_user 
+                    ? $conversation->secondUser
+                    : $conversation->firstUser;
+        
+                return [
+                    'id' => $conversation->id,
+                    'name' => $otherUser->user_name,
+                    'last_message' => $conversation->last_message,
+                    'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
+                ];
+            })
+            ->toArray();
+        
+        if ($conversationId != null) {
+            $isPart = Conversation::where('id', $conversationId)
+                ->whereHas('users', function ($query) {
+                    $query->where('id', auth()->id());
+                })
+                ->exists();
+
+            if ($isPart) {
                 $this->selectChat($conversationId);
-            }
-            else
-            {
+            } else {
                 redirect('/unauthorized-access');
             }
-            
         }
-        
     }
 
     public function  isUserPartOfConversation($conversation)
     {
-        if ($conversation->firstUser->id === $this->currentUserId || $conversation->secondUser->id === $this->currentUserId) 
-        {
+        if ($conversation->firstUser->id === $this->currentUserId || $conversation->secondUser->id === $this->currentUserId) {
             // Auth user is either firstUser or secondUser
             return true;
-        } 
-        else 
-        {
+        } else {
             // Auth user is not part of the conversation
             return false;
         }
     }
 
     public function sendMessage()
-{
-    $this->validate([
-        'message' => 'required|string|max:1000',
-    ]);
-    $conversation = \App\Models\Conversation::find($this->selectedChat['id']);
-    $receiverId = auth()->id() === $conversation->first_user 
-? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
-: $conversation->first_user;
-    $message = \App\Models\Chat::create([
-        'message' => $this->message,
-        'sender_id' => auth()->id(),
-        'receiver_id' => $receiverId, // إذا كان المستخدم الحالي هو الثاني، اجعل المستقبل هو الأول
-        'conversation_id' => $this->selectedChat['id'],
-    ]);
+    {
+        $this->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+        $conversation = \App\Models\Conversation::find($this->selectedChat['id']);
+        $receiverId = auth()->id() === $conversation->first_user
+            ? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
+            : $conversation->first_user;
+        $message = \App\Models\Chat::create([
+            'message' => $this->message,
+            'sender_id' => auth()->id(),
+            'receiver_id' => $receiverId, // إذا كان المستخدم الحالي هو الثاني، اجعل المستقبل هو الأول
+            'conversation_id' => $this->selectedChat['id'],
+        ]);
+        $conversation->update([
+            'last_message' => $this->message,
+        ]);
 
-// dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
+        // dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
 
-$this->messages[] = $message;
-    $this->getUserById($receiverId)->notify(new SentMessage( auth()->user(),$message,$conversation,$receiverId));
-
-    
-
-   
-
-    $this->message = '';
-}
-
-
-public function getUserById($receiverId)
-{
-    return User::find($receiverId); // جلب كائن User باستخدام المعرف
-}
+        $this->messages[] = $message;
+        $this->getUserById($receiverId)->notify(new SentMessage(auth()->user(), $message, $conversation, $receiverId));
 
 
 
-public function loadMore()
-{
-    // احصل على معرف آخر رسالة حالية في القائمة
-    $lastMessageId = end($this->messages)['id'] ?? null;
 
-    if (!$lastMessageId) {
-        return []; // لا توجد رسائل لتحميلها
+
+        $this->message = '';
     }
 
-    // تحميل الرسائل الجديدة فقط
-    $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-        ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
-        ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
-        ->get()->toArray();
 
-    // دمج الرسائل الجديدة مع الرسائل الحالية
-    $this->messages = array_merge($this->messages, $newMessages);
-
-    // إرجاع الرسائل الجديدة إذا لزم الأمر
-    return $newMessages;
-}
-
-public function loadMessages()
-{
-    // عدد الرسائل الإجمالي في المحادثة
-    $totalMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)->count();
-
-    // التحقق إذا كان هناك رسائل متبقية لتحميلها
-    if ($this->paginateVar >= $totalMessages) {
-        return []; // لا توجد رسائل إضافية
+    public function getUserById($receiverId)
+    {
+        return User::find($receiverId); // جلب كائن User باستخدام المعرف
     }
 
-    // تحميل الرسائل المتبقية
-    $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-        ->orderBy('created_at', 'desc') // ترتيب عكسي
-        ->skip($totalMessages - $this->paginateVar - 10) // تجاوز الرسائل المحملة
-        ->take(10) // تحميل 10 رسائل فقط
-        ->get()
-        ->sortBy('created_at') // إعادة الترتيب ليصبح الأقدم أولاً
-        ->values()->toArray();
+
+
+    public function loadMore()
+    {
+        // احصل على معرف آخر رسالة حالية في القائمة
+        $lastMessageId = end($this->messages)['id'] ?? null;
+
+        if (!$lastMessageId) {
+            return []; // لا توجد رسائل لتحميلها
+        }
+
+        // تحميل الرسائل الجديدة فقط
+        $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
+            ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
+            ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
+            ->get()->toArray();
+
+        // دمج الرسائل الجديدة مع الرسائل الحالية
+        $this->messages = array_merge($this->messages, $newMessages);
+
+        // إرجاع الرسائل الجديدة إذا لزم الأمر
+        return $newMessages;
+    }
+
+    public function loadMessages()
+    {
+        // عدد الرسائل الإجمالي في المحادثة
+        $totalMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)->count();
+
+        // التحقق إذا كان هناك رسائل متبقية لتحميلها
+        if ($this->paginateVar >= $totalMessages) {
+            return []; // لا توجد رسائل إضافية
+        }
+
+        // تحميل الرسائل المتبقية
+        $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
+            ->orderBy('created_at', 'desc') // ترتيب عكسي
+            ->skip($totalMessages - $this->paginateVar - 10) // تجاوز الرسائل المحملة
+            ->take(10) // تحميل 10 رسائل فقط
+            ->get()
+            ->sortBy('created_at') // إعادة الترتيب ليصبح الأقدم أولاً
+            ->values()->toArray();
 
         if (count($newMessages) > 0) {
             // زيادة العدد الإجمالي للرسائل
             $this->paginateVar += count($newMessages);
-        
+
             // إضافة الرسائل الجديدة إلى الرسائل الحالية
             $this->messages = array_merge($newMessages, $this->messages);
         } else {
             // لا توجد رسائل إضافية
             // يمكن تنفيذ إجراء إضافي هنا إذا لزم الأمر
         }
-        
-
-    return $newMessages;
-}
 
 
-public function selectChat($chatId)
-{
-    $this->selectedChat = collect($this->chats)->firstWhere('id', $chatId);
-    
-    // عدد الرسائل المحملة مبدئيًا
-    $this->paginateVar = 10;
+        return $newMessages;
+    }
 
-    // تحميل أول 10 رسائل
-    $this->messages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-        ->orderBy('created_at', 'desc') // ترتيب عكسي للحصول على الأحدث أولاً
-        ->take($this->paginateVar)
-        ->get()
-        ->sortBy('created_at') // إعادة ترتيب الرسائل ليصبح الأقدم أولاً
-        ->values()->toArray();
-}
+
+    public function selectChat($chatId)
+    {
+        $this->selectedChat = collect($this->chats)->firstWhere('id', $chatId);
+
+        // عدد الرسائل المحملة مبدئيًا
+        $this->paginateVar = 10;
+
+        // تحميل أول 10 رسائل
+        $this->messages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
+            ->orderBy('created_at', 'desc') // ترتيب عكسي للحصول على الأحدث أولاً
+            ->take($this->paginateVar)
+            ->get()
+            ->sortBy('created_at') // إعادة ترتيب الرسائل ليصبح الأقدم أولاً
+            ->values()->toArray();
+    }
 
 
     public function render()
@@ -187,4 +192,3 @@ public function selectChat($chatId)
         return view('livewire.chat');
     }
 }
-
