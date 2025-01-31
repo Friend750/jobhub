@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class JobPost extends Model
 {
     use HasFactory;
-    protected $fillable = 
+    protected $fillable =
     [
-        'creator',
+        'user_id',
         'job_title',
         'about_job',
         'job_tasks',
@@ -25,14 +25,14 @@ class JobPost extends Model
         'views'
     ];
 
-    public function creator()
+    public function user_id()
     {
-        return $this->belongsTo(User::class, 'creator');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected function casts(): array
     {
-        return 
+        return
         [
             'tags' => 'array'
         ];

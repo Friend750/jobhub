@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id(); // Primary key
 
-            $table->foreignId('creator')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('job_title');
             $table->text('about_job');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->json('tags');
             $table->enum('target', ['to_any_one', 'connection_only']);
             $table->boolean('is_active')->default(true);
-            $table->boolean('job_post')->default(true); 
+            $table->boolean('job_post')->default(true);
             $table->integer('views')->default(0);
             $table->timestamps(); // created_at و updated_at
         });

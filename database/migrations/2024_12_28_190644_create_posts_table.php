@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // Primary key (ID)
 
 
-            $table->foreignId('creator')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('page_id')->references('id')->on('pages')->onDelete('cascade');
 
 

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 use Livewire\WithFileUploads;
@@ -37,14 +39,23 @@ class ArticleForm extends Form
         $this->reset();
     }
 
-    public function submit()
+    public function submit($selectedInterests)
     {
+        $mediaPath ="";
         $this->validate();
 
         // Save the media to storage
         if ($this->media) {
             $mediaPath = $this->media->store('uploads', 'public');
         }
+
+        Post::create([
+            'user_id' => Auth::id(),
+            'content' => $this->content,
+            'post_image' => $mediaPath,
+            'tags' => $selectedInterests,
+            'views' => 0, // set views to 0 when a new post is created. It will be incremented when the post is viewed.
+        ]);
 
         $this->reset();
     }

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'creator',
+        'user_id',
         'page_id',
         'title',
         'content',
@@ -20,13 +20,9 @@ class Post extends Model
         'views'
     ];
 
-    /**
-     * Define the relationship with the User model.
-     * A post is created by a user.
-     */
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected function casts(): array
@@ -36,12 +32,19 @@ class Post extends Model
         ];
     }
 
-    /**
-     * Define the relationship with the Page model.
-     * A post belongs to a page.
-     */
     public function page()
     {
-        return $this->belongsTo(Page::class,'page_id');
+        return $this->belongsTo(Page::class, 'page_id');
     }
-}
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function personalDetails()
+    {
+        return $this->hasOneThrough(
+            PersonalDetail::class,
+            User::class
+        );
+    }}

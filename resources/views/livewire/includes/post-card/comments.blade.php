@@ -3,7 +3,7 @@
         <img src="https://ui-avatars.com/api/?name=user" loading="lazy" class="bg-secondary profile-picture-placeholder me-2"
             style="min-width: 40px;">
         </img>
-        <form action="" method="post" class="d-flex flex-grow-1">
+        <form  method="post" class="d-flex flex-grow-1">
 
             <textarea class="form-control me-2 comment-input" rows="1" placeholder="Add a comment..." required
                 oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, parseInt(getComputedStyle(this).lineHeight) * 4) + 'px';"></textarea>
@@ -42,7 +42,6 @@
     </div>
 
     <div class="text-center">
-
         <button type="button" class="btn btn-link text-decoration-none mt-3 ">Load more comments</button>
     </div>
 </div>

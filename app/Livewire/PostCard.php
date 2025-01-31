@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\ArticleForm;
+use App\Livewire\Forms\CommentForm;
 use App\Livewire\Forms\JobOfferForm;
 use App\Models\Interest;
+use App\Models\Post;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -17,6 +19,7 @@ class PostCard extends Component
 
     public JobOfferForm $JOForm;
     public ArticleForm $articleForm;
+    public CommentForm $commentForm;
     public $showCard;
     public $selected;
     public $selectedInterests = [];
@@ -51,16 +54,10 @@ class PostCard extends Component
         $this->selectedInterests = [];
     }
 
-    public function mount()
-    {
-        $this->showCard = false;
-        $this->selected = 'content-article';
-        $this->interests = Interest::select('id', 'name')->get();
-    }
 
     public function SubmitArticleForm()
     {
-        $this->articleForm->submit();
+        $this->articleForm->submit($this->selectedInterests);
 
         $this->dispatch('article-posted', ['message' => 'Article posted successfully']);
     }
@@ -71,9 +68,17 @@ class PostCard extends Component
         $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }
 
+    public function mount()
+    {
+        $this->showCard = false;
+        $this->selected = 'content-article';
+        $this->interests = Interest::select('id', 'name')->get();
+    }
 
     public function render()
     {
-        return view('livewire.post-card');
+        return view('livewire.post-card',[
+            'posts' => Post::all(),
+        ]);
     }
 }

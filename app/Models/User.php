@@ -141,7 +141,7 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
-    public function PersonalDetail()
+    public function personal_details()
     {
         return $this->hasOne(PersonalDetail::class);
     }
@@ -154,7 +154,7 @@ class User extends Authenticatable
     }
 
     // Conversation.php
-    
+
 
     /**
      * The attributes that should be hidden for serialization.

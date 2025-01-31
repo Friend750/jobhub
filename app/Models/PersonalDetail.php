@@ -13,13 +13,13 @@ class PersonalDetail extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'job_title',
+        'specialist',
         'phone',
         'city'
     ];
 
 
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,5 +28,5 @@ class PersonalDetail extends Model
      * Define the relationship with the User model.
      * A personal detail belongs to a user.
      */
-    
+
 }
