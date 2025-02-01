@@ -15,9 +15,9 @@
     <div id="courses" class="collapse show">
         <div id="coursesContainer">
             @foreach ($CoursesForm->courses as $index => $course)
-                <div class="form-row course-block mb-3">
+                <div class="row mb-3">
                     <div class="form-group col-md-4">
-                        <label for="course_name_{{ $index }}" style="min-width: 150px;">Course Name</label>
+                        <label class="mb-2" for="course_name_{{ $index }}" style="min-width: 150px;">Course Name</label>
                         <input type="text"
                             class="form-control @error("CoursesForm.courses.{$index}.course_name") is-invalid @enderror"
                             id="course_name_{{ $index }}"
@@ -28,7 +28,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="institution_name_{{ $index }}" style="min-width: 150px;">Institution
+                        <label class="mb-2" for="institution_name_{{ $index }}" style="min-width: 150px;">Institution
                             Name</label>
                         <input type="text"
                             class="form-control @error("CoursesForm.courses.{$index}.institution_name") is-invalid @enderror"
@@ -40,7 +40,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="end_date_{{ $index }}" style="min-width: 150px;">Completion Date</label>
+                        <label class="mb-2" for="end_date_{{ $index }}" style="min-width: 150px;">Completion Date</label>
                         <input type="date"
                             class="form-control @error("CoursesForm.courses.{$index}.end_date") is-invalid @enderror"
                             id="end_date_{{ $index }}"

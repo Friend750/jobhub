@@ -19,9 +19,9 @@
                     @if ($index > 0)
                         <hr>
                     @endif
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="project_title_{{ $index }}">Project Title</label>
+                    <div class="row">
+                        <div class="form-group col-md-12 mb-3">
+                            <label class="mb-2" for="project_title_{{ $index }}">Project Title</label>
                             <input type="text"
                                 class="form-control @error("ProjectsForm.projects.{$index}.title") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.title"
@@ -30,8 +30,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="project_description_{{ $index }}">Project Description</label>
+                        <div class="form-group col-md-12 mb-3">
+                            <label class="mb-2" for="project_description_{{ $index }}">Project Description</label>
                             <textarea class="form-control @error("ProjectsForm.projects.{$index}.description") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.description"
                                 placeholder="Description of the project, including tools and technologies used" rows="3"></textarea>
@@ -39,8 +39,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="project_contributions_{{ $index }}">Key Outcomes/Contributions</label>
+                        <div class="form-group col-md-12 mb-3">
+                            <label class="mb-2" for="project_contributions_{{ $index }}">Key Outcomes/Contributions</label>
                             <textarea class="form-control @error("ProjectsForm.projects.{$index}.contributions") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.contributions"
                                 placeholder="Key outcomes or contributions made during the project" rows="2"></textarea>

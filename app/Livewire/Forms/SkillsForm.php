@@ -9,7 +9,7 @@ use Livewire\Form;
 class SkillsForm extends Form
 {
     #[Rule([
-        'skills' => 'required|array|min:2',
+        'skills' => 'required|array|min:1',
         'skills.*' => 'exists:skills,id',
     ])]
     public $skills = [];
@@ -22,6 +22,7 @@ class SkillsForm extends Form
 
         // dd($this->SelectedSkills);
         $this->validateOnly('skills');
+        $this->reset();
     }
 
 }

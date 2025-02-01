@@ -36,6 +36,7 @@ class ExperienceForm extends Form
         'experiences.*.end_date.after' => 'The end date must be after the start date.',
         'experiences.*.description.required' => 'The description :position is required.',
         'experiences.*.description.min' => 'The description must be at least :min characters long.',
+        'experiences.*.location.required' => 'The location :position is required.',
     ];
 
     public function addRow(){
@@ -58,6 +59,7 @@ class ExperienceForm extends Form
 
         // dd($this->experiences);
         $this->validate();
+        $this->reset();
         // Save the data
     }
 }

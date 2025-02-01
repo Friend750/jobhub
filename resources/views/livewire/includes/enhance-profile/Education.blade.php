@@ -12,10 +12,12 @@
     <p>Add information about your educational background. You can include multiple entries.</p>
     <div id="education" class="collapse show">
         @foreach ($EDForm->educations as $index => $education)
-            <div class="form-row">
+        <div class="form-group mb-3">
+
+            <div class="row">
                 <!-- Degree -->
-                <div class="form-group col-md-4">
-                    <label>Degree</label>
+                <div class=" col-md-4">
+                    <label class="mb-2">Degree</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.degree") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.degree"
@@ -26,8 +28,8 @@
                 </div>
 
                 <!-- Institution Name -->
-                <div class="form-group col-md-4">
-                    <label>Institution Name</label>
+                <div class=" col-md-4">
+                    <label class="mb-2">Institution Name</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.institution_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.institution_name"
@@ -38,8 +40,8 @@
                 </div>
 
                 <!-- Location -->
-                <div class="form-group col-md-4">
-                    <label>Location</label>
+                <div class=" col-md-4">
+                    <label class="mb-2">Location</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.location") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.location" placeholder="e.g., Cambridge, MA">
@@ -48,9 +50,13 @@
                     @enderror
                 </div>
 
+
+            </div>
+
+            <div class="row mt-2">
                 <!-- Graduation Date -->
-                <div class="form-group col-md-4">
-                    <label>Graduation Date</label>
+                <div class=" col-md-4">
+                    <label class="mb-2">Graduation Date</label>
                     <input type="date"
                         class="form-control @error("EDForm.educations.{$index}.graduation_date") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.graduation_date">
@@ -60,8 +66,8 @@
                 </div>
 
                 <!-- Certification Name -->
-                <div class="form-group col-md-8">
-                    <label>Certification Name</label>
+                <div class=" col-md-8">
+                    <label class="mb-2">Certification Name</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.certification_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.certification_name"
@@ -72,9 +78,10 @@
                 </div>
 
             </div>
+
             <!-- Description -->
-            <div class="form-group flex-grow-1">
-                <label>Description</label>
+            <div class="mt-2 flex-grow-1">
+                <label class="mb-2">Description</label>
                 <div class="d-flex">
                     <textarea class="form-control @error("EDForm.educations.{$index}.description") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.description"
@@ -85,7 +92,7 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            
+        </div>
         @endforeach
         <div class="d-flex justify-content-end align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click='addEducationRow'> Add

@@ -2,10 +2,6 @@
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
             <h5>Experience</h5>
-            <div>
-                <!-- Bootstrap 4 Modal Triggers -->
-                <i class="bi bi-plus-circle btn p-1" data-toggle="modal" data-target="#NewExperience"></i>
-            </div>
         </div>
 
         <ul class="list-unstyled">
@@ -13,131 +9,129 @@
                 <strong> Job Title | Company Name | Location</strong>
                 <div class="d-flex justify-content-between align-items-center">
                     <strong class="">[Month/Year – Month/Year]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-toggle="modal"
-                        data-target="#EditExperience"></i>
+                    <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                        data-bs-target="#EditExperience"></i>
                 </div>
             </div>
             <li class="text-muted">what has been done at this position</li>
         </ul>
-
 
         <ul class="list-unstyled">
             <div class="d-flex justify-content-between align-items-center">
                 <strong> Job Title | Company Name | Location</strong>
                 <div class="d-flex justify-content-between align-items-center">
                     <strong class="">[Month/Year – Month/Year]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-toggle="modal"
-                        data-target="#EditExperience"></i>
+                    <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                        data-bs-target="#EditExperience"></i>
                 </div>
             </div>
             <li class="text-muted">what has been done at this position</li>
         </ul>
-
     </div>
 </div>
 
-<!-- modal NewExperience -->
-<div class="modal fade overflow-hidden" id="NewExperience" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">New Experience</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="ExperienceContainer">
-                    <div class="experiences-block" id="initialExperiences">
-                        <div class="form-row mb-3">
-                            <div class="form-group col-md-6">
-                                <label for="jobTitle1" style="min-width: 150px;">Job Title </label>
-                                <input type="text" class="form-control" placeholder="e.g., Software Engineer">
+<form wire:submit.prevent ="saveExperience">
+    <!-- Modal EditExperience -->
+    <div class="modal fade overflow-hidden" id="EditExperience" tabindex="-1" aria-labelledby="modalTitleId"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Edit Experience</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="ExperienceContainer">
+                        @foreach ($ExperienceForm->experiences as $index => $experience)
+                            <div class="experiences-block mb-4">
+                                @if ($index > 0)
+                                    <hr>
+                                @endif
+                                <div class="row mb-3">
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2" for="job_title_{{ $index }}">Job Title</label>
+                                        <input type="text"
+                                            class="form-control @error("ExperienceForm.experiences.{$index}.job_title") is-invalid @enderror"
+                                            wire:model="ExperienceForm.experiences.{{ $index }}.job_title"
+                                            placeholder="e.g., Software Engineer">
+                                        @error("ExperienceForm.experiences.{$index}.job_title")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2" for="company_name_{{ $index }}">Company
+                                            Name</label>
+                                        <input type="text"
+                                            class="form-control @error("ExperienceForm.experiences.{$index}.company_name") is-invalid @enderror"
+                                            wire:model="ExperienceForm.experiences.{{ $index }}.company_name"
+                                            placeholder="e.g., ABC Corp">
+                                        @error("ExperienceForm.experiences.{$index}.company_name")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2" for="start_date_{{ $index }}">Start Date</label>
+                                        <input type="date"
+                                            class="form-control @error("ExperienceForm.experiences.{$index}.start_date") is-invalid @enderror"
+                                            wire:model="ExperienceForm.experiences.{{ $index }}.start_date">
+                                        @error("ExperienceForm.experiences.{$index}.start_date")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="mb-2" for="end_date_{{ $index }}">End Date</label>
+                                        <input type="date"
+                                            class="form-control @error("ExperienceForm.experiences.{$index}.end_date") is-invalid @enderror"
+                                            wire:model="ExperienceForm.experiences.{{ $index }}.end_date">
+                                        @error("ExperienceForm.experiences.{$index}.end_date")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="mb-2" for="location_{{ $index }}">Location</label>
+                                        <input type="text"
+                                            class="form-control @error("ExperienceForm.experiences.{$index}.location") is-invalid @enderror"
+                                            wire:model="ExperienceForm.experiences.{{ $index }}.location"
+                                            placeholder="e.g., New York">
+                                        @error("ExperienceForm.experiences.{$index}.location")
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="mb-2" for="description_{{ $index }}">Description</label>
+                                    <textarea class="form-control @error("ExperienceForm.experiences.{$index}.description") is-invalid @enderror"
+                                        wire:model="ExperienceForm.experiences.{{ $index }}.description" rows="3"
+                                        placeholder="What has been done at this position?"></textarea>
+                                    @error("ExperienceForm.experiences.{$index}.description")
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="employer1" style="min-width: 150px;">Company Name</label>
-                                <input type="text" class="form-control" placeholder="e.g., ABC Corp">
-                            </div>
-                        </div>
-                        <div class="form-row mb-3">
-                            <div class="form-group col-md-3">
-                                <label for="experiencesStartDate" style="min-width: 150px;">Start Date </label>
-                                <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="experiencesEndDate" style="min-width: 150px;">End Date </label>
-                                <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="city1" style="min-width: 150px;">City</label>
-                                <input type="text" class="form-control" placeholder="e.g., New York">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description1" style="min-width: 150px;">Description 1</label>
-                            <textarea class="form-control" rows="3" placeholder="what has been done at this position?"></textarea>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
-<!-- modal EditExperience -->
-<div class="modal fade overflow-hidden" id="EditExperience" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">Edit Experience</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="ExperienceContainer">
-                    <div class="experiences-block" id="initialExperiences">
-                        <div class="form-row mb-3">
-                            <div class="form-group col-md-6">
-                                <label for="jobTitle1" style="min-width: 150px;">Job Title </label>
-                                <input type="text" class="form-control" placeholder="e.g., Software Engineer">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="employer1" style="min-width: 150px;">Company Name</label>
-                                <input type="text" class="form-control" placeholder="e.g., ABC Corp">
-                            </div>
-                        </div>
-                        <div class="form-row mb-3">
-                            <div class="form-group col-md-3">
-                                <label for="experiencesStartDate" style="min-width: 150px;">Start Date </label>
-                                <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="experiencesEndDate" style="min-width: 150px;">End Date </label>
-                                <input type="text" class="form-control" placeholder="e.g., MM / YYYY">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="city1" style="min-width: 150px;">City</label>
-                                <input type="text" class="form-control" placeholder="e.g., New York">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="description1" style="min-width: 150px;">Description 1</label>
-                            <textarea class="form-control" rows="3" placeholder="what has been done at this position?"></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Livewire.on('close-modal', () => {
+            let modalElement = document.getElementById('EditExperience');
+            if (modalElement) {
+                bootstrap.Modal.getOrCreateInstance(modalElement).hide();
+            }
+        });
+    });
+</script>

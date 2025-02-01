@@ -18,9 +18,9 @@
                     @if ($index > 0)
                         <hr>
                     @endif
-                    <div class="form-row">
+                    <div class="row mb-3">
                         <div class="form-group col-md-6">
-                            <label for="job_title_{{ $index }}">Job Title</label>
+                            <label class="mb-2" for="job_title_{{ $index }}">Job Title</label>
                             <input type="text"
                                 class="form-control @error("ExperienceForm.experiences.{$index}.job_title") is-invalid @enderror"
                                 wire:model="ExperienceForm.experiences.{{ $index }}.job_title"
@@ -30,7 +30,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="company_name_{{ $index }}">Company Name</label>
+                            <label class="mb-2" for="company_name_{{ $index }}">Company Name</label>
                             <input type="text"
                                 class="form-control @error("ExperienceForm.experiences.{$index}.company_name") is-invalid @enderror"
                                 wire:model="ExperienceForm.experiences.{{ $index }}.company_name"
@@ -41,9 +41,9 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <div class="row mb-3">
                         <div class="form-group col-md-3">
-                            <label for="start_date_{{ $index }}">Start Date</label>
+                            <label class="mb-2" for="start_date_{{ $index }}">Start Date</label>
                             <input type="date"
                                 class="form-control @error("ExperienceForm.experiences.{$index}.start_date") is-invalid @enderror"
                                 wire:model="ExperienceForm.experiences.{{ $index }}.start_date">
@@ -52,7 +52,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="end_date_{{ $index }}">End Date</label>
+                            <label class="mb-2" for="end_date_{{ $index }}">End Date</label>
                             <input type="date"
                                 class="form-control @error("ExperienceForm.experiences.{$index}.end_date") is-invalid @enderror"
                                 wire:model="ExperienceForm.experiences.{{ $index }}.end_date">
@@ -61,7 +61,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="location_{{ $index }}">Location</label>
+                            <label class="mb-2" for="location_{{ $index }}">Location</label>
                             <input type="text"
                                 class="form-control @error("ExperienceForm.experiences.{$index}.location") is-invalid @enderror"
                                 wire:model="ExperienceForm.experiences.{{ $index }}.location"
@@ -72,8 +72,8 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <label for="description_{{ $index }}">Description</label>
+                    <div class="mb-3">
+                        <label class="mb-2" for="description_{{ $index }}">Description</label>
                         <textarea class="form-control @error("ExperienceForm.experiences.{$index}.description") is-invalid @enderror"
                             wire:model="ExperienceForm.experiences.{{ $index }}.description" rows="3"
                             placeholder="What has been done at this position?"></textarea>
