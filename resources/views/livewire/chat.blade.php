@@ -23,7 +23,7 @@
         <!-- Side Chat List -->
         <div class="col-md-4 border-end chat-list d-flex flex-column h-100" id="chat-list"
             :class="isMobile && selectedChat ? 'd-none' : ''"
-            style="/* يمكنك استخدام calc(...) أو min-height: 100vh مثلاً بحسب تصميمك */">
+            style="min-height: 100vh">
             <h4 class="mb-3 mt-3 px-3">Chats</h4>
 
             <!-- قائمة المحادثات -->

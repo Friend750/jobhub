@@ -1,13 +1,12 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/Intrests.css') }}">
 @endpush
+
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="row col-md-8">
         <div class="rounded p-3 bg-light shadow-sm">
-            <h2 class="">What do you want to see on <span class="logo">Yemen Jobs?</span></h2>
-            <p class="">Select at least 2 interests to personalize your Yemen Jobs experience. They will be
-                visible on
-                your profile.</p>
+            <h2 class="">{{ __('general.what_to_see', ['appName' => 'Yemen Jobs']) }}</h2>
+            <p class="">{{ __('general.select_interests', ['appName' => 'Yemen Jobs']) }}</p>
 
             @if (session()->has('error'))
                 <div class="alert alert-danger">
@@ -15,7 +14,6 @@
                 </div>
             @endif
             <hr>
-
 
             {{-- options logic --}}
             <div x-data="{
@@ -38,13 +36,11 @@
                 </template>
             </div>
 
-
             <div class="text-end mt-1">
                 <button class="btn btn-primary rounded" wire:click="nextStep">
-                    Next <i class="bi bi-chevron-right"></i>
+                    {{ __('general.next') }} <i class="bi bi-chevron-right"></i>
                 </button>
             </div>
         </div>
-
     </div>
 </div>

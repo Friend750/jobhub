@@ -24,6 +24,8 @@ use App\Livewire\Typeaccount;
 use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Dashboard\JobsTable;
+
 
 
 
@@ -53,5 +55,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name("dashboard");
     Route::get('/users-table', UsersTable::class)->name("users-table");
+    Route::get('/jobs-table', JobsTable::class)->name('dashboard.jobs-table');
 });
 

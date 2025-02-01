@@ -12,10 +12,12 @@ use Livewire\Component;
 class Search extends Component
 {
     #[Title('Search')]
-    public $activeTab = 'people'; // العنصر النشط افتراضيًا
-    public $paginateVar = 5;
-    public $hasMore = false;
+    public $paginateVarPeople = 5;
+    public $paginateVarCompanies = 5;
+    public $hasMorePeople = false;
+    public $hasMoreCompanies = false;
     public $people;
+    public $companies;
     public $query;
     
 
@@ -24,37 +26,22 @@ class Search extends Component
     {
   
         $this->query = session('searchQuery', '');
+        $this->loadPeople();
+        $this->loadCompany();
 
-        $this->switchTab('people');
     
     }
 
-    public function switchTab($tab)
+    
+    public function loadMorePeople()
     {
-        $this->activeTab = $tab; // تحديث العنصر النشط
-        if($tab == 'people')
-        {   $this->paginateVar = 5;
-            $this->loadPeople();
-
-        }
-        else if($tab == 'company')
-        {
-            $this->paginateVar = 5;
-            $this->loadCompany();
-        }
-    }
-
-    public function loadMore()
-    {
-        $this->paginateVar += 5; // Increase the limit
-        if($this->activeTab == 'people')
-        {   
+        $this->paginateVarPeople += 5; // Increase the limit
         $this->loadPeople(); // Reload the data
-        }
-        else if($this->activeTab == 'company')
-        {
-            $this->loadCompany(); // Reload the data
-        }
+    }
+    public function loadMoreCompanies()
+    {
+        $this->paginateVarCompanies += 5; // Increase the limit
+        $this->loadCompany(); // Reload the data
     }
 
     public function loadPeople()
@@ -62,12 +49,12 @@ class Search extends Component
         $results = User::where('user_name', 'like', '%' . $this->query . '%')
             ->where('user_name', '!=', auth()->user()->user_name)
             ->where('type', 'user')
-            ->take($this->paginateVar + 1) // Fetch one extra record to check for more pages
+            ->take($this->paginateVarPeople + 1) // Fetch one extra record to check for more pages
             ->get()
             ->values();
 
-        $this->hasMore = $results->count() > $this->paginateVar; // Check if there are more records
-        $this->people = $results->take($this->paginateVar); // Only take the current page's data
+        $this->hasMorePeople = $results->count() > $this->paginateVarPeople; // Check if there are more records
+        $this->people = $results->take($this->paginateVarPeople); // Only take the current page's data
     }
 
     public function loadCompany()
@@ -75,12 +62,12 @@ class Search extends Component
         $results = User::where('user_name', 'like', '%' . $this->query . '%')
             ->where('user_name', '!=', auth()->user()->user_name)
             ->where('type', 'company')
-            ->take($this->paginateVar + 1) // Fetch one extra record to check for more pages
+            ->take($this->paginateVarCompanies + 1) // Fetch one extra record to check for more pages
             ->get()
             ->values();
 
-        $this->hasMore = $results->count() > $this->paginateVar; // Check if there are more records
-        $this->people = $results->take($this->paginateVar); // Only take the current page's data
+        $this->hasMoreCompanies = $results->count() > $this->paginateVarCompanies; // Check if there are more records
+        $this->companies = $results->take($this->paginateVarCompanies); // Only take the current page's data
     }
 
 
