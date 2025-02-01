@@ -26,7 +26,7 @@ return new class extends Migration
             $table->json('tags');
             $table->enum('target', ['to_any_one', 'connection_only']);
             $table->boolean('is_active')->default(true);
-            $table->boolean('job_post')->default(true);
+            $table->timestamp('job_post')->nullable();
             $table->integer('views')->default(0);
             $table->timestamps(); // created_at و updated_at
         });
