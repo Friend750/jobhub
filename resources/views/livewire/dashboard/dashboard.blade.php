@@ -38,7 +38,7 @@
                 @if ($currentSection === 'users')
                     @livewire('dashboard.users-table')
                 @elseif ($currentSection === 'jobs')
-                    <h1>Welcome to the jobs page</h1>
+                    @livewire('dashboard.jobs-table')
                 @elseif($currentSection === 'home')
                     @include('livewire.includes.dashboard.home')
                 @endif

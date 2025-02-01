@@ -37,14 +37,13 @@ class SelectInterests extends Component
     {
         $user = User::find($this->userId); // Resolve the user using the stored user ID
         if (count($this->selectedInterests) < 2) {
-            session()->flash('error', 'Please select at least 2 interests.');
+            session()->flash('error', __('general.error_interests'));
             return;
         }
         else
         {
             $user->interests = $this->selectedInterests;
             $user->save();
-            session()->flash('success', 'Your interests have been saved successfully!');
             redirect('EnhanceProfile');
         }
         // تنفيذ عملية التخزين أو الانتقال للخطوة التالية

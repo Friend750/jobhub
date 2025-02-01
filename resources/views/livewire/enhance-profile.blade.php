@@ -1,6 +1,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
 @endpush
+
 <div>
     <div class="container mt-5">
         <form wire:submit.prevent="saveAllForms" class="row d-flex justify-content-center">
@@ -13,11 +14,8 @@
                     <div class="col-md-9">
                         @if (session()->has('message'))
                             <div class="mt-0 alert alert-success alert-dismissible rounded fade show"
-                                style="
-                            width: 800px;
-                            margin: 10px auto;"
-                                role="alert">
-                                {{ session('message') }}
+                                style="width: 800px; margin: 10px auto;" role="alert">
+                                {{ __('general.success_message') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
@@ -55,7 +53,7 @@
                     <div class="col-md-3">
                         <div class="list-group rounded MakeSticky">
                             <a href="#" class="list-group-item list-group-item-action disabled text-muted">
-                                <i class="bi bi-person"></i> Personal Details
+                                <i class="bi bi-person"></i> {{ __('general.personal_details') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('professional_summary')"
@@ -63,7 +61,7 @@
                                     'disabled': activeSections.includes('professional_summary'),
                                     'text-muted': activeSections.includes('professional_summary')
                                 }">
-                                <i class="bi bi-card-text"></i> Professional Summary
+                                <i class="bi bi-card-text"></i> {{ __('general.professional_summary') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('websites_social_links')"
@@ -71,7 +69,7 @@
                                     'disabled': activeSections.includes('websites_social_links'),
                                     'text-muted': activeSections.includes('websites_social_links')
                                 }">
-                                <i class="bi bi-link"></i> Websites & Social Links
+                                <i class="bi bi-link"></i> {{ __('general.websites_social_links') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('education')"
@@ -79,7 +77,7 @@
                                     'disabled': activeSections.includes('education'),
                                     'text-muted': activeSections.includes('education')
                                 }">
-                                <i class="bi bi-pencil"></i> Education
+                                <i class="bi bi-pencil"></i> {{ __('general.education') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('courses')"
@@ -87,7 +85,7 @@
                                     'disabled': activeSections.includes('courses'),
                                     'text-muted': activeSections.includes('courses')
                                 }">
-                                <i class="bi bi-journal"></i> Courses
+                                <i class="bi bi-journal"></i> {{ __('general.courses') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('skills')"
@@ -95,7 +93,7 @@
                                     'disabled': activeSections.includes('skills'),
                                     'text-muted': activeSections.includes('skills')
                                 }">
-                                <i class="bi bi-lightbulb"></i> Skills
+                                <i class="bi bi-lightbulb"></i> {{ __('general.skills') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('experiences')"
@@ -103,7 +101,7 @@
                                     'disabled': activeSections.includes('experiences'),
                                     'text-muted': activeSections.includes('experiences')
                                 }">
-                                <i class="bi bi-briefcase"></i> Experiences
+                                <i class="bi bi-briefcase"></i> {{ __('general.experiences') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('projects')"
@@ -111,7 +109,7 @@
                                     'disabled': activeSections.includes('projects'),
                                     'text-muted': activeSections.includes('projects')
                                 }">
-                                <i class="bi bi-folder"></i> Projects
+                                <i class="bi bi-folder"></i> {{ __('general.projects') }}
                             </a>
                             <a href="#" class="list-group-item list-group-item-action"
                                 @click.prevent="toggleSection('languages')"
@@ -119,12 +117,13 @@
                                     'disabled': activeSections.includes('languages'),
                                     'text-muted': activeSections.includes('languages')
                                 }">
-                                <i class="bi bi-translate"></i> Languages
+                                <i class="bi bi-translate"></i> {{ __('general.languages') }}
                             </a>
 
                             <!-- Confirm Button -->
-                            <button class="btn btn-primary rounded flex-grow-1 mt-2">Confirm &
-                                Save all</button>
+                            <button class="btn btn-primary rounded flex-grow-1 mt-2">
+                                {{ __('general.confirm_save') }}
+                            </button>
                         </div>
                     </div>
 
