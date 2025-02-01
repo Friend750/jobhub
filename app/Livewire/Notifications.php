@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Carbon\Carbon;
 
 class Notifications extends Component
 {
@@ -45,9 +46,10 @@ public function loadNotifications()
 }
 public function markAsRead($id)
 {
+
     DB::table('notifications')
         ->where('id', $id)
-        ->update(['read_at' => now()]);
+        ->update(['read_at' => Carbon::now('Asia/Aden')]);
     $this->loadNotifications(); // تحديث الإشعارات بعد التغيير
 }
 
