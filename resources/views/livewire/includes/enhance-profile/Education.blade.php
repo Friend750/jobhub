@@ -1,25 +1,25 @@
 <section class="form-section rounded">
     <h5 data-toggle="collapse" data-target="#education">
-        Education
+        {{ __('general.education') }}
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('education')"
-                title="Remove section">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button" 
+                x-on:click="toggleSection('education')" title="{{ __('general.remove_section') }}">
                 <i class="fas fa-trash"></i>
             </button>
             <i class="fas fa-caret-down caret-icon"></i>
         </div>
     </h5>
-    <p>Add information about your educational background. You can include multiple entries.</p>
+    <p>{{ __('general.education_description') }}</p>
     <div id="education" class="collapse show">
         @foreach ($EDForm->educations as $index => $education)
             <div class="form-row">
                 <!-- Degree -->
                 <div class="form-group col-md-4">
-                    <label>Degree</label>
+                    <label>{{ __('general.degree') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.degree") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.degree"
-                        placeholder="e.g., Bachelor's, Master's">
+                        placeholder="{{ __('general.placeholder_degree') }}">
                     @error("EDForm.educations.{$index}.degree")
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -27,11 +27,11 @@
 
                 <!-- Institution Name -->
                 <div class="form-group col-md-4">
-                    <label>Institution Name</label>
+                    <label>{{ __('general.institution_name') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.institution_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.institution_name"
-                        placeholder="e.g., Harvard University">
+                        placeholder="{{ __('general.placeholder_institution') }}">
                     @error("EDForm.educations.{$index}.institution_name")
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -39,10 +39,11 @@
 
                 <!-- Location -->
                 <div class="form-group col-md-4">
-                    <label>Location</label>
+                    <label>{{ __('general.location') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.location") is-invalid @enderror"
-                        wire:model="EDForm.educations.{{ $index }}.location" placeholder="e.g., Cambridge, MA">
+                        wire:model="EDForm.educations.{{ $index }}.location" 
+                        placeholder="{{ __('general.placeholder_location') }}">
                     @error("EDForm.educations.{$index}.location")
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -50,7 +51,7 @@
 
                 <!-- Graduation Date -->
                 <div class="form-group col-md-4">
-                    <label>Graduation Date</label>
+                    <label>{{ __('general.graduation_date') }}</label>
                     <input type="date"
                         class="form-control @error("EDForm.educations.{$index}.graduation_date") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.graduation_date">
@@ -61,35 +62,34 @@
 
                 <!-- Certification Name -->
                 <div class="form-group col-md-8">
-                    <label>Certification Name</label>
+                    <label>{{ __('general.certification_name') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.certification_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.certification_name"
-                        placeholder="e.g., AWS Certified Solutions Architect">
+                        placeholder="{{ __('general.placeholder_certification') }}">
                     @error("EDForm.educations.{$index}.certification_name")
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-
             </div>
+
             <!-- Description -->
             <div class="form-group flex-grow-1">
-                <label>Description</label>
+                <label>{{ __('general.description') }}</label>
                 <div class="d-flex">
                     <textarea class="form-control @error("EDForm.educations.{$index}.description") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.description"
-                        placeholder="Include any relevant coursework, honors, or GPA if applicable" rows="3"></textarea>
-
+                        placeholder="{{ __('general.placeholder_description') }}" rows="3"></textarea>
                 </div>
                 @error("EDForm.educations.{$index}.description")
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            
         @endforeach
         <div class="d-flex justify-content-end align-items-center mt-0">
-            <button type="button" class="btn btn-primary rounded" wire:click='addEducationRow'> Add
-                Education </button>
+            <button type="button" class="btn btn-primary rounded" wire:click='addEducationRow'>
+                {{ __('general.add_education') }}
+            </button>
             @if ($index > 0)
                 <button type="button" class="btn btn-primary rounded ms-2"
                     wire:click="removeEducationRow({{ $index }})">

@@ -8,7 +8,8 @@
 let channel = Echo.private('users.{{ auth()->user()->id }}');
 channel.notification((notification) => {
 if (notification.type === 'App\\Notifications\\Request') {
-    $wire.dispatch('messageReceived');
+    console.log('Request');
+    $wire.dispatch('loadNotifications');
 } 
 });
 "
@@ -66,6 +67,7 @@ if (notification.type === 'App\\Notifications\\Request') {
                                 <div class="tab-pane fade show active" id="All" role="tabpanel">
                                     @foreach ($notifications as $notification)
                                     <div
+                
                                         class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
                                         <div>
                                             <strong>
@@ -86,7 +88,7 @@ if (notification.type === 'App\\Notifications\\Request') {
                                         </div>
                                         <div class="d-flex flex-column align-items-center">
                                             <span class="text-muted small text-center mb-2">
-                                                {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ?? 'Unknown time' }}
+                                                {{ $notification['read_at'] ?? 'Unknown time' }}
                                             </span>
                                             @if (is_null($notification['read_at']))
                                             <button class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
@@ -123,7 +125,7 @@ if (notification.type === 'App\\Notifications\\Request') {
                                         </div>
                                        <div class="d-flex flex-column align-items-center">
                                             <span class="text-muted small text-center mb-2">
-                                                {{ \Carbon\Carbon::parse($notification['read_at'])->format('H:i') ?? 'Unknown time' }}
+                                                {{ $notification['read_at'] ?? 'Unknown time' }}
                                             </span>
                                             <button class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
                                                 wire:click="markAsRead('{{ $notification['id'] }}')">

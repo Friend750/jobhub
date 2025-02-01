@@ -25,15 +25,20 @@ class Chat extends Component
 
     public function mount($conversationId = null)
     {
+        
         $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
 
         $this->chats = Conversation::with([
             'firstUser:id,user_name,user_image', 
             'secondUser:id,user_name,user_image'
         ])
+            ->where(function ($query) {
+                $query->where('first_user', auth()->id())
+                      ->orWhere('second_user', auth()->id());
+            }) // Only fetch conversations where the user is a participant
             ->orderBy('updated_at', 'desc')
             ->take(5)
-            ->get(['id', 'first_user', 'second_user', 'last_message']) // Fetch only necessary fields
+            ->get(['id', 'first_user', 'second_user', 'last_message'])
             ->map(function ($conversation) {
                 $otherUser = auth()->id() === $conversation->first_user 
                     ? $conversation->secondUser
@@ -45,21 +50,17 @@ class Chat extends Component
                     'last_message' => $conversation->last_message,
                     'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
                 ];
-            })
+            })        
             ->toArray();
         
-        if ($conversationId != null) {
-            $isPart = Conversation::where('id', $conversationId)
-                ->whereHas('users', function ($query) {
-                    $query->where('id', auth()->id());
-                })
-                ->exists();
+        if ($conversationId != null)
+         {
+            $conversation = Conversation::findOrFail($conversationId);
 
-            if ($isPart) {
-                $this->selectChat($conversationId);
-            } else {
-                redirect('/unauthorized-access');
-            }
+            // Use policy to check access
+            $this->authorize('view', $conversation);
+            
+            $this->selectChat($conversationId);
         }
     }
 
@@ -79,10 +80,15 @@ class Chat extends Component
         $this->validate([
             'message' => 'required|string|max:1000',
         ]);
-        $conversation = \App\Models\Conversation::find($this->selectedChat['id']);
-        $receiverId = auth()->id() === $conversation->first_user
+        $conversation = \App\Models\Conversation::findOrFail($this->selectedChat['id']);
+
+        $this->authorize('sendMessage', $conversation);
+                $receiverId = auth()->id() === $conversation->first_user
             ? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
             : $conversation->first_user;
+            if (!User::find($receiverId)) {
+                abort(404, 'Receiver not found');
+            }            
         $message = \App\Models\Chat::create([
             'message' => $this->message,
             'sender_id' => auth()->id(),
@@ -172,6 +178,7 @@ class Chat extends Component
 
     public function selectChat($chatId)
     {
+        $this->message = '';
         $this->selectedChat = collect($this->chats)->firstWhere('id', $chatId);
 
         // عدد الرسائل المحملة مبدئيًا
