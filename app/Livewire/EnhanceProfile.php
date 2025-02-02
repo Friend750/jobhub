@@ -122,7 +122,6 @@ class EnhanceProfile extends Component
 
         // sesstion flash message
         session()->flash('message', 'Profile Updated Successfully');
-
     }
 
 

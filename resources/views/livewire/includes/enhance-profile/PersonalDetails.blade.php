@@ -8,7 +8,7 @@
 
         <div class="row mb-3">
             <div class="form-group col-md-6">
-                <label for="firstName">{{ __('general.first_name') }}</label>
+                <label class="mb-2" for="firstName">{{ __('general.first_name') }}</label>
                 <input type="text"
                     class="form-control @error('PDFrom.firstName') is-invalid @enderror"
                     id="firstName"
@@ -19,7 +19,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="lastName">{{ __('general.last_name') }}</label>
+                <label class="mb-2" for="lastName">{{ __('general.last_name') }}</label>
                 <input type="text"
                     class="form-control @error('PDFrom.lastName') is-invalid @enderror"
                     id="lastName"
@@ -31,9 +31,9 @@
             </div>
         </div>
 
-        <div class="form-row">
+        <div class="row mb-3">
             <div class="form-group col-md-6">
-                <label for="jobTitle">{{ __('general.specialization') }}</label>
+                <label class="mb-2" for="jobTitle">{{ __('general.specialization') }}</label>
                 <input type="text"
                     class="form-control @error('PDFrom.jobTitle') is-invalid @enderror"
                     id="jobTitle"
@@ -44,7 +44,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="email">{{ __('general.email') }}</label>
+                <label class="mb-2" for="email">{{ __('general.email') }}</label>
                 <input type="email"
                     class="form-control @error('PDFrom.email') is-invalid @enderror"
                     id="email"
@@ -56,9 +56,9 @@
             </div>
         </div>
 
-        <div class="form-row">
+        <div class="row mb-3">
             <div class="form-group col-md-6">
-                <label for="phone">{{ __('general.phone') }}</label>
+                <label class="mb-2" for="phone">{{ __('general.phone') }}</label>
                 <input type="text"
                     class="form-control @error('PDFrom.phone') is-invalid @enderror"
                     id="phone"
@@ -69,7 +69,7 @@
                 @enderror
             </div>
             <div class="form-group col-md-6">
-                <label for="city">{{ __('general.city') }}</label>
+                <label class="mb-2" for="city">{{ __('general.city') }}</label>
                 <input type="text"
                     class="form-control @error('PDFrom.city') is-invalid @enderror"
                     id="city"

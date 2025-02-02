@@ -17,9 +17,9 @@
                     @if ($index > 0)
                         <hr>
                     @endif
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for="project_title_{{ $index }}">{{ __('general.project_title') }}</label>
+                    <div class="row mb-3">
+                        <div class="form-group mb-3 col-md-12">
+                            <label class="mb-2" for="project_title_{{ $index }}">{{ __('general.project_title') }}</label>
                             <input type="text"
                                 class="form-control @error("ProjectsForm.projects.{$index}.title") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.title"
@@ -28,8 +28,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="project_description_{{ $index }}">{{ __('general.project_description') }}</label>
+                        <div class="form-group mb-3 col-md-12">
+                            <label class="mb-2" for="project_description_{{ $index }}">{{ __('general.project_description') }}</label>
                             <textarea class="form-control @error("ProjectsForm.projects.{$index}.description") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.description"
                                 placeholder="{{ __('general.placeholder_project_description') }}" rows="3"></textarea>
@@ -37,8 +37,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="project_contributions_{{ $index }}">{{ __('general.project_contributions') }}</label>
+                        <div class="form-group mb-3 col-md-12">
+                            <label class="mb-2" for="project_contributions_{{ $index }}">{{ __('general.project_contributions') }}</label>
                             <textarea class="form-control @error("ProjectsForm.projects.{$index}.contributions") is-invalid @enderror"
                                 wire:model="ProjectsForm.projects.{{ $index }}.contributions"
                                 placeholder="{{ __('general.placeholder_project_contributions') }}" rows="2"></textarea>

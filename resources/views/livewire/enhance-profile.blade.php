@@ -1,14 +1,13 @@
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
 @endpush
 
 <div>
-    <div class="container mt-5">
-        <form wire:submit.prevent="saveAllForms" class="row d-flex justify-content-center">
-
-            <!-- Main Layout -->
-            <div x-data="sectionManager(@this)">
-                <div class="row">
+    <form wire:submit.prevent="saveAllForms">
+        <div x-data="sectionManager(@this)">
+            <div class="container mt-5">
+                <!-- Main Layout -->
+                <div class="row d-flex justify-content-center">
 
                     <!-- Content Area -->
                     <div class="col-md-9">
@@ -23,30 +22,30 @@
 
                         @include('livewire.includes.enhance-profile.PersonalDetails')
 
-                        <div x-show="activeSections.includes('professional_summary')" x-cloak class="mb-4">
+                        <template x-if="activeSections.includes('professional_summary')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.ProfessionalSummary')
-                        </div>
-                        <div x-show="activeSections.includes('websites_social_links')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('websites_social_links')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.WebsitesSocialLinks')
-                        </div>
-                        <div x-show="activeSections.includes('education')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('education')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Education')
-                        </div>
-                        <div x-show="activeSections.includes('courses')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('courses')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Courses')
-                        </div>
-                        <div x-show="activeSections.includes('skills')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('skills')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Skills')
-                        </div>
-                        <div x-show="activeSections.includes('experiences')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('experiences')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Experiences')
-                        </div>
-                        <div x-show="activeSections.includes('projects')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('projects')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Projects')
-                        </div>
-                        <div x-show="activeSections.includes('languages')" x-cloak class="mb-4">
+                        </template>
+                        <template x-if="activeSections.includes('languages')" x-cloak class="mb-4">
                             @include('livewire.includes.enhance-profile.Languages')
-                        </div>
+                        </template>
                     </div>
 
                     <!-- Sidebar with options -->
@@ -129,8 +128,8 @@
 
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <script>
@@ -139,12 +138,16 @@
         Alpine.data('sectionManager', (wire) => ({ // 'wire' important to access Livewire properties
             activeSections: [],
             toggleSection(section) {
+                console.log("toggleSection");
+                
                 if (this.activeSections.includes(section)) {
                     this.activeSections = this.activeSections.filter(s => s !== section);
                 } else {
                     this.activeSections.push(section);
+                    console.log(this.activeSections);
+                    
                 }
-                wire.set('activeSections', this.activeSections);
+                wire.set('activeSections', this.activeSections, false);
             }
         }));
     });

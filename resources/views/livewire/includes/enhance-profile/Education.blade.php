@@ -2,8 +2,8 @@
     <h5 data-toggle="collapse" data-target="#education">
         {{ __('general.education') }}
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" type="button"
-                x-on:click="toggleSection('education')" title="{{ __('general.remove_section') }}">
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button" x-on:click="toggleSection('education')"
+                title="{{ __('general.remove_section') }}">
                 <i class="fas fa-trash"></i>
             </button>
             <i class="fas fa-caret-down caret-icon"></i>
@@ -12,10 +12,10 @@
     <p>{{ __('general.education_description') }}</p>
     <div id="education" class="collapse show">
         @foreach ($EDForm->educations as $index => $education)
-            <div class="form-row">
+            <div class="row mb-3">
                 <!-- Degree -->
                 <div class="form-group col-md-4">
-                    <label>{{ __('general.degree') }}</label>
+                    <label class="mb-2">{{ __('general.degree') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.degree") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.degree"
@@ -27,7 +27,7 @@
 
                 <!-- Institution Name -->
                 <div class="form-group col-md-4">
-                    <label>{{ __('general.institution_name') }}</label>
+                    <label class="mb-2">{{ __('general.institution_name') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.institution_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.institution_name"
@@ -39,7 +39,7 @@
 
                 <!-- Location -->
                 <div class="form-group col-md-4">
-                    <label>{{ __('general.location') }}</label>
+                    <label class="mb-2">{{ __('general.location') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.location") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.location"
@@ -49,9 +49,11 @@
                     @enderror
                 </div>
 
+            </div>
+            <div class="row mb-3">
                 <!-- Graduation Date -->
                 <div class="form-group col-md-4">
-                    <label>{{ __('general.graduation_date') }}</label>
+                    <label class="mb-2">{{ __('general.graduation_date') }}</label>
                     <input type="date"
                         class="form-control @error("EDForm.educations.{$index}.graduation_date") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.graduation_date">
@@ -62,7 +64,7 @@
 
                 <!-- Certification Name -->
                 <div class="form-group col-md-8">
-                    <label>{{ __('general.certification_name') }}</label>
+                    <label class="mb-2">{{ __('general.certification_name') }}</label>
                     <input type="text"
                         class="form-control @error("EDForm.educations.{$index}.certification_name") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.certification_name"
@@ -71,11 +73,11 @@
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-            </div>
 
+            </div>
             <!-- Description -->
-            <div class="form-group flex-grow-1">
-                <label>{{ __('general.description') }}</label>
+            <div class="form-group flex-grow-1 mb-3">
+                <label class="mb-2">{{ __('general.description') }}</label>
                 <div class="d-flex">
                     <textarea class="form-control @error("EDForm.educations.{$index}.description") is-invalid @enderror"
                         wire:model="EDForm.educations.{{ $index }}.description"

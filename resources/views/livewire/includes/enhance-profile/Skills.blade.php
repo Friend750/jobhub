@@ -2,7 +2,7 @@
     <h5 data-toggle="collapse" data-target="#skills">
         {{ __('general.skills') }}
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" type="button" 
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button"
                 x-on:click="toggleSection('skills')" title="{{ __('general.remove_section') }}">
                 <i class="fas fa-trash"></i>
             </button>
@@ -15,7 +15,6 @@
             <div class="row mb-3 skill-block" id="initialSkill">
                 <div class="form-group col-md-12">
                     <div class="flex-grow-1 me-2">
-                        {{-- ignore must be in a parent container --}}
                         <div wire:ignore>
                             <select class="form-select @error('SkillsForm.skills') is-invalid @enderror"
                                 id="multiDropdown" data-placeholder="{{ __('general.placeholder_skills') }}" multiple>
