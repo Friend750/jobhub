@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,24 +12,23 @@ class JobPost extends Model
     protected $fillable = [
         'user_id', 'job_title', 'about_job', 'job_tasks',
         'job_conditions', 'job_skills', 'job_location',
-        'job_timing', 'tags', 'target', 'is_active',
-        'job_post', 'views'
+        'job_timing', 'tags', 'is_active', 'job_post', 'views'
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+        'is_active' => 'boolean'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class)->select('id', 'user_name');
     }
 
     public function scopeSearch($query, $term)
-{
-    return $query->where('job_title', 'LIKE', "%{$term}%")
-                 ->orWhere('job_location', 'LIKE', "%{$term}%")
-                 ->orWhere('tags', 'LIKE', "%{$term}%");
-}
-public function creator()
-{
-    return $this->belongsTo(User::class, 'user_id'); // Replace 'creator_id' with the actual foreign key
-}
-
+    {
+        return $query->where('job_title', 'LIKE', "%{$term}%")
+                     ->orWhere('job_location', 'LIKE', "%{$term}%")
+                     ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
+    }
 }

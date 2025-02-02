@@ -2,28 +2,30 @@
     <section class="mt-4">
         <div class="container-xl px-4">
             <div class="bg-white shadow-sm rounded overflow-hidden">
-                <!-- Filters Section -->
+                <!-- 🔹 إشعارات الجلسة -->
+                @if (session()->has('message'))
+                    <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                @endif
+
+                <!-- 🔹 قسم البحث والفلاتر -->
                 <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between p-3 gap-3">
-                    <!-- Search Input -->
                     <div class="flex-grow-1">
                         <div class="input-group">
                             <span class="input-group-text bg-transparent border-end-0">
-                                <svg aria-hidden="true" class="text-secondary" width="20" height="20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"/>
-                                </svg>
+                                <i class="bi bi-search text-secondary"></i>
                             </span>
-                            <input type="search" 
-                                   wire:model.live.debounce.400ms="search"
+                            <input type="search" wire:model.debounce.400ms="search"
                                    class="form-control ps-2"
-                                   placeholder="Search Jobs"
-                                   aria-label="Search jobs">
+                                   placeholder="Search Jobs">
                         </div>
                     </div>
 
-                    <!-- Status Filter -->
                     <div class="d-flex align-items-center gap-2 w-md-25">
                         <label class="form-label text-muted mb-0">Job Status:</label>
-                        <select wire:model.live="status" class="form-select flex-grow-1">
+                        <select wire:model="status" class="form-select flex-grow-1">
                             <option value="">All</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
@@ -31,57 +33,50 @@
                     </div>
                 </div>
 
-                <!-- Jobs Table -->
+                <!-- 🔹 جدول عرض الوظائف -->
                 <div class="table-responsive">
                     <table class="table table-sm text-secondary m-0">
                         <thead class="bg-light">
                             <tr>
-                                <th class="px-3 py-2">Job Title</th>
-                                <th class="px-3 py-2">Creator</th>
-                                <th class="px-3 py-2">Location</th>
-                                <th class="px-3 py-2">Timing</th>
-                                <th class="px-3 py-2">Tags</th>
-                                <th class="px-3 py-2">Status</th>
-                                <th class="px-3 py-2">Posted On</th>
-                                <th class="px-3 py-2 text-end">Actions</th>
+                                <th>Job Title</th>
+                                <th>Creator</th>
+                                <th>Location</th>
+                                <th>Timing</th>
+                                <th>Tags</th>
+                                <th>Status</th>
+                                <th>Posted On</th>
+                                <th class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($jobPosts as $jobPost)
-                            <tr wire:key="{{ $jobPost->id }}" class="border-bottom">
-                                <td class="px-3 py-2 align-middle">{{ $jobPost->job_title }}</td>
-                                <td class="px-3 py-2 align-middle">{{ $jobPost->user->user_name ?? 'N/A' }}</td>
-                                <td class="px-3 py-2 align-middle">{{ $jobPost->job_location }}</td>
-                                <td class="px-3 py-2 align-middle">{{ $jobPost->job_timing }}</td>
-                                <td class="px-3 py-2 align-middle">
-                                    @foreach (json_decode($jobPost->tags) as $tag)
+                            <tr wire:key="{{ $jobPost->id }}">
+                                <td>{{ $jobPost->job_title }}</td>
+                                <td>{{ optional($jobPost->user)->user_name ?? 'N/A' }}</td>
+                                <td>{{ $jobPost->job_location }}</td>
+                                <td>{{ $jobPost->job_timing }}</td>
+                                <td>
+                                    @foreach ($jobPost->tags as $tag)
                                     <span class="badge bg-secondary me-1">{{ $tag }}</span>
                                     @endforeach
                                 </td>
-                                <td class="px-3 py-2 align-middle text-{{ $jobPost->is_active ? 'success' : 'danger' }}">
-                                    {{ $jobPost->is_active ? 'Active' : 'Inactive' }}
+                                <td>
+                                    <span class="badge {{ $jobPost->is_active ? 'bg-success' : 'bg-danger' }}">
+                                        {{ $jobPost->is_active ? 'Active' : 'Inactive' }}
+                                    </span>
                                 </td>
-                                <td class="px-3 py-2 align-middle">
-                                    {{ $jobPost->job_post ?? $jobPost->created_at->format('M d, Y') }}
-                                </td>
-                                <td class="px-3 py-2 text-end align-middle">
-                                    <div class="d-flex gap-2 justify-content-end">
-                                        <button class="btn btn-primary btn-sm"
-                                                wire:click="view({{ $jobPost->id }})"
-                                                aria-label="View job details">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </button>
-                                        <button class="btn btn-primary btn-sm"
-                                                wire:click="edit({{ $jobPost->id }})"
-                                                aria-label="Edit job">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm"
-                                                wire:click="delete({{ $jobPost->id }})"
-                                                aria-label="Delete job">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </button>
-                                    </div>
+                                <td>{{ $jobPost->job_post ?? $jobPost->created_at->format('M d, Y') }}</td>
+                                <td class="text-end">
+                                    <button class="btn btn-primary btn-sm" wire:click="view({{ $jobPost->id }})">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                    </button>
+                                    <button class="btn btn-warning btn-sm" wire:click="edit({{ $jobPost->id }})">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm"
+                                            @click="if(confirm('Are you sure?')) { $wire.delete({{ $jobPost->id }}) }">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -89,11 +84,11 @@
                     </table>
                 </div>
 
-                <!-- Pagination -->
+                <!-- 🔹 التحكم في عدد النتائج والصفحات -->
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center p-3">
-                    <div class="d-flex align-items-center mb-3 mb-md-0">
+                    <div class="d-flex align-items-center">
                         <label class="form-label text-muted me-2 mb-0">Per Page:</label>
-                        <select wire:model.live="per_page" class="form-select" style="width: 80px;">
+                        <select wire:model="per_page" class="form-select" style="width: 80px;">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
@@ -107,7 +102,7 @@
         </div>
     </section>
 
-    <!-- View Modal -->
+    <!-- 🔹 نافذة عرض تفاصيل الوظيفة -->
     <div x-data="{ showModal: false }"
          x-show="showModal"
          @show-view-modal.window="showModal = true"
@@ -117,35 +112,50 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $job_title }}</h5>
+                    <h5 class="modal-title">{{ $selectedJob->job_title ?? 'Job Details' }}</h5>
                     <button type="button" class="btn-close" @click="showModal = false"></button>
                 </div>
-                <div class="modal-body text-start">
-                    <dl class="row">
-                        <dt class="col-sm-4">Location:</dt>
-                        <dd class="col-sm-8">{{ $job_location }}</dd>
-
-                        <dt class="col-sm-4">Timing:</dt>
-                        <dd class="col-sm-8">{{ $job_timing }}</dd>
-
-                        <dt class="col-sm-4">Creator:</dt>
-                        <dd class="col-sm-8">{{ $creator_name }}</dd>
-
-                        <dt class="col-sm-4">About Job:</dt>
-                        <dd class="col-sm-8">{{ $about_job }}</dd>
-
-                        <dt class="col-sm-4">Tasks:</dt>
-                        <dd class="col-sm-8">{{ $job_tasks }}</dd>
-
-                        <dt class="col-sm-4">Conditions:</dt>
-                        <dd class="col-sm-8">{{ $job_conditions }}</dd>
-
-                        <dt class="col-sm-4">Required Skills:</dt>
-                        <dd class="col-sm-8">{{ $job_skills }}</dd>
-                    </dl>
+                <div class="modal-body">
+                    <p><strong>Location:</strong> {{ $selectedJob->job_location ?? 'N/A' }}</p>
+                    <p><strong>About:</strong> {{ $selectedJob->about_job ?? 'N/A' }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @click="showModal = false">Close</button>
+                    <button class="btn btn-secondary" @click="showModal = false">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 نافذة تعديل الوظيفة -->
+    <div x-data="{ showEditModal: false }"
+         x-show="showEditModal"
+         @show-edit-modal.window="showEditModal = true"
+         @hide-edit-modal.window="showEditModal = false"
+         x-cloak
+         class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Job</h5>
+                    <button type="button" class="btn-close" @click="showEditModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="updateJob">
+                        <div class="mb-3">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" wire:model="selectedJob.job_title" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" wire:model="selectedJob.job_location" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Update</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @click="showEditModal = false">Close</button>
                 </div>
             </div>
         </div>
