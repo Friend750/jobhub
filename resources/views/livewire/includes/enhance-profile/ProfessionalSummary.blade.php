@@ -14,10 +14,10 @@
     <div id="professionalSummary" class="collapse show">
         <div>
             <div class="form-group">
-                <label for="description">{{ __('general.description') }}</label>
-                <textarea class="form-control @error('PSForm.description') is-invalid @enderror" 
-                    id="description" wire:model="PSForm.description" rows="3" 
-                    placeholder="{{ __('general.placeholder_description') }}"></textarea>
+                <label class="mb-2" for="description">{{ __('general.description') }}</label>
+                <textarea class="form-control @error('PSForm.description') is-invalid @enderror" id="description"
+                    wire:model="PSForm.description" rows="3" placeholder="{{ __('general.placeholder_description') }}"
+                    oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
                 @error('PSForm.description')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror

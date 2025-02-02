@@ -13,6 +13,7 @@ use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
 use App\Models\Language;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -122,9 +123,11 @@ class EnhanceProfile extends Component
 
         // sesstion flash message
         session()->flash('message', 'Profile Updated Successfully');
-
     }
 
+    public function mount(){
+        $this->PDFrom->email = Auth::user()?->email;
+    }
 
     public function render()
     {

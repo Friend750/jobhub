@@ -2,78 +2,78 @@
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h5>Skills</h5>
-            <div>
-                <!-- Bootstrap 4 Modal Triggers -->
-                <i class="bi bi-plus-circle btn p-1" data-toggle="modal" data-target="#NewSkills"></i>
-                {{-- <i class="bi bi-pencil-square p-1 btn" data-toggle="modal" data-target="#EditSkills"></i> --}}
-            </div>
         </div>
 
-        <ul class="list-unstyled d-flex flex-wrap" x-data="{ skills: @entangle('skills'), limit: 7, defaultLimit: 7 }">
-            <!-- Display a message when no skills are available -->
+        <ul class="list-unstyled d-flex flex-wrap" x-data="skillsList">
             <li class="text-muted" x-show="skills.length === 0">No skills added yet</li>
 
-            <!-- Display each skill -->
             <template x-for="(skill, index) in skills" :key="index">
-                <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill"></li>
+                <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
+                    x-on:click="$wire.selectSkill(skill.id, skill.name)" data-bs-toggle="tooltip" title="Click to Edit">
+                </li>
             </template>
 
-            <!-- Show 'More' or 'Less' button -->
-            <li class="btn btn-secondary m-1"
-                x-show="skills.length > defaultLimit"
-                @click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
-                x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
-            </li>
+            <template x-if="skills.length > defaultLimit">
+                <li class="btn btn-secondary m-1"
+                    x-on:click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
+                    x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
+                </li>
+            </template>
         </ul>
-
-    </div>
-</div>
-
-<!-- modal NewSkills -->
-<div class="modal fade overflow-hidden" id="NewSkills" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">NewSkills</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group flex-grow-1">
-                    <label for="skill1" style="min-width: 150px;">Skill name</label>
-                    <div class="d-flex">
-                        <input type="text" class="form-control" placeholder="Type the skill name">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
     </div>
 </div>
 
 <!-- modal EditSkills -->
 <div class="modal fade overflow-hidden" id="EditSkills" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true">
+    aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">EditSkills</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <h5 class="modal-title" id="modalTitleId">Choose the new Skill name</h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
             <div class="modal-body">
+                <p class="bg-light py-2 px-2 fw-bolder rounded text-muted">Previous Name: <span x-data="{ oldSkill: @entangle('selectedSkillName') }" x-text="oldSkill??'null'"></span></p>
+                <!-- Search Input -->
+                <input type="text" wire:model.live.debounce.300ms="searchQuery" placeholder="Search skills..."
+                    class="form-control rounded-0 border-0 border-bottom">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <!-- Skill List -->
+                <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
+                    @foreach ($skills as $skill)
+                        <li wire:click="selectSkill('{{ $skill['id'] }}', '{{ $skill['name'] }}')"
+                            class="w-100 text-start p-2 hover:bg-gray-100 pointer">
+                            {{ $skill['name'] }}
+                        </li>
+                    @endforeach
+
+                    <!-- No Results Message -->
+                    @if (count($skills) === 0)
+                        <li class="p-2 text-muted">No skills found.</li>
+                    @endif
+                </ul>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('skillsList', () => ({
+            skills: @entangle('skills'),
+            limit: 7,
+            defaultLimit: 7,
+        }));
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        Livewire.on('update-skill', () => {
+            let modalElement = document.getElementById('EditSkills');
+            if (modalElement) {
+                bootstrap.Modal.getOrCreateInstance(modalElement).show();
+            }
+        });
+    });
+</script>

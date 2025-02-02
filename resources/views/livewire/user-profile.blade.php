@@ -13,7 +13,7 @@
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
-                            <img src="{{ $temporaryUrl ?? 'https://via.placeholder.com/100?text=User' }}"
+                            <img src="{{ $temporaryUrl ?? 'https://ui-avatars.com/api/?name=User' }}"
                                 alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
 
                             <div class="d-flex align-items-end justify-content-between w-100">
@@ -22,8 +22,8 @@
                                     <h3>First name + last name</h3>
                                     <span>User Specialist</span><br>
                                     <span>Sana‘a, Yemen
-                                        <a href="#" class="text-primary text-decoration-none" data-toggle="modal"
-                                            data-target="#contactModal">Contact info</a>
+                                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal"
+                                            data-bs-target="#contactModal">Contact info</a>
                                     </span>
 
                                     <!-- Modal -->
@@ -33,8 +33,8 @@
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Contact Information</h4>
-                                                    <button type="button" class="close"
-                                                        data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
                                                 </div>
                                                 <!-- Modal Body -->
                                                 <div class="modal-body">
@@ -90,8 +90,8 @@
                                                     Share profile link
                                                 </li>
 
-                                                <li class="d-flex align-items-center" data-toggle="modal"
-                                                    data-target="#aboutProfileModal">
+                                                <li class="d-flex align-items-center" data-bs-toggle="modal"
+                                                    data-bs-target="#aboutProfileModal">
                                                     <i class="fas fa-info-circle me-2"></i>
                                                     <!-- Font Awesome icon for info -->
                                                     About this profile
@@ -115,9 +115,9 @@
                                             <!-- Modal Header -->
                                             <div class="modal-header">
                                                 <h4 class="modal-title" id="exampleModalLabel">About This Profile</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                                    <span aria-hidden="true"></span>
                                                 </button>
                                             </div>
 
@@ -132,7 +132,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>
