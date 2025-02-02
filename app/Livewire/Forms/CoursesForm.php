@@ -47,7 +47,7 @@ class CoursesForm extends Form
     public function submit()
     {
         $this->validate();
-        $this->reset();
+        // $this->reset();
         // Save the data
     }
 }

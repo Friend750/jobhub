@@ -61,6 +61,6 @@ class EducationForm extends Form
     public function submit()
     {
         $this->validate();
-        $this->reset();
+        // $this->reset();
     }
 }

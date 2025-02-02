@@ -22,7 +22,7 @@ class SkillsForm extends Form
 
         // dd($this->SelectedSkills);
         $this->validateOnly('skills');
-        $this->reset();
+        // $this->reset();
     }
 
 }
