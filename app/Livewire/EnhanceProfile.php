@@ -128,6 +128,10 @@ class EnhanceProfile extends Component
         session()->flash('message', 'Profile Updated Successfully');
     }
 
+    public function saveCompanyForm(){
+        $this->CompanyPageForm->submit();
+    }
+
     public function mount(){
         $this->PDFrom->email = Auth::user()?->email;
         $this->userType = Auth::user()->type;

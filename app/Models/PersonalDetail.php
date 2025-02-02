@@ -17,7 +17,8 @@ class PersonalDetail extends Model
         'specialist',
         'professional_summary',
         'phone',
-        'city'
+        'city',
+        'user_id'
     ];
 
 

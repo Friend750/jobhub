@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\PersonalDetail;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -15,24 +17,19 @@ class CompanyPageForm extends Form
         'description' => 'required|min:10|max:1000',
     ];
 
-    protected $messages = [
-        'page_name.required' => 'The page name is required.',
-        'page_name.min' => 'The page name must be at least 3 characters.',
-        'description.required' => 'The description is required.',
-        'description.min' => 'The description must be at least 10 characters.',
-    ];
-
-    public function save()
+    public function submit()
     {
-        $this->validate();
+        $validator = $this->validate();
 
         // Save the form data to the database or perform other actions
         // Example:
-        // personal::create([
-        //     'page_name' => $this->page_name,
-        //     'professional_summary' => $this->description,
+        // PersonalDetail::create([
+        //     'page_name' => $validator['page_name'],
+        //     'professional_summary' => $validator['description'],
+        //     'user_id' => Auth::user()->id,
         // ]);
 
-        session()->flash('message', 'Company page saved successfully!');
+        $this->reset();
+        // dd($validator);
     }
 }
