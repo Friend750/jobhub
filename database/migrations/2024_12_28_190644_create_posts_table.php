@@ -16,7 +16,6 @@ return new class extends Migration
 
 
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('page_id')->references('id')->on('pages')->onDelete('cascade');
 
 
             $table->enum('target', ['to_any_one', 'connection_only']);

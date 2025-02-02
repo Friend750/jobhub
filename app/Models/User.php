@@ -100,12 +100,6 @@ class User extends Authenticatable
 
 
 
-    public function Page()
-    {
-        return $this->hasOne(Page::class);
-    }
-
-
     public function skills()
     {
         return $this->belongsToMany(Skill::class);
