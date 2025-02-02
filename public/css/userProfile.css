@@ -7,6 +7,7 @@
     height: 180px;
     border-radius: 50%;
     background-color: #ccc;
+    object-fit: cover;
     border: 5px solid white;
     margin-top: -9rem !important;
     font-size: 180px;
@@ -62,4 +63,36 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+}
+
+/* Custom scrollbar styling */
+ul::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+}
+
+ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the track */
+}
+
+ul::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scrollbar */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+ul::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color of the scrollbar on hover */
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* hover effect */
+.pointer:hover {
+    background-color: #f8f9fa;
 }

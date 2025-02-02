@@ -12,7 +12,7 @@
 
 <!-- modal General Information  -->
 <div class="modal fade overflow-hidden" id="GeneralInformation" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true">
+    aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,19 +22,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Professional Summary -->
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Add a description here..."></textarea>
-                </div>
+                <div id="professionalSummary" class="collapse show">
+                    <form wire:submit.prevent ="saveSummary">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary">Save</button>
+                        <div class="form-group mb-3">
+                            <label for="description" class=" mb-2">Description</label>
+                            <textarea class="form-control @error('PSForm.description') is-invalid
+                                @enderror"
+                                id="description" wire:model="PSForm.description" rows="3" placeholder="Add a description here..."></textarea>
+                            @error('PSForm.description')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary rounded" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary rounded">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Livewire.on('close-modal', () => {
+            let modalElement = document.getElementById('GeneralInformation');
+            if (modalElement) {
+                bootstrap.Modal.getOrCreateInstance(modalElement).hide();
+            }
+        });
+    });
+</script>

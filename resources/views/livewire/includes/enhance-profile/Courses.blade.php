@@ -2,7 +2,7 @@
     <h5 data-toggle="collapse" data-target="#courses">
         {{ __('general.courses') }}
         <div class="d-flex align-items-center">
-            <button class="btn text-muted btn-sm me-3 trash-button" type="button" 
+            <button class="btn text-muted btn-sm me-3 trash-button" type="button"
                 x-on:click="toggleSection('courses')" title="{{ __('general.remove_section') }}">
                 <i class="fas fa-trash"></i>
             </button>
@@ -13,9 +13,9 @@
     <div id="courses" class="collapse show">
         <div id="coursesContainer">
             @foreach ($CoursesForm->courses as $index => $course)
-                <div class="form-row course-block mb-3">
+                <div class="row mb-3">
                     <div class="form-group col-md-4">
-                        <label for="course_name_{{ $index }}" style="min-width: 150px;">{{ __('general.course_name') }}</label>
+                        <label class="mb-2" for="course_name_{{ $index }}" style="min-width: 150px;">{{ __('general.course_name') }}</label>
                         <input type="text"
                             class="form-control @error("CoursesForm.courses.{$index}.course_name") is-invalid @enderror"
                             id="course_name_{{ $index }}"
@@ -26,7 +26,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="institution_name_{{ $index }}" style="min-width: 150px;">{{ __('general.institution_name') }}</label>
+                        <label class="mb-2" for="institution_name_{{ $index }}" style="min-width: 150px;">{{ __('general.institution_name') }}</label>
                         <input type="text"
                             class="form-control @error("CoursesForm.courses.{$index}.institution_name") is-invalid @enderror"
                             id="institution_name_{{ $index }}"
@@ -37,7 +37,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="end_date_{{ $index }}" style="min-width: 150px;">{{ __('general.completion_date') }}</label>
+                        <label class="mb-2" for="end_date_{{ $index }}" style="min-width: 150px;">{{ __('general.completion_date') }}</label>
                         <input type="date"
                             class="form-control @error("CoursesForm.courses.{$index}.end_date") is-invalid @enderror"
                             id="end_date_{{ $index }}"
@@ -56,7 +56,7 @@
                 {{ __('general.add_course') }}
             </button>
             @if ($index > 0)
-            <i class="bi bi-trash-fill btn btn-primary rounded ms-2" 
+            <i class="bi bi-trash-fill btn btn-primary rounded ms-2"
                 wire:click="removeCourseRow({{ $index }})" title="{{ __('general.remove_course') }}"></i>
             @endif
         </div>
