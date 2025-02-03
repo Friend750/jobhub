@@ -150,3 +150,10 @@ body {
         margin-top: 20px;
     }
 }
+
+
+    .image-frame {
+        border: 3px solid #356ba5; /* لون الإطار */
+        padding: 3px; /* مسافة بين الإطار والصورة */
+        background-color: white; /* خلفية بيضاء خلف الإطار */
+    }
