@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="navbar-brand" href="#">
-                <h1 class="logoName mb-2">{{ __('general.logo') }}</h1>
+                <span class="logoName">{{ __('general.logo') }}</span>
             </a>
             @livewire('searchbar')
         </div>
