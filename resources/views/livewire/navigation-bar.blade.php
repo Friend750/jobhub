@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="navbar-brand" href="#">
-                <h1 class="logoName mb-2"> {{ __('general.logo') }}</h1>
+                <span class="logoName">{{ __('general.logo') }}</span>
             </a>
             @livewire('searchbar')
         </div>
@@ -11,7 +11,7 @@
         @if (auth()->user()->type === 'admin')
             <div class="dashboard-link">
                 <a href="/dashboard" class="nav-link d-flex align-items-center alert alert-success p-0 px-2 m-0">
-                    <span>Admin</span>
+                    <span>{{ __('general.admin') }}</span>
                 </a>
             </div>
         @endif
@@ -20,29 +20,28 @@
             <div class="navbar-icons ms-auto">
                 <a href="/posts" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-house-door-fill"></i>
-                    <span>Home</span>
+                    <span>{{ __('general.home') }}</span>
                 </a>
                 <a href="/Following" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-people-fill"></i>
-                    <span>Network</span>
+                    <span>{{ __('general.network') }}</span>
                 </a>
                 <a href="/JobScreen" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-briefcase-fill"></i>
-                    <span>Jobs</span>
+                    <span>{{ __('general.jobs') }}</span>
                 </a>
                 <a href="/chat" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-chat-dots-fill"></i>
-                    <span>Messages</span>
+                    <span>{{ __('general.messages') }}</span>
                 </a>
                 <a href="/notifications" class="nav-link d-flex flex-column align-items-center position-relative">
                     <i class="bi bi-bell-fill"></i>
                     <span>
-                        Notifications
+                        {{ __('general.notifications') }}
                         @if ($countNotifications > 0)
                         <span class="ms-4 badge bg-danger notification-badge position-absolute">
                             {{ $countNotifications }}
                         </span>
-                        
                         @endif
                     </span>
                 </a>
@@ -50,9 +49,9 @@
 
             <div class="dropdown">
                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="d-flex flex-column align-items-center ">
+                    <div class="d-flex flex-column align-items-center">
                         <i class="bi bi-person-circle"></i>
-                        <span>Profile</span>
+                        <span>{{ __('general.profile') }}</span>
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -62,6 +61,7 @@
         </div>
     </div>
 </nav>
+
 <script>
     let lastScrollTop = 0;
     const navbar = document.getElementById('navbar');

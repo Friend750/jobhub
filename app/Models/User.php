@@ -25,7 +25,6 @@ class User extends Authenticatable
         'type',
         'password',
         'user_image',
-        'professional_summary',
         'is_active',
         'is_connected',
         'interests'
@@ -98,12 +97,6 @@ class User extends Authenticatable
             ]);
     }
 
-
-
-    public function Page()
-    {
-        return $this->hasOne(Page::class);
-    }
 
 
     public function skills()

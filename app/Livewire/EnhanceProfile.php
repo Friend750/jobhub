@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\CompanyPageForm;
 use App\Livewire\Forms\CoursesForm;
 use App\Livewire\Forms\EducationForm;
 use App\Livewire\Forms\ExperienceForm;
@@ -30,8 +31,10 @@ class EnhanceProfile extends Component
     public ExperienceForm $ExperienceForm;
     public ProjectsForm $ProjectsForm;
     public LanguagesForm $LanguagesForm;
+    public CompanyPageForm $CompanyPageForm;
     public $SelectedSkills;
     public $Selectedlanguages;
+    public $userType;
 
     // WebsitesLinksForm
     public function addRow()
@@ -125,8 +128,14 @@ class EnhanceProfile extends Component
         session()->flash('message', 'Profile Updated Successfully');
     }
 
+    public function saveCompanyForm(){
+        $this->CompanyPageForm->submit();
+    }
+
     public function mount(){
         $this->PDFrom->email = Auth::user()?->email;
+        $this->userType = Auth::user()->type;
+        // dump($this->userType);
     }
 
     public function render()

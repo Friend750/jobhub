@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('personal_details', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->string('first_name'); // First name of the person
-            $table->string('last_name'); // Last name of the person
+            $table->string('page_name')->nullable(); // Avatar image (nullable)
+            $table->string('first_name')->nullable(); // First name of the person
+            $table->string('last_name')->nullable(); // Last name of the person
             $table->string('specialist')->nullable(); // Job title (nullable)
+            $table->text('professional_summary')->nullable();
             $table->string('phone')->nullable(); // Phone number (nullable)
             $table->string('city')->nullable(); // City (nullable)
             $table->timestamps(); // created_at and updated_at columns

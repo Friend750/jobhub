@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
+
 <div x-data="{
     selectedChat: null,
     isMobile: window.innerWidth <= 768,
@@ -24,9 +25,9 @@
         <div class="col-md-4 border-end chat-list d-flex flex-column h-100" id="chat-list"
             :class="isMobile && selectedChat ? 'd-none' : ''"
             style="min-height: 100vh">
-            <h4 class="mb-3 mt-3 px-3">Chats</h4>
+            <h4 class="mb-3 mt-3 px-3">{{ __('general.chats') }}</h4>
 
-            <!-- قائمة المحادثات -->
+            <!-- Chat List -->
             <ul class="list-unstyled flex-grow-1 overflow-auto m-0">
                 @foreach ($chats as $chat)
                     <li class="d-flex align-items-center p-2 border-bottom"
@@ -51,16 +52,16 @@
                 @endforeach
             </ul>
 
-            <!-- زر إضافة دردشة جديدة في الأسفل -->
+            <!-- Start New Chat Button -->
             <div class="p-3 border-top">
-                <a href="/Followers"> <button class="btn btn-primary w-100">
-                        START NEW CHAT
-                    </button> </a>
+                <a href="/Followers">
+                    <button class="btn btn-primary w-100">
+                        {{ __('general.start_new_chat') }}
+                    </button>
+                </a>
             </div>
 
         </div>
-
-
 
         <!-- Chat Messages -->
         <div class="col-md-8 d-flex flex-column" id="chat-messages">
@@ -69,7 +70,7 @@
                 <div class="d-flex justify-content-between align-items-center p-1 border-bottom">
                     <div>
                         <img class="profile-picture rounded-circle mr-2">
-                        <strong>{{ $selectedChat['name'] }}</strong>
+                        <strong>{{ __('general.chat_with') }} {{ $selectedChat['name'] }}</strong>
                     </div>
                 </div>
 
@@ -88,21 +89,20 @@
                     <!-- Messages Area -->
                     <div @scroll.passive="
                     if ($refs.messagesContainer.scrollTop === 0) {
-                        saveScrollPosition(); // حفظ موقع التمرير
-                       $wire.loadMessages().then(() => restoreScrollPosition());
+                        saveScrollPosition();
+                        $wire.loadMessages().then(() => restoreScrollPosition());
                     }"
                         x-init="scrollToBottom()" class="flex-grow-1 overflow-auto p-3 chat-messages-area"
                         x-ref="messagesContainer">
                         @foreach ($messages as $message)
                             @php
-                                // افتراض أنك تريد التحقق إن كنت أنت المرسل
                                 $isSender = $message['sender_id'] == auth()->user()->id;
                             @endphp
 
                             <div class="d-flex {{ $isSender ? 'justify-content-end' : 'justify-content-start' }} mb-3">
                                 <div
                                     class="message p-2 rounded
-                                           {{ $isSender ? 'bg-white text-dark' : 'btn-primary text-white' }}">
+                                           {{ $isSender ? 'bg-white text-dark' : 'btn-primary text-white' }} ">
                                     {{ $message['message'] }}
                                 </div>
                                 <div class="text-muted small mt-1 ml-2">
@@ -118,7 +118,7 @@
                             @csrf
                             <div class="input-group">
                                 <input wire:model="message" type="text" class="form-control"
-                                    placeholder="Write your message" @focus="$nextTick(() => scrollToBottom())" />
+                                    placeholder="{{ __('general.write_message') }}" @focus="$nextTick(() => scrollToBottom())" />
 
                                 <button class="btn btn-primary text-white ml-2" type="submit">
                                     <i class="fa-regular fa-paper-plane"></i>
@@ -129,7 +129,7 @@
                 </div>
             @else
                 <p class="text-center text-muted flex-grow-1 d-flex align-items-center justify-content-center">
-                    Choose a Chat to start
+                    {{ __('general.choose_chat') }}
                 </p>
             @endif
         </div>

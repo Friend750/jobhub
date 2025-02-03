@@ -6,7 +6,7 @@
         <!-- قسم قائمة الشركات -->
         <div class="col-md-8 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
-                <h4 class="mt-3">Companies</h4>
+                <h4 class="mt-3">{{ __('general.companies') }}</h4>
             </div>
             @foreach($companies as $company)
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">

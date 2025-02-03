@@ -13,9 +13,12 @@ class PersonalDetail extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'page_name',
         'specialist',
+        'professional_summary',
         'phone',
-        'city'
+        'city',
+        'user_id'
     ];
 
 

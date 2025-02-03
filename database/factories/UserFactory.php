@@ -29,8 +29,7 @@ class UserFactory extends Factory
             'user_name' => $this->faker->unique()->userName,
             'password' => bcrypt('password'), // You can use Hash::make if needed
             'user_image' => $this->faker->optional()->imageUrl(200, 200, 'people'),
-            'type' => $this->faker->randomElement(['admin', 'user', 'company']),
-            'professional_summary' => $this->faker->optional()->paragraphs(3, true),
+            'type' => $this->faker->randomElement([ 'user', 'company']),
             'is_active' => $this->faker->boolean(80), // 80% chance of being true
             'is_connected' => $this->faker->boolean(20), // 20% chance of being true
             'remember_token' => Str::random(10),
