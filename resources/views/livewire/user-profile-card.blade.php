@@ -1,11 +1,13 @@
-<div class="card-body cardprofile text-start p-3" style="width: 200px;">
+<div class="card-body cardprofile text-start p-3" style="width: 230px;">
     <div class="text-center">
-        <img src="https://ui-avatars.com/api/?name=User&size=80" class="rounded-circle border shadow-sm mb-2"
-            alt="User Avatar" width="80" height="80" loading="lazy"
+        <img src="{{ $user->user_image
+            ? asset('storage/' . $user->user_image)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+            class="rounded-circle border shadow-sm mb-2" style="width: 80px;" alt="User Avatar" loading="lazy"
             style="object-fit: cover; background-color: #f8f9fa;">
     </div>
-    <h5 class="card-title">{{ __('general.user_name') }}</h5>
-    <p class="card-text">{{ __('general.no_info') }}</p>
+    <h5 class="text-center">{{ $user->user_name ?? __('general.user_name') }}</h5>
+    <p class="text-center">{{ __('general.no_info') }}</p>
     <a href="/user-profile" class="btn btn-outline-primary profile rounded w-100">
         {{ __('general.view_profile') }}
     </a>

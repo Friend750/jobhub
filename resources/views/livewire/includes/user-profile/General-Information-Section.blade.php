@@ -1,12 +1,10 @@
 <div class="card mb-3 rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <h5>General Information</h5>
+            <h5>{{ 'Overview ' }}</h5>
             <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation"></i>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac ornare odio. Curabitur vitae
-            velit
-            ultricies, lobortis tellus quis, tempus ante.</p>
+        <p>{{$user->personal_details->professional_summary ?? 'not inserted yet'}}</p>
     </div>
 </div>
 
@@ -48,7 +46,7 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         Livewire.on('close-modal', () => {
             let modalElement = document.getElementById('GeneralInformation');
             if (modalElement) {

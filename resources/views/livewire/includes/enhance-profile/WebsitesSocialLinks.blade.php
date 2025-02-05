@@ -47,12 +47,9 @@
             </div>
         @endforeach
 
-
-
-
         <div class="d-flex justify-content-between align-items-center mt-0">
             <button type="button" class="btn btn-primary rounded" wire:click="addRow">{{ __('general.add_link') }}
-                Link</button>
+            </button>
         </div>
     </div>
 </section>

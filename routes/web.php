@@ -8,6 +8,7 @@ use App\Livewire\PostCard;
 use App\Livewire\UserProfile;
 
 use App\Livewire\CompanyList;
+use App\Livewire\CompanyProfile;
 use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\EnhanceProfile;
 use App\Livewire\FollowersScreen;
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
-    Route::get('/user-profile', UserProfile::class)->name("user-profile");
+    Route::get('/user-profile/{user?}', UserProfile::class)->name("user-profile");
     Route::get('/JobScreen', JobScreen::class)->name("jobScreen");
     Route::get('/Search', Search::class)->name("search");
     Route::get('/EnhanceProfile', EnhanceProfile::class)->name("EnhanceProfile");

@@ -1,29 +1,33 @@
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 <div>
     <div class="container">
 
         <div class="row justify-content-center">
-            <div class="col-lg-8 ">
+            <div class="col-lg-7">
                 <!-- Profile Header -->
                 <div class="card mb-3 rounded">
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
-                            <img src="{{ $temporaryUrl ?? 'https://ui-avatars.com/api/?name=User' }}"
+                            <img src="{{ $user->user_image
+                                ? asset('storage/' . $user->user_image)
+                                : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
                                 alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
 
                             <div class="d-flex align-items-end justify-content-between w-100">
                                 <!-- Left Section -->
                                 <div>
-                                    <h3>First name + last name</h3>
-                                    <span>User Specialist</span><br>
-                                    <span>Sana‘a, Yemen
-                                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal"
-                                            data-bs-target="#contactModal">Contact info</a>
+
+                                    <h3>{{ $user->personal_details->first_name ?? 'first name' }}
+                                        {{ $user->personal_details->last_name ?? 'last name' }}</h3>
+                                    <span> {{ $user->personal_details->first_name ?? 'User Specialist' }}</span><br>
+                                    <span>{{ $user->personal_details->city ?? 'city' }}
+                                        <a href="#" class="text-primary text-decoration-none"
+                                            data-bs-toggle="modal" data-bs-target="#contactModal">Contact info</a>
                                     </span>
 
                                     <!-- Modal -->
@@ -42,10 +46,13 @@
                                                         <p><strong class="text-dark">Your Profile URL:</strong><br> John
                                                             Doe</p>
                                                         <p><strong class="text-dark">Email:</strong> <br>
-                                                            johndoe@example.com</p>
-                                                        <p><strong class="text-dark">Phone:</strong> <br> (123) 456-7890
+                                                            {{ $user->email ?? 'example@example.com' }}</p>
+                                                        <p><strong class="text-dark">Phone:</strong> <br>
+                                                            {{ $user->personal_details->phone ?? 'phone' }}
                                                         </p>
-                                                        <p><strong class="text-dark">Website:</strong> <br> ...</p>
+                                                        <p><strong class="text-dark">Website:</strong> <br>
+                                                            {{ $user->personal_details->link ?? 'website Url' }}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,9 +131,11 @@
                                             <!-- Modal Body -->
                                             <div class="modal-body">
                                                 <div class="modal-body">
-                                                    <p><strong class="text-dark">Joined:</strong><br> April 2021</p>
+                                                    <p><strong class="text-dark">Joined:</strong><br>
+                                                        {{ $user->created_at ?? 'created at' }}</p>
                                                     <p><strong class="text-dark">Contact Information:</strong><br>
-                                                        Updated over 1 year ago</p>
+                                                        {{ $user->updated_at ?? 'Updated over xxx ago' }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,6 +151,17 @@
                     <span class="alert alert-danger d-flex flex-wrap w-100">{{ $message }}</span>
                 @enderror
 
+                @if (session()->has('message'))
+                    <div class="alert alert-success d-flex flex-wrap w-100">
+                        {{ session('message') }}
+                    </div>
+                @endif
+
+                @if (session()->has('error'))
+                    <div class="alert alert-danger d-flex flex-wrap w-100">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <!-- General Information Section -->
                 @include('livewire.includes.user-profile.General-Information-Section')
@@ -163,8 +183,6 @@
 
                 {{-- interests-Section --}}
                 @include('livewire.includes.user-profile.interests-Section')
-
-
 
 
             </div>

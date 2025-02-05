@@ -18,6 +18,8 @@ class PersonalDetail extends Model
         'professional_summary',
         'phone',
         'city',
+        'website_name',
+        'link',
         'user_id'
     ];
 
