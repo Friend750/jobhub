@@ -13,6 +13,7 @@ class InterestSeeder extends Seeder
      */
     public function run(): void
     {
+        // List of interests
         $interests = [
             'Marketing',
             'Technology',
@@ -30,8 +31,42 @@ class InterestSeeder extends Seeder
             'Game Development',
         ];
 
+        // Define which interests should be categorized as Business
+        $businessRelated = [
+            'Marketing',
+            'Economy',
+            'Business',
+            'Administration',
+            'E-commerce',
+            'IT Management',
+        ];
+
+        // Define which interests should be categorized as Technology
+        $techRelated = [
+            'Technology',
+            'Software Development',
+            'Web Development',
+            'Mobile Development',
+            'Data Science',
+            'Artificial Intelligence',
+            'Cybersecurity',
+            'Game Development',
+        ];
+
+        // For each interest, determine its type and insert into DB
         foreach ($interests as $interest) {
-            Interest::create(['name' => $interest]);
+            $type = 'Other'; // default
+
+            if (in_array($interest, $businessRelated)) {
+                $type = 'Business';
+            } elseif (in_array($interest, $techRelated)) {
+                $type = 'Technology';
+            }
+
+            Interest::create([
+                'name' => $interest,
+                'type' => $type,
+            ]);
         }
     }
 }

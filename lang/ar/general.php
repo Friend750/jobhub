@@ -1,6 +1,8 @@
 <?php
 
 return [
+    '-- Choose an interest type --' => 'اختر فئة الاهتمام',
+    'Select a category' => 'اختر الفئة ',
     'search' => 'بحث',
     'user_type' => 'نوع المستخدم',
     'all' => 'الكل',
