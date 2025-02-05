@@ -10,13 +10,23 @@ class JobPost extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'job_title', 'about_job', 'job_tasks',
-        'job_conditions', 'job_skills', 'job_location',
-        'job_timing', 'tags', 'is_active', 'job_post', 'views'
+        'user_id',
+        'job_title',
+        'about_job',
+        'job_tasks',
+        'job_conditions',
+        'job_skills',
+        'job_location',
+        'job_timing',
+        'tags',
+        'is_active',
+        'job_post',
+        'views'
     ];
 
     protected $casts = [
         'tags' => 'array',
+        'job_skills' => 'array',
         'is_active' => 'boolean'
     ];
 
@@ -28,7 +38,7 @@ class JobPost extends Model
     public function scopeSearch($query, $term)
     {
         return $query->where('job_title', 'LIKE', "%{$term}%")
-                     ->orWhere('job_location', 'LIKE', "%{$term}%")
-                     ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
+            ->orWhere('job_location', 'LIKE', "%{$term}%")
+            ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
     }
 }
