@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description'); // make validation 500
             $table->text('contributions'); // make validation 1000
-
+            $table->softDeletes();
             $table->timestamps();
         });
     }

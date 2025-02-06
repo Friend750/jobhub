@@ -10,7 +10,7 @@ class Course extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = 
+    protected $fillable =
     [
         'course_name',
         'institution_name',
@@ -18,18 +18,11 @@ class Course extends Model
         'user_id',
     ];
 
-    
+    protected $casts = [
+        'end_date' => 'date',
+    ];
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class);
     }
-    /**
-     * Define the relationship with the User model.
-     * A course can belong to many users.
-     */
-    
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'courses_with_user', 'course_id', 'user_id');
-    // }
 }

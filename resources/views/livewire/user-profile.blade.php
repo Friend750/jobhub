@@ -13,21 +13,29 @@
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
-                            <img src="{{ $user->user_image
-                                ? asset('storage/' . $user->user_image)
-                                : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
-                                alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
+                            @if ($user->user_image)
+                                <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture"
+                                    loading="lazy" class="profile-picture rounded-circle">
+                            @else
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($user->user_name) }}"
+                                    alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
+                            @endif
 
-                            <div class="d-flex align-items-end justify-content-between w-100">
+
+                            <div class="d-flex align-items-end justify-content-between w-100 mt-2">
                                 <!-- Left Section -->
                                 <div>
 
-                                    <h3>{{ $user->personal_details->first_name ?? 'first name' }}
-                                        {{ $user->personal_details->last_name ?? 'last name' }}</h3>
-                                    <span> {{ $user->personal_details->first_name ?? 'User Specialist' }}</span><br>
-                                    <span>{{ $user->personal_details->city ?? 'city' }}
+                                    @if (!empty($user->personal_details->page_name))
+                                        <h3>{{ $user->personal_details->page_name }}</h3>
+                                    @else
+                                        <h3>{{ $user->personal_details->first_name ?? 'first name' }}
+                                            {{ $user->personal_details->last_name ?? 'last name' }}</h3>
+                                    @endif
+                                    <span> {{ $user->personal_details->specialist ?? 'User Specialist' }}</span><br>
+                                    <span>{{ $user->personal_details->city ?? 'city' }} •
                                         <a href="#" class="text-primary text-decoration-none"
-                                            data-bs-toggle="modal" data-bs-target="#contactModal">Contact info</a>
+                                            data-bs-toggle="modal" data-bs-target="#contactModal"> Contact info</a>
                                     </span>
 
                                     <!-- Modal -->
@@ -82,7 +90,7 @@
                                         Enhance Profile
                                     </a>
 
-                                    <div x-data="{ open: false }">
+                                    <div x-data="{ open: false }" class="position-relative">
 
                                         <button @click="open = !open"
                                             class="btn text-dark btn-outline-secondary btn-custom rounded">More</button>
@@ -165,24 +173,25 @@
 
                 <!-- General Information Section -->
                 @include('livewire.includes.user-profile.General-Information-Section')
+                @if ($user->type != 'company')
+                    <!-- Experience Section -->
+                    @include('livewire.includes.user-profile.Experience-Section')
 
-                <!-- Experience Section -->
-                @include('livewire.includes.user-profile.Experience-Section')
+                    <!-- Projects-Section -->
+                    @include('livewire.includes.user-profile.Projects-Section')
 
-                <!-- Projects-Section -->
-                @include('livewire.includes.user-profile.Projects-Section')
+                    <!-- Education Section -->
+                    @include('livewire.includes.user-profile.Education-Section')
 
-                <!-- Education Section -->
-                @include('livewire.includes.user-profile.Education-Section')
+                    <!-- Courses-Section -->
+                    @include('livewire.includes.user-profile.Courses-Section')
 
-                <!-- Courses-Section -->
-                @include('livewire.includes.user-profile.Courses-Section')
+                    <!-- Skills-Section -->
+                    @include('livewire.includes.user-profile.Skills-Section')
 
-                <!-- Skills-Section -->
-                @include('livewire.includes.user-profile.Skills-Section')
-
-                {{-- interests-Section --}}
-                @include('livewire.includes.user-profile.interests-Section')
+                    {{-- interests-Section --}}
+                    @include('livewire.includes.user-profile.interests-Section')
+                @endif
 
 
             </div>
@@ -194,7 +203,4 @@
             </div>
         </div>
     </div>
-
-
-
 </div>

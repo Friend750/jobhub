@@ -5,27 +5,25 @@
         </div>
 
         <ul class="list-unstyled">
-            <div class="d-flex justify-content-between align-items-center">
-                <strong> Job Title | Company Name | Location</strong>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Month/Year – Month/Year]</strong>
-                    <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditExperience"></i>
-                </div>
-            </div>
-            <li class="text-muted">what has been done at this position</li>
-        </ul>
+            @forelse ($experiences as $experience)
+                <li class="border-bottom py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>{{ $experience->job_title }} | {{ $experience->company_name }} | {{ $experience->location }}</strong>
+                        <div class="d-flex align-items-center">
+                            <strong class="">
+                                {{ $experience->start_date->format('M Y') }} –
+                                {{ $experience->end_date->format('M Y') ?? 'Present' }}
+                            </strong>
+                            <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                                data-bs-target="#EditExperience{{ $experience->id }}"></i>
+                        </div>
+                    </div>
+                    <p class="text-muted mt-1">{{ $experience->description ?? 'No description provided' }}</p>
+                </li>
+            @empty
+                <li class="text-muted text-center py-3">No job experience added yet.</li>
+            @endforelse
 
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between align-items-center">
-                <strong> Job Title | Company Name | Location</strong>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Month/Year – Month/Year]</strong>
-                    <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditExperience"></i>
-                </div>
-            </div>
-            <li class="text-muted">what has been done at this position</li>
         </ul>
     </div>
 </div>

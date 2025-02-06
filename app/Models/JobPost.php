@@ -27,7 +27,10 @@ class JobPost extends Model
     protected $casts = [
         'tags' => 'array',
         'job_skills' => 'array',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
+        'start_date' => 'date',
+        'end_date' => 'date',
+
     ];
 
     public function user()

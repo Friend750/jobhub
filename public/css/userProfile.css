@@ -25,14 +25,9 @@
 
 .clickable-div:hover {
     background-color: #f8f9fa;
-    /* Light grey on hover */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); Subtle shadow */
-    /* border-radius: 8px ; */
-    /* width: 100% */
 }
 
 .options-card {
-    /* display: none; */
     position: absolute;
     background-color: #f8f9fa;
     border: 1px solid #ccc;
@@ -40,7 +35,8 @@
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    right: 23px;
+    min-width: 200px ;
+    left: 0px;
 }
 
 .options-card ul {

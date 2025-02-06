@@ -60,16 +60,29 @@
             </div>
         </div>
 
+        {{-- step 4: page major --}}
+        <div x-show="step === 4" x-transition.duration.1000ms x-cloak>
+
+            {{-- page major input --}}
+            <div class="form-group w-100 mt-3">
+                <label class="mb-2" for="major">Page Major</label>
+                <input type="text" wire:model.defer="CompanyPageForm.major"
+                    class="form-control @error('CompanyPageForm.major') is-invalid @enderror"
+                    placeholder="Enter the page major">
+            </div>
+
+        </div>
+
         <div class="d-flex justify-content-end mt-3">
 
             <div x-show="step > 1" x-transition>
                 <button type="button" class="btn btn-secondary rounded" @click="step--">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-                <button type="submit" x-show="step > 2" class="btn btn-primary rounded">Continue</button>
+                <button type="submit" x-show="step > 3" class="btn btn-primary rounded">Continue</button>
             </div>
 
-            <button type="button" class="btn btn-primary rounded ms-1" @click="step++" x-show="step < 3" x-transition>
+            <button type="button" class="btn btn-primary rounded ms-1" @click="step++" x-show="step < 4" x-transition>
                 Next
             </button>
         </div>
@@ -116,6 +129,15 @@
 @enderror
 
 @error('CompanyPageForm.link')
+    <div class="alert alert-danger rounded mt-2 alert-dismissible rounded fade show" role="alert">
+        <small>{{ $message }}</small>
+        <button type="button" class="btn-close" data-bs-dismiss="alert">
+        </button>
+    </div>
+@enderror
+
+
+@error('CompanyPageForm.major')
     <div class="alert alert-danger rounded mt-2 alert-dismissible rounded fade show" role="alert">
         <small>{{ $message }}</small>
         <button type="button" class="btn-close" data-bs-dismiss="alert">

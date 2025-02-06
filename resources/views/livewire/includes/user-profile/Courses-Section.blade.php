@@ -5,25 +5,24 @@
         </div>
 
 
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between">
-                <li><strong>Certification Name | Institution/Provider</strong></li>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Complition date]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal" data-bs-target="#EditCourses"></i>
+        @forelse ($courses as $course)
+            <ul class="list-unstyled">
+                <div class="d-flex justify-content-between">
+                    <li><strong>{{ $course->course_name }} | {{ $course->institution_name }}</strong></li>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong class="">
+                            {{ $course->end_date ? $course->end_date->format('M - Y') : 'Ongoing' }}
+                        </strong>
+                        <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                            data-bs-target="#EditCourses"></i>
+                    </div>
                 </div>
-            </div>
-        </ul>
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between">
-                <li><strong>Certification Name | Institution/Provider</strong></li>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Complition date]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditCourses"></i>
-                </div>
-            </div>
-        </ul>
+            </ul>
+        @empty
+            <p class="text-muted text-center py-3">
+                No Certifications | Courses to show
+            </p>
+        @endforelse
 
     </div>
 </div>
@@ -32,8 +31,8 @@
 <!-- modal EditCourses -->
 <form wire:submit.prevent="saveCourse">
 
-    <div class="modal fade overflow-hidden" id="EditCourses" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-        aria-hidden="true" wire:ignore.self>
+    <div class="modal fade overflow-hidden" id="EditCourses" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
