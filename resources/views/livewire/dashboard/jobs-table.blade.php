@@ -126,6 +126,7 @@
         </div>
     </div>
 
+    
     <!-- 🔹 نافذة تعديل الوظيفة -->
     <div x-data="{ showEditModal: false }"
          x-show="showEditModal"
