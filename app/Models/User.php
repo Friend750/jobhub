@@ -124,11 +124,6 @@ class User extends Authenticatable
         return $this->hasMany(Education::class);
     }
 
-    public function Links()
-    {
-        return $this->hasMany(Link::class);
-    }
-
     public function Projects()
     {
         return $this->hasMany(Project::class);
@@ -136,7 +131,7 @@ class User extends Authenticatable
 
     public function personal_details()
     {
-        return $this->hasOne(PersonalDetail::class);
+        return $this->hasOne(PersonalDetail::class,'user_id');
     }
 
     public function getProfilePictureAttribute()

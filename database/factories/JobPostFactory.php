@@ -17,14 +17,14 @@ class JobPostFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
             'about_job' => $this->faker->paragraph(),
             'job_tasks' => $this->faker->sentence(),
-            'job_conditions' => $this->faker->sentence(),        
-            'job_skills' =>$this->faker->words(5),
+            'job_conditions' => $this->faker->optional()->sentence(),
+            'job_skills' => json_encode($this->faker->words(5)),
             'job_location' => $this->faker->city(),
             'job_timing' => $this->faker->randomElement(['Full-Time', 'Part-Time', 'Remote']),
-            'tags' => $this->faker->words(3), // بدون `json_encode()`
+            'tags' => json_encode($this->faker->words(3)),
             'target' => $this->faker->randomElement(['to_any_one', 'connection_only']),
             'is_active' => $this->faker->boolean(),
-            'job_post' => now(), // تاريخ النشر
+            'job_post' => now(),
             'views' => $this->faker->numberBetween(0, 1000),
         ];
     }

@@ -20,10 +20,13 @@ return new class extends Migration
             $table->text('professional_summary')->nullable();
             $table->string('phone')->nullable(); // Phone number (nullable)
             $table->string('city')->nullable(); // City (nullable)
-            $table->timestamps(); // created_at and updated_at columns
-            $table->softDeletes(); // Adds the 'deleted_at' column
+            $table->string('website_name')->nullable(); // Name of the website
+            $table->string('link')->nullable(); // URL link (unique)
 
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
