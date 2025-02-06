@@ -3,7 +3,7 @@
         <img src="{{ $user->user_image
             ? asset('storage/' . $user->user_image)
             : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
-            class="rounded-circle border shadow-sm mb-2" style="width: 80px;" alt="User Avatar" loading="lazy"
+            class="rounded-circle border shadow-sm mb-2" style="width: 80px; height: 80px;" alt="User Avatar" loading="lazy"
             style="object-fit: cover; background-color: #f8f9fa;">
     </div>
     <h5 class="text-center">{{ $user->user_name ?? __('general.user_name') }}</h5>

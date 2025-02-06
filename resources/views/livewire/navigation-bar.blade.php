@@ -54,7 +54,7 @@
                         <span>{{ __('general.profile') }}</span>
                     </div>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end">
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                     @livewire('user-profile-card')
                 </ul>
             </div>

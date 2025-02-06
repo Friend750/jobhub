@@ -1,16 +1,20 @@
 <div class="card mb-3 rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <h5>{{ 'Overview ' }}</h5>
+            <h5>Overview </h5>
             <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation"></i>
         </div>
-        <p>{{$user->personal_details->professional_summary ?? 'not inserted yet'}}</p>
+        @if (empty($user->personal_details->professional_summary))
+            <p class="text-muted text-center py-3">No professional summary added yet.</p>
+        @else
+            <p>{{ $user->personal_details->professional_summary }}</p>
+        @endif
     </div>
 </div>
 
 <!-- modal General Information  -->
-<div class="modal fade overflow-hidden" id="GeneralInformation" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true" wire:ignore.self>
+<div class="modal fade overflow-hidden" id="GeneralInformation" tabindex="-1" role="dialog"
+    aria-labelledby="modalTitleId" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

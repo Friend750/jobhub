@@ -25,7 +25,7 @@
     <title>Yemen Jobs | {{ $title ?? 'Page Title' }}</title>
 </head>
 
-
+<body>
 @if (
     !in_array(Route::currentRouteName(), [
         'dashboard',
@@ -39,6 +39,7 @@
     ]))
     @include('livewire.navigation-bar')
 @endif
+
 
 {{ $slot }}
 
