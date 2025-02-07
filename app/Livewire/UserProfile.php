@@ -31,14 +31,13 @@ class UserProfile extends Component
     public SkillsForm $SkillsForm;
 
     public $allowedSkills;
-    public $skills = [];
     public $profilePicture; // Stores the uploaded file
-    public $temporaryUrl;   // Stores the temporary URL for preview
     public $SelectedSkills;
     public $searchQuery = ''; // Search query
-    public $selectedSkillId = null; // Selected skill ID
-    public $selectedSkillName = ''; // Selected skill name
-
+    public $selectedSkill_id = ''; // Selected skill name
+    public $skills;
+    public $availableSkills;
+    public $selectedSkillName;
 
     public function updatedProfilePicture()
     {
@@ -107,29 +106,46 @@ class UserProfile extends Component
 
     public function updatedSearchQuery()
     {
-        $this->skills = Skill::where('name', 'like', '%' . $this->searchQuery . '%')
-            ->get()
-            ->toArray();
+        $this->availableSkills = $this->getAvailableSkills();
     }
 
-    public function selectSkill($skillId, $skillName)
+    public function selectSkill($id, $name = "")
     {
-        $this->selectedSkillId = $skillId;
-        $this->selectedSkillName = $skillName;
+        // dd($id);
+        $this->selectedSkill_id = $id;
+        $this->selectedSkillName = $name;
         $this->searchQuery = ''; // Clear the search query
 
         $this->dispatch('update-skill');
         // dump($this->selectedSkillId, $this->selectedSkillName);
+    }
+
+    // getAvailableSkills
+    public function getAvailableSkills()
+    {
+        $skillsIds = array_column($this->skills, 'id');
+        return Skill::whereNotIn('id', $skillsIds)->when($this->searchQuery, function ($query) {
+            $query->where('name', 'like', '%' . $this->searchQuery . '%');
+        })->get();
     }
     public $user;
     public $experiences;
     public $projects;
     public $educations;
     public $courses;
-    public function mount()
+    public function mount($id = 0)
     {
-        $this->skills = Skill::all()->toArray();
+        // $this->skills = Skill::all()->toArray();
         $this->user = User::find(Auth::user()->id);
+        if ($id != 0) {
+            $this->user = User::findOrFail($id);
+        }
+
+        $this->skills = $this->user->skills()
+            ->get()
+            ->toArray();
+
+        $this->availableSkills = $this->getAvailableSkills();
 
         $this->experiences = $this->user->Experiences;
         $this->projects = $this->user->Projects;
