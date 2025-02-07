@@ -39,7 +39,7 @@
                         style="cursor: pointer;">
                         <img src="{{ $chat['profile'] ?? 'https://ui-avatars.com/api/?name=Image' }}" 
                         style="width: 40px" 
-                        class="profile-picture rounded-circle me-2">
+                        class="profile-picture rounded-circle ms-2 me-2">
                         
                         <div class="w-100">
                             <strong>{{ $chat['name'] }}</strong>
@@ -105,7 +105,7 @@
                                            {{ $isSender ? 'bg-white text-dark' : 'btn-primary text-white' }} ">
                                     {{ $message['message'] }}
                                 </div>
-                                <div class="text-muted small mt-1 ml-2">
+                                <div class="text-muted small me-2 mt-1 ">
                                     {{ date('h:i A', strtotime($message['created_at'])) }}
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <input wire:model="message" type="text" class="form-control"
                                     placeholder="{{ __('general.write_message') }}" @focus="$nextTick(() => scrollToBottom())" />
 
-                                <button class="btn btn-primary text-white ml-2" type="submit">
+                                <button class="btn btn-primary text-white me-2" type="submit">
                                     <i class="fa-regular fa-paper-plane"></i>
                                 </button>
                             </div>

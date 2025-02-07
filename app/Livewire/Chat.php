@@ -44,6 +44,7 @@ class Chat extends Component
                     ? $conversation->secondUser
                     : $conversation->firstUser;
         
+                   
                 return [
                     'id' => $conversation->id,
                     'name' => $otherUser->user_name,

@@ -30,6 +30,7 @@ class Typeaccount extends Component
 
         // Update the authenticated user's type
         $user = Auth::user();
+        
         $user->update(['type' => $type]);
 
         // Redirect or emit an event

@@ -3,7 +3,7 @@
     <div class="card-body d-flex justify-content-center align-items-center">
         <input type="text" class="form-control w-100 ps-3 bg-light" placeholder="Write something..."
             x-on:click="showCard = true">
-        <div class="btn bg-light ms-2 p-2 rounded-circle ml-2" style="width: 40px; height: 40px;"
+        <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;"
             x-on:click="showCard = true">
             <i class="bi bi-image"></i>
         </div>

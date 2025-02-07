@@ -29,7 +29,8 @@
                             <li><button wire:click='deleteConnection({{ $follower['id'] }})' class="dropdown-item">
                                 {{ __('general.remove_follower') }}
                             </button></li>
-                            <li><a class="dropdown-item" href="#">{{ __('general.view_profile') }}</a></li>
+                            <li><a   x-data
+                                @click="fetch(`/users/{{ $follower['id'] }}/ping`, { method: 'GET' })" class="dropdown-item" href="#">{{ __('general.view_profile') }}</a></li>
                         </ul>
                         <a
                         href="#"
@@ -44,3 +45,5 @@
         </div>
     </div>
 </div>
+
+

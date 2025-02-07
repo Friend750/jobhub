@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->boolean('is_connected')->default(false);
             $table->json('interests')->nullable();
+            $table->integer('views')->default(0);
 
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column
