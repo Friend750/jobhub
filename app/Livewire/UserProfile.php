@@ -122,12 +122,19 @@ class UserProfile extends Component
         // dump($this->selectedSkillId, $this->selectedSkillName);
     }
     public $user;
-
+    public $experiences;
+    public $projects;
+    public $educations;
+    public $courses;
     public function mount()
     {
         $this->skills = Skill::all()->toArray();
         $this->user = User::find(Auth::user()->id);
-        // dd($this->user->user_image);
+
+        $this->experiences = $this->user->Experiences;
+        $this->projects = $this->user->Projects;
+        $this->educations = $this->user->Educations;
+        $this->courses = $this->user->Courses;
     }
     public function render()
     {

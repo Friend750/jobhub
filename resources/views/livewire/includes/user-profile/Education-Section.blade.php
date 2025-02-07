@@ -4,32 +4,26 @@
             <h5>Education</h5>
         </div>
 
-
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between">
-                <li><strong>[Degree/Certification Name]</strong></li>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Month/Year]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditEducation"></i>
+        @forelse ($educations as $education)
+            <ul class="list-unstyled">
+                <div class="d-flex justify-content-between">
+                    <li><strong>{{ $education->degree}} / {{$education->certification_name }}</strong></li>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong class="">
+                            {{ $education->graduation_date->format('M / Y') ?? 'Ongoing' }}
+                        </strong>
+                        <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                            data-bs-target="#EditEducation"></i>
+                    </div>
                 </div>
-            </div>
-            <li>[Institution Name] | [Location]</li>
-            <li>[Include any relevant coursework, honors, or GPA if applicable]</li>
-        </ul>
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between">
-                <li><strong>[Degree/Certification Name]</strong></li>
-                <div class="d-flex justify-content-between align-items-center">
-                    <strong class="">[Month/Year]</strong>
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditEducation"></i>
-                </div>
-            </div>
-            <li>[Institution Name] | [Location]</li>
-            <li>[Include any relevant coursework, honors, or GPA if applicable]</li>
-        </ul>
-
+                <li>{{ $education->institution_name }} | {{ $education->location }}</li>
+                <li class="text-muted">{{ $education->description ?? 'No additional details provided' }}</li>
+            </ul>
+        @empty
+            <p class="text-muted text-center py-3">
+                No education to show
+            </p>
+        @endforelse
     </div>
 </div>
 

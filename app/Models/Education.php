@@ -8,28 +8,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Education extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
+    protected $table = 'educations'; // Ensures Laravel queries the correct table
+    protected $fillable =
+        [
+            'institution_name',
+            'certification_name',
+            'location',
+            'degree',
+            'description',
+            'graduation_date',
+            'user_id'
+        ];
 
-
-    protected $fillable = 
-    [
-    'institution_name',
-     'certification_name', 
-     'location', 
-     'degree',
-     'description',
-     'graduation_date',
-     'user_id'
+    protected $casts = [
+        'graduation_date' => 'date',
     ];
 
-    
+
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class);
     }
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class, 'educations_with_user', 'education_id', 'user_id');
-    // }
 }

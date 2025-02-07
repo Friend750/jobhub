@@ -9,14 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use HasFactory,SoftDeletes;
-
-    // $table->foreignId('user_id')->references('id')->on('users');
-
-    // $table->string('title');
-    // $table->text('description'); // make validation 500
-    // $table->text('contributions'); // make validation 1000
-
-    protected $fillable = 
+    protected $fillable =
     [
         'user_id',
         'title',
@@ -26,7 +19,7 @@ class Project extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class)->select('id','user_name','user_image');
     }
 
 }

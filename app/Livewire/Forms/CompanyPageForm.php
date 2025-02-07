@@ -18,6 +18,7 @@ class CompanyPageForm extends Form
         'phone' => 'required|min:9|max:15',
         'website' => 'required|min:3|max:255',
         'link' => 'required|url',
+        'major' => 'required',
     ])]
 
     public $page_name;
@@ -26,6 +27,7 @@ class CompanyPageForm extends Form
     public $phone;
     public $website;
     public $link;
+    public $major;
 
 
     public function submit()
@@ -39,6 +41,7 @@ class CompanyPageForm extends Form
             'phone' => $validator['phone'],
             'website_name' => $validator['website'],
             'link' => $validator['link'],
+            'specialist' => $validator['major'],
             'user_id' => Auth::user()->id,
         ]);
 

@@ -5,49 +5,46 @@
         </div>
 
 
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="left">
-                    <div class="d-flex justify-content-between">
-                        <li><strong>Project Title</strong></li>
+        @forelse ($projects as $project)
+            <ul class="list-unstyled">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="left" x-data="{ expanded: false }">
+                        <div class="d-flex justify-content-between">
+                            <li><strong>{{ $project->title }}</strong></li>
+                        </div>
+                        <ul>
+                            <!-- Description Section -->
+                            <li class="text-muted">
+                                <strong>Description: </strong>
+                                <span
+                                    x-show="!expanded">{{ \Illuminate\Support\Str::limit($project->description, 200, '...') }}</span>
+                                <span x-show="expanded" x-cloak>{{ $project->description }}</span>
+                            </li>
+
+                            <!-- Contributions Section -->
+                            <li class="text-muted" x-show="expanded" x-cloak>
+                                <strong>Contributions: </strong>
+                                <span>{{ $project->contributions }}</span>
+                            </li>
+
+                            <!-- Read More / Read Less Button -->
+                            @if (strlen($project->description) > 200 || strlen($project->contributions) > 200)
+                                <button class="btn text-muted fw-bolder p-0" @click="expanded = !expanded"
+                                    x-text="expanded ? 'Read Less' : 'Read More'"></button>
+                            @endif
+                        </ul>
                     </div>
-                    <ul>
 
-                        <li>[Description of the project, including tools and technologies used]</li>
-                        <li>[Key outcomes or contributions made during the project]</li>
 
-                    </ul>
-
-                </div>
-
-                <div class="right-icon">
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditProjects"></i>
-                </div>
-            </div>
-        </ul>
-        <ul class="list-unstyled">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="left">
-                    <div class="d-flex justify-content-between">
-                        <li><strong>Project Title</strong></li>
+                    <div class="right-icon">
+                        <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                            data-bs-target="#EditProject"></i>
                     </div>
-                    <ul>
-
-                        <li>[Description of the project, including tools and technologies used]</li>
-                        <li>[Key outcomes or contributions made during the project]</li>
-
-                    </ul>
-
                 </div>
-
-                <div class="right-icon">
-                    <i class="bi bi-pencil-square  py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                        data-bs-target="#EditProjects"></i>
-
-                </div>
-            </div>
-        </ul>
+            </ul>
+        @empty
+            <p class="text-muted text-center py-3">No projects found.</p>
+        @endforelse
 
     </div>
 </div>
