@@ -10,7 +10,7 @@
                 <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
                     <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
                         <img src="https://ui-avatars.com/api/?name=Image"  alt="User"
-                            class="rounded-circle me-2 sm-img">
+                            class="rounded-circle ms-2 sm-img">
                         <div>
                             <strong>Company name</strong>
                             <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
@@ -20,7 +20,7 @@
                 <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
                     <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
                         <img src="https://ui-avatars.com/api/?name=Image" alt="User"
-                            class="rounded-circle me-2 sm-img">
+                            class="rounded-circle ms-2 sm-img">
                         <div>
                             <strong>Company name</strong>
                             <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
@@ -30,7 +30,7 @@
                 <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
                     <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
                         <img src="https://ui-avatars.com/api/?name=Image" alt="User"
-                            class="rounded-circle me-2 sm-img">
+                            class="rounded-circle ms-2 sm-img">
                         <div>
                             <strong>Company name</strong>
                             <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
@@ -51,7 +51,7 @@
 
             <div class="d-flex align-items-start mb-3">
                 <img src="https://ui-avatars.com/api/?name=Image" alt="Company Logo"
-                    class="rounded-circle me-2 mt-1 sm-img">
+                    class="rounded-circle ms-2 mt-1 sm-img">
                 <div class="d-flex flex-column">
                     <div class="flex-grow-1">
                         <a href="#" class="text-dark font-weight-bold text-decoration-none"><strong>Company
@@ -65,7 +65,7 @@
             </div>
             <div class="d-flex align-items-start mb-3">
                 <img src="https://ui-avatars.com/api/?name=Image" alt="Company Logo"
-                    class="rounded-circle me-2 mt-1 sm-img">
+                    class="rounded-circle ms-2 mt-1 sm-img">
                 <div class="d-flex flex-column">
                     <div class="flex-grow-1">
                         <a href="#" class="text-dark font-weight-bold text-decoration-none"><strong>Company

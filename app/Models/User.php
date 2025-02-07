@@ -52,14 +52,14 @@ class User extends Authenticatable
 
     public function acceptedFollowers()
     {
-        return $this->Followers()
+        return $this->followers()
             ->wherePivot('is_accepted', 1)
             ->where('type', '!=', 'company');
     }
 
     public function acceptedFollowings()
     {
-        return $this->Followings()
+        return $this->followings()
             ->wherePivot('is_accepted', 1)
             ->where('type', '!=', 'company');
     }

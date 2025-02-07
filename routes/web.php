@@ -26,9 +26,9 @@ use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
-
-
-
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 
 // Publicly accessible routes
 Route::get('/', HomePage::class)->name("home");
@@ -39,6 +39,23 @@ Auth::routes();
 
 // Secured routes: Only accessible to authenticated users
 Route::middleware(['auth'])->group(function () {
+    Route::get('/users/{id}/ping', function ($id) {
+    $user = User::findOrFail($id);
+
+    Log::info('Ping request for user:', ['user' => $user]);
+    // التحقق من أن المستخدم لم يزر الصفحة من قبل
+    $viewedUsers = session()->get('viewed_users', []);
+
+    if (!in_array(Auth::user()->id, $viewedUsers)) {
+        // زيادة عدد المشاهدات
+        $user->increment('views');
+
+        // تخزين المعرف في الجلسة لمنع التكرار
+        session()->push('viewed_users', Auth::user()->id);
+    }
+
+    return response()->noContent(); // لا تحتاج إلى محتوى
+});
     Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
     Route::get('/interests', SelectInterests::class)->name("interests");
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");

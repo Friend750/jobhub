@@ -30,7 +30,7 @@
 
                                     <div class="d-flex">
                                         <img src="https://ui-avatars.com/api/?name=User" alt="User" loading="lazy"
-                                            class="rounded-circle me-2">
+                                            class="rounded-circle ms-2">
                                         <div class="d-flex flex-column">
                                             <h5 class="mb-0">Elon Musk</h5>
                                             <small class="text-muted" id="text-muted">CEO of SpaceX</small>

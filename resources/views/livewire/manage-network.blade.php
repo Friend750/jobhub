@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 
-<div class="col-md-4">
+<div class="col-md-2">
     <h4 class="mt-3 mb-3">{{ __('general.manage_network') }}</h4>
 
     <ul class="list-unstyled">

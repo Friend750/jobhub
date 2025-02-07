@@ -16,14 +16,18 @@ class FollowersScreen extends Component
 {
     $user = User::find(auth()->user()->id);
 
-    $this->followers = $user->acceptedFollowers()->with('experiences')->get()->map(function ($follower) {
+    $this->followers = $user->acceptedFollowers()
+    ->with('experiences')
+    ->get()
+    ->map(function ($follower) {
         return [
             'id' => $follower->id,
             'user_name' => $follower->user_name,
-            'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title,
+            'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title ?? 'No Position',
             'user_image' => $follower->user_image ?? null,
         ];
     })->toArray();
+
 }   
 
 public function deleteConnection($connectionId)
