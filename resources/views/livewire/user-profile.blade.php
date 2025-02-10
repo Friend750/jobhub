@@ -71,29 +71,33 @@
                                 </div>
 
                                 <!-- Right Section -->
-                                <div class="d-flex mt-3 align-items-center">
-                                    <div class="spinner-border text-dark me-2" role="status" wire:loading
+                                <div class="d-flex mt-3 align-items-center flex-wrap gap-2">
+                                    <div class="spinner-border text-dark" role="status" wire:loading
                                         wire:target='profilePicture'>
                                         <span class="sr-only">Loading...</span>
                                     </div>
 
-                                    <label for="profilePicture"
-                                        class="mb-0 text-dark btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
-                                        <i class="fas fa-camera"></i> Edit Photo
-                                    </label>
-                                    <input type="file" id="profilePicture" wire:model="profilePicture" class="d-none"
-                                        accept="image/*">
+                                    @if (auth()->user()->id === $user->id)
+                                        <div>
+                                            <label for="profilePicture"
+                                                class="mb-0 text-dark btn btn-outline-secondary btn-custom rounded">
+                                                <i class="fas fa-camera"></i> Edit Photo
+                                            </label>
+                                            <input type="file" id="profilePicture" wire:model="profilePicture"
+                                                class="d-none" accept="image/*">
+                                        </div>
 
-                                    <a href="/EnhanceProfile"
-                                        class=" text-decoration-none text-dark d-flex align-items-center btn btn-outline-secondary btn-custom me-2 mr-2 rounded">
-                                        <i class="fas fa-user-edit me-2"></i>
-                                        Enhance Profile
-                                    </a>
+                                        <a href="/EnhanceProfile"
+                                            class=" text-decoration-none text-dark d-flex align-items-center btn btn-outline-secondary btn-custom rounded">
+                                            <i class="fas fa-user-edit me-2"></i>
+                                            Enhance Profile
+                                        </a>
+                                    @endif
 
                                     <div x-data="{ open: false }" class="position-relative">
 
                                         <button @click="open = !open"
-                                            class="btn text-dark btn-outline-secondary btn-custom rounded">More</button>
+                                            class="btn text-dark btn-outline-secondary btn-custom rounded"><i class="fa-solid fa-ellipsis"></i></button>
 
                                         <div x-show="open" x-cloak x-on:click ="open=false" @click.outside="open=false"
                                             class="options-card mt-2">
@@ -171,8 +175,11 @@
                     </div>
                 @endif
 
-                <!-- General Information Section -->
-                @include('livewire.includes.user-profile.General-Information-Section')
+                @if (!empty($user->personal_details->professional_summary))
+                    <!-- General Information Section -->
+                    @include('livewire.includes.user-profile.General-Information-Section')
+                @endif
+
                 @if ($user->type != 'company')
                     <!-- Experience Section -->
                     @include('livewire.includes.user-profile.Experience-Section')

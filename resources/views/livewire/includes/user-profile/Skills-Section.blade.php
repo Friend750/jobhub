@@ -7,9 +7,9 @@
         <ul class="list-unstyled d-flex flex-wrap" x-data="skillsList">
             <li class="text-muted" x-show="skills.length === 0">No skills added yet</li>
 
-            <template x-for="(skill, index) in skills" :key="index">
+            <template x-for="(skill, index) in skills" :key="skill.id">
                 <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
-                    x-on:click="$wire.selectSkill(skill.id, skill.name)" data-bs-toggle="tooltip" title="Click to Edit">
+                    x-on:click="$wire.selectSkill(skill.id,skill.name)" data-bs-toggle="tooltip" title="Click to Edit">
                 </li>
             </template>
 
@@ -36,24 +36,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="bg-light py-2 px-2 fw-bolder rounded text-muted">Previous Name: <span x-data="{ oldSkill: @entangle('selectedSkillName') }" x-text="oldSkill??'null'"></span></p>
+                <p class="bg-light py-2 px-2 fw-bolder rounded text-muted">Previous Name: <span x-data="{ oldSkill: @entangle('selectedSkillName') }"
+                        x-text="oldSkill??'null'"></span></p>
                 <!-- Search Input -->
                 <input type="text" wire:model.live.debounce.300ms="searchQuery" placeholder="Search skills..."
-                    class="form-control rounded-0 border-0 border-bottom">
+                    class="form-control rounded-0 border-0 border-bottom mb-2">
 
                 <!-- Skill List -->
                 <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
-                    @foreach ($skills as $skill)
-                        <li wire:click="selectSkill('{{ $skill['id'] }}', '{{ $skill['name'] }}')"
+                    @forelse ($availableSkills as $skill)
+                        <li wire:click="selectSkill({{ $skill->id }})"
                             class="w-100 text-start p-2 hover:bg-gray-100 pointer">
-                            {{ $skill['name'] }}
+                            {{ $skill->name }}
                         </li>
-                    @endforeach
-
-                    <!-- No Results Message -->
-                    @if (count($skills) === 0)
+                    @empty
                         <li class="p-2 text-muted">No skills found.</li>
-                    @endif
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -64,8 +62,8 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('skillsList', () => ({
             skills: @entangle('skills'),
-            limit: 7,
-            defaultLimit: 7,
+            limit: 5,
+            defaultLimit: 5,
         }));
     });
     document.addEventListener('DOMContentLoaded', function() {

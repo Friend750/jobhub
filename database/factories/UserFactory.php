@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email_verified_at' => $this->faker->optional()->dateTime,
             'user_name' => $this->faker->unique()->userName,
             'password' => bcrypt('password'), // You can use Hash::make if needed
-            'user_image' => $this->faker->optional()->imageUrl(200, 200, 'people'),
+            // 'user_image' => $this->faker->optional()->imageUrl(200, 200, 'people'),
             'type' => $this->faker->randomElement([ 'user', 'company']),
             'is_active' => $this->faker->boolean(80), // 80% chance of being true
             'is_connected' => $this->faker->boolean(20), // 20% chance of being true

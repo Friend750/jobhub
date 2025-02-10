@@ -41,6 +41,9 @@ class UsersTable extends Component
         $this->resetPage();
     }
 
+    public function showUser($id){
+        return redirect()->route('user-profile', $id);
+    }
     public function render()
     {
         return view(
