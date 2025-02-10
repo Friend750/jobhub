@@ -89,7 +89,7 @@
                 <div class="text-end mt-3">
                     <button class="btn btn-primary rounded" wire:click="nextStep">
                         {{ __('general.next') }}
-                        <i class="bi bi-chevron-right"></i>
+                        <i class="bi bi-chevron-left"></i>
                     </button>
                 </div>
             </div>

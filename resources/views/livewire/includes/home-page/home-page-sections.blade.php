@@ -25,11 +25,12 @@
                     <h1>{{ __('general.hero_title') }}</h1>
                     <p>{{ __('general.hero_description') }}</p>
                     <a href="register" class="btn btn-primary mb-3">{{ __('general.join') }}</a>
-                    <button class="btn color-bg-blue-light mb-3">
+                    <a href="{{ route('google.login') }}"><button class="btn color-bg-blue-light mb-3">
                         {{ __('general.continue_with') }}
                         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
                             alt="Google G Logo" style="width: 50px; height: auto;">
                     </button>
+                </a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('images/hero.png') }}" alt="Hero Image" class="img-fluid custom-image w-100">

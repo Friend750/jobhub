@@ -36,6 +36,8 @@
         'interests',
         'home',
         'EnhanceProfile',
+        'verify',
+
     ]))
     @include('livewire.navigation-bar')
 @endif

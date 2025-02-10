@@ -1,12 +1,13 @@
 <?php
 
+use App\Livewire\Auth\VerifyEmail;
 use App\Livewire\Chat;
 use App\Livewire\ChatAndFeed;
 use App\Livewire\Dashboard\UsersTable;
 use App\Livewire\PostCard;
 
 use App\Livewire\UserProfile;
-
+use Illuminate\Support\Str;
 use App\Livewire\CompanyList;
 use App\Livewire\CompanyProfile;
 use App\Livewire\Dashboard\Dashboard;
@@ -29,6 +30,7 @@ use App\Livewire\Dashboard\JobsTable;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
+use Laravel\Socialite\Facades\Socialite;
 
 // Publicly accessible routes
 Route::get('/', HomePage::class)->name("home");
@@ -37,6 +39,29 @@ Route::get('/unauthorized-access', function () {
 })->name('error');
 Auth::routes();
 
+Route::get('/auth/google', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.login');
+
+Route::get('/auth/google/callback', function () {
+    $googleUser = Socialite::driver('google')->user();
+
+    // البحث عن المستخدم أو إنشاؤه
+    $user = User::updateOrCreate([
+        'email' => $googleUser->getEmail(),
+    ], [
+        'user_name' => $googleUser->getName(),
+        'google_id' => $googleUser->getId(),
+        'user_image' => null,
+        'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
+        'email_verified_at' => now()
+    ]);
+
+    // تسجيل الدخول
+    Auth::login($user);
+
+    return redirect('/typeaccount');
+});
 // Secured routes: Only accessible to authenticated users
 Route::middleware(['auth'])->group(function () {
     Route::get('/users/{id}/ping', function ($id) {

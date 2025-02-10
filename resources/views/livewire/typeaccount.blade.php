@@ -24,7 +24,7 @@
                 </div>
                 <div class="text-center">
                     <button wire:click="save" class="btn btn-primary rounded">
-                        {{ __('general.next') }} <i class="bi bi-chevron-right"></i>
+                        {{ __('general.next') }} <i class="bi bi-chevron-left"></i>
                     </button>
                 </div>
             </div>

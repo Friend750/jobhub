@@ -14,26 +14,34 @@
                         <h2 class="">{{ __('general.Register') }}</h2>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
-                        
+
                             @livewire('includes.check-username')  {{-- مكون Livewire للتحقق من اسم المستخدم --}}
-                        
+
                             @livewire('includes.check-email')
 
 
                             @livewire('includes.check-password')
-                            
 
-                        
-                           
-                        
+
+
+
+
                             <div class="mb-3">
                                 <label for="password-confirm"
                                     class="col-form-label text-md-end">{{ __('general.Confirm Password') }}</label>
-                        
+
                                 <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" autocomplete="new-password">
                             </div>
-                        
+
+                            <a href="{{ route('google.login') }}" class="btn btn-light w-100 mb-3">
+
+                                {{-- <i class="fab fa-google"></i> --}}
+                                {{__('general.Continue_with')}}
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                                     alt="Google G Logo" style="width: 50px; height: auto;">
+
+                        </a>
                             <div class="row mb-0">
                                 <div class="">
                                     <div class="mb-3">
@@ -46,9 +54,9 @@
                                         <a href="/login" class="text-decoration-none"> {{__('general.Login')}}</a>
                                     </div>
                                 </div>
-                            </div>                        
+                            </div>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
