@@ -43,14 +43,14 @@
                             $isRequested = $connection && $connection->is_accepted == 0; // Pending request
                             @endphp
 
-                            <button class="btn slash
+                            <button class="w-80 btn slash
                             {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
                             btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $person['id'] . ')' : 'follow(' . $person['id'] . ')') : '' }}">
                                 {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') : __('general.follow')) }}
                             </button>
 
                             @if ($isFollowing)
-                            <button wire:click.prevent="startConversation({{ $person['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-50">
+                            <button wire:click.prevent="startConversation({{ $person['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
                                 {{ __('general.connect') }}
                             </button>
                             @endif
@@ -101,14 +101,14 @@
                             $isRequested = $connection && $connection->is_accepted == 0; // Pending request
                             @endphp
 
-                            <button class="btn slash
+                            <button class="w-80 btn slash
                             {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
                             btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $company['id'] . ')' : 'follow(' . $company['id'] . ')') : '' }}">
                                 {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') : __('general.follow')) }}
                             </button>
 
                             @if ($isFollowing)
-                            <button wire:click.prevent="startConversation({{ $company['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-50">
+                            <button wire:click.prevent="startConversation({{ $company['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
                                 {{ __('general.connect') }}
                             </button>
                             @endif

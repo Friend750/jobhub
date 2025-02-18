@@ -18,6 +18,7 @@ class FollowingScreen extends Component
 
 public function mount()
 {
+
     $user = User::find(auth()->user()->id);
 
     $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($follower) {
@@ -28,7 +29,7 @@ public function mount()
             'user_image' => $follower->user_image ?? null,
         ];
     });
-}    
+}
 
 public function unFollow($connectionId)
 {
@@ -45,9 +46,9 @@ public function unFollow($connectionId)
 
 public function follow($connectionId)
 {
-        
+
         $receiver = $this->getUserById($connectionId);
-        
+
         DB::table('connections')->insert([
             'follower_id' => $connectionId,
             'following_id' => Auth::id(),
@@ -56,12 +57,12 @@ public function follow($connectionId)
             'updated_at' => now()
         ]);
         $receiver->notify(new Request( auth()->user(),$receiver));
-        
+
 }
 
     public function getUserById($receiverId)
     {
-    return User::find($receiverId); 
+    return User::find($receiverId);
     }
     public function render()
     {

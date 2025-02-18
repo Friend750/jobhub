@@ -13,7 +13,7 @@
                     <div class="d-flex align-items-center">
                         <!-- Default avatar image -->
                         <img src="https://ui-avatars.com/api/?name=Image" alt="Logo"
-                            class="rounded-circle" width="40">
+                            class="rounded-circle ms-2" width="40">
                         <div class="ms-3">
                             <strong>{{ $follower['user_name'] }}</strong>
                             <div class="text-muted">{{ $follower['position'] ?? __('general.position') }}</div>
@@ -38,7 +38,7 @@
                         class="btn"
                     >
                         <i class="fa-regular fa-paper-plane"></i>
-                    </a>                    
+                    </a>
                     </div>
                 </div>
             @endforeach

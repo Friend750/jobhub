@@ -28,7 +28,7 @@ class FollowersScreen extends Component
         ];
     })->toArray();
 
-}   
+}
 
 public function deleteConnection($connectionId)
     {
