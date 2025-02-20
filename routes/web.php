@@ -27,6 +27,7 @@ use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
+use App\Models\PersonalDetail;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -45,16 +46,26 @@ Route::get('/auth/google', function () {
 
 Route::get('/auth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
-
+    $fullName = $googleUser->getName();
+    $nameParts = explode(' ', trim($fullName));
+    $firstName = $nameParts[0] ?? null;
+    $lastName = isset($nameParts[1]) ? implode(' ', array_slice($nameParts, 1)) : null;
     // البحث عن المستخدم أو إنشاؤه
     $user = User::updateOrCreate([
         'email' => $googleUser->getEmail(),
     ], [
-        'user_name' => $googleUser->getName(),
+        'user_name' => "0",
+        'user_image' => $googleUser->getAvatar(),
         'google_id' => $googleUser->getId(),
-        'user_image' => null,
         'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
         'email_verified_at' => now()
+    ]);
+
+    PersonalDetail::updateOrCreate([
+
+        'first_name' => $firstName,
+        'last_name' =>  $lastName,
+        'user_id' => $user->id,
     ]);
 
     // تسجيل الدخول
