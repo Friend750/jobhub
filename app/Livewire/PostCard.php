@@ -40,20 +40,19 @@ class PostCard extends Component
     public function resetForm($selectedForm)
     {
         if ($selectedForm == 'content-article') {
-            $this->articleForm->resetForm();
+            $this->articleForm->reset();
         } else {
-            $this->JOForm->resetForm();
+            $this->JOForm->reset();
         }
-
     }
-
+    
     public function resetAllForms()
     {
-        $this->articleForm->resetForm();
-        $this->JOForm->resetForm();
+        $this->articleForm->reset();
+        $this->JOForm->reset();
         $this->selectedInterests = [];
     }
-
+    
 
     public function SubmitArticleForm()
     {

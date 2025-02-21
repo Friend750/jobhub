@@ -83,21 +83,8 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $jobPosts->links('livewire::bootstrap') }}
 
-                <!-- 🔹 التحكم في عدد النتائج والصفحات -->
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center p-3">
-                    <div class="d-flex align-items-center">
-                        <label class="form-label text-muted me-2 mb-0">Per Page:</label>
-                        <select wire:model="per_page" class="form-select" style="width: 80px;">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                    {{ $jobPosts->links('livewire::bootstrap') }}
-                </div>
             </div>
         </div>
     </section>
