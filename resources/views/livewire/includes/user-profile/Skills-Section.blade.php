@@ -5,7 +5,7 @@
         </div>
 
         <ul class="list-unstyled d-flex flex-wrap" x-data="skillsList">
-            <li class="text-muted" x-show="skills.length === 0">No skills added yet</li>
+            <li class="text-muted text-center py-3" x-show="skills.length === 0">No skills added yet</li>
 
             <template x-for="(skill, index) in skills" :key="skill.id">
                 <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
