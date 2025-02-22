@@ -12,7 +12,7 @@
                         <div class="d-flex justify-content-between">
                             <li><strong>{{ $project->title }}</strong></li>
                         </div>
-                        <ul>
+                        <ul class="me-4">
                             <!-- Description Section -->
                             <li class="text-muted">
                                 <strong>Description: </strong>

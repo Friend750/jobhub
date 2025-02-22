@@ -1,7 +1,6 @@
 <section class="form-section mt-0 rounded">
     <h5 data-toggle="collapse" data-target="#personalDetails">
         <span>{{ __('general.personal_details') }}</span>
-        <i class="fas fa-caret-down caret-icon"></i>
     </h5>
     <p>{{ __('general.form_description') }}</p>
     <div id="" class="collapse show">
@@ -81,6 +80,16 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
+        </div>
+
+        <div class="form-group">
+            <label class="mb-2" for="description">{{ __('general.professional_summary') }}</label>
+            <textarea class="form-control @error('PDFrom.description') is-invalid @enderror" id="description"
+                wire:model="PDFrom.description" rows="3" placeholder="{{ __('general.placeholder_description') }}"
+                oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
+            @error('PDFrom.description')
+                <small class="text-danger">{{ $message }}</small>
+            @enderror
         </div>
 
     </div>

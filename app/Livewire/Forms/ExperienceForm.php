@@ -57,7 +57,7 @@ class ExperienceForm extends Form
 
     public function submit(){
 
-        // dd($this->experiences);
+        dd($this->experiences);
         $this->validate();
         // $this->reset();
         // Save the data

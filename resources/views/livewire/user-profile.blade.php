@@ -7,7 +7,7 @@
     <div class="container">
 
         <div class="row justify-content-center">
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <!-- Profile Header -->
                 <div class="card mb-3 rounded">
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
@@ -97,7 +97,8 @@
                                     <div x-data="{ open: false }" class="position-relative">
 
                                         <button @click="open = !open"
-                                            class="btn text-dark btn-outline-secondary btn-custom rounded"><i class="fa-solid fa-ellipsis"></i></button>
+                                            class="btn text-dark btn-outline-secondary btn-custom rounded"><i
+                                                class="fa-solid fa-ellipsis"></i></button>
 
                                         <div x-show="open" x-cloak x-on:click ="open=false" @click.outside="open=false"
                                             class="options-card mt-2">
@@ -164,8 +165,9 @@
                 @enderror
 
                 @if (session()->has('message'))
-                    <div class="alert alert-success d-flex flex-wrap w-100">
+                    <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
                         {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 

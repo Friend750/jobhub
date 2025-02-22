@@ -9,7 +9,7 @@
         "intervention/image": "^3.11",
         "laravel/framework": "^11.9",
         "laravel/scout": "^10.12",
-        "laravel/socialite": "^5.17",
+        "laravel/socialite": "^5.18",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "livewire/livewire": "^3.5",
