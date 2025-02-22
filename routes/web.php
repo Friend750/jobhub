@@ -27,6 +27,7 @@ use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
+use App\Livewire\Username;
 use App\Models\PersonalDetail;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
@@ -62,19 +63,16 @@ Route::get('/auth/google/callback', function () {
     ]);
 
     PersonalDetail::updateOrCreate([
-
         'first_name' => $firstName,
         'last_name' =>  $lastName,
         'user_id' => $user->id,
     ]);
-
     // تسجيل الدخول
     Auth::login($user);
-
-    return redirect('/typeaccount');
+    return redirect('/username');
 });
 // Secured routes: Only accessible to authenticated users
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','hasInterestsAndType','hasUsername'])->group(function () {
     Route::get('/users/{id}/ping', function ($id) {
     $user = User::findOrFail($id);
 
@@ -92,8 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
     return response()->noContent(); // لا تحتاج إلى محتوى
 });
-    Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
-    Route::get('/interests', SelectInterests::class)->name("interests");
+
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
@@ -105,6 +102,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
     Route::get('/notifications', Notifications::class)->name("notifications");
 });
+
+
+Route::middleware(['auth','hasUsername'])->group(function () {
+    Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
+    Route::get('/interests', SelectInterests::class)->name("interests");
+});
+
+Route::get('/username', Username::class)->name("username")->middleware('auth');
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name("dashboard");

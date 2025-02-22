@@ -15,10 +15,14 @@ class CheckUsername extends Component
     {
 
         // التحقق من وجود المستخدم في قاعدة البيانات
-        if (User::where('user_name', $this->username)->exists()) {
+        if (User::where('user_name', $this->username)->exists())
+        {
             $this->usernameExists = true;
             $this->errorMessage = 'اسم المستخدم محجوز، يرجى اختيار اسم آخر.';
-        } else {
+        }
+        else
+        {
+            $this->dispatch('usernameUpdated', $this->username);
             $this->usernameExists = false;
             $this->errorMessage = '';
         }

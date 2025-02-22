@@ -37,6 +37,7 @@
         'home',
         'EnhanceProfile',
         'verify',
+        'username'
 
     ]))
     @include('livewire.navigation-bar')
