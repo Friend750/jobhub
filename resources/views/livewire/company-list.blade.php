@@ -1,4 +1,3 @@
-
 <div class="container" style="margin-top: 5.5rem !important;">
     <div class="row">
         <!-- قسم إدارة الشبكة -->
@@ -11,17 +10,35 @@
             @foreach($companies as $company)
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                 <div class="d-flex align-items-center">
-                    <!-- صورة افتراضية للشركة -->
-                    <img src="https://ui-avatars.com/api/?name=Image"
-                         alt="Logo" class="rounded-circle" width="40">
+                    <!-- Default avatar image -->
+                    <img src="https://ui-avatars.com/api/?name=Image" alt="Logo" class="rounded-circle ms-2"
+                        width="40">
                     <div class="ms-3">
                         <strong>{{ $company['user_name'] }}</strong>
-                        <div class="text-muted">{{ $company['position'] }}</div>
+                        <div class="text-muted">{{ $company['position'] ?? __('general.position') }}</div>
                     </div>
                 </div>
+                @php
+                // Check follow status
+                $connection = DB::table('connections')
+                ->where('follower_id', $company['id'])
+                ->where('following_id', auth()->id())
+                ->first();
+
+                // Determine states
+                $isFollowing = $connection && $connection->is_accepted == 1; // Active follow
+                $isRequested = $connection && $connection->is_accepted == 0; // Pending request
+                @endphp
+
+                <button class="btn
+    {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
+    btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $company['id'] . ')' : 'follow(' . $company['id'] . ')') : '' }}">
+                    {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') :
+                    __('general.follow')) }}
+                </button>
+
             </div>
             @endforeach
         </div>
     </div>
 </div>
-

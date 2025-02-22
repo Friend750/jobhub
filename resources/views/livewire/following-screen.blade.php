@@ -13,7 +13,7 @@
                     <div class="d-flex align-items-center">
                         <!-- Default avatar image -->
                         <img src="https://ui-avatars.com/api/?name=Image" alt="Logo"
-                            loading="lazy" class="rounded-circle" width="40">
+                       class="rounded-circle ms-2" width="40">
                         <div class="ms-3">
                             <strong>{{ $following['user_name'] }}</strong>
                             <div class="text-muted">{{ $following['position'] ?? __('general.position') }}</div>
