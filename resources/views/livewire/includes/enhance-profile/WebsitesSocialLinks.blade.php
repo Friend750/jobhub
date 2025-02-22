@@ -1,13 +1,12 @@
 <section class="form-section rounded">
 
     <h5 data-toggle="collapse" data-target="#websitesLinks">
-       {{ __('general.websites_social_links') }}
+        {{ __('general.websites_social_links') }}
         <div class="d-flex align-items-center">
             <button class="btn text-muted btn-sm me-3 trash-button" type="button"
                 x-on:click="toggleSection('websites_social_links')" title="{{ __('general.remove_section') }}">
                 <i class="fas fa-trash"></i>
             </button>
-            <i class="fas fa-caret-down caret-icon"></i>
         </div>
     </h5>
     <p>{{ __('general.websites_description') }}</p>
@@ -16,7 +15,8 @@
         @foreach ($WLForm->websites as $index => $website)
             <div class="row mb-3">
                 <div class="form-group col-md-4">
-                    <label for="website_name_{{ $index }}">{{ __('general.website_name') }}</label>
+                    <label class="mb-2"
+                        for="website_name_{{ $index }}">{{ __('general.website_name') }}</label>
                     <input type="text"
                         class="form-control @error(" WLForm.websites.{$index}.website_name") is-invalid
                         @enderror"
@@ -28,7 +28,7 @@
                     @enderror
                 </div>
                 <div class="col-md-auto flex-grow-1">
-                    <label for="link_{{ $index }}">{{ __('general.link') }}</label>
+                    <label class="mb-2" for="link_{{ $index }}">{{ __('general.link') }}</label>
                     <div class="d-flex">
                         <input type="text"
                             class="form-control @error(" WLForm.websites.{$index}.link") is-invalid
@@ -36,8 +36,7 @@
                             wire:model="WLForm.websites.{{ $index }}.link"
                             placeholder="{{ __('general.placeholder_link') }}">
                         @if ($index > 0)
-                            <i class="bi bi-trash-fill btn rounded ms-1"
-                                wire:click="removeRow({{ $index }})"></i>
+                            <i class="bi bi-trash-fill btn rounded" wire:click="removeRow({{ $index }})"></i>
                         @endif
                     </div>
                     @error("WLForm.websites.{$index}.link")

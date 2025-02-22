@@ -1,8 +1,8 @@
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/post.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+<link rel="stylesheet" href="{{ asset('css/post.css') }}">
+<link rel="stylesheet" href="{{ asset('css/creat-post-overlay.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 <div>
     <div class="container">
@@ -86,7 +86,8 @@
                         <div class="buttom-content p-3">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <button class="btn btn-light" data-bs-toggle="tooltip" title="Like">
+                                    <button wire:click='toggleLike()' class="btn btn-light" data-bs-toggle="tooltip"
+                                        title="Like">
                                         <i class="bi bi-hand-thumbs-up"></i>
                                     </button>
                                     <button class="btn btn-light" data-bs-toggle="tooltip" title="Comment"
@@ -99,6 +100,11 @@
                                 </button>
                             </div>
                             @include('livewire.includes.post-card.comments')
+                            @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -23,7 +23,6 @@ class EnhanceProfile extends Component
     #[Title('Profile Enhancement')]
     public $activeSections = [];
     public personalDetailsFrom $PDFrom;
-    public ProfessionalSummaryForm $PSForm;
     public WebsitesLinksForm $WLForm;
     public EducationForm $EDForm;
     public CoursesForm $CoursesForm;
@@ -92,10 +91,6 @@ class EnhanceProfile extends Component
         // dd($this->SkillsForm->SelectedSkills);
         $this->PDFrom->submit();
 
-        if ($this->IsActive('professional_summary')) {
-            $this->PSForm->submit();
-        }
-
         if ($this->IsActive('websites_social_links')) {
             $this->WLForm->submit();
         }
@@ -125,17 +120,22 @@ class EnhanceProfile extends Component
         }
 
         // sesstion flash message
-        session()->flash('message', 'Profile Updated Successfully');
+        session()->flash('message', 'تم تحديث الصفحة الشخصية');
+        // redirect to
+        return redirect()->route('user-profile');
     }
 
     public function saveCompanyForm(){
         $this->CompanyPageForm->submit();
     }
 
+    public function getOldUserData(){
+        $this->PDFrom->oldData();
+    }
+
     public function mount(){
-        $this->PDFrom->email = Auth::user()?->email;
         $this->userType = Auth::user()->type;
-        // dump($this->userType);
+        $this->getOldUserData();
     }
 
     public function render()

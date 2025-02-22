@@ -1,4 +1,4 @@
-<div class="col-md-9">
+<div class="col-md-8">
     @if (session()->has('message'))
         <div class="mt-0 alert alert-success alert-dismissible rounded fade show"
             style="width: 800px; margin: 10px auto;" role="alert">
@@ -9,11 +9,6 @@
     @endif
 
     @include('livewire.includes.enhance-profile.PersonalDetails')
-
-
-    <template x-if="activeSections.includes('professional_summary')" x-cloak class="mb-4">
-        @include('livewire.includes.enhance-profile.ProfessionalSummary')
-    </template>
 
     <template x-if="activeSections.includes('websites_social_links')" x-cloak class="mb-4">
         @include('livewire.includes.enhance-profile.WebsitesSocialLinks')

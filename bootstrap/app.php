@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'IsAdmin' => \App\Http\Middleware\CheckAdmin::class,
+            'hasInterestsAndType' => \App\Http\Middleware\CheckAccountTypeAndInterests::class,
+            'hasUsername' => \App\Http\Middleware\CheckUsername::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

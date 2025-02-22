@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->boolean('is_connected')->default(false);
             $table->json('interests')->nullable();
             $table->integer('views')->default(0);
+            $table->string('google_id')->nullable()->unique();
 
             $table->rememberToken();
             $table->softDeletes(); // Adds the 'deleted_at' column

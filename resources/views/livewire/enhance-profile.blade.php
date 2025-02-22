@@ -15,11 +15,12 @@
                     <div class="container mt-5">
                         <div class="row d-flex justify-content-center">
 
+                            <!-- Sidebar (Heavy Component) -->
+                            @include('livewire.includes.enhance-profile.sidebar')
+
                             <!-- Content Area (Heavy Component) -->
                             @include('livewire.includes.enhance-profile.content-area')
 
-                            <!-- Sidebar (Heavy Component) -->
-                            @include('livewire.includes.enhance-profile.sidebar')
 
                         </div>
                     </div>
