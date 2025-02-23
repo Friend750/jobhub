@@ -39,7 +39,7 @@ class ArticleForm extends Form
         $this->reset();
     }
 
-    public function submit($selectedInterests)
+    public function submit($selectedInterests,$target)
     {
         $mediaPath ="";
         $this->validate();
@@ -49,9 +49,10 @@ class ArticleForm extends Form
             $mediaPath = $this->media->store('uploads', 'public');
         }
 
-        Post::create([
+    Post::create([
             'user_id' => Auth::id(),
             'content' => $this->content,
+            'target' => $target,
             'post_image' => $mediaPath,
             'tags' => $selectedInterests,
             'views' => 0, // set views to 0 when a new post is created. It will be incremented when the post is viewed.

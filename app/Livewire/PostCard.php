@@ -27,6 +27,7 @@ class PostCard extends Component
     public CommentForm $commentForm;
     public $showCard;
     public $selected;
+    public $target;
     public $selectedInterests = [];
     public $interests;
     public $media; // For the uploaded file (image or video)
@@ -35,7 +36,12 @@ class PostCard extends Component
     {
         $this->showCard = false;
         $this->selected = 'content-article';
-        $this->interests = Interest::select('id', 'name')->get();
+        $this->interests = Interest::select('name')->get();
+    }
+
+    public function setAudience($value)
+    {
+        $this->target = $value;
     }
 
     public function isExisting($post)
@@ -121,24 +127,25 @@ class PostCard extends Component
             $this->JOForm->reset();
         }
     }
-    
+
     public function resetAllForms()
     {
         $this->articleForm->reset();
         $this->JOForm->reset();
         $this->selectedInterests = [];
     }
-    
+
 
     public function SubmitArticleForm()
     {
-        $this->articleForm->submit($this->selectedInterests);
+
+        $this->articleForm->submit($this->selectedInterests,$this->target);
 
         $this->dispatch('article-posted', ['message' => 'Article posted successfully']);
     }
     public function SubmitJobOfferForm()
     {
-        $this->JOForm->submit();
+        $this->JOForm->submit($this->target);
 
         $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }
