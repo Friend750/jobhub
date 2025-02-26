@@ -23,11 +23,19 @@
             <div class="list-group shadow-sm">
                 @foreach($jobs as $job)
                     <div class="list-group-item list-group-item-action d-flex gap-3 p-3 align-items-center">
+                        <!-- صورة المستخدم -->
+                        <img src="{{ asset('storage/' . ($job->user->image ?? 'default-avatar.png')) }}" 
+                             alt="User Image" class="rounded-circle border" width="50" height="50">
+
                         <div class="w-100">
                             <h5 class="mb-1">
                                 <a href="#" class="text-dark text-decoration-none">{{ $job->job_title }}</a>
                             </h5>
-                            <p class="mb-1 text-muted">{{ $job->user->user_name ?? 'Unknown Company' }}</p>
+                            <p class="mb-1 text-muted d-flex align-items-center">
+                                <img src="{{ asset('storage/' . ($job->user->image ?? 'default-avatar.png')) }}" 
+                                     alt="User Image" class="rounded-circle me-2" width="20" height="20"> 
+                                {{ $job->user->user_name ?? 'Unknown Company' }}
+                            </p>
                             <small class="text-muted">
                                 📍 {{ $job->job_location ?? 'Remote' }} • ⏳ {{ $job->created_at->diffForHumans() }}
                             </small>
@@ -36,9 +44,9 @@
                     </div>
                 @endforeach
             </div>
+            
             <br>
-                {{-- {{ $jobs->links() }} <!-- روابط الترقيم --> --}}
-                {{ $jobs->links('livewire::bootstrap') }}
+            {{ $jobs->links('livewire::bootstrap') }}
 
         </div>
 
@@ -46,7 +54,16 @@
         <div class="col-md-4">
             @if($selectedJob)
                 <div class="border rounded p-3 shadow-sm">
-                    <h5>{{ $selectedJob->job_title }}</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- صورة المستخدم في تفاصيل الوظيفة -->
+                        <img src="{{ asset('storage/' . ($selectedJob->user->image ?? 'default-avatar.png')) }}" 
+                             alt="User Image" class="rounded-circle border me-2" width="60" height="60">
+                        <div>
+                            <h5 class="mb-0">{{ $selectedJob->job_title }}</h5>
+                            <p class="text-muted">{{ $selectedJob->user->user_name }}</p>
+                        </div>
+                    </div>
+
                     <p><strong>Company:</strong> {{ $selectedJob->user->user_name }}</p>
                     <p><strong>Location:</strong> {{ $selectedJob->job_location }}</p>
                     <p><strong>Description:</strong></p>
@@ -55,10 +72,6 @@
                     <a href="#" class="btn btn-primary">Apply</a>
                     <button type="button" class="btn btn-secondary mt-2" wire:click="$set('selectedJob', null)">Close</button>
                 </div>
-            @else
-                {{-- <div class="border rounded p-3 text-center">
-                    <p>Select a job to see the details.</p>
-                </div> --}}
             @endif
         </div>
     </div>

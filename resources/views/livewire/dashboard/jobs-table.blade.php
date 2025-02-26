@@ -56,9 +56,9 @@
                                 <td>{{ $jobPost->job_location }}</td>
                                 <td>{{ $jobPost->job_timing }}</td>
                                 <td>
-                                    @foreach ($jobPost->tags as $tag)
-                                    <span class="badge bg-secondary me-1">{{ $tag }}</span>
-                                    @endforeach
+                                        @foreach (is_array($jobPost->tags) ? $jobPost->tags : json_decode($jobPost->tags, true) ?? [] as $tag)
+                                            <span class="badge bg-secondary me-1">{{ $tag }}</span>
+                                        @endforeach                                  
                                 </td>
                                 <td>
                                     <span class="badge {{ $jobPost->is_active ? 'bg-success' : 'bg-danger' }}">

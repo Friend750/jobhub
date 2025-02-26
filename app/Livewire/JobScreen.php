@@ -4,17 +4,22 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Collection;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 
 class JobScreen extends Component
 {
     public $jobs;
     public $selectedJob;
+    public $profilePicture; // خاصية لتحميل الصورة
+
     public $sortBy = 'relevant'; // الافتراضي: الأكثر صلة
     public $timeFilter = ''; // الافتراضي: أي وقت
 
     public function mount()
     {
-        // تحميل البيانات الوظيفية
+        // تحميل البيانات الوظيفية (يمكن استبداله بالاستعلام من قاعدة البيانات)
         $this->jobs = collect([
             [
                 'id' => 1,
@@ -26,56 +31,7 @@ class JobScreen extends Component
                 'applicants' => 'Among the first 25 applicants',
                 'photo' => 'https://via.placeholder.com/50',
             ],
-            [
-                'id' => 2,
-                'title' => 'DevOps Engineer',
-                'company' => 'PayPal',
-                'location' => 'San Francisco, CA',
-                'description' => 'PayPal is looking for a DevOps Engineer to enhance our payment systems. Join us now.',
-                'time' => now()->subDays(7),
-                'applicants' => 'Among the first applicants',
-                'photo' => 'https://via.placeholder.com/50',
-            ],
-            [
-                'id' => 3,
-                'title' => 'Infrastructure Engineer',
-                'company' => 'PepsiCo',
-                'location' => 'Remote',
-                'description' => "Join PepsiCo's team to build and maintain infrastructure for global operations.",
-                'time' => now()->subHours(8),
-                'applicants' => 'Among the first applicants',
-                'photo' => 'https://via.placeholder.com/50',
-            ],
-            [
-                'id' => 4,
-                'title' => 'Software Engineer',
-                'company' => 'Google',
-                'location' => 'Mountain View, CA',
-                'description' => 'Google is looking for a Software Engineer to help build and maintain our search engine infrastructure.',
-                'time' => now()->subDays(3),
-                'applicants' => 'Among the first applicants',
-                'photo' => 'https://via.placeholder.com/50',
-            ],
-            [
-                'id' => 5,
-                'title' => 'Frontend Developer',
-                'company' => 'Facebook',
-                'location' => 'Menlo Park, CA',
-                'description' => 'Facebook is looking for a Frontend Developer to help build and maintain our React-based frontend.',
-                'time' => now()->subDays(1),
-                'applicants' => 'Among the first applicants',
-                'photo' => 'https://via.placeholder.com/50',
-            ],
-            [
-                'id' => 6,
-                'title' => 'Backend Developer',
-                'company' => 'Instagram',
-                'location' => 'San Francisco, CA',
-                'description' => 'Instagram is looking for a Backend Developer to help build and maintain our Node.js-based backend.',
-                'time' => now()->subWeeks(2),
-                'applicants' => 'Among the first applicants',
-                'photo' => 'https://via.placeholder.com/50',
-            ],
+            // أضف المزيد من الوظائف هنا
         ]);
 
         // ضبط الوظيفة المحددة افتراضيًا
@@ -103,6 +59,41 @@ class JobScreen extends Component
     {
         $this->sortBy = 'relevant';
         $this->timeFilter = '';
+        $this->selectedJob = $this->jobs->first(); // إعادة تعيين الوظيفة المحددة
+    }
+    
+    public function updatedProfilePicture()
+    {
+        $this->validate([
+            'profilePicture' => 'image|max:2048',
+        ]);
+
+        try {
+            // Delete the old profile picture if it exists
+            if ($this->user->user_image) {
+                Storage::disk('public')->delete($this->user->user_image);
+            }
+
+            // Store the original image and get the path (Laravel auto-generates a unique name)
+            $imagePath = $this->profilePicture->store('profile-pictures', 'public');
+
+            // Load the stored image for resizing
+            $manager = new ImageManager(new GdDriver());
+
+            $resizedImage = $manager->read(Storage::disk('public')->path($imagePath))->scale(width: 300);
+
+            // Save the resized image back to the same path
+            $resizedImage->save(Storage::disk('public')->path($imagePath));
+
+            // Update the user's profile picture path in the database
+            $this->user->update([
+                'user_image' => $imagePath,
+            ]);
+
+            session()->flash('message', 'Profile picture updated successfully.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'An error occurred while updating the profile picture: ' . $e->getMessage());
+        }
     }
 
     public function render()
