@@ -6,7 +6,7 @@
         <input type="text" id="job_title" class="form-control @error('JOForm.job_title') is-invalid @enderror"
             wire:model="JOForm.job_title" placeholder="Enter the title of the job">
         @error('JOForm.job_title')
-            <div class="invalid-feedback">{{ $message }}</div>
+        <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 
@@ -14,11 +14,10 @@
         <!-- Job Location -->
         <div class="form-group col-md-6">
             <label for="job_location">Job Location</label>
-            <input type="text" id="job_location"
-                class="form-control @error('JOForm.job_location') is-invalid @enderror"
+            <input type="text" id="job_location" class="form-control @error('JOForm.job_location') is-invalid @enderror"
                 wire:model="JOForm.job_location" placeholder="Enter the job location (e.g., New York, Remote)">
             @error('JOForm.job_location')
-                <div class="invalid-feedback">{{ $message }}</div>
+            <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
 
@@ -28,7 +27,7 @@
             <input type="text" id="job_timing" class="form-control @error('JOForm.job_timing') is-invalid @enderror"
                 wire:model="JOForm.job_timing" placeholder="(e.g., Full-time, Part-time)">
             @error('JOForm.job_timing')
-                <div class="invalid-feedback">{{ $message }}</div>
+            <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
     </div>
@@ -40,7 +39,7 @@
             wire:model="JOForm.about_job" placeholder="Provide a brief description about the job"
             oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
         @error('JOForm.about_job')
-            <div class="invalid-feedback">{{ $message }}</div>
+        <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 
@@ -51,7 +50,7 @@
             wire:model="JOForm.job_tasks" placeholder="List the main tasks and responsibilities of the job"
             oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
         @error('JOForm.job_tasks')
-            <div class="invalid-feedback">{{ $message }}</div>
+        <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 
@@ -63,7 +62,7 @@
             placeholder="Mention any specific conditions for the job (e.g., travel requirements, physical demands)"
             oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
         @error('JOForm.job_conditions')
-            <div class="invalid-feedback">{{ $message }}</div>
+        <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 
@@ -75,7 +74,7 @@
             placeholder="List the required skills for the job (e.g., programming, communication)"
             oninput="this.style.height = ''; this.style.height = (this.scrollHeight+5) + 'px'"></textarea>
         @error('JOForm.job_skills')
-            <div class="invalid-feedback">{{ $message }}</div>
+        <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
 

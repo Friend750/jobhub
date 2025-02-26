@@ -27,9 +27,11 @@ use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
+use App\Livewire\OtpVerification;
 use App\Livewire\Username;
 use App\Models\PersonalDetail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -59,7 +61,7 @@ Route::get('/auth/google/callback', function () {
         'user_image' => $googleUser->getAvatar(),
         'google_id' => $googleUser->getId(),
         'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
-        'email_verified_at' => now()
+        'email_verified_at' => Carbon::now('asia/aden')
     ]);
 
     PersonalDetail::updateOrCreate([
@@ -72,7 +74,7 @@ Route::get('/auth/google/callback', function () {
     return redirect('/username');
 });
 // Secured routes: Only accessible to authenticated users
-Route::middleware(['auth','hasInterestsAndType','hasUsername'])->group(function () {
+Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
     Route::get('/users/{id}/ping', function ($id) {
     $user = User::findOrFail($id);
 
@@ -104,12 +106,13 @@ Route::middleware(['auth','hasInterestsAndType','hasUsername'])->group(function 
 });
 
 
-Route::middleware(['auth','hasUsername'])->group(function () {
+Route::middleware(['auth','hasUsername','verified'])->group(function () {
     Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
     Route::get('/interests', SelectInterests::class)->name("interests");
 });
 
 Route::get('/username', Username::class)->name("username")->middleware('auth');
+Route::get('/otp', OtpVerification::class)->name("verify")->middleware('auth');
 
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name("dashboard");

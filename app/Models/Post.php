@@ -13,10 +13,10 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'page_id',
-        'title',
         'content',
         'post_image',
         'tags',
+        'target',
         'views'
     ];
 
@@ -32,10 +32,6 @@ class Post extends Model
         ];
     }
 
-    public function page()
-    {
-        return $this->belongsTo(Page::class, 'page_id');
-    }
 
     public function comments()
     {

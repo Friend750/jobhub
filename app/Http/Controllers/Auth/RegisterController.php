@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/typeaccount';
+    protected $redirectTo = '/otp';
 
     /**
      * Create a new controller instance.

@@ -19,7 +19,6 @@ return new class extends Migration
 
 
             $table->enum('target', ['to_any_one', 'connection_only']);
-            $table->string('title'); // Title of the post
             $table->text('content')->nullable(); // Content of the post (nullable)
             $table->string('post_image')->nullable(); // Path or URL of the post image (nullable)
             $table->json('tags')->nullable();

@@ -7,39 +7,32 @@
 
             <!-- Chat List -->
             <div class="card-body">
-                <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center clickable-div py-1  justify-content-start">
-                        <img src="https://ui-avatars.com/api/?name=Image"  alt="User"
-                            class="rounded-circle ms-2 sm-img">
-                        <div>
-                            <strong>Company name</strong>
-                            <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
+                <div>
+                    <!-- تحديث كل 5 ثوانٍ -->
+                    @forelse ($chats as $chat)
+                    <a href="/chat/{{ $chat['id'] }}" class="text-decoration-none text-dark">
+                        <div class="d-flex align-items-center clickable-div py-1 justify-content-start">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($chat['profile']) }}" alt="User"
+                                class="rounded-circle ms-2 sm-img">
+                            <div>
+                                <strong>{{ $chat['name'] }}</strong>
+                                <p class="text-muted small mb-0 truncate-text">{{ $chat['last_message'] }}</p>
+                            </div>
                         </div>
+                    </a>
+                    @empty
+                    <div class="text-center text-muted mt-3">
+                        <p>لا توجد محادثات متوفرة.</p>
+                        <a href="/Followers" class="btn btn-primary">ابدأ محادثة جديدة</a>
                     </div>
-                </a>
-                <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
-                        <img src="https://ui-avatars.com/api/?name=Image" alt="User"
-                            class="rounded-circle ms-2 sm-img">
-                        <div>
-                            <strong>Company name</strong>
-                            <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="{{ route('chat') }}" class="text-decoration-none text-dark">
-                    <div class="d-flex align-items-center mb-1 clickable-div py-1  justify-content-start">
-                        <img src="https://ui-avatars.com/api/?name=Image" alt="User"
-                            class="rounded-circle ms-2 sm-img">
-                        <div>
-                            <strong>Company name</strong>
-                            <p class="text-muted small mb-0 truncate-text">Hey, how is your project?</p>
-                        </div>
-                    </div>
-                </a>
+                    @endforelse
+                </div>
             </div>
+
+
         </div>
     </div>
+
 
     {{-- feed card --}}
     <div class=" card bg-white rounded border shadow-sm mt-3">
@@ -48,44 +41,58 @@
 
         <!-- Feed List -->
         <div class="card-body">
-
+            @forelse($suggestions as $suggestion)
             <div class="d-flex align-items-start mb-3">
-                <img src="https://ui-avatars.com/api/?name=Image" alt="Company Logo"
+                <!-- صورة المستخدم -->
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion['user_name']) }}" alt="User Image"
                     class="rounded-circle ms-2 mt-1 sm-img">
                 <div class="d-flex flex-column">
                     <div class="flex-grow-1">
-                        <a href="#" class="text-dark font-weight-bold text-decoration-none"><strong>Company
-                                name</strong></a>
-                        <p class="text-muted small mb-0 truncate-text">Lorem ipsum dolor sit amet. Lorem, ipsum.</p>
+                        <!-- اسم المستخدم -->
+                        <a href="#" class="text-dark font-weight-bold text-decoration-none">
+                            <strong>{{ $suggestion['user_name'] }}</strong>
+                        </a>
+                        <!-- الـ professional_summary -->
+                        <p class="text-muted small mb-0 truncate-text">
+                            {{ $suggestion->personal_details['professional_summary'] ?? 'No professional summary
+                            available.' }}
+                        </p>
                     </div>
-                    <button class="badge badge-light btn-outline-primary border btn mt-1" style="width: fit-content"
-                        x-data ="{state: false}" x-text ="state === false? 'follow': 'following'"
-                        @click="state = !state"></button>
-                </div>
-            </div>
-            <div class="d-flex align-items-start mb-3">
-                <img src="https://ui-avatars.com/api/?name=Image" alt="Company Logo"
-                    class="rounded-circle ms-2 mt-1 sm-img">
-                <div class="d-flex flex-column">
-                    <div class="flex-grow-1">
-                        <a href="#" class="text-dark font-weight-bold text-decoration-none"><strong>Company
-                                name</strong></a>
-                        <p class="text-muted small mb-0 truncate-text">Lorem ipsum dolor sit amet. Lorem, ipsum.</p>
-                    </div>
-                    <button class="badge badge-light btn-outline-primary border btn mt-1" style="width: fit-content"
-                        x-data ="{state: false}" x-text ="state === false? 'follow': 'following'"
-                        @click="state = !state"></button>
-                </div>
-            </div>
+                    @php
+                    // Check follow status
+                    $connection = DB::table('connections')
+                    ->where('follower_id', $suggestion['id'])
+                    ->where('following_id', auth()->id())
+                    ->first();
 
+                    // Determine states
+                    $isFollowing = $connection && $connection->is_accepted == 1; // Active follow
+                    $isRequested = $connection && $connection->is_accepted == 0; // Pending request
+                    @endphp
+
+                    <button class="btn w-100
+    {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
+    btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $suggestion['id'] . ')' : 'follow(' . $suggestion['id'] . ')') : '' }}">
+                        {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') :
+                        __('general.follow')) }}
+                    </button>
+                </div>
+            </div>
+            @empty
+            <!-- رسالة في حالة عدم وجود اقتراحات -->
+            <div class="text-center text-muted py-3">
+                لا يوجد مستخدمين بنفس الاهتمامات.
+            </div>
+            @endforelse
         </div>
     </div>
     <style>
-        .truncate-text{
+        .truncate-text {
             font-size: .75rem;
         }
     </style>
 
+</div>
 </div>
 <script>
     document.querySelectorAll(".truncate-text").forEach(element => {

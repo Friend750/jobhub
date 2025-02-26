@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'encryption_key' => env('ENCRYPTION_KEY', 'defaultFallbackKey'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

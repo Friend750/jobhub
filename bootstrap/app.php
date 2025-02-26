@@ -15,7 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'IsAdmin' => \App\Http\Middleware\CheckAdmin::class,
             'hasInterestsAndType' => \App\Http\Middleware\CheckAccountTypeAndInterests::class,
-            'hasUsername' => \App\Http\Middleware\CheckUsername::class
+            'hasUsername' => \App\Http\Middleware\CheckUsername::class,
+            'verified' => \App\Http\Middleware\CheckVerifiedUser::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

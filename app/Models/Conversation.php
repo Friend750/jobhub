@@ -25,4 +25,11 @@ class Conversation extends Model
     {
         return $this->belongsTo(User::class, 'second_user');
     }
+    public function getOtherUser()
+{
+    return $this->first_user == auth()->id()
+        ? $this->secondUser
+        : $this->firstUser;
+}
+
 }

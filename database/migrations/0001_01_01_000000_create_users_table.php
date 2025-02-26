@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('user_name')->unique();
 
-
             $table->string('password');
             $table->string('user_image')->nullable();
             $table->enum('type', ['','admin', 'user', 'company']);

@@ -10,28 +10,28 @@ class JobOfferForm extends Form
 {
     #[Rule('required|string|max:255')]
     public $job_title = "";
-    
+
     #[Rule('required|string')]
     public $about_job = "";
-    
+
     #[Rule('required|string')]
     public $job_tasks = "";
-    
+
     #[Rule('required|string')]
     public $job_conditions = "";
-    
+
     #[Rule('required|string')]
     public $job_skills = "";
-    
+
     #[Rule('required|string|max:255')]
     public $job_location = "";
-    
+
     #[Rule('required|string|max:255')]
     public $job_timing = "";
-    
+
     public $tags = [];
 
-    public function submit()
+    public function submit($target)
     {
         $this->validate();
 
@@ -45,6 +45,7 @@ class JobOfferForm extends Form
             'job_location' => $this->job_location,
             'job_timing' => $this->job_timing,
             'tags' => $this->tags,
+            'target' => $target,
         ]);
 
         // dd($job); // يمكن إزالة هذا السطر إذا لم يكن ضرورياً للتdebug

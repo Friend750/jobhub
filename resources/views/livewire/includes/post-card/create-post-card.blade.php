@@ -36,15 +36,24 @@
                                                     class="btn btn-light btn-sm dropdown-toggle py-0 color-bg-blue-light"
                                                     type="button" id="postAudienceDropdown" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    Post to anyone
+                                                    {{ $target === 'to_any_one' ? 'Post to anyone' : 'Connections only' }}
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="postAudienceDropdown">
-                                                    <li><a class="dropdown-item" href="#"><small>Post to
-                                                                anyone</small> </a></li>
-                                                    <li><a class="dropdown-item" href="#"><small>Connections
-                                                                only</small> </a></li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            wire:click.prevent="setAudience('to_any_one')">
+                                                            <small>Post to anyone</small>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#"
+                                                            wire:click.prevent="setAudience('connection_only')">
+                                                            <small>Connections only</small>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
+
 
                                             {{-- post type --}}
                                             <div class="dropdown">
@@ -89,8 +98,8 @@
                                         <select id="multiDropdown" class="form-select"
                                             data-placeholder="Optional: Add tag(s) to reach more when public" multiple>
                                             @foreach ($interests as $key => $interest)
-                                                <option value="{{ $interest->id }}">{{ $interest->name }}
-                                                </option>
+                                            <option value="{{ $interest->id }}">{{ $interest->name }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -120,8 +129,8 @@
 </style>
 
 @script()
-    <script>
-        // Initialize the select2 widget with a placeholder text and allow multiple selection
+<script>
+    // Initialize the select2 widget with a placeholder text and allow multiple selection
         $(document).ready(function() {
             $('#multiDropdown').select2({
                 theme: "bootstrap-5",
@@ -150,7 +159,7 @@
 
 
         });
-    </script>
+</script>
 @endscript
 
 <script>
