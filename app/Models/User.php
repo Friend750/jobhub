@@ -27,7 +27,9 @@ class User extends Authenticatable
         'user_image',
         'is_active',
         'is_connected',
-        'interests'
+        'interests',
+        'google_id',
+        'email_verified_at'
     ];
 
     public function scopeSearch($query, $value)

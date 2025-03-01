@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 
 class OtpMail extends Mailable
 {
-    use Queueable,  SerializesModels;
+    use   SerializesModels;
 
     public $otp;
 
@@ -19,6 +19,6 @@ class OtpMail extends Mailable
 
     public function build()
     {
-        return $this->from('friendsmoaha@gmail.com', 'Jobhub')->subject('Your OTP Code')->view('emails.otp-mail')->with(['otp' => $this->otp]);
+        return $this->from("friendsmoaha@gmail.com")->mailer("smtp")->subject('Your OTP Code')->view('emails.otp-mail')->with(['otp' => $this->otp]);
     }
 }
