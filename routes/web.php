@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Auth\VerifyEmail;
 use App\Livewire\Chat;
 use App\Livewire\ChatAndFeed;
 use App\Livewire\Dashboard\UsersTable;
@@ -9,7 +8,6 @@ use App\Livewire\PostCard;
 use App\Livewire\UserProfile;
 use Illuminate\Support\Str;
 use App\Livewire\CompanyList;
-use App\Livewire\CompanyProfile;
 use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\EnhanceProfile;
 use App\Livewire\FollowersScreen;
@@ -18,12 +16,9 @@ use App\Livewire\HomePage;
 use App\Livewire\JobScreen;
 use App\Livewire\NavigationBar;
 use App\Livewire\Notifications;
-use App\Livewire\Register;
 use App\Livewire\Search;
 use App\Livewire\SelectInterests;
-use App\Livewire\SignIn;
 use App\Livewire\Typeaccount;
-use App\Livewire\UserProfileCard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
@@ -33,7 +28,6 @@ use App\Models\PersonalDetail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 // Publicly accessible routes
@@ -49,6 +43,7 @@ Route::get('/auth/google', function () {
 
 Route::get('/auth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
+
     $fullName = $googleUser->getName();
     $nameParts = explode(' ', trim($fullName));
     $firstName = $nameParts[0] ?? null;

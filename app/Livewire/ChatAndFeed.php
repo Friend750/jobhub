@@ -22,12 +22,9 @@ class ChatAndFeed extends Component
 
     public function loadChats()
     {
-          // تخزين المحادثات مؤقتًا
-        $chatsCacheKey = 'user_chats_' . $user->id;
-        $chatsCacheDuration = 60 * 5; // 5 دقائق
 
-        $this->chats = Cache::remember($chatsCacheKey, $chatsCacheDuration, function () use ($user) {
-            return Conversation::with([
+
+        $this->chats =  Conversation::with([
                     'firstUser:id,user_name,user_image',
                     'secondUser:id,user_name,user_image'
                 ])
@@ -51,7 +48,6 @@ class ChatAndFeed extends Component
                     ];
                 })
                 ->toArray();
-        });
     }
 
     public function unFollow($connectionId)
