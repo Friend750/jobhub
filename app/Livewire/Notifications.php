@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Notifications extends Component
 {
@@ -18,9 +19,9 @@ class Notifications extends Component
     {
         $this->loadNotifications();
         $this->statistics = [
-            'lastPostViews' => 367,
-            'postViews' => 15,
-            'profileViews' => 9,
+            'lastPostViews' =>  Auth::user()->posts()->latest()->first(),
+            'postViews' => Auth::user()->posts()->sum('views'),
+            'profileViews' => Auth::user()->views,
         ];
 }
 
