@@ -8,6 +8,7 @@ use App\Livewire\Forms\ExperienceForm;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
+use App\Models\Language;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +36,13 @@ class UserProfile extends Component
     public $SelectedSkills;
     public $searchQuery = ''; // Search query
     public $selectedSkill_id = ''; // Selected skill name
+    public $selectedLanguage_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
     public $selectedSkillName;
+    public $languages;
+    public $Selectedlanguages;
+    public $availableLanguages;
 
     public function updatedProfilePicture()
     {
@@ -109,6 +114,12 @@ class UserProfile extends Component
         $this->availableSkills = $this->getAvailableSkills();
     }
 
+    public function updatedSearchQuery_languages()
+    {
+        $this->availableLanguages = $this->getAvailableSkills();
+    }
+
+
     public function selectSkill($id, $name = "")
     {
         // dd($id);
@@ -120,12 +131,31 @@ class UserProfile extends Component
         // dump($this->selectedSkillId, $this->selectedSkillName);
     }
 
+    public function editLanguage($id, $name = "")
+    {
+        $this->selectedLanguage_id = $id;
+        $this->Selectedlanguages = $name;
+        $this->searchQuery = '';
+
+        $this->dispatch('update-language');
+        // dump($this->selectedSkillId, $this->selectedSkillName);
+    }
+
+
     // getAvailableSkills
     public function getAvailableSkills()
     {
         $skillsIds = array_column($this->skills, 'id');
         return Skill::whereNotIn('id', $skillsIds)->when($this->searchQuery, function ($query) {
             $query->where('name', 'like', '%' . $this->searchQuery . '%');
+        })->get();
+    }
+
+    public function getAvailableLanguages()
+    {
+        $languageIds = array_column($this->languages, 'id');
+        return Language::whereNotIn('id', $languageIds)->when($this->searchQuery, function ($query) {
+            $query->where('language', 'like', '%' . $this->searchQuery . '%');
         })->get();
     }
     public $user;
@@ -144,8 +174,10 @@ class UserProfile extends Component
         $this->skills = $this->user->skills()
             ->get()
             ->toArray();
-
         $this->availableSkills = $this->getAvailableSkills();
+
+        $this->languages = $this->user->languages()->get()->toArray();
+        $this->availableLanguages = $this->getAvailableLanguages();
 
         $this->experiences = $this->user->Experiences;
         $this->projects = $this->user->Projects;

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -17,6 +18,11 @@ class LanguagesForm extends Form
     public function submit($Selectedlanguages){
         // Process submitted languages
         $this->languages = $Selectedlanguages;
-        $this->validate();
+        $validated = $this->validate();
+        $user = Auth::user();
+        foreach ($validated['languages'] as $language) {
+            $user->languages()->syncWithoutDetaching($language);
+        }
+
     }
 }

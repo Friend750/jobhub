@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
         <div class="row d-flex flex-column justify-content-center align-items-center vh-100">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <img src="{{ asset('images/unauthorized.png') }}" loading="lazy" alt="Hero Image" class="img-fluid custom-image w-100">
             </div>
             <div class="col-md-6">

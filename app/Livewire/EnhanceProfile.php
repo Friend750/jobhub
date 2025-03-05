@@ -133,9 +133,14 @@ class EnhanceProfile extends Component
         $this->PDFrom->oldData();
     }
 
+    public function getOldBusinessData(){
+        $this->CompanyPageForm->oldData();
+    }
+
     public function mount(){
         $this->userType = Auth::user()->type;
         $this->getOldUserData();
+        $this->getOldBusinessData();
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Livewire\EnhanceProfile;
+use App\Models\Link;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -35,7 +36,8 @@ class WebsitesLinksForm extends Form
         $this->websites = array_values($this->websites); // Reindex the array
     }
 
-    public function resetForm(){
+    public function resetForm()
+    {
         dump('resetForm');
         $this->websites = [
             ['website_name' => '', 'link' => '']
@@ -44,7 +46,23 @@ class WebsitesLinksForm extends Form
 
     public function submit()
     {
-        $this->validate();
+        $validated = $this->validate();
+
+        // Get the authenticated user
+        $user = auth()->user();
+
+        foreach ($validated['websites'] as $websiteData) {
+            // Create the link
+            $link = Link::create([
+                'website_name' => $websiteData['website_name'],
+                'link' => $websiteData['link'],
+            ]);
+
+            // Attach the link to the authenticated user
+            $user->links()->attach($link->id);
+        }
+
+        // Optionally, reset the form after submission
         // $this->reset();
     }
 }
