@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -21,7 +23,14 @@ class SkillsForm extends Form
         $this->skills = $SelectedSkills;
 
         // dd($this->SelectedSkills);
-        $this->validateOnly('skills');
+        $validated = $this->validateOnly('skills');
+
+        $user = Auth::user();
+
+        foreach ($validated['skills'] as $id) {
+            $user->skills()->syncWithoutDetaching($id);
+        }
+
         // $this->reset();
     }
 

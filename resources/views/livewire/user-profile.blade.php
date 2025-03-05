@@ -16,7 +16,7 @@
                             @if ($user->user_image)
                                 @if (strpos($user->user_image, 'googleusercontent.com') !== false)
                                     {{-- Display Google account image --}}
-                                    <img src="{{ $user->user_image }}" alt="Profile Picture" 
+                                    <img src="{{ $user->user_image }}" alt="Profile Picture"
                                         class="profile-picture rounded-circle">
                                 @else
                                     {{-- Display locally stored image --}}
@@ -65,9 +65,19 @@
                                                         <p><strong class="text-dark">Phone:</strong> <br>
                                                             {{ $user->personal_details->phone ?? 'phone' }}
                                                         </p>
-                                                        <p><strong class="text-dark">Website:</strong> <br>
-                                                            {{ $user->personal_details->link ?? 'website Url' }}
-                                                        </p>
+                                                        <p><strong class="text-dark">Websites & Social links:</strong></p>
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            @forelse ($user->links as $link)
+                                                                <a href="{{ $link->link }}" target="_blank"
+                                                                    class="d-block text-light mb-2 bg-dark p-2 px-3 rounded text-light"
+                                                                    style="text-decoration: none;">
+                                                                    {{ $link->website_name }}
+                                                                    <i class="fas fa-globe me-2"></i>
+                                                                </a>
+                                                            @empty
+                                                                <span class="text-muted">No websites added.</span>
+                                                            @endforelse
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,6 +215,9 @@
 
                     <!-- Skills-Section -->
                     @include('livewire.includes.user-profile.Skills-Section')
+
+                    {{-- languages section --}}
+                    @include('livewire.includes.user-profile.languages')
 
                     {{-- interests-Section --}}
                     @include('livewire.includes.user-profile.interests-Section')

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -42,7 +44,14 @@ class ProjectsForm extends Form
 
     public function submit()
     {
-        $this->validate();
-        // Save the data
+        $validated = $this->validate();
+        foreach ($validated['projects'] as $project) {
+            Project::create([
+                'user_id' => Auth::id(),
+                'title' => $project['title'],
+                'description' => $project['description'],
+                'contributions' => $project['contributions'],
+            ]);
+        }
     }
 }

@@ -63,6 +63,6 @@ class personalDetailsFrom extends Form
             ]
         );
         // dd($validated);
-        $this->reset();
+        // $this->reset();
     }
 }

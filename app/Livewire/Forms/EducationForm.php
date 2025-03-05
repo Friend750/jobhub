@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Education;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -60,7 +62,18 @@ class EducationForm extends Form
 
     public function submit()
     {
-        $this->validate();
-        // $this->reset();
+        $validated = $this->validate();
+        foreach ($validated['educations'] as $education) {
+            Education::create([
+                'institution_name' => $education['institution_name'],
+                'certification_name' => $education['certification_name'],
+                'location' => $education['location'],
+                'degree' => $education['degree'],
+                'description' => $education['description'] ?? '',
+                'graduation_date' => $education['graduation_date'],
+                'user_id' => Auth::id()
+            ]);
+        }
+        $this->reset();
     }
 }

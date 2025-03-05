@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Experience;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
@@ -39,7 +41,8 @@ class ExperienceForm extends Form
         'experiences.*.location.required' => 'The location :position is required.',
     ];
 
-    public function addRow(){
+    public function addRow()
+    {
         $this->experiences[] = [
             'job_title' => '',
             'company_name' => '',
@@ -50,16 +53,27 @@ class ExperienceForm extends Form
         ];
     }
 
-    public function removeRow($index){
+    public function removeRow($index)
+    {
         unset($this->experiences[$index]);
         $this->experiences = array_values($this->experiences);
     }
 
-    public function submit(){
+    public function submit()
+    {
 
-        dd($this->experiences);
-        $this->validate();
+        $validated = $this->validate();
+        foreach ($validated['experiences'] as $experience) {
+            Experience::create([
+                'job_title' => $experience['job_title'],
+                'company_name' => $experience['company_name'],
+                'start_date' => $experience['start_date'],
+                'end_date' => $experience['end_date'],
+                'description' => $experience['description'],
+                'location' => $experience['location'],
+                'user_id' => Auth::id(),
+            ]);
+        }
         // $this->reset();
-        // Save the data
     }
 }
