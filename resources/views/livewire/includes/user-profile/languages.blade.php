@@ -9,7 +9,7 @@
 
             <template x-for="(language, index) in languages" :key="language.id">
                 <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="language.language"
-                    x-on:click="$wire.selectlanguage(language.id,language.language)" data-bs-toggle="tooltip" title="Click to Edit">
+                    x-on:click="$wire.editLanguage(language.id)" data-bs-toggle="tooltip" title="Click to Edit">
                 </li>
             </template>
 
@@ -22,6 +22,14 @@
         </ul>
     </div>
 </div>
+
+{{-- refresh_msg --}}
+@if (session()->has('refresh_msg'))
+    <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+        {{ session('refresh_msg') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
 <!-- modal EditLanguage -->
 <div class="modal fade overflow-hidden" id="EditLanguage" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
@@ -36,17 +44,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="bg-light py-2 px-2 fw-bolder rounded text-muted">Previous Name: <span x-data="{ oldlanguage: @entangle('selectedlanguageName') }"
-                        x-text="oldlanguage??'null'"></span></p>
+                <div class="d-flex justify-content-between bg-light py-2 px-2 fw-bolder rounded text-muted">
+                    <p>{{ $Selectedlanguage }}</p>
+                    <p>Previous Name</p>
+                </div>
                 <!-- Search Input -->
-                <input type="text" wire:model.live.debounce.300ms="searchQuery" placeholder="Search languages..."
+                <input type="text" wire:model.live.debounce.300ms="lagSearchQuery" placeholder="Search languages..."
                     class="form-control rounded-0 border-0 border-bottom mb-2">
 
                 <!-- language List -->
                 <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
                     @forelse ($availableLanguages as $language)
-                        <li wire:click="editLanguage({{ $language->id }})"
-                            class="w-100 text-start p-2 hover:bg-gray-100 pointer">
+                        <li class="w-100 text-start p-2 hover:bg-gray-100 pointer" data-bs-toggle="modal"
+                            data-bs-target="#languageChangeModal" wire:click='selectLanguage({{ $language->id }})'>
                             {{ $language->language }}
                         </li>
                     @empty
@@ -57,6 +67,11 @@
         </div>
     </div>
 </div>
+
+<!-- Bootstrap 5 Modal -->
+@include('livewire.includes.user-profile.languageModal-box')
+
+
 
 <script>
     document.addEventListener('alpine:init', () => {

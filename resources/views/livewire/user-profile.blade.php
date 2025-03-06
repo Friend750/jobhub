@@ -34,7 +34,7 @@
                                 <div>
 
                                     @if (!empty($user->personal_details->page_name))
-                                        <h3>{{ $user->personal_details->page_name }}</h3>
+                                        <h3>{{ $user->personal_details->page_name }} pp</h3>
                                     @else
                                         <h3>{{ $user->personal_details->first_name ?? 'first name' }}
                                             {{ $user->personal_details->last_name ?? 'last name' }}</h3>

@@ -35,13 +35,14 @@ class UserProfile extends Component
     public $profilePicture; // Stores the uploaded file
     public $SelectedSkills;
     public $searchQuery = ''; // Search query
+    public $lagSearchQuery = ''; // Search query
     public $selectedSkill_id = ''; // Selected skill name
     public $selectedLanguage_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
     public $selectedSkillName;
     public $languages;
-    public $Selectedlanguages;
+    public $Selectedlanguage;
     public $availableLanguages;
 
     public function updatedProfilePicture()
@@ -114,9 +115,9 @@ class UserProfile extends Component
         $this->availableSkills = $this->getAvailableSkills();
     }
 
-    public function updatedSearchQuery_languages()
+    public function updatedLagSearchQuery()
     {
-        $this->availableLanguages = $this->getAvailableSkills();
+        $this->availableLanguages = $this->getAvailableLanguages();
     }
 
 
@@ -128,21 +129,34 @@ class UserProfile extends Component
         $this->searchQuery = ''; // Clear the search query
 
         $this->dispatch('update-skill');
-        // dump($this->selectedSkillId, $this->selectedSkillName);
     }
 
-    public function editLanguage($id, $name = "")
+    public function editLanguage(Language $language)
     {
-        $this->selectedLanguage_id = $id;
-        $this->Selectedlanguages = $name;
-        $this->searchQuery = '';
+        $this->selectedLanguage_id = $language->id;
+        $this->Selectedlanguage = $language->language;
 
+        $this->reset('lagSearchQuery');
+        $this->getAvailableLanguages();
         $this->dispatch('update-language');
-        // dump($this->selectedSkillId, $this->selectedSkillName);
     }
 
+    public $editedLanguge;
+    public function selectLanguage(Language $language){
+        $this->editedLanguge = $language;
 
-    // getAvailableSkills
+        // dd($this->editedLanguge->id);
+    }
+
+    public function UpdateLanguage($id){
+        // remove first
+        $this->user->languages()->detach($this->selectedLanguage_id);
+        $this->user->languages()->syncWithoutDetaching($id);
+        // flash message
+        $this->dispatch('updated-language');
+        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
+    }
+
     public function getAvailableSkills()
     {
         $skillsIds = array_column($this->skills, 'id');
@@ -154,10 +168,13 @@ class UserProfile extends Component
     public function getAvailableLanguages()
     {
         $languageIds = array_column($this->languages, 'id');
-        return Language::whereNotIn('id', $languageIds)->when($this->searchQuery, function ($query) {
-            $query->where('language', 'like', '%' . $this->searchQuery . '%');
+
+        return Language::whereNotIn('id', $languageIds)->when($this->lagSearchQuery, function ($query) {
+            $query->where('language', 'like', '%' . $this->lagSearchQuery . '%');
         })->get();
     }
+
+
     public $user;
     public $experiences;
     public $projects;
