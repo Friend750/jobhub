@@ -31,6 +31,11 @@ class User extends Authenticatable
         'google_id',
         'email_verified_at'
     ];
+    public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
 
     public function scopeSearch($query, $value)
     {
