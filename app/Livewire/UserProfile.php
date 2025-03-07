@@ -35,9 +35,7 @@ class UserProfile extends Component
     public $profilePicture; // Stores the uploaded file
     public $SelectedSkills;
     public $searchQuery = ''; // Search query
-    public $lagSearchQuery = ''; // Search query
     public $selectedSkill_id = ''; // Selected skill name
-    public $selectedLanguage_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
     public $selectedSkillName;
@@ -115,10 +113,6 @@ class UserProfile extends Component
         $this->availableSkills = $this->getAvailableSkills();
     }
 
-    public function updatedLagSearchQuery()
-    {
-        $this->availableLanguages = $this->getAvailableLanguages();
-    }
 
 
     public function selectSkill($id, $name = "")
@@ -131,31 +125,6 @@ class UserProfile extends Component
         $this->dispatch('update-skill');
     }
 
-    public function editLanguage(Language $language)
-    {
-        $this->selectedLanguage_id = $language->id;
-        $this->Selectedlanguage = $language->language;
-
-        $this->reset('lagSearchQuery');
-        $this->getAvailableLanguages();
-        $this->dispatch('update-language');
-    }
-
-    public $editedLanguge;
-    public function selectLanguage(Language $language){
-        $this->editedLanguge = $language;
-
-        // dd($this->editedLanguge->id);
-    }
-
-    public function UpdateLanguage($id){
-        // remove first
-        $this->user->languages()->detach($this->selectedLanguage_id);
-        $this->user->languages()->syncWithoutDetaching($id);
-        // flash message
-        $this->dispatch('updated-language');
-        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
-    }
 
     public function getAvailableSkills()
     {
@@ -168,10 +137,21 @@ class UserProfile extends Component
     public function getAvailableLanguages()
     {
         $languageIds = array_column($this->languages, 'id');
+        return Language::whereNotIn('id', $languageIds)->get();
+    }
+    public function UpdateLanguage($id, $currentID){
+        // remove first
+        $this->user->languages()->detach($currentID);
+        // add new
+        $this->user->languages()->syncWithoutDetaching($id);
 
-        return Language::whereNotIn('id', $languageIds)->when($this->lagSearchQuery, function ($query) {
-            $query->where('language', 'like', '%' . $this->lagSearchQuery . '%');
-        })->get();
+        $this->dispatch('updated-language');
+        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
+    }
+
+    public function deleteLanguage(Language $language){
+        $this->user->languages()->detach($language->id);
+        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
     }
 
 
