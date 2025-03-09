@@ -31,6 +31,11 @@ class User extends Authenticatable
         'google_id',
         'email_verified_at'
     ];
+    public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
 
     public function scopeSearch($query, $value)
     {
@@ -66,16 +71,6 @@ class User extends Authenticatable
             ->where('type', '!=', 'company');
     }
 
-    // public function nonCompanyFollowers()
-    // {
-    //     return $this->followers()->where('type', '!=', 'company');
-    // }
-
-    // public function nonCompanyFollowings()
-    // {
-    //     return $this->followings()->where('type', '!=', 'company');
-    // }
-
     public function companies()
     {
         return User::where('type', 'company')
@@ -103,12 +98,12 @@ class User extends Authenticatable
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->belongsToMany(Skill::class, 'skill_user', 'user_id', 'skill_id');
     }
 
     public function languages()
     {
-        return $this->belongsToMany(language::class);
+        return $this->belongsToMany(language::class, 'language_user', 'user_id', 'language_id');
     }
 
     public function Experiences()
@@ -133,12 +128,12 @@ class User extends Authenticatable
 
     public function personal_details()
     {
-        return $this->hasOne(PersonalDetail::class,'user_id');
+        return $this->hasOne(PersonalDetail::class, 'user_id');
     }
     public function connections()
-{
-    return $this->hasMany(Connection::class, 'follower_id');
-}
+    {
+        return $this->hasMany(Connection::class, 'follower_id');
+    }
 
     public function getProfilePictureAttribute()
     {
@@ -147,6 +142,11 @@ class User extends Authenticatable
             : 'https://ui-avatars.com/api/?name=Image';
     }
 
+    public function links()
+    {
+        return $this->belongsToMany(Link::class, 'link_user', 'user_id', 'link_id')
+            ->withTimestamps(); // If you want to use the timestamps in the pivot table
+    }
     // Conversation.php
 
 

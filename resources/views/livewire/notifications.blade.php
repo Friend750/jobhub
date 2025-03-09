@@ -11,7 +11,7 @@
         if (notification.type === 'App\\Notifications\\Request') {
             console.log('Request');
             $wire.dispatch('loadNotifications');
-        } 
+        }
     });
 "
  style="margin-top: 5rem !important;">
@@ -23,13 +23,16 @@
                     {{ __('general.notifications') }}
                 </div>
                 <div class="card-body text-center">
-                    <h1>367</h1>
+                    <h1>{{ $statistics['lastPostViews']->views ?? 0 }}</h1>
                     <p>{{ __('general.last_post_views') }}</p>
-                    <h1>15</h1>
+
+                    <h1>{{ $statistics['postViews'] }}</h1>
                     <p>{{ __('general.posts_views') }}</p>
-                    <h1>9</h1>
+
+                    <h1>{{ $statistics['profileViews'] }}</h1>
                     <p>{{ __('general.profile_views') }}</p>
                 </div>
+
             </div>
         </div>
 
@@ -97,7 +100,7 @@
                                                 <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
                                             </button>
                                             @endif
-                                        </div>                             
+                                        </div>
                                     </div>
                                     @endforeach
                                 </div>

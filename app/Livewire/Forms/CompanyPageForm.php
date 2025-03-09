@@ -29,24 +29,47 @@ class CompanyPageForm extends Form
     public $link;
     public $major;
 
+    // Method to fetch old data
+    public function OldData()
+    {
+        // Fetch the personal details of the authenticated user
+        $personalDetail = PersonalDetail::where('user_id', Auth::user()->id)->first();
 
+        // If a record exists, populate the form fields
+        if ($personalDetail) {
+            $this->page_name = $personalDetail->page_name;
+            $this->description = $personalDetail->professional_summary;
+            $this->city = $personalDetail->city;
+            $this->phone = $personalDetail->phone;
+            $this->website = $personalDetail->website_name;
+            $this->link = $personalDetail->link;
+            $this->major = $personalDetail->specialist;
+        }
+    }
     public function submit()
     {
         $validator = $this->validate();
+        $user_id = Auth::user()->id;
 
-        PersonalDetail::create([
-            'page_name' => $validator['page_name'],
-            'professional_summary' => $validator['description'],
-            'city' => $validator['city'],
-            'phone' => $validator['phone'],
-            'website_name' => $validator['website'],
-            'link' => $validator['link'],
-            'specialist' => $validator['major'],
-            'user_id' => Auth::user()->id,
-        ]);
-
+        PersonalDetail::updateOrCreate(
+            [
+                'user_id' => $user_id, // Condition to find the record
+            ],
+            [
+                'page_name' => $validator['page_name'],
+                'professional_summary' => $validator['description'],
+                'city' => $validator['city'],
+                'phone' => $validator['phone'],
+                'website_name' => $validator['website'],
+                'link' => $validator['link'],
+                'specialist' => $validator['major'],
+                'user_id' => $user_id,
+            ]
+        );
 
         $this->reset();
-        redirect()->route('user-profile');
+        // with flash message
+
+        redirect()->route('user-profile')->with('message','Updated successfully');
     }
 }

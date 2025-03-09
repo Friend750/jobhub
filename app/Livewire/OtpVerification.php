@@ -14,6 +14,20 @@ class OtpVerification extends Component
 
     public function mount()
     {
+
+        if (!is_null(Auth::user()->email_verified_at))
+        {
+            if (Auth::user()->type === null)
+            {
+                return redirect('typeaccount');
+            }
+            elseif (Auth::user()->interests === null)
+            {
+                return redirect('interests');
+            }
+        }
+
+
         $this->sendOtp();
     }
 

@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'user_name' => 'admin',
             'password' => Hash::make('adminpassword'),
             'type' => 'admin',
+            'email_verified_at' => '2025-03-04 22:11:21'
         ]);
     }
 }

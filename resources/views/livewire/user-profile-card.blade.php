@@ -1,7 +1,9 @@
 <div class="card-body cardprofile text-end p-3" style="width: 230px;">
     <div class="text-center">
         <img src="{{ $user->user_image
-            ? asset('storage/' . $user->user_image)
+            ? (strpos($user->user_image, 'googleusercontent.com') !== false
+                ? $user->user_image
+                : asset('storage/' . $user->user_image))
             : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
             class="rounded-circle border shadow-sm mb-2" style="width: 80px; height: 80px;" alt="User Avatar" loading="lazy"
             style="object-fit: cover; background-color: #f8f9fa;">

@@ -14,20 +14,27 @@
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
                             @if ($user->user_image)
-                                <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture"
-                                    loading="lazy" class="profile-picture rounded-circle">
+                                @if (strpos($user->user_image, 'googleusercontent.com') !== false)
+                                    {{-- Display Google account image --}}
+                                    <img src="{{ $user->user_image }}" alt="Profile Picture"
+                                        class="profile-picture rounded-circle">
+                                @else
+                                    {{-- Display locally stored image --}}
+                                    <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture"
+                                        loading="lazy" class="profile-picture rounded-circle">
+                                @endif
                             @else
+                                {{-- Display default avatar if no image is available --}}
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode($user->user_name) }}"
                                     alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
                             @endif
-
 
                             <div class="d-flex align-items-end justify-content-between w-100 mt-2">
                                 <!-- Left Section -->
                                 <div>
 
                                     @if (!empty($user->personal_details->page_name))
-                                        <h3>{{ $user->personal_details->page_name }}</h3>
+                                        <h3>{{ $user->personal_details->page_name }} pp</h3>
                                     @else
                                         <h3>{{ $user->personal_details->first_name ?? 'first name' }}
                                             {{ $user->personal_details->last_name ?? 'last name' }}</h3>
@@ -58,9 +65,19 @@
                                                         <p><strong class="text-dark">Phone:</strong> <br>
                                                             {{ $user->personal_details->phone ?? 'phone' }}
                                                         </p>
-                                                        <p><strong class="text-dark">Website:</strong> <br>
-                                                            {{ $user->personal_details->link ?? 'website Url' }}
-                                                        </p>
+                                                        <p><strong class="text-dark">Websites & Social links:</strong></p>
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            @forelse ($user->links as $link)
+                                                                <a href="{{ $link->link }}" target="_blank"
+                                                                    class="d-block text-light mb-2 bg-dark p-2 px-3 rounded text-light"
+                                                                    style="text-decoration: none;">
+                                                                    {{ $link->website_name }}
+                                                                    <i class="fas fa-globe me-2"></i>
+                                                                </a>
+                                                            @empty
+                                                                <span class="text-muted">No websites added.</span>
+                                                            @endforelse
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -167,7 +184,8 @@
                 @if (session()->has('message'))
                     <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
                         {{ session('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 @endif
 
@@ -197,6 +215,9 @@
 
                     <!-- Skills-Section -->
                     @include('livewire.includes.user-profile.Skills-Section')
+
+                    {{-- languages section --}}
+                    @include('livewire.includes.user-profile.languages')
 
                     {{-- interests-Section --}}
                     @include('livewire.includes.user-profile.interests-Section')

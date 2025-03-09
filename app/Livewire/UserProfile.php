@@ -8,6 +8,7 @@ use App\Livewire\Forms\ExperienceForm;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
+use App\Models\Language;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -30,14 +31,16 @@ class UserProfile extends Component
     public CoursesForm $CoursesForm;
     public SkillsForm $SkillsForm;
 
-    public $allowedSkills;
     public $profilePicture; // Stores the uploaded file
-    public $SelectedSkills;
-    public $searchQuery = ''; // Search query
-    public $selectedSkill_id = ''; // Selected skill name
+    // public $allowedSkills;
+    // public $SelectedSkills;
+    // public $searchQuery = ''; // Search query
+    // public $selectedSkill_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
-    public $selectedSkillName;
+    // public $selectedSkillName;
+    public $languages;
+    public $availableLanguages;
 
     public function updatedProfilePicture()
     {
@@ -104,30 +107,50 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
     }
 
-    public function updatedSearchQuery()
-    {
-        $this->availableSkills = $this->getAvailableSkills();
-    }
-
-    public function selectSkill($id, $name = "")
-    {
-        // dd($id);
-        $this->selectedSkill_id = $id;
-        $this->selectedSkillName = $name;
-        $this->searchQuery = ''; // Clear the search query
-
-        $this->dispatch('update-skill');
-        // dump($this->selectedSkillId, $this->selectedSkillName);
-    }
-
-    // getAvailableSkills
     public function getAvailableSkills()
     {
-        $skillsIds = array_column($this->skills, 'id');
-        return Skill::whereNotIn('id', $skillsIds)->when($this->searchQuery, function ($query) {
-            $query->where('name', 'like', '%' . $this->searchQuery . '%');
-        })->get();
+        $skillIds = array_column($this->skills, 'id');
+        return Skill::whereNotIn('id', $skillIds)->get();
     }
+
+    public function UpdateSkill($id, $currentID)
+    {
+        $this->user->skills()->detach($currentID);
+        $this->user->skills()->syncWithoutDetaching($id);
+
+        $this->dispatch('updated-skill');
+        session()->flash('skill_updated', 'The Skill has been updated. Refresh the page to refresh the skill list');
+    }
+
+    public function deleteSkill(Skill $skill)
+    {
+        $this->user->skills()->detach($skill->id);
+        session()->flash('skill_deleted', 'The Skill has been deleted. Refresh the page to refresh the skill list');
+    }
+
+    public function getAvailableLanguages()
+    {
+        $languageIds = array_column($this->languages, 'id');
+        return Language::whereNotIn('id', $languageIds)->get();
+    }
+    public function UpdateLanguage($id, $currentID)
+    {
+        // remove first
+        $this->user->languages()->detach($currentID);
+        // add new
+        $this->user->languages()->syncWithoutDetaching($id);
+
+        $this->dispatch('updated-language');
+        session()->flash('language_updated', 'The Langugae has been updated. Refresh the page to refresh the language list');
+    }
+
+    public function deleteLanguage(Language $language)
+    {
+        $this->user->languages()->detach($language->id);
+        session()->flash('language_deleted', 'The Langugae has been deleted.Refresh the page to refresh the language list');
+    }
+
+
     public $user;
     public $experiences;
     public $projects;
@@ -144,8 +167,10 @@ class UserProfile extends Component
         $this->skills = $this->user->skills()
             ->get()
             ->toArray();
-
         $this->availableSkills = $this->getAvailableSkills();
+
+        $this->languages = $this->user->languages()->get()->toArray();
+        $this->availableLanguages = $this->getAvailableLanguages();
 
         $this->experiences = $this->user->Experiences;
         $this->projects = $this->user->Projects;
