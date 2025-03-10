@@ -9,6 +9,7 @@ use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
+use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
 use App\Models\Skill;
@@ -80,11 +81,6 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
     }
 
-    public function saveExperience()
-    {
-        $this->ExperienceForm->submit();
-        $this->dispatch('close-modal');
-    }
 
     public function saveProject()
     {
@@ -105,6 +101,7 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
     }
 
+    // update skills
     public function getAvailableSkills()
     {
         $skillIds = array_column($this->skills, 'id');
@@ -162,9 +159,6 @@ class UserProfile extends Component
 
     public function updateLink(link $link)
     {
-
-        // dd($this->WLForm->websites[0]['website_name']);
-        // update link
         $link->update([
             'website_name' => $this->WLForm->websites[0]['website_name'],
             'link' => $this->WLForm->websites[0]['link'],
@@ -174,13 +168,39 @@ class UserProfile extends Component
         session()->flash('link_updated', 'The Link has been updated. Refresh the page to refresh the link list');
     }
 
-    protected $listeners = ['deleteItem'];
-
     public function deleteLink(link $link)
     {
         $link->delete();
         $this->user->links()->detach($link->id);
         session()->flash('link_deleted', 'The Link has been deleted.');
+    }
+
+    public function getOldPS()
+    {
+        $this->PSForm->oldData();
+    }
+
+    public function updateExp(){
+        $this->experiences = $this->user->experiences()->latest()->get();
+    }
+
+    public function getOldExp(Experience $experience)
+    {
+        $this->ExperienceForm->oldData($experience);
+    }
+
+    public function deleteExp()
+    {
+        $this->ExperienceForm->deleteExperience();
+        $this->updateExp();
+    }
+
+    public function saveExperience()
+    {
+        $this->ExperienceForm->submit();
+        $this->updateExp();
+        $this->dispatch('close-modal');
+        session()->flash('ExperienceMsg', 'تم تحديث الملف الشخصي');
     }
 
     public $user;

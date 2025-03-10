@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h5>Overview </h5>
-            <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation"></i>
+            <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation" wire:click='getOldPS'></i>
         </div>
         @if (empty($user->personal_details->professional_summary))
             <p class="text-muted text-center py-3">No professional summary added yet.</p>
@@ -28,7 +28,7 @@
                     <form wire:submit.prevent ="saveSummary">
 
                         <div class="form-group mb-3">
-                            <label for="description" class=" mb-2">Description</label>
+                            <label for="description" class=" mb-2">Overview</label>
                             <textarea class="form-control @error('PSForm.description') is-invalid
                                 @enderror"
                                 id="description" wire:model="PSForm.description" rows="3" placeholder="Add a description here..."></textarea>
@@ -41,7 +41,7 @@
                             <button type="button" class="btn btn-secondary rounded" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-primary rounded">Save</button>
+                            <button type="submit" class="btn btn-primary rounded" >Save</button>
                         </div>
                     </form>
                 </div>

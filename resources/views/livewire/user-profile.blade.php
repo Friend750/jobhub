@@ -47,7 +47,7 @@
                                     <!-- contact-info-modal -->
                                     @include('livewire.includes.user-profile.contact-info-modal')
 
-                                    <br>
+
                                     <span>N Connections</span>
                                 </div>
 
@@ -91,12 +91,12 @@
                                                     Share profile link
                                                 </li>
 
-                                                <li class="d-flex align-items-center" data-bs-toggle="modal"
+                                                {{-- <li class="d-flex align-items-center" data-bs-toggle="modal"
                                                     data-bs-target="#aboutProfileModal">
                                                     <i class="fas fa-info-circle me-2"></i>
                                                     <!-- Font Awesome icon for info -->
                                                     About this profile
-                                                </li>
+                                                </li> --}}
 
                                                 <li class="d-flex align-items-center">
                                                     <i class="fas fa-history me-2"></i>

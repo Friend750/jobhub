@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="ExperienceContainer">
+                    <div>
                         @foreach ($ExperienceForm->experiences as $index => $experience)
                             <div class="experiences-block mb-4">
                                 @if ($index > 0)
@@ -85,8 +85,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn rounded btn-dark" style="min-width: 40px;" x-on:click="removeExperience()"
+                        wire:loading.attr='disabled'><i class="fas fa-trash"></i></button>
+                    <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>Save
+                        changes</button>
                 </div>
             </div>
         </div>

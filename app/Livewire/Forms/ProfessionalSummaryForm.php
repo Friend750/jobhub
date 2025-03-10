@@ -18,8 +18,17 @@ class ProfessionalSummaryForm extends Form
     public function oldData()
     {
         $oldData = Auth::user()->personal_details;
-        $this->description = $oldData->professional_summary ?? "null";
+        $this->description = $oldData->professional_summary ?? "";
     }
+
+    public function getOldPS(){
+        $this->oldData();
+    }
+
+    public function updateDescription(){
+        
+    }
+
     public function submit()
     {
         $validated = $this->validate();
