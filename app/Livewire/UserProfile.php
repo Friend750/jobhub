@@ -8,7 +8,9 @@ use App\Livewire\Forms\ExperienceForm;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
+use App\Livewire\Forms\WebsitesLinksForm;
 use App\Models\Language;
+use App\Models\Link;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +32,8 @@ class UserProfile extends Component
     public EducationForm $EDForm;
     public CoursesForm $CoursesForm;
     public SkillsForm $SkillsForm;
-
+    public WebsitesLinksForm $WLForm;
     public $profilePicture; // Stores the uploaded file
-    // public $allowedSkills;
-    // public $SelectedSkills;
-    // public $searchQuery = ''; // Search query
-    // public $selectedSkill_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
     // public $selectedSkillName;
@@ -150,6 +148,40 @@ class UserProfile extends Component
         session()->flash('language_deleted', 'The Langugae has been deleted.Refresh the page to refresh the language list');
     }
 
+    public function deleteWebsite(Link $link)
+    {
+        $link->delete();
+        $this->user->links()->detach($link->id);
+        session()->flash('website_deleted', 'The Website has been deleted.Refresh the page to refresh the website list');
+    }
+
+    public function getLink(Link $link)
+    {
+        $this->WLForm->getLink($link->website_name, $link->link);
+    }
+
+    public function updateLink(link $link)
+    {
+
+        // dd($this->WLForm->websites[0]['website_name']);
+        // update link
+        $link->update([
+            'website_name' => $this->WLForm->websites[0]['website_name'],
+            'link' => $this->WLForm->websites[0]['link'],
+        ]);
+        $link->save();
+
+        session()->flash('link_updated', 'The Link has been updated. Refresh the page to refresh the link list');
+    }
+
+    protected $listeners = ['deleteItem'];
+
+    public function deleteLink(link $link)
+    {
+        $link->delete();
+        $this->user->links()->detach($link->id);
+        session()->flash('link_deleted', 'The Link has been deleted.');
+    }
 
     public $user;
     public $experiences;
