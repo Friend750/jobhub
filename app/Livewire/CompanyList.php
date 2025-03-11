@@ -16,7 +16,7 @@ class CompanyList extends Component
 
     public function mount()
 {
-  
+
 
     $user = User::find(auth()->user()->id);
 
@@ -44,14 +44,11 @@ public function unFollow($connectionId)
     $this->dispatch('connectionUpdated');
 }
 
-public function getUserById($receiverId)
-{
-return User::find($receiverId);
-}
+
 public function follow($connectionId)
 {
 
-        $receiver = $this->getUserById($connectionId);
+        $receiver = User::find($connectionId);
 
         DB::table('connections')->insert([
             'follower_id' => $connectionId,

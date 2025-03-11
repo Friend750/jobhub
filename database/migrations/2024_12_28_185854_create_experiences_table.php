@@ -17,15 +17,15 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('job_title'); // Job title
-            $table->string('company_name'); // Employer's name    
+            $table->string('company_name'); // Employer's name
             $table->date('start_date')->nullable(); // Start date of employment
             $table->date('end_date')->nullable(); // End date of employment
-            $table->text('description')->nullable(); // Description of the employment role
-            $table->text('location')->nullable(); // Description of the employment role
+            $table->text('description')->nullable(); // Description of the experiences
+            $table->text('location')->nullable(); // Description of the experiences
             $table->timestamps(); // created_at and updated_at columns
             $table->softDeletes(); // Adds the 'deleted_at' column
         });
-        
+
     }
 
     /**

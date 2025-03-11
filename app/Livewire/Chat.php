@@ -117,10 +117,7 @@ class Chat extends Component
     /**
      *
      * */
-    public function getUserById($receiverId)
-    {
-        return User::find($receiverId); // جلب كائن User باستخدام المعرف
-    }
+
 
 
 

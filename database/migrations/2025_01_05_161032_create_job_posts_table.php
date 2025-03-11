@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('about_job');
             $table->text('job_tasks');
             $table->text('job_conditions')->nullable();
-            $table->text('job_skills')->nullable();
+            $table->string('job_skills')->nullable();
             $table->string('job_location');
             $table->string('job_timing');
             $table->json('tags');
