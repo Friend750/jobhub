@@ -12,6 +12,7 @@ use App\Livewire\Forms\WebsitesLinksForm;
 use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
+use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -78,14 +79,6 @@ class UserProfile extends Component
     public function saveSummary()
     {
         $this->PSForm->submit();
-        $this->dispatch('close-modal');
-    }
-
-
-    public function saveProject()
-    {
-        $this->ProjectsForm->submit();
-        $this->reset();
         $this->dispatch('close-modal');
     }
 
@@ -201,6 +194,29 @@ class UserProfile extends Component
         $this->updateExp();
         $this->dispatch('close-modal');
         session()->flash('ExperienceMsg', 'تم تحديث الملف الشخصي');
+    }
+
+    public function updatePro(){
+        $this->projects = $this->user->Projects()->latest()->get();
+    }
+
+    public function getOldPro(Project $project)
+    {
+        $this->ProjectsForm->oldData($project);
+    }
+
+    public function deletePro()
+    {
+        $this->ProjectsForm->deleteProject();
+        $this->updatePro();
+    }
+
+    public function saveProject()
+    {
+        $this->ProjectsForm->submit();
+        $this->updatePro();
+        $this->dispatch('close-modal');
+        session()->flash('ProjectMsg', 'تم تحديث الملف الشخصي');
     }
 
     public $user;
