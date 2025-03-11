@@ -24,7 +24,6 @@
                                         loading="lazy" class="profile-picture rounded-circle">
                                 @endif
                             @else
-                                {{-- Display default avatar if no image is available --}}
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode($user->user_name) }}"
                                     alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
                             @endif
@@ -34,7 +33,7 @@
                                 <div>
 
                                     @if (!empty($user->personal_details->page_name))
-                                        <h3>{{ $user->personal_details->page_name }} pp</h3>
+                                        <h3>{{ $user->personal_details->page_name }}</h3>
                                     @else
                                         <h3>{{ $user->personal_details->first_name ?? 'first name' }}
                                             {{ $user->personal_details->last_name ?? 'last name' }}</h3>
@@ -45,45 +44,10 @@
                                             data-bs-toggle="modal" data-bs-target="#contactModal"> Contact info</a>
                                     </span>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade overflow-hidden" id="contactModal">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Contact Information</h4>
-                                                    <button type="button" class="btn-close"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <!-- Modal Body -->
-                                                <div class="modal-body">
-                                                    <div class="modal-body">
-                                                        <p><strong class="text-dark">Your Profile URL:</strong><br> John
-                                                            Doe</p>
-                                                        <p><strong class="text-dark">Email:</strong> <br>
-                                                            {{ $user->email ?? 'example@example.com' }}</p>
-                                                        <p><strong class="text-dark">Phone:</strong> <br>
-                                                            {{ $user->personal_details->phone ?? 'phone' }}
-                                                        </p>
-                                                        <p><strong class="text-dark">Websites & Social links:</strong></p>
-                                                        <div class="d-flex flex-wrap gap-2">
-                                                            @forelse ($user->links as $link)
-                                                                <a href="{{ $link->link }}" target="_blank"
-                                                                    class="d-block text-light mb-2 bg-dark p-2 px-3 rounded text-light"
-                                                                    style="text-decoration: none;">
-                                                                    {{ $link->website_name }}
-                                                                    <i class="fas fa-globe me-2"></i>
-                                                                </a>
-                                                            @empty
-                                                                <span class="text-muted">No websites added.</span>
-                                                            @endforelse
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br>
+                                    <!-- contact-info-modal -->
+                                    @include('livewire.includes.user-profile.contact-info-modal')
+
+
                                     <span>N Connections</span>
                                 </div>
 
@@ -127,12 +91,12 @@
                                                     Share profile link
                                                 </li>
 
-                                                <li class="d-flex align-items-center" data-bs-toggle="modal"
+                                                {{-- <li class="d-flex align-items-center" data-bs-toggle="modal"
                                                     data-bs-target="#aboutProfileModal">
                                                     <i class="fas fa-info-circle me-2"></i>
                                                     <!-- Font Awesome icon for info -->
                                                     About this profile
-                                                </li>
+                                                </li> --}}
 
                                                 <li class="d-flex align-items-center">
                                                     <i class="fas fa-history me-2"></i>
@@ -184,14 +148,26 @@
                 @if (session()->has('message'))
                     <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
                         {{ session('message') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
 
                 @if (session()->has('error'))
                     <div class="alert alert-danger d-flex flex-wrap w-100">
                         {{ session('error') }}
+                    </div>
+                @endif
+
+                {{-- link_updated --}}
+                @if (session()->has('link_updated'))
+                    <div class="alert alert-success d-flex flex-wrap w-100">
+                        {{ session('link_updated') }}
+                    </div>
+                @endif
+                {{-- link_deleted --}}
+                @if (session()->has('link_deleted'))
+                    <div class="alert alert-success d-flex flex-wrap w-100">
+                        {{ session('link_deleted') }}
                     </div>
                 @endif
 

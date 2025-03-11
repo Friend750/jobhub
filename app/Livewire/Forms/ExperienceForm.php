@@ -17,6 +17,7 @@ class ExperienceForm extends Form
         'experiences.*.description' => 'required|string|min:20|max:500',
         'experiences.*.location' => 'required|string|max:80',
     ])]
+    public $ExperienceId = null;
 
     public $experiences = [
         [
@@ -59,21 +60,55 @@ class ExperienceForm extends Form
         $this->experiences = array_values($this->experiences);
     }
 
+    public function oldData(Experience $experience)
+    {
+        $this->experiences = [
+            [
+                'job_title' => $experience->job_title ?? '',
+                'company_name' => $experience->company_name ?? '',
+                'start_date' => $experience->start_date ? $experience->start_date->format('Y-m-d') : '',
+                'end_date' => $experience->end_date ? $experience->end_date->format('Y-m-d') : '',
+                'description' => $experience->description ?? '',
+                'location' => $experience->location ?? '',
+            ]
+        ];
+        $this->ExperienceId = $experience->id;
+    }
+
+    public function deleteExperience()
+    {
+        $experience = Experience::find($this->ExperienceId);
+
+        if ($experience && $experience->user_id === Auth::id()) {
+            $experience->delete();
+            // ExperienceMsg
+            session()->flash('ExperienceMsg', 'The Experience has been deleted.');
+        } else {
+            session()->flash('ExperienceMsg', 'You are not authorized to delete this experience or it does not exist.');
+        }
+
+        $this->reset('ExperienceId');
+    }
     public function submit()
     {
 
         $validated = $this->validate();
         foreach ($validated['experiences'] as $experience) {
-            Experience::create([
-                'job_title' => $experience['job_title'],
-                'company_name' => $experience['company_name'],
-                'start_date' => $experience['start_date'],
-                'end_date' => $experience['end_date'],
-                'description' => $experience['description'],
-                'location' => $experience['location'],
-                'user_id' => Auth::id(),
-            ]);
+            Experience::updateOrCreate(
+                [
+                    'id' => $this->ExperienceId,
+                    'user_id' => Auth::id(),
+                ],
+                [
+                    'job_title' => $experience['job_title'],
+                    'company_name' => $experience['company_name'],
+                    'start_date' => $experience['start_date'],
+                    'end_date' => $experience['end_date'],
+                    'description' => $experience['description'],
+                    'location' => $experience['location'],
+                ]
+            );
         }
-        // $this->reset();
+
     }
 }

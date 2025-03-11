@@ -6,7 +6,7 @@
 @endpush
 <div>
     <div class="container">
-        <div class="container gap-3 d-flex justify-content-end col-md-10">
+        <div class="container gap-3 d-flex justify-content-end col-md-12">
 
 
             <div class="col-lg-6" x-data="postCard(@this)">

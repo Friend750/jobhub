@@ -8,7 +8,11 @@ use App\Livewire\Forms\ExperienceForm;
 use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
+use App\Livewire\Forms\WebsitesLinksForm;
+use App\Models\Experience;
 use App\Models\Language;
+use App\Models\Link;
+use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -30,17 +34,12 @@ class UserProfile extends Component
     public EducationForm $EDForm;
     public CoursesForm $CoursesForm;
     public SkillsForm $SkillsForm;
-
-    public $allowedSkills;
+    public WebsitesLinksForm $WLForm;
     public $profilePicture; // Stores the uploaded file
-    public $SelectedSkills;
-    public $searchQuery = ''; // Search query
-    public $selectedSkill_id = ''; // Selected skill name
     public $skills;
     public $availableSkills;
-    public $selectedSkillName;
+    // public $selectedSkillName;
     public $languages;
-    public $Selectedlanguage;
     public $availableLanguages;
 
     public function updatedProfilePicture()
@@ -83,19 +82,6 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
     }
 
-    public function saveExperience()
-    {
-        $this->ExperienceForm->submit();
-        $this->dispatch('close-modal');
-    }
-
-    public function saveProject()
-    {
-        $this->ProjectsForm->submit();
-        $this->reset();
-        $this->dispatch('close-modal');
-    }
-
     public function saveEducation()
     {
         $this->EDForm->submit();
@@ -108,30 +94,26 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
     }
 
-    public function updatedSearchQuery()
-    {
-        $this->availableSkills = $this->getAvailableSkills();
-    }
-
-
-
-    public function selectSkill($id, $name = "")
-    {
-        // dd($id);
-        $this->selectedSkill_id = $id;
-        $this->selectedSkillName = $name;
-        $this->searchQuery = ''; // Clear the search query
-
-        $this->dispatch('update-skill');
-    }
-
-
+    // update skills
     public function getAvailableSkills()
     {
-        $skillsIds = array_column($this->skills, 'id');
-        return Skill::whereNotIn('id', $skillsIds)->when($this->searchQuery, function ($query) {
-            $query->where('name', 'like', '%' . $this->searchQuery . '%');
-        })->get();
+        $skillIds = array_column($this->skills, 'id');
+        return Skill::whereNotIn('id', $skillIds)->get();
+    }
+
+    public function UpdateSkill($id, $currentID)
+    {
+        $this->user->skills()->detach($currentID);
+        $this->user->skills()->syncWithoutDetaching($id);
+
+        $this->dispatch('updated-skill');
+        session()->flash('skill_updated', 'The Skill has been updated. Refresh the page to refresh the skill list');
+    }
+
+    public function deleteSkill(Skill $skill)
+    {
+        $this->user->skills()->detach($skill->id);
+        session()->flash('skill_deleted', 'The Skill has been deleted. Refresh the page to refresh the skill list');
     }
 
     public function getAvailableLanguages()
@@ -139,21 +121,103 @@ class UserProfile extends Component
         $languageIds = array_column($this->languages, 'id');
         return Language::whereNotIn('id', $languageIds)->get();
     }
-    public function UpdateLanguage($id, $currentID){
+    public function UpdateLanguage($id, $currentID)
+    {
         // remove first
         $this->user->languages()->detach($currentID);
         // add new
         $this->user->languages()->syncWithoutDetaching($id);
 
         $this->dispatch('updated-language');
-        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
+        session()->flash('language_updated', 'The Langugae has been updated. Refresh the page to refresh the language list');
     }
 
-    public function deleteLanguage(Language $language){
+    public function deleteLanguage(Language $language)
+    {
         $this->user->languages()->detach($language->id);
-        session()->flash('refresh_msg', 'Refresh the page to refresh the language list');
+        session()->flash('language_deleted', 'The Langugae has been deleted.Refresh the page to refresh the language list');
     }
 
+    public function deleteWebsite(Link $link)
+    {
+        $link->delete();
+        $this->user->links()->detach($link->id);
+        session()->flash('website_deleted', 'The Website has been deleted.Refresh the page to refresh the website list');
+    }
+
+    public function getLink(Link $link)
+    {
+        $this->WLForm->getLink($link->website_name, $link->link);
+    }
+
+    public function updateLink(link $link)
+    {
+        $link->update([
+            'website_name' => $this->WLForm->websites[0]['website_name'],
+            'link' => $this->WLForm->websites[0]['link'],
+        ]);
+        $link->save();
+
+        session()->flash('link_updated', 'The Link has been updated. Refresh the page to refresh the link list');
+    }
+
+    public function deleteLink(link $link)
+    {
+        $link->delete();
+        $this->user->links()->detach($link->id);
+        session()->flash('link_deleted', 'The Link has been deleted.');
+    }
+
+    public function getOldPS()
+    {
+        $this->PSForm->oldData();
+    }
+
+    public function updateExp(){
+        $this->experiences = $this->user->experiences()->latest()->get();
+    }
+
+    public function getOldExp(Experience $experience)
+    {
+        $this->ExperienceForm->oldData($experience);
+    }
+
+    public function deleteExp()
+    {
+        $this->ExperienceForm->deleteExperience();
+        $this->updateExp();
+    }
+
+    public function saveExperience()
+    {
+        $this->ExperienceForm->submit();
+        $this->updateExp();
+        $this->dispatch('close-modal');
+        session()->flash('ExperienceMsg', 'تم تحديث الملف الشخصي');
+    }
+
+    public function updatePro(){
+        $this->projects = $this->user->Projects()->latest()->get();
+    }
+
+    public function getOldPro(Project $project)
+    {
+        $this->ProjectsForm->oldData($project);
+    }
+
+    public function deletePro()
+    {
+        $this->ProjectsForm->deleteProject();
+        $this->updatePro();
+    }
+
+    public function saveProject()
+    {
+        $this->ProjectsForm->submit();
+        $this->updatePro();
+        $this->dispatch('close-modal');
+        session()->flash('ProjectMsg', 'تم تحديث الملف الشخصي');
+    }
 
     public $user;
     public $experiences;

@@ -42,16 +42,47 @@ class ProjectsForm extends Form
         $this->projects = array_values($this->projects);
     }
 
+    public $ProjectId = null;
+    public function oldData(Project $project)
+    {
+        $this->projects = [
+            [
+                'title' => $project->title ?? '',
+                'description' => $project->description ?? '',
+                'contributions' => $project->contributions ?? '',
+            ]
+        ];
+        $this->ProjectId = $project->id;
+    }
+
+    public function deleteProject()
+    {
+        $project = Project::find($this->ProjectId);
+
+        if ($project && $project->user_id === Auth::id()) {
+            $project->delete();
+            session()->flash('ProjectMsg', 'The Project has been deleted.');
+        } else {
+            session()->flash('ProjectMsg', 'You are not authorized to delete this project or it does not exist.');
+        }
+
+        $this->reset('ProjectId');
+    }
+
     public function submit()
     {
         $validated = $this->validate();
         foreach ($validated['projects'] as $project) {
-            Project::create([
+            Project::updateOrCreate([
+                'id' => $this->ProjectId,
+                'user_id' => Auth::id(),
+            ], [
                 'user_id' => Auth::id(),
                 'title' => $project['title'],
                 'description' => $project['description'],
                 'contributions' => $project['contributions'],
             ]);
         }
+
     }
 }

@@ -28,9 +28,16 @@
     </div>
 
     <!-- Refresh Message -->
-    @if (session()->has('refresh_msg'))
+    @if (session()->has('language_updated'))
         <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
-            {{ session('refresh_msg') }}
+            {{ session('language_updated') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session()->has('language_deleted'))
+        <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+            {{ session('language_deleted') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
@@ -89,7 +96,7 @@
             // Component State
             languages: @json($languages), // Pass Laravel data to Alpine.js
             availableLanguages: @json($availableLanguages), // Pass Laravel data to Alpine.js
-            previousLanguage: @json($Selectedlanguage), // Pass Laravel data to Alpine.js
+            previousLanguage: '',
             selectedLanguage: null,
             selectedLanguageID: 0,
             previousLanguageID: 0,
@@ -122,14 +129,4 @@
 
         };
     }
-
-    // Livewire Event Listener
-    document.addEventListener('DOMContentLoaded', function() {
-        Livewire.on('update-language', () => {
-            let modalElement = document.getElementById('EditLanguage');
-            if (modalElement) {
-                bootstrap.Modal.getOrCreateInstance(modalElement).show();
-            }
-        });
-    });
 </script>

@@ -38,10 +38,20 @@ class WebsitesLinksForm extends Form
 
     public function resetForm()
     {
-        dump('resetForm');
+
         $this->websites = [
             ['website_name' => '', 'link' => '']
         ];
+    }
+
+    // updateWebsite
+    public function getLink($website_name, $link)
+    {
+
+        $this->websites = [
+            ['website_name' => $website_name, 'link' => $link]
+        ];
+
     }
 
     public function submit()
@@ -65,4 +75,5 @@ class WebsitesLinksForm extends Form
         // Optionally, reset the form after submission
         // $this->reset();
     }
+
 }

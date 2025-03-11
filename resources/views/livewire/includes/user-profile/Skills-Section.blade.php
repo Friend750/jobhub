@@ -1,77 +1,130 @@
-<div class="card mb-3 rounded">
-    <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <h5>Skills</h5>
-        </div>
-
-        <ul class="list-unstyled d-flex flex-wrap" x-data="skillsList">
-            <li class="text-muted text-center py-3" x-show="skills.length === 0">No skills added yet</li>
-
-            <template x-for="(skill, index) in skills" :key="skill.id">
-                <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
-                    x-on:click="$wire.selectSkill(skill.id,skill.name)" data-bs-toggle="tooltip" title="Click to Edit">
-                </li>
-            </template>
-
-            <template x-if="skills.length > defaultLimit">
-                <li class="btn btn-secondary m-1"
-                    x-on:click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
-                    x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
-                </li>
-            </template>
-        </ul>
-    </div>
-</div>
-
-<!-- modal EditSkills -->
-<div class="modal fade overflow-hidden" id="EditSkills" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
-    aria-hidden="true" wire:ignore.self>
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitleId">Choose the new Skill name</h5>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                </button>
+<!-- Skills Card and Modal -->
+<div x-data="skillsComponent()">
+    <!-- Skills Card -->
+    <div class="card mb-3 rounded">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h5>Skills</h5>
             </div>
-            <div class="modal-body">
-                <p class="bg-light py-2 px-2 fw-bolder rounded text-muted">Previous Name: <span x-data="{ oldSkill: @entangle('selectedSkillName') }"
-                        x-text="oldSkill??'null'"></span></p>
-                <!-- Search Input -->
-                <input type="text" wire:model.live.debounce.300ms="searchQuery" placeholder="Search skills..."
-                    class="form-control rounded-0 border-0 border-bottom mb-2">
 
-                <!-- Skill List -->
-                <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
-                    @forelse ($availableSkills as $skill)
-                        <li wire:click="selectSkill({{ $skill->id }})"
-                            class="w-100 text-start p-2 hover:bg-gray-100 pointer">
-                            {{ $skill->name }}
-                        </li>
-                    @empty
-                        <li class="p-2 text-muted">No skills found.</li>
-                    @endforelse
-                </ul>
-            </div>
+            <!-- Skills List -->
+            <ul class="list-unstyled d-flex flex-wrap">
+                <li class="text-muted text-center py-3" x-show="skills.length === 0">No skills added yet</li>
+
+                <template x-for="(skill, index) in skills" :key="skill.id">
+                    <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
+                        @click="openEditModal(skill)" data-bs-toggle="tooltip" title="Click to Edit">
+                    </li>
+                </template>
+
+                <template x-if="skills.length > defaultLimit">
+                    <li class="btn btn-secondary m-1"
+                        @click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
+                        x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
+                    </li>
+                </template>
+            </ul>
         </div>
     </div>
+
+    <!-- Refresh Message -->
+    @if (session()->has('skill_deleted'))
+        <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+            {{ session('skill_deleted') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    {{--  skill_updated Message --}}
+    @if (session()->has('skill_updated'))
+    <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+        {{ session('skill_updated') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+
+    <!-- Skills Modal -->
+    <div class="modal fade overflow-hidden" id="EditSkills" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+        aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Choose the new skill name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Search Input -->
+                    <input type="text" x-model="searchQuery" placeholder="Search skills..."
+                        class="form-control rounded-0 border-0 border-bottom mb-2">
+
+                    <!-- Filtered Skills List -->
+                    <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
+                        <template x-for="skill in filteredSkills" :key="skill.id">
+                            <li class="w-100 text-start p-2 hover:bg-gray-100 pointer" @click="selectSkill(skill)">
+                                <span x-text="skill.name"></span>
+                            </li>
+                        </template>
+                        <template x-if="filteredSkills.length === 0">
+                            <li class="p-2 text-muted">No skills found.</li>
+                        </template>
+                    </ul>
+
+                    {{-- Delete Button --}}
+                    <div class="text-center mt-3">
+                        <small class="text-muted">Or you can just delete the current Skill "<span x-text="previousSkill"
+                                class="fw-bold"></span>"</small>
+                        <button type="button" class="btn btn-danger mt-2 w-100 rounded" data-bs-dismiss="modal"
+                            wire:click="deleteSkill(previousSkillID)" wire:loading.attr="disabled"
+                            wire:loading.class="disabled">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @include('livewire.includes.user-profile.skillModal-box')
 </div>
 
 <script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('skillsList', () => ({
-            skills: @entangle('skills'),
+    function skillsComponent() {
+        return {
+            // Component State
+            skills: @json($skills), // Pass Laravel data to Alpine.js
+            availableSkills: @json($availableSkills), // Pass Laravel data to Alpine.js
+            previousSkillID: 0,
+            previousSkill: '',
+            selectedSkillID: 0,
+            selectedSkill: null,
+            searchQuery: '',
             limit: 5,
             defaultLimit: 5,
-        }));
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        Livewire.on('update-skill', () => {
-            let modalElement = document.getElementById('EditSkills');
-            if (modalElement) {
-                bootstrap.Modal.getOrCreateInstance(modalElement).show();
+
+            // Computed Property for Filtered Skills
+            get filteredSkills() {
+                return this.availableSkills.filter(skill => {
+                    return skill.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                });
+            },
+
+            // Open Edit Modal
+            openEditModal(skill) {
+                this.previousSkill = skill.name;
+                this.previousSkillID = skill.id;
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('EditSkills')).show();
+            },
+
+            // Select Skill
+            selectSkill(skill) {
+                this.selectedSkill = skill.name;
+                this.selectedSkillID = skill.id;
+
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('EditSkills')).hide();
+                bootstrap.Modal.getOrCreateInstance(document.getElementById('skillChangeModal')).show();
             }
-        });
-    });
+        };
+    }
 </script>
