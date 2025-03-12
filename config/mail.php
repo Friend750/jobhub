@@ -12,7 +12,7 @@ return [
             'port' => 587,
             'encryption' => 'tls',
             'username' => 'friendsmoaha@gmail.com',
-            'password' => env('MAIL_PASSWORD'),
+            'password' => 'cpjdavscikzjjfjo',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
