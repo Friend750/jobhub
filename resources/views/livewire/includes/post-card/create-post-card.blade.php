@@ -3,8 +3,7 @@
     <div class="card-body d-flex justify-content-center align-items-center">
         <input type="text" class="form-control w-100 ps-3 bg-light" placeholder="Write something..."
             x-on:click="showCard = true">
-        <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;"
-            x-on:click="showCard = true">
+        <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;" x-on:click="showCard = true">
             <i class="bi bi-image"></i>
         </div>
     </div>
@@ -98,8 +97,8 @@
                                         <select id="multiDropdown" class="form-select"
                                             data-placeholder="Optional: Add tag(s) to reach more when public" multiple>
                                             @foreach ($interests as $key => $interest)
-                                            <option value="{{ $interest->id }}">{{ $interest->name }}
-                                            </option>
+                                                <option value="{{ $interest->id }}">{{ $interest->name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -129,8 +128,8 @@
 </style>
 
 @script()
-<script>
-    // Initialize the select2 widget with a placeholder text and allow multiple selection
+    <script>
+        // Initialize the select2 widget with a placeholder text and allow multiple selection
         $(document).ready(function() {
             $('#multiDropdown').select2({
                 theme: "bootstrap-5",
@@ -159,7 +158,7 @@
 
 
         });
-</script>
+    </script>
 @endscript
 
 <script>
@@ -169,7 +168,6 @@
 
             resetForms() {
                 wire.resetForm(this.selected);
-
             },
             init() {
                 this.$watch('selected', () => this.resetForms());

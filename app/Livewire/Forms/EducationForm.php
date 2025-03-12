@@ -10,7 +10,7 @@ use Livewire\Form;
 
 class EducationForm extends Form
 {
-
+    public $EducationId;
     #[Rule([
         'educations.*.institution_name' => 'required|string',
         'educations.*.certification_name' => 'required|string',
@@ -59,20 +59,55 @@ class EducationForm extends Form
         $this->educations = array_values($this->educations);
     }
 
+    public function oldData(Education $education)
+    {
+        $this->educations = [
+            [
+                'degree' => $education->degree ?? '',
+                'certification_name' => $education->certification_name ?? '',
+                'institution_name' => $education->institution_name ?? '',
+                'graduation_date' => $education->graduation_date->format('Y-m-d') ?? '',
+                'location' => $education->location ?? '',
+                'description' => $education->description ?? '',
+            ]
+        ];
+        $this->EducationId = $education->id;
+    }
+
+    public function deleteEducation()
+    {
+        $education = Education::find($this->EducationId);
+
+        if ($education && $education->user_id === Auth::id()) {
+            $education->delete();
+            session()->flash('EducationMsg', 'The Education entry has been deleted.');
+        } else {
+            session()->flash('EducationMsg', 'You are not authorized to delete this education entry or it does not exist.');
+        }
+
+        $this->reset('EducationId');
+    }
 
     public function submit()
     {
         $validated = $this->validate();
         foreach ($validated['educations'] as $education) {
-            Education::create([
-                'institution_name' => $education['institution_name'],
-                'certification_name' => $education['certification_name'],
-                'location' => $education['location'],
-                'degree' => $education['degree'],
-                'description' => $education['description'] ?? '',
-                'graduation_date' => $education['graduation_date'],
-                'user_id' => Auth::id()
-            ]);
+
+            Education::updateOrCreate(
+                [
+                    'id' => $this->EducationId, // Use the stored EducationId for updates
+                    'user_id' => Auth::id(), // Ensure the education entry belongs to the authenticated user
+                ],
+                [
+                    'user_id' => Auth::id(),
+                    'degree' => $education['degree'],
+                    'certification_name' => $education['certification_name'],
+                    'institution_name' => $education['institution_name'],
+                    'graduation_date' => $education['graduation_date'],
+                    'location' => $education['location'],
+                    'description' => $education['description'],
+                ]
+            );
         }
         $this->reset();
     }

@@ -9,6 +9,8 @@ use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
+use App\Models\Course;
+use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Language;
 use App\Models\Link;
@@ -79,18 +81,6 @@ class UserProfile extends Component
     public function saveSummary()
     {
         $this->PSForm->submit();
-        $this->dispatch('close-modal');
-    }
-
-    public function saveEducation()
-    {
-        $this->EDForm->submit();
-        $this->dispatch('close-modal');
-    }
-
-    public function saveCourse()
-    {
-        $this->CoursesForm->submit();
         $this->dispatch('close-modal');
     }
 
@@ -218,7 +208,51 @@ class UserProfile extends Component
         $this->dispatch('close-modal');
         session()->flash('ProjectMsg', 'تم تحديث الملف الشخصي');
     }
+    public function updateEdu(){
+        $this->educations = $this->user->Educations()->latest()->get();
+    }
 
+    public function getOldEdu(Education $education)
+    {
+        $this->EDForm->oldData($education);
+    }
+
+    public function deleteEdu()
+    {
+        $this->EDForm->deleteEducation();
+        $this->updateEdu();
+    }
+
+    public function saveEducation()
+    {
+        $this->EDForm->submit();
+        $this->updateEdu();
+        $this->dispatch('close-modal');
+        session()->flash('EducationMsg', 'تم تحديث الملف الشخصي');
+    }
+
+    public function updateCourses(){
+        $this->courses = $this->user->Courses()->latest()->get();
+    }
+
+    public function getOldCourse(Course $course)
+    {
+        $this->CoursesForm->oldData($course);
+    }
+
+    public function deleteCourse()
+    {
+        $this->CoursesForm->deleteCourse();
+        $this->updateCourses();
+    }
+
+    public function saveCourse()
+    {
+        $this->CoursesForm->submit();
+        $this->updateCourses();
+        $this->dispatch('close-modal');
+        session()->flash('CourseMsg', 'تم تحديث الملف الشخصي');
+    }
     public $user;
     public $experiences;
     public $projects;
