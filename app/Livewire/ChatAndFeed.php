@@ -66,7 +66,7 @@ class ChatAndFeed extends Component
 public function follow($connectionId)
 {
 
-        $receiver = $this->getUserById($connectionId);
+        $receiver = User::find($connectionId);
 
         DB::table('connections')->insert([
             'follower_id' => $connectionId,
@@ -104,10 +104,7 @@ public function follow($connectionId)
 
     }
 
-    public function getUserById($receiverId)
-    {
-    return User::find($receiverId);
-    }
+
 
     public function render()
     {

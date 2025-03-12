@@ -1,4 +1,4 @@
-<div style="display: inline-block; width: 100%;" x-data="{ open: @entangle('showDropdown') }" @click.away="open = false"
+<div style="display: inline-block; width: 100%;" x-data="{ open: false }" @click.away="open = false"
     x-init="$watch('open', value => $wire.set('showDropdown', value))">
     <form wire:submit.prevent="search" class="d-flex">
         @csrf

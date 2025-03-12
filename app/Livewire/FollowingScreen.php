@@ -47,7 +47,7 @@ public function unFollow($connectionId)
 public function follow($connectionId)
 {
 
-        $receiver = $this->getUserById($connectionId);
+        $receiver = User::Find($connectionId);
 
         DB::table('connections')->insert([
             'follower_id' => $connectionId,
@@ -60,10 +60,7 @@ public function follow($connectionId)
 
 }
 
-    public function getUserById($receiverId)
-    {
-    return User::find($receiverId);
-    }
+
     public function render()
     {
         return view('livewire.following-screen');
