@@ -36,7 +36,8 @@ class PostCard extends Component
     {
         $this->showCard = false;
         $this->selected = 'content-article';
-        $this->interests = Interest::select('name')->get();
+        $this->interests = Interest::select('id','name')->get();
+
     }
 
     public function setAudience($value)

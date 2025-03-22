@@ -36,7 +36,8 @@
                                                     class="btn btn-light btn-sm dropdown-toggle py-0 color-bg-blue-light"
                                                     type="button" id="postAudienceDropdown" data-bs-toggle="dropdown"
                                                     aria-expanded="false">
-                                                    {{ $target === 'to_any_one' ? 'Post to anyone' : 'Connections only' }}
+                                                    {{ $target === 'to_any_one' ? 'Post to anyone' : 'Connections only'
+                                                    }}
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="postAudienceDropdown">
                                                     <li>
