@@ -5,15 +5,17 @@
     padding: 16px;
     margin-bottom: 16px;
     background-image: url("../images/Untitled design1.png");
-  overflow-y: hidden; 
+    overflow-y: hidden;
 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    
 }
 
-.container
-{
+.big-container {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+.container {
     background-color: #f8f9fa;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .message {
@@ -25,7 +27,7 @@
 }
 
 .message.from-me {
-    background-color: #2B6DAE;
+    background-color: #2b6dae;
     color: white;
     justify-content: flex-end;
 }
@@ -39,13 +41,11 @@
 .input-group .btn {
     margin-left: 8px;
 }
-.container-fluid
-{
+.container-fluid {
     background-color: #f8f9fa !important;
 }
-.navbar
-{
-    border: 1px solid #f0f4fb ;
+.navbar {
+    border: 1px solid #f0f4fb;
     padding: 0 !important;
 }
 /* Apply custom scrollbar for all scrollable containers */
