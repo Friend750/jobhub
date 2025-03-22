@@ -83,6 +83,5 @@ class ProjectsForm extends Form
                 'contributions' => $project['contributions'],
             ]);
         }
-
     }
 }

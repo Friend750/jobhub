@@ -85,8 +85,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn rounded btn-dark" style="min-width: 40px;" x-on:click="removeExperience()"
-                        wire:loading.attr='disabled'><i class="fas fa-trash"></i></button>
+                    <button type="button" class="btn rounded btn-dark" style="min-width: 40px;"
+                        x-on:click="removeExperience()" wire:loading.attr='disabled'><i
+                            class="fas fa-trash"></i></button>
                     <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>Save
                         changes</button>
                 </div>

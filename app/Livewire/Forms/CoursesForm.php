@@ -46,16 +46,46 @@ class CoursesForm extends Form
         $this->courses = array_values($this->courses);
     }
 
+    public $CourseId = null;
+
+    public function oldData(Course $course)
+    {
+        $this->courses = [
+            [
+                'course_name' => $course->course_name ?? '',
+                'institution_name' => $course->institution_name ?? '',
+                'end_date' => $course->end_date->format('Y-m-d') ?? '',
+            ]
+        ];
+        $this->CourseId = $course->id;
+    }
+
+    public function deleteCourse()
+    {
+        $course = Course::find($this->CourseId);
+
+        if ($course && $course->user_id === Auth::id()) {
+            $course->delete();
+            session()->flash('CourseMsg', 'The Course has been deleted.');
+        } else {
+            session()->flash('CourseMsg', 'You are not authorized to delete this course or it does not exist.');
+        }
+
+        $this->reset('CourseId');
+    }
+
     public function submit()
     {
         $validated = $this->validate();
-
         foreach ($validated['courses'] as $course) {
-            Course::create([
+            Course::updateOrCreate([
+                'id' => $this->CourseId,
+                'user_id' => Auth::id(),
+            ], [
+                'user_id' => Auth::id(),
                 'course_name' => $course['course_name'],
                 'institution_name' => $course['institution_name'],
                 'end_date' => $course['end_date'],
-                'user_id' => Auth::id(),
             ]);
         }
     }
