@@ -20,8 +20,8 @@
                                         class="profile-picture rounded-circle">
                                 @else
                                     {{-- Display locally stored image --}}
-                                    <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture"
-                                        loading="lazy" class="profile-picture rounded-circle">
+                                    <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture" loading="lazy"
+                                        class="profile-picture rounded-circle">
                                 @endif
                             @else
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode($user->user_name) }}"
@@ -36,12 +36,13 @@
                                         <h3>{{ $user->personal_details->page_name }}</h3>
                                     @else
                                         <h3>{{ $user->personal_details->first_name ?? 'first name' }}
-                                            {{ $user->personal_details->last_name ?? 'last name' }}</h3>
+                                            {{ $user->personal_details->last_name ?? 'last name' }}
+                                        </h3>
                                     @endif
                                     <span> {{ $user->personal_details->specialist ?? 'User Specialist' }}</span><br>
                                     <span>{{ $user->personal_details->city ?? 'city' }} •
-                                        <a href="#" class="text-primary text-decoration-none"
-                                            data-bs-toggle="modal" data-bs-target="#contactModal"> Contact info</a>
+                                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal"
+                                            data-bs-target="#contactModal"> Contact info</a>
                                     </span>
 
                                     <!-- contact-info-modal -->
@@ -58,21 +59,29 @@
                                         <span class="sr-only">Loading...</span>
                                     </div>
 
+                                    <div class="" x-data="{toggle: true}">
+                                        <button type="button" name="" id="" class="btn btn-primary rounded">
+                                            <i class="fa-solid fa-paper-plane"></i>
+                                            مراسلة
+                                        </button>
+                                        <button type="button" name="" id="" class="btn btn-primary rounded"
+                                            x-on:click="toggle=!toggle">
+                                            <i class="fa-solid fa-plus"></i>
+                                            <span x-text="toggle?'متابعة':'الغاء المتابعة'">
+                                            </span>
+                                        </button>
+                                    </div>
+
                                     @if (auth()->user()->id === $user->id)
                                         <div>
                                             <label for="profilePicture"
                                                 class="mb-0 text-dark btn btn-outline-secondary btn-custom rounded">
-                                                <i class="fas fa-camera"></i> Edit Photo
+                                                <i class="fas fa-camera"></i> تعديل الصورة الشخصية
                                             </label>
                                             <input type="file" id="profilePicture" wire:model="profilePicture"
                                                 class="d-none" accept="image/*">
                                         </div>
 
-                                        <a href="/EnhanceProfile"
-                                            class=" text-decoration-none text-dark d-flex align-items-center btn btn-outline-secondary btn-custom rounded">
-                                            <i class="fas fa-user-edit me-2"></i>
-                                            Enhance Profile
-                                        </a>
                                     @endif
 
                                     <div x-data="{ open: false }" class="position-relative">
@@ -81,27 +90,27 @@
                                             class="btn text-dark btn-outline-secondary btn-custom rounded"><i
                                                 class="fa-solid fa-ellipsis"></i></button>
 
-                                        <div x-show="open" x-cloak x-on:click ="open=false" @click.outside="open=false"
+                                        <div x-show="open" x-cloak x-on:click="open=false" @click.outside="open=false"
                                             class="options-card mt-2">
                                             <ul class="list-unstyled ">
 
-                                                <li class="d-flex align-items-center">
+                                                <li>
+                                                    <a href="/EnhanceProfile"
+                                                        class=" text-decoration-none text-dark d-flex gap-2 align-items-center">
+                                                        <i class="fas fa-user-edit"></i>
+                                                        تحسين الملف الشخصي
+                                                    </a>
+                                                </li>
+                                                <li class="d-flex gap-2 align-items-center">
                                                     <i class="fas fa-share-alt me-2"></i>
                                                     <!-- Font Awesome icon for sharing -->
-                                                    Share profile link
+                                                    مشاركة رابط الصفحة
                                                 </li>
 
-                                                {{-- <li class="d-flex align-items-center" data-bs-toggle="modal"
-                                                    data-bs-target="#aboutProfileModal">
-                                                    <i class="fas fa-info-circle me-2"></i>
-                                                    <!-- Font Awesome icon for info -->
-                                                    About this profile
-                                                </li> --}}
-
-                                                <li class="d-flex align-items-center">
+                                                <li class="d-flex gap-2 align-items-center">
                                                     <i class="fas fa-history me-2"></i>
                                                     <!-- Font Awesome icon for activity -->
-                                                    Activity
+                                                    النشاط
                                                 </li>
                                             </ul>
                                         </div>
