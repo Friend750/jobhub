@@ -59,6 +59,9 @@ public function follow($connectionId)
         $receiver->notify(new Request( auth()->user(),$receiver));
 
 }
+public function showUser($id){
+    return redirect()->route('user-profile', $id);
+}
 
 
     public function render()

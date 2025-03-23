@@ -16,7 +16,7 @@
                     @if(count($results) > 0)
                     @foreach($results as $user)
                     <a href="#" class="d-block p-3 text-decoration-none text-dark hover-bg-light"
-                        wire:key="{{ $user->id }}">
+                        wire:click='showUser({{  $user->id }})' wire:key="{{ $user->id }}">
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . $user->user_name }}"
                                 class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;"

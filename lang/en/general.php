@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'search_for_followings' => 'Search for people',
+    'no_followers' => 'No Followers',
+    'no_followed_companies' => 'no followed companies',
     'search' => 'Search',
     'user_type' => 'User Type',
     'all' => 'All',

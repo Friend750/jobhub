@@ -19,20 +19,20 @@ class Search extends Component
     public $people;
     public $companies;
     public $query;
-    
+
 
 
     public function mount()
     {
-  
+
         $this->query = session('searchQuery', '');
         $this->loadPeople();
         $this->loadCompany();
 
-    
+
     }
 
-    
+
     public function loadMorePeople()
     {
         $this->paginateVarPeople += 5; // Increase the limit
@@ -78,22 +78,22 @@ class Search extends Component
                 ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
                 ->where('following_id',  Auth::id()) // ID الذي تم تمريره
                 ->delete(); // Soft Delete
-    
-    
+
+
         $this->dispatch('connectionUpdated');
     }
 
     public function getUserById($receiverId)
     {
-    return User::find($receiverId); 
+    return User::find($receiverId);
     }
-    
-    
+
+
     public function follow($connectionId)
     {
-            
+
             $receiver = $this->getUserById($connectionId);
-            
+
             DB::table('connections')->insert([
                 'follower_id' => $connectionId,
                 'following_id' => Auth::id(),
@@ -102,7 +102,7 @@ class Search extends Component
                 'updated_at' => now()
             ]);
             $receiver->notify(new Request( auth()->user(),$receiver));
-            
+
     }
 
 
@@ -134,7 +134,10 @@ public function startConversation($userId)
     // التوجيه إلى شاشة المحادثة
         return redirect()->route('chat', ['conversationId' => $conversation->id]);
 }
-    
+
+public function showUser($id){
+    return redirect()->route('user-profile', $id);
+}
     public function render()
     {
         return view('livewire.search');

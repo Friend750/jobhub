@@ -104,6 +104,10 @@ public function follow($connectionId)
 
     }
 
+    public function showUser($id){
+        return redirect()->route('user-profile', $id);
+    }
+
 
 
     public function render()

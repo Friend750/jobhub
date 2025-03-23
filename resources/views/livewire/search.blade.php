@@ -22,45 +22,49 @@
             <span id="People">{{ __('general.people') }}</span>
             <ul class="list-group mt-3">
                 @if (count($people) > 0)
-                    @foreach ($people as $person)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <img  style="width: 40px;" class="rounded-circle ms-3" src="{{ $person['profile_image'] ?? 'https://ui-avatars.com/api/?name=' }}">
-                            <div>
-                                <strong>{{ $person['user_name'] }}</strong><br>
-                                <small>{{ $person['position'] ?? __('general.position') }}</small>
-                            </div>
+                @foreach ($people as $person)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div style="cursor: pointer" class="d-flex align-items-center" wire:click='showUser({{  $person['id'] }})'>
+                        <img style="width: 40px;" class="rounded-circle ms-3"
+                            src="{{ $person['profile_image'] ?? 'https://ui-avatars.com/api/?name=' }}">
+                        <div>
+                            <strong>{{ $person['user_name'] }}</strong><br>
+                            <small>{{ $person['position'] ?? __('general.position') }}</small>
                         </div>
-                        <div class="d-flex align-items-center">
-                            @php
-                            // Check follow statuses
-                            $connection = DB::table('connections')
-                            ->where('follower_id', $person['id'])
-                            ->where('following_id', auth()->id())
-                            ->first();
+                    </div>
+                    <div class="d-flex align-items-center">
+                        @php
+                        // Check follow statuses
+                        $connection = DB::table('connections')
+                        ->where('follower_id', $person['id'])
+                        ->where('following_id', auth()->id())
+                        ->first();
 
-                            $isFollowing = $connection && $connection->is_accepted == 1; // Active following
-                            $isRequested = $connection && $connection->is_accepted == 0; // Pending request
-                            @endphp
+                        $isFollowing = $connection && $connection->is_accepted == 1; // Active following
+                        $isRequested = $connection && $connection->is_accepted == 0; // Pending request
+                        @endphp
 
-                            <button class="w-80 btn slash
+                        <button class="w-80 btn slash
                             {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
-                            btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $person['id'] . ')' : 'follow(' . $person['id'] . ')') : '' }}">
-                                {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') : __('general.follow')) }}
-                            </button>
+                            btn-sm"
+                            wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $person['id'] . ')' : 'follow(' . $person['id'] . ')') : '' }}">
+                            {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') :
+                            __('general.follow')) }}
+                        </button>
 
-                            @if ($isFollowing)
-                            <button wire:click.prevent="startConversation({{ $person['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
-                                {{ __('general.connect') }}
-                            </button>
-                            @endif
-                        </div>
-                    </li>
-                    @endforeach
+                        @if ($isFollowing)
+                        <button wire:click.prevent="startConversation({{ $person['id'] }})"
+                            class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
+                            {{ __('general.connect') }}
+                        </button>
+                        @endif
+                    </div>
+                </li>
+                @endforeach
                 @else
-                    <li class="mb-3 list-group-item text-center text-muted">
-                        {{ __('general.no_results') }}
-                    </li>
+                <li class="mb-3 list-group-item text-center text-muted">
+                    {{ __('general.no_results') }}
+                </li>
                 @endif
             </ul>
 
@@ -80,45 +84,49 @@
             <span id="Companies">{{ __('general.companies') }}</span>
             <ul class="list-group mt-3">
                 @if (count($companies) > 0)
-                    @foreach ($companies as $company)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <img style="width: 40px" class="rounded-circle ms-3" src="{{ $company['profile_image'] ?? 'https://ui-avatars.com/api/?name=' }}">
-                            <div>
-                                <strong>{{ $company['user_name'] }}</strong><br>
-                                <small>{{ $company['position'] ?? __('general.position') }}</small>
-                            </div>
+                @foreach ($companies as $company)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img style="width: 40px" class="rounded-circle ms-3"
+                            src="{{ $company['profile_image'] ?? 'https://ui-avatars.com/api/?name=' }}">
+                        <div>
+                            <strong>{{ $company['user_name'] }}</strong><br>
+                            <small>{{ $company['position'] ?? __('general.position') }}</small>
                         </div>
-                        <div class="d-flex align-items-center">
-                            @php
-                            // Check follow statuses
-                            $connection = DB::table('connections')
-                            ->where('follower_id', $company['id'])
-                            ->where('following_id', auth()->id())
-                            ->first();
+                    </div>
+                    <div class="d-flex align-items-center">
+                        @php
+                        // Check follow statuses
+                        $connection = DB::table('connections')
+                        ->where('follower_id', $company['id'])
+                        ->where('following_id', auth()->id())
+                        ->first();
 
-                            $isFollowing = $connection && $connection->is_accepted == 1; // Active following
-                            $isRequested = $connection && $connection->is_accepted == 0; // Pending request
-                            @endphp
+                        $isFollowing = $connection && $connection->is_accepted == 1; // Active following
+                        $isRequested = $connection && $connection->is_accepted == 0; // Pending request
+                        @endphp
 
-                            <button class="w-80 btn slash
+                        <button class="w-80 btn slash
                             {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
-                            btn-sm" wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $company['id'] . ')' : 'follow(' . $company['id'] . ')') : '' }}">
-                                {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') : __('general.follow')) }}
-                            </button>
+                            btn-sm"
+                            wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $company['id'] . ')' : 'follow(' . $company['id'] . ')') : '' }}">
+                            {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') :
+                            __('general.follow')) }}
+                        </button>
 
-                            @if ($isFollowing)
-                            <button wire:click.prevent="startConversation({{ $company['id'] }})" class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
-                                {{ __('general.connect') }}
-                            </button>
-                            @endif
-                        </div>
-                    </li>
-                    @endforeach
+                        @if ($isFollowing)
+                        <button wire:click.prevent="startConversation({{ $company['id'] }})"
+                            class="btn btn-outline-primary flex-shrink-0 p-1 w-90 me-2">
+                            {{ __('general.connect') }}
+                        </button>
+                        @endif
+                    </div>
+                </li>
+                @endforeach
                 @else
-                    <li class="list-group-item text-center text-muted">
-                        {{ __('general.no_results') }}
-                    </li>
+                <li class="list-group-item text-center text-muted">
+                    {{ __('general.no_results') }}
+                </li>
                 @endif
             </ul>
 

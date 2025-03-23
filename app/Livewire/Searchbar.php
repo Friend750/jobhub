@@ -52,6 +52,10 @@ class Searchbar extends Component
     {
         $this->showDropdown = false;
     }
+
+    public function showUser($id){
+        return redirect()->route('user-profile', $id);
+    }
     public function render()
     {
         return view('livewire.searchbar');

@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'search_for_followings' => 'ابحث عن اشخاص',
+    'no_followers' => 'لا يوجد متابعين يتابعوك',
+    'no_followed_companies' => 'ابحث عن شركات',
     '-- Choose an interest type --' => 'اختر فئة الاهتمام',
     'Select a category' => 'اختر الفئة ',
     'search' => 'بحث',

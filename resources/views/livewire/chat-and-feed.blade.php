@@ -42,7 +42,8 @@
         <!-- Feed List -->
         <div class="card-body">
             @forelse($suggestions as $suggestion)
-            <div class="d-flex align-items-start mb-3">
+
+            <div class="d-flex align-items-start mb-3 cursor-pointer" wire:click='showUser({{  $suggestion['id'] }})'>
                 <!-- صورة المستخدم -->
                 <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion['user_name']) }}" alt="User Image"
                     class="rounded-circle ms-2 mt-1 sm-img">
@@ -89,6 +90,10 @@
     <style>
         .truncate-text {
             font-size: .75rem;
+        }
+        .cursor-pointer
+        {
+            cursor: pointer;
         }
     </style>
 

@@ -86,6 +86,9 @@ public function startConversation($userId)
         return redirect()->route('chat', ['conversationId' => $conversation->id]);
 }
 
+public function showUser($id){
+    return redirect()->route('user-profile', $id);
+}
 
     public function render()
     {
