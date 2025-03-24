@@ -21,6 +21,7 @@ class CheckUsername
             // Redirect to an error page if not authorized
             return redirect('/username')->with('error', 'You should enter a username');
         }
+
         return $next($request);
     }
 }

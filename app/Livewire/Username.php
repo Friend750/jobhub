@@ -2,25 +2,28 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Username extends Component
 {
+
+
+
     public string $username = ''; // Store username from child component
 
-    protected $listeners = ['usernameUpdated' => 'setUsername']; // Listen for username changes
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
 
     public function updateUsername()
     {
         if($this->username === "")
         {
-            session()->flash('error', ('This username was already taken'));
+            session()->flash('error', ('لا يمكن ان يكون اسم المستخدم فارغ'));
+        }
+        else if(User::where('user_name', $this->username)->exists())
+        {
+            session()->flash('error', ('اسم المستخدم مستخدم نرجو تغيير اسم المستخدم'));
+
         }
         else
         {

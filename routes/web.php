@@ -48,26 +48,40 @@ Route::get('/auth/google/callback', function () {
     $nameParts = explode(' ', trim($fullName));
     $firstName = $nameParts[0] ?? null;
     $lastName = isset($nameParts[1]) ? implode(' ', array_slice($nameParts, 1)) : null;
-    // البحث عن المستخدم أو إنشاؤه
-    $user = User::updateOrCreate([
-        'email' => $googleUser->getEmail(),
-    ], [
-        'user_name' => "0",
-        'user_image' => $googleUser->getAvatar(),
-        'google_id' => $googleUser->getId(),
-        'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
-        'email_verified_at' => Carbon::now('asia/aden')
-    ]);
 
-    PersonalDetail::updateOrCreate([
-        'first_name' => $firstName,
-        'last_name' =>  $lastName,
-        'user_id' => $user->id,
-    ]);
-    // تسجيل الدخول
+    // البحث عن المستخدم
+    $user = User::where('email', $googleUser->getEmail())->first();
+
+    if (!$user) {
+        // المستخدم جديد، قم بإنشائه وأعطه user_name = "0"
+        $user = User::create([
+            'email' => $googleUser->getEmail(),
+            'user_name' => "0",
+            'user_image' => $googleUser->getAvatar(),
+            'google_id' => $googleUser->getId(),
+            'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
+            'email_verified_at' => Carbon::now('Asia/Aden')
+        ]);
+
+        // إنشاء تفاصيل المستخدم فقط إذا كان جديدًا
+        PersonalDetail::create([
+            'first_name' => $firstName,
+            'last_name' =>  $lastName,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    // تسجيل الدخول مباشرة
     Auth::login($user);
-    return redirect('/username');
+
+    // إذا كان user_name هو "0"، أعد توجيهه لاختيار اسم المستخدم
+    if ($user->user_name === "0") {
+        return redirect('/username');
+    }
+
+    return redirect('/posts'); // أو أي صفحة رئيسية
 });
+
 // Secured routes: Only accessible to authenticated users
 Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
     Route::get('/users/{id}/ping', function ($id) {
