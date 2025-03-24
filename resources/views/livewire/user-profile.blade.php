@@ -28,21 +28,21 @@
                                     alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
                             @endif
 
-                            <div class="d-flex align-items-end justify-content-between w-100 mt-2">
+                            <div class="d-flex align-items-end justify-content-between w-100 mt-3">
                                 <!-- Left Section -->
                                 <div>
 
-                                    @if (!empty($user->personal_details->page_name))
-                                        <h3>{{ $user->personal_details->page_name }}</h3>
+                                    @if (!empty($user->personal_details->page_name) && $user->type == 'company')
+                                        <h1>{{ $user->personal_details->page_name }}</h1>
                                     @else
-                                        <h3>{{ $user->personal_details->first_name ?? 'first name' }}
+                                        <h1 class="mb-0">{{ $user->personal_details->first_name ?? 'first name' }}
                                             {{ $user->personal_details->last_name ?? 'last name' }}
-                                        </h3>
+                                        </h1>
                                     @endif
-                                    <span> {{ $user->personal_details->specialist ?? 'User Specialist' }}</span><br>
+                                    <span class="mb-2 d-block fw-bold text-muted fs-5"> {{ $user->personal_details->specialist ?? 'User Specialist' }}</span>
                                     <span>{{ $user->personal_details->city ?? 'city' }} •
-                                        <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal"
-                                            data-bs-target="#contactModal"> Contact info</a>
+                                        <a href="#" class="text-primary fw-bold text-decoration-none" data-bs-toggle="modal"
+                                            data-bs-target="#contactModal"> معلومات التواصل</a>
                                     </span>
 
                                     <!-- contact-info-modal -->
@@ -59,18 +59,24 @@
                                         <span class="sr-only">Loading...</span>
                                     </div>
 
-                                    <div class="" x-data="{toggle: true}">
-                                        <button type="button" name="" id="" class="btn btn-primary rounded">
-                                            <i class="fa-solid fa-paper-plane"></i>
-                                            مراسلة
-                                        </button>
-                                        <button type="button" name="" id="" class="btn btn-primary rounded"
-                                            x-on:click="toggle=!toggle">
-                                            <i class="fa-solid fa-plus"></i>
-                                            <span x-text="toggle?'متابعة':'الغاء المتابعة'">
-                                            </span>
-                                        </button>
-                                    </div>
+                                    @if (auth()->user()->id !== $user->id)
+
+                                        <div class="d-flex gap-2" x-data="{toggle: true}">
+                                            <button type="button" name="" id="" class="btn btn-primary rounded">
+                                                <i class="fa-solid fa-paper-plane"></i>
+                                                مراسلة
+                                            </button>
+                                            <button type="button" name="" id="" class="btn rounded"
+                                                x-bind:class="toggle?'btn-primary':'btn-outline-primary'"
+                                                x-on:click="toggle=!toggle">
+                                                <i x-bind:class="toggle?'fa-solid fa-plus':''"></i>
+
+                                                <span x-text="toggle?'متابعة':'الغاء المتابعة'">
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                    @endif
 
                                     @if (auth()->user()->id === $user->id)
                                         <div>
@@ -94,13 +100,15 @@
                                             class="options-card mt-2">
                                             <ul class="list-unstyled ">
 
-                                                <li>
-                                                    <a href="/EnhanceProfile"
-                                                        class=" text-decoration-none text-dark d-flex gap-2 align-items-center">
-                                                        <i class="fas fa-user-edit"></i>
-                                                        تحسين الملف الشخصي
-                                                    </a>
-                                                </li>
+                                                @if (auth()->user()->id == $user->id)
+                                                    <li>
+                                                        <a href="/EnhanceProfile"
+                                                            class=" text-decoration-none text-dark d-flex gap-2 align-items-center">
+                                                            <i class="fas fa-user-edit"></i>
+                                                            تحسين الملف الشخصي
+                                                        </a>
+                                                    </li>
+                                                @endif
                                                 <li class="d-flex gap-2 align-items-center">
                                                     <i class="fas fa-share-alt me-2"></i>
                                                     <!-- Font Awesome icon for sharing -->
@@ -117,33 +125,6 @@
                                     </div>
                                 </div>
 
-                                {{-- modal --}}
-                                <div class="modal fade overflow-hidden" id="aboutProfileModal" tabindex="-1"
-                                    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="exampleModalLabel">About This Profile</h4>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true"></span>
-                                                </button>
-                                            </div>
-
-                                            <!-- Modal Body -->
-                                            <div class="modal-body">
-                                                <div class="modal-body">
-                                                    <p><strong class="text-dark">Joined:</strong><br>
-                                                        {{ $user->created_at ?? 'created at' }}</p>
-                                                    <p><strong class="text-dark">Contact Information:</strong><br>
-                                                        {{ $user->updated_at ?? 'Updated over xxx ago' }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>

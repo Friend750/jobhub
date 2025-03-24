@@ -1,7 +1,7 @@
 <div class="card mb-3 rounded" x-data="coursesForm(@this)">
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
-            <h5>Certifications | Courses</h5>
+            <h5>الشهادات | الدورات</h5>
         </div>
 
         @forelse ($courses as $course)
@@ -14,22 +14,25 @@
                         <ul class="me-4">
                             <!-- Completion Date Section -->
                             <li class="text-muted">
-                                <strong>Completion Date: </strong>
+                                <strong>تاريخ الانتهاء: </strong>
                                 <span>{{ $course->end_date ? $course->end_date->format('M - Y') : 'Ongoing' }}</span>
                             </li>
 
                         </ul>
                     </div>
 
-                    <!-- Edit Icon -->
-                    <div class="right-icon">
-                        <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                            data-bs-target="#EditCourses" x-on:click="oldData({{ $course->id }})"></i>
-                    </div>
+                    @if (auth()->user()->id === $user->id)
+
+                        <!-- Edit Icon -->
+                        <div class="right-icon">
+                            <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                                data-bs-target="#EditCourses" x-on:click="oldData({{ $course->id }})"></i>
+                        </div>
+                    @endif
                 </div>
             </ul>
         @empty
-            <p class="text-muted text-center py-3">No Certifications | Courses found.</p>
+            <p class="text-muted text-center py-3">لم يتم العثور على شهادات أو دورات.</p>
         @endforelse
     </div>
 
@@ -40,7 +43,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">Edit a Course</h5>
+                        <h5 class="modal-title" id="modalTitleId">تعديل الدورة</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"></span>
                         </button>
@@ -54,8 +57,7 @@
                                     @endif
                                     <div class="row">
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="course_name_{{ $index }}">Course
-                                                Name</label>
+                                            <label class="mb-2" for="course_name_{{ $index }}">اسم الدورة</label>
                                             <input type="text"
                                                 class="form-control @error("CoursesForm.courses.{$index}.course_name") is-invalid @enderror"
                                                 wire:model="CoursesForm.courses.{{ $index }}.course_name"
@@ -65,8 +67,8 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="institution_name_{{ $index }}">Institution
-                                                Name</label>
+                                            <label class="mb-2" for="institution_name_{{ $index }}">
+                                                اسم المؤسسة</label>
                                             <input type="text"
                                                 class="form-control @error("CoursesForm.courses.{$index}.institution_name") is-invalid @enderror"
                                                 wire:model="CoursesForm.courses.{{ $index }}.institution_name"
@@ -76,8 +78,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="end_date_{{ $index }}">Completion
-                                                Date</label>
+                                            <label class="mb-2" for="end_date_{{ $index }}">تاريخ الانتهاء</label>
                                             <input type="date"
                                                 class="form-control @error("CoursesForm.courses.{$index}.end_date") is-invalid @enderror"
                                                 wire:model="CoursesForm.courses.{{ $index }}.end_date"
@@ -95,8 +96,8 @@
                         <button type="button" class="btn rounded btn-dark" style="min-width: 40px;"
                             x-on:click="removeCourse()" wire:loading.attr='disabled'><i
                                 class="fas fa-trash"></i></button>
-                        <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>Save
-                            changes</button>
+                        <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>حفظ
+                            التغييرات</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +114,7 @@
 @endif
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         Livewire.on('close-modal', () => {
             let modalElement = document.getElementById('EditCourses');
             if (modalElement) {

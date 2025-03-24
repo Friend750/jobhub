@@ -10,13 +10,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-body">
-                        <p><strong class="text-dark">Your Profile URL:</strong><br> John Doe</p>
-                        <p><strong class="text-dark">Email:</strong> <br>
+                        <p><strong class="text-dark">رابط الصفحة الشخصية</strong><br> غير متاح بعد</p>
+                        <p><strong class="text-dark">الايميل:</strong> <br>
                             {{ $user->email ?? 'example@example.com' }}</p>
-                        <p><strong class="text-dark">Phone:</strong> <br>
+                        <p><strong class="text-dark">رقم الهاتف:</strong> <br>
                             {{ $user->personal_details->phone ?? 'phone' }}
                         </p>
-                        <p><strong class="text-dark">Websites & Social links:</strong></p>
+                        <p><strong class="text-dark">المواقع الإلكترونية والروابط الاجتماعية:</strong></p>
                         <div class="d-flex flex-wrap gap-2">
                             @forelse ($user->links as $link)
                                 <div
@@ -40,7 +40,7 @@
                                     @endif
                                 </div>
                             @empty
-                                <span class="text-muted">No websites added.</span>
+                                <span class="text-muted">لم تتم إضافة أي مواقع ويب.</span>
                             @endforelse
                         </div>
                     </div>

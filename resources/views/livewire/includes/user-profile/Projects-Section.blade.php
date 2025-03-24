@@ -1,7 +1,7 @@
 <div class="card mb-3 rounded" x-data="projectsForm(@this)">
     <div class="card-body">
         <div class="d-flex justify-content-between mb-3">
-            <h5>Projects</h5>
+            <h5>المشاريع</h5>
         </div>
 
 
@@ -15,7 +15,7 @@
                         <ul class="me-4">
                             <!-- Description Section -->
                             <li class="text-muted">
-                                <strong>Description: </strong>
+                                <strong>الوصف: </strong>
                                 <span
                                     x-show="!expanded">{{ \Illuminate\Support\Str::limit($project->description, 200, '...') }}</span>
                                 <span x-show="expanded" x-cloak>{{ $project->description }}</span>
@@ -23,27 +23,30 @@
 
                             <!-- Contributions Section -->
                             <li class="text-muted" x-show="expanded" x-cloak>
-                                <strong>Contributions: </strong>
+                                <strong>المساهمات: </strong>
                                 <span>{{ $project->contributions }}</span>
                             </li>
 
                             <!-- Read More / Read Less Button -->
                             @if (strlen($project->description) > 200 || strlen($project->contributions) > 200)
                                 <button class="btn text-muted fw-bolder p-0" @click="expanded = !expanded"
-                                    x-text="expanded ? 'Read Less' : 'Read More'"></button>
+                                    x-text="expanded ? 'اعرض اقل' : 'اعرض اكثر'"></button>
                             @endif
                         </ul>
                     </div>
 
 
                     <div class="right-icon">
-                        <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
-                            data-bs-target="#EditProjects" x-on:click="oldData({{ $project->id }})"></i>
+                        @if (auth()->user()->id === $user->id)
+                            <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                                data-bs-target="#EditProjects" x-on:click="oldData({{ $project->id }})"></i>
+                        @endif
+
                     </div>
                 </div>
             </ul>
         @empty
-            <p class="text-muted text-center py-3">No projects found.</p>
+            <p class="text-muted text-center py-3">لم يتم الاضافة بعد.</p>
         @endforelse
 
     </div>
@@ -55,7 +58,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleId">Edit a Project</h5>
+                        <h5 class="modal-title" id="modalTitleId">التعديل على مشروع</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"></span>
                         </button>
@@ -69,8 +72,7 @@
                                     @endif
                                     <div class="row">
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="project_title_{{ $index }}">Project
-                                                Title</label>
+                                            <label class="mb-2" for="project_title_{{ $index }}">اسم المشروع</label>
                                             <input type="text"
                                                 class="form-control @error("ProjectsForm.projects.{$index}.title") is-invalid @enderror"
                                                 wire:model="ProjectsForm.projects.{{ $index }}.title"
@@ -80,21 +82,24 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="project_description_{{ $index }}">Project
-                                                Description</label>
-                                            <textarea class="form-control @error("ProjectsForm.projects.{$index}.description") is-invalid @enderror"
+                                            <label class="mb-2" for="project_description_{{ $index }}">وصف المشروع</label>
+                                            <textarea
+                                                class="form-control @error("ProjectsForm.projects.{$index}.description") is-invalid @enderror"
                                                 wire:model="ProjectsForm.projects.{{ $index }}.description"
-                                                placeholder="Description of the project, including tools and technologies used" rows="3"></textarea>
+                                                placeholder="Description of the project, including tools and technologies used"
+                                                rows="3"></textarea>
                                             @error("ProjectsForm.projects.{$index}.description")
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group col-md-12 mb-3">
-                                            <label class="mb-2" for="project_contributions_{{ $index }}">Key
-                                                Outcomes/Contributions</label>
-                                            <textarea class="form-control @error("ProjectsForm.projects.{$index}.contributions") is-invalid @enderror"
+                                            <label class="mb-2" for="project_contributions_{{ $index }}">اهم المخرجات او
+                                                المساهمات</label>
+                                            <textarea
+                                                class="form-control @error("ProjectsForm.projects.{$index}.contributions") is-invalid @enderror"
                                                 wire:model="ProjectsForm.projects.{{ $index }}.contributions"
-                                                placeholder="Key outcomes or contributions made during the project" rows="2"></textarea>
+                                                placeholder="Key outcomes or contributions made during the project"
+                                                rows="2"></textarea>
                                             @error("ProjectsForm.projects.{$index}.contributions")
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -108,8 +113,8 @@
                         <button type="button" class="btn rounded btn-dark" style="min-width: 40px;"
                             x-on:click="removeProject()" wire:loading.attr='disabled'><i
                                 class="fas fa-trash"></i></button>
-                        <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>Save
-                            changes</button>
+                        <button type="submit" class="btn rounded btn-primary" wire:loading.attr='disabled'>حفظ
+                            التغييرات</button>
                     </div>
                 </div>
             </div>
@@ -128,7 +133,7 @@
 @endif
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         Livewire.on('close-modal', () => {
             let modalElement = document.getElementById('EditProjects');
             if (modalElement) {

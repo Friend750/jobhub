@@ -1,8 +1,13 @@
 <div class="card mb-3 rounded">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <h5>Overview </h5>
-            <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation" wire:click='getOldPS'></i>
+            <h5>
+                {{$user->type == 'user' ? 'الملخص مهني' : 'نظرة عامة'}}
+            </h5>
+            @if (auth()->user()->id === $user->id)
+                <i class="bi bi-pencil-square p-1 btn" data-bs-toggle="modal" data-bs-target="#GeneralInformation"
+                    wire:click='getOldPS'></i>
+            @endif
         </div>
         @if (empty($user->personal_details->professional_summary))
             <p class="text-muted text-center py-3">No professional summary added yet.</p>
@@ -25,13 +30,13 @@
             </div>
             <div class="modal-body">
                 <div id="professionalSummary" class="collapse show">
-                    <form wire:submit.prevent ="saveSummary">
+                    <form wire:submit.prevent="saveSummary">
 
                         <div class="form-group mb-3">
                             <label for="description" class=" mb-2">Overview</label>
                             <textarea class="form-control @error('PSForm.description') is-invalid
-                                @enderror"
-                                id="description" wire:model="PSForm.description" rows="3" placeholder="Add a description here..."></textarea>
+                            @enderror" id="description" wire:model="PSForm.description" rows="3"
+                                placeholder="Add a description here..."></textarea>
                             @error('PSForm.description')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -41,7 +46,7 @@
                             <button type="button" class="btn btn-secondary rounded" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="submit" class="btn btn-primary rounded" >Save</button>
+                            <button type="submit" class="btn btn-primary rounded">Save</button>
                         </div>
                     </form>
                 </div>
@@ -50,7 +55,7 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         Livewire.on('close-modal', () => {
             let modalElement = document.getElementById('GeneralInformation');
             if (modalElement) {

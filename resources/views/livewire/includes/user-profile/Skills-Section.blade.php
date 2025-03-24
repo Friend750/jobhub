@@ -4,23 +4,24 @@
     <div class="card mb-3 rounded">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h5>Skills</h5>
+                <h5>المهارات</h5>
             </div>
 
             <!-- Skills List -->
             <ul class="list-unstyled d-flex flex-wrap">
-                <li class="text-muted text-center py-3" x-show="skills.length === 0">No skills added yet</li>
+                <li class="text-muted text-center py-3" x-show="skills.length === 0">لم تتم إضافة أي مهارات بعد</li>
 
-                <template x-for="(skill, index) in skills" :key="skill.id">
+                <template x-for="(skill, index) in skills" :key="skill . id">
                     <li class="btn btn-outline-secondary m-1" x-show="index < limit" x-text="skill.name"
-                        @click="openEditModal(skill)" data-bs-toggle="tooltip" title="Click to Edit">
+                    @click="{{ auth()->user()->id === $user->id ? 'openEditModal(skill)' : ''
+                        }}" data-bs-toggle="tooltip" title="Click to Edit">
                     </li>
                 </template>
 
                 <template x-if="skills.length > defaultLimit">
                     <li class="btn btn-secondary m-1"
                         @click="limit === skills.length ? limit = defaultLimit : limit = skills.length"
-                        x-text="limit === skills.length ? 'See Less' : '+' + (skills.length - limit) + ' more'">
+                        x-text="limit === skills.length ? 'شاهد أقل' : '+' + (skills.length - limit) + ' المزيد'">
                     </li>
                 </template>
             </ul>
@@ -35,13 +36,13 @@
         </div>
     @endif
 
-    {{--  skill_updated Message --}}
+    {{-- skill_updated Message --}}
     @if (session()->has('skill_updated'))
-    <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
-        {{ session('skill_updated') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+        <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+            {{ session('skill_updated') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
 
     <!-- Skills Modal -->
@@ -50,7 +51,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">Choose the new skill name</h5>
+                    <h5 class="modal-title" id="modalTitleId">اختر اسم المهارة الجديدة</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
@@ -63,23 +64,23 @@
 
                     <!-- Filtered Skills List -->
                     <ul class="list-unstyled mb-0" style="height: 300px; overflow-y: auto;">
-                        <template x-for="skill in filteredSkills" :key="skill.id">
+                        <template x-for="skill in filteredSkills" :key="skill . id">
                             <li class="w-100 text-start p-2 hover:bg-gray-100 pointer" @click="selectSkill(skill)">
                                 <span x-text="skill.name"></span>
                             </li>
                         </template>
                         <template x-if="filteredSkills.length === 0">
-                            <li class="p-2 text-muted">No skills found.</li>
+                            <li class="p-2 text-muted">لم يتم العثور على أي مهارات.</li>
                         </template>
                     </ul>
 
                     {{-- Delete Button --}}
                     <div class="text-center mt-3">
-                        <small class="text-muted">Or you can just delete the current Skill "<span x-text="previousSkill"
+                        <small class="text-muted">أو يمكنك فقط حذف المهارة الحالية "<span x-text="previousSkill"
                                 class="fw-bold"></span>"</small>
                         <button type="button" class="btn btn-danger mt-2 w-100 rounded" data-bs-dismiss="modal"
                             wire:click="deleteSkill(previousSkillID)" wire:loading.attr="disabled"
-                            wire:loading.class="disabled">Delete</button>
+                            wire:loading.class="disabled">حذف</button>
                     </div>
                 </div>
             </div>
