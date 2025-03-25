@@ -40,7 +40,8 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <span>{{ __('general.notifications') }}</span>
-                    <a href="#" class="text-primary">{{ __('general.mark_all_as_read') }}</a>
+                    <a wire:click.prevent="markAllAsRead()" href="#" class="text-primary">{{
+                        __('general.mark_all_as_read') }}</a>
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">

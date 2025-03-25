@@ -54,6 +54,15 @@ public function markAsRead($id)
     $this->loadNotifications(); // تحديث الإشعارات بعد التغيير
 }
 
+public function markAllAsRead()
+{
+    DB::table('notifications')
+        ->where('notifiable_id', Auth::id()) // Filter notifications by the authenticated user
+        ->update(['read_at' => Carbon::now('Asia/Aden')]);
+
+    $this->loadNotifications(); // Refresh notifications after updating
+}
+
 public function acceptRequest($senderId, $receiverId, $notificationId)
 {
     // البحث عن الاتصال في جدول connections

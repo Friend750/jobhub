@@ -10,7 +10,9 @@
             </div>
             @forelse ($followings as $following)
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                <div style="cursor: pointer" class="d-flex align-items-center" wire:click='showUser({{  $following['id'] }})'>
+                <div style="cursor: pointer" class="d-flex align-items-center" x-data
+                    @click="fetch(`/users/{{ $following['id'] }}/ping`, { method: 'GET' })"
+                    wire:click='showUser({{  $following['id'] }})'>
                     <!-- صورة افتراضية -->
                     <img src="https://ui-avatars.com/api/?name=Image" alt="Logo" class="rounded-circle ms-2" width="40">
                     <div class="ms-3">

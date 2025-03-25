@@ -24,7 +24,9 @@
                 @if (count($people) > 0)
                 @foreach ($people as $person)
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div style="cursor: pointer" class="d-flex align-items-center" wire:click='showUser({{  $person['id'] }})'>
+                    <div style="cursor: pointer" class="d-flex align-items-center" x-data
+                    @click="fetch(`/users/{{ $person['id'] }}/ping`, { method: 'GET' })"
+                    wire:click='showUser({{  $person['id'] }})'>
                         <img style="width: 40px;" class="rounded-circle ms-3"
                             src="{{ $person['profile_image'] ?? 'https://ui-avatars.com/api/?name=' }}">
                         <div>

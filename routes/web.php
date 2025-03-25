@@ -82,25 +82,28 @@ Route::get('/auth/google/callback', function () {
     return redirect('/posts'); // أو أي صفحة رئيسية
 });
 
-// Secured routes: Only accessible to authenticated users
-Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
-    Route::get('/users/{id}/ping', function ($id) {
+Route::get('/users/{id}/ping', function ($id) {
     $user = User::findOrFail($id);
+    $authUser = auth()->user();
 
-    Log::info('Ping request for user:', ['user' => $user]);
-    // التحقق من أن المستخدم لم يزر الصفحة من قبل
-    $viewedUsers = session()->get('viewed_users', []);
+    // Check if there is an authenticated user
+    if ($authUser) {
+        // Create a unique session key for the visited profile
+        $sessionKey = 'visited_profile_' . $authUser->id . '_' . $user->id;
 
-    if (!in_array(Auth::user()->id, $viewedUsers)) {
-        // زيادة عدد المشاهدات
-        $user->increment('views');
-
-        // تخزين المعرف في الجلسة لمنع التكرار
-        session()->push('viewed_users', Auth::user()->id);
+        // If the profile hasn't been visited before, increment the view count and mark it as visited
+        if (!session()->has($sessionKey)) {
+            $user->increment('views');
+            session()->put($sessionKey, true);
+        }
     }
 
-    return response()->noContent(); // لا تحتاج إلى محتوى
+    return response()->noContent();
 });
+
+// Secured routes: Only accessible to authenticated users
+Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
+
 
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
