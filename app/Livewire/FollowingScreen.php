@@ -16,6 +16,19 @@ class FollowingScreen extends Component
     public $followings;
 
 
+    public function getFollowStatus($userId)
+{
+    $connection = DB::table('connections')
+        ->where('follower_id', $userId)
+        ->where('following_id', auth()->id())
+        ->first();
+
+    return [
+        'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
+        'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
+    ];
+}
+
 public function mount()
 {
 
