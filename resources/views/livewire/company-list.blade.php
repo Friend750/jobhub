@@ -9,7 +9,9 @@
             </div>
             @forelse($companies as $company)
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
-                <div style="cursor: pointer" class="d-flex align-items-center" wire:click='showUser({{  $company['id'] }})'>
+                <div style="cursor: pointer" class="d-flex align-items-center"
+                @click="fetch(`/users/{{ $company['id'] }}/ping`, { method: 'GET' })"
+                wire:click='showUser({{  $company['id'] }})'>
                     <!-- Default avatar image -->
                     <img src="https://ui-avatars.com/api/?name=Image" alt="Logo" class="rounded-circle ms-2" width="40">
                     <div class="ms-3">

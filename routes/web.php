@@ -48,45 +48,62 @@ Route::get('/auth/google/callback', function () {
     $nameParts = explode(' ', trim($fullName));
     $firstName = $nameParts[0] ?? null;
     $lastName = isset($nameParts[1]) ? implode(' ', array_slice($nameParts, 1)) : null;
-    // البحث عن المستخدم أو إنشاؤه
-    $user = User::updateOrCreate([
-        'email' => $googleUser->getEmail(),
-    ], [
-        'user_name' => "0",
-        'user_image' => $googleUser->getAvatar(),
-        'google_id' => $googleUser->getId(),
-        'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
-        'email_verified_at' => Carbon::now('asia/aden')
-    ]);
 
-    PersonalDetail::updateOrCreate([
-        'first_name' => $firstName,
-        'last_name' =>  $lastName,
-        'user_id' => $user->id,
-    ]);
-    // تسجيل الدخول
-    Auth::login($user);
-    return redirect('/username');
-});
-// Secured routes: Only accessible to authenticated users
-Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
-    Route::get('/users/{id}/ping', function ($id) {
-    $user = User::findOrFail($id);
+    // البحث عن المستخدم
+    $user = User::where('email', $googleUser->getEmail())->first();
 
-    Log::info('Ping request for user:', ['user' => $user]);
-    // التحقق من أن المستخدم لم يزر الصفحة من قبل
-    $viewedUsers = session()->get('viewed_users', []);
+    if (!$user) {
+        // المستخدم جديد، قم بإنشائه وأعطه user_name = "0"
+        $user = User::create([
+            'email' => $googleUser->getEmail(),
+            'user_name' => "0",
+            'user_image' => $googleUser->getAvatar(),
+            'google_id' => $googleUser->getId(),
+            'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
+            'email_verified_at' => Carbon::now('Asia/Aden')
+        ]);
 
-    if (!in_array(Auth::user()->id, $viewedUsers)) {
-        // زيادة عدد المشاهدات
-        $user->increment('views');
-
-        // تخزين المعرف في الجلسة لمنع التكرار
-        session()->push('viewed_users', Auth::user()->id);
+        // إنشاء تفاصيل المستخدم فقط إذا كان جديدًا
+        PersonalDetail::create([
+            'first_name' => $firstName,
+            'last_name' =>  $lastName,
+            'user_id' => $user->id,
+        ]);
     }
 
-    return response()->noContent(); // لا تحتاج إلى محتوى
+    // تسجيل الدخول مباشرة
+    Auth::login($user);
+
+    // إذا كان user_name هو "0"، أعد توجيهه لاختيار اسم المستخدم
+    if ($user->user_name === "0") {
+        return redirect('/username');
+    }
+
+    return redirect('/posts'); // أو أي صفحة رئيسية
 });
+
+Route::get('/users/{id}/ping', function ($id) {
+    $user = User::findOrFail($id);
+    $authUser = auth()->user();
+
+    // Check if there is an authenticated user
+    if ($authUser) {
+        // Create a unique session key for the visited profile
+        $sessionKey = 'visited_profile_' . $authUser->id . '_' . $user->id;
+
+        // If the profile hasn't been visited before, increment the view count and mark it as visited
+        if (!session()->has($sessionKey)) {
+            $user->increment('views');
+            session()->put($sessionKey, true);
+        }
+    }
+
+    return response()->noContent();
+});
+
+// Secured routes: Only accessible to authenticated users
+Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
+
 
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");

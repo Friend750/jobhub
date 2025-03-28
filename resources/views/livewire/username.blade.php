@@ -9,8 +9,12 @@
                             {{ session('error') }}
                         </div>
                         @endif
-                        <!-- Adjust width -->
-                        @livewire('includes.check-username')
+                        <label for="username" class="col-form-label text-md-end">{{ __('general.Username') }}</label>
+
+                        <input wire:model.live="username" id="username" type="text" class="form-control" name="username"
+                            autofocus required>
+
+
                         <button wire:click="updateUsername" class="btn btn-primary mt-3">
                             Confirm
                         </button>

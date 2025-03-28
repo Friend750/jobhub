@@ -43,7 +43,9 @@
         <div class="card-body">
             @forelse($suggestions as $suggestion)
 
-            <div class="d-flex align-items-start mb-3 cursor-pointer" wire:click='showUser({{  $suggestion['id'] }})'>
+            <div class="d-flex align-items-start mb-3 cursor-pointer" x-data
+            @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
+            wire:click='showUser({{  $suggestion['id'] }})'>
                 <!-- صورة المستخدم -->
                 <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion['user_name']) }}" alt="User Image"
                     class="rounded-circle ms-2 mt-1 sm-img">

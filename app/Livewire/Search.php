@@ -24,12 +24,9 @@ class Search extends Component
 
     public function mount()
     {
-
         $this->query = session('searchQuery', '');
         $this->loadPeople();
         $this->loadCompany();
-
-
     }
 
 
@@ -52,7 +49,6 @@ class Search extends Component
             ->take($this->paginateVarPeople + 1) // Fetch one extra record to check for more pages
             ->get()
             ->values();
-
         $this->hasMorePeople = $results->count() > $this->paginateVarPeople; // Check if there are more records
         $this->people = $results->take($this->paginateVarPeople); // Only take the current page's data
     }
@@ -65,7 +61,6 @@ class Search extends Component
             ->take($this->paginateVarCompanies + 1) // Fetch one extra record to check for more pages
             ->get()
             ->values();
-
         $this->hasMoreCompanies = $results->count() > $this->paginateVarCompanies; // Check if there are more records
         $this->companies = $results->take($this->paginateVarCompanies); // Only take the current page's data
     }
@@ -78,22 +73,14 @@ class Search extends Component
                 ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
                 ->where('following_id',  Auth::id()) // ID الذي تم تمريره
                 ->delete(); // Soft Delete
-
-
         $this->dispatch('connectionUpdated');
     }
 
-    public function getUserById($receiverId)
-    {
-    return User::find($receiverId);
-    }
 
 
     public function follow($connectionId)
     {
-
-            $receiver = $this->getUserById($connectionId);
-
+            $receiver = User::find($connectionId);
             DB::table('connections')->insert([
                 'follower_id' => $connectionId,
                 'following_id' => Auth::id(),
@@ -102,8 +89,20 @@ class Search extends Component
                 'updated_at' => now()
             ]);
             $receiver->notify(new Request( auth()->user(),$receiver));
-
     }
+
+    public function getFollowStatus($userId)
+{
+    $connection = DB::table('connections')
+        ->where('follower_id', $userId)
+        ->where('following_id', auth()->id())
+        ->first();
+
+    return [
+        'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
+        'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
+    ];
+}
 
 
 public function startConversation($userId)
