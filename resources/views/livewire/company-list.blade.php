@@ -7,37 +7,49 @@
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4 class="mt-3">{{ __('general.companies') }}</h4>
             </div>
-            @forelse($companies as $company)
+            @forelse ($companies as $company)
+            @php
+                // Read status from backend once
+                $status = $this->getFollowStatus($company['id']);
+                $isFollowing = $status['isFollowing'];
+                $isRequested = $status['isRequested'];
+            @endphp
+
             <div class="d-flex justify-content-between align-items-center border-bottom py-2">
                 <div style="cursor: pointer" class="d-flex align-items-center"
-                @click="fetch(`/users/{{ $company['id'] }}/ping`, { method: 'GET' })"
-                wire:click='showUser({{  $company['id'] }})'>
+                     @click="fetch(`/users/{{ $company['id'] }}/ping`, { method: 'GET' })"
+                     wire:click='showUser({{ $company['id'] }})'>
                     <!-- Default avatar image -->
-                    <img src="https://ui-avatars.com/api/?name=Image" alt="Logo" class="rounded-circle ms-2" width="40">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company['user_name']) }}"
+                         alt="Logo" class="rounded-circle ms-2" width="40">
                     <div class="ms-3">
                         <strong>{{ $company['user_name'] }}</strong>
                         <div class="text-muted">{{ $company['position'] ?? __('general.position') }}</div>
                     </div>
                 </div>
-                @php
-                // Check follow status
-                $connection = DB::table('connections')
-                ->where('follower_id', $company['id'])
-                ->where('following_id', auth()->id())
-                ->first();
 
-                // Determine states
-                $isFollowing = $connection && $connection->is_accepted == 1; // Active follow
-                $isRequested = $connection && $connection->is_accepted == 0; // Pending request
-                @endphp
-
-                <button class="btn
-                    {{ $isFollowing ? 'btn-outline-danger' : ($isRequested ? 'btn-outline-warning' : 'btn-outline-primary') }}
-                    btn-sm"
-                    wire:click="{{ !$isRequested ? ($isFollowing ? 'unFollow(' . $company['id'] . ')' : 'follow(' . $company['id'] . ')') : '' }}">
-                    {{ $isFollowing ? __('general.unfollow') : ($isRequested ? __('general.requested') :
-                    __('general.follow')) }}
-                </button>
+                <!-- Alpine component for optimistic UI update -->
+                <div class="d-flex align-items-center" wire:ignore
+                     x-data="{
+                         isFollowing: @json($isFollowing),
+                         isRequested: @json($isRequested)
+                     }">
+                    <button class="btn btn-sm"
+                            :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')"
+                            @click.prevent="
+                                if (!isRequested) {
+                                    if (isFollowing) {
+                                        isFollowing = false;
+                                        $wire.unFollow({{ $company['id'] }});
+                                    } else {
+                                        isRequested = true;
+                                        $wire.follow({{ $company['id'] }});
+                                    }
+                                }
+                            ">
+                        <span x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
+                    </button>
+                </div>
             </div>
             @empty
             <div class="d-flex justify-content-center align-items-center py-4">
@@ -48,6 +60,7 @@
                 </a>
             </div>
             @endforelse
+
 
         </div>
     </div>

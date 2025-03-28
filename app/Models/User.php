@@ -71,28 +71,13 @@ class User extends Authenticatable
             ->where('type', '!=', 'company');
     }
 
-    public function companies()
-    {
-        return User::where('type', 'company')
-            ->where(function ($query) {
-                $query->whereHas('followers', function ($subQuery) {
-                    $subQuery->where('follower_id', Auth::id());
-                })
-                    ->orWhereHas('followings', function ($subQuery) {
-                        $subQuery->where('following_id', Auth::id());
-                    });
-            })
-            ->with([
-                'followers' => function ($query) {
-                    $query->where('follower_id', Auth::id())
-                        ->withPivot('is_accepted'); // جلب العمود المحوري
-                },
-                'followings' => function ($query) {
-                    $query->where('following_id', Auth::id())
-                        ->withPivot('is_accepted'); // جلب العمود المحوري
-                }
-            ]);
-    }
+
+public function companies()
+{
+    return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
+        ->where('type', 'company')
+        ->withPivot('is_accepted');
+}
 
 
 

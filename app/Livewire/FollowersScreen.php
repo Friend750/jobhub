@@ -34,8 +34,8 @@ public function deleteConnection($connectionId)
     {
         // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
         $deleted = DB::table('connections')
-            ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
-            ->where('following_id',  Auth::id()) // ID الذي تم تمريره
+            ->where('follower_id',Auth::id()) // المستخدم الحالي هو المتابع
+            ->where('following_id', $connectionId ) // ID الذي تم تمريره
             ->delete(); // Soft Delete
 
         if ($deleted) {
@@ -43,16 +43,6 @@ public function deleteConnection($connectionId)
         } else {
             session()->flash('error', 'Connection not found or already deleted!');
         }
-        $user = User::find(auth()->user()->id);
-
-    $this->followers = $user->acceptedFollowers()->with('experiences')->get()->map(function ($follower) {
-        return [
-            'id' => $follower->id,
-            'user_name' => $follower->user_name,
-            'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title,
-            'user_image' => $follower->user_image ?? null,
-        ];
-    })->toArray();
 
     $this->dispatch('connectionUpdated');
     }

@@ -82,7 +82,7 @@ class Chat extends Component
         $this->validate([
             'message' => 'required|string|max:1000',
         ]);
-        $conversation = \App\Models\Conversation::findOrFail($this->selectedChat['id']);
+        $conversation = Conversation::findOrFail($this->selectedChat['id']);
 
         $this->authorize('sendMessage', $conversation);
         $receiverId = auth()->id() === $conversation->first_user
@@ -104,7 +104,7 @@ class Chat extends Component
         // dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
 
         $this->messages[] = $message;
-        $this->getUserById($receiverId)->notify(new SentMessage(auth()->user(), $message, $conversation, $receiverId));
+        User::find($receiverId)->notify(new SentMessage(auth()->user(), $message, $conversation, $receiverId));
 
 
 

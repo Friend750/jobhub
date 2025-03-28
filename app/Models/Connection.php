@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Connection extends Model
 {
-    
+
     use HasFactory,SoftDeletes;
-    protected $fillable = 
+    protected $fillable =
     [
     'following_id','follower_id','is_accepted'
     ];
-    
+
 
     public function following()
     {

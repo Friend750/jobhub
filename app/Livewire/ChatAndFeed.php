@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Connection;
 use App\Models\Conversation;
 use App\Models\User;
 use App\Notifications\Request;
@@ -52,11 +53,9 @@ class ChatAndFeed extends Component
 
     public function unFollow($connectionId)
 {
-        // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
-             DB::table('connections')
-            ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
-            ->where('following_id',  Auth::id()) // ID الذي تم تمريره
-            ->delete(); // Soft Delete
+    Connection::where('follower_id', $connectionId)
+    ->where('following_id', Auth::id())
+    ->delete();
 
 
     $this->dispatch('connectionUpdated');
@@ -67,13 +66,10 @@ public function follow($connectionId)
 {
 
         $receiver = User::find($connectionId);
-
-        DB::table('connections')->insert([
+        Connection::create([
             'follower_id' => $connectionId,
             'following_id' => Auth::id(),
-            'is_accepted' => 0,
-            'created_at' => now(),
-            'updated_at' => now()
+            'is_accepted' => 0
         ]);
         $receiver->notify(new Request( auth()->user(),$receiver));
 
@@ -104,6 +100,18 @@ public function follow($connectionId)
 
     }
 
+
+    public function getFollowStatus($userId)
+{
+    $connection = Connection::where('follower_id', $userId)
+    ->where('following_id', Auth::id())
+    ->first();
+
+    return [
+        'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
+        'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
+    ];
+}
     public function showUser($id){
         return redirect()->route('user-profile', $id);
     }
