@@ -17,7 +17,7 @@ class ArticleForm extends Form
         'media' => 'nullable|image|max:1024', // 1MB max
     ])]
 
-    public $content =""; // For the text input
+    public $content = ""; // For the text input
     public $media; // For the uploaded file (image or video)
     public $mediaPreview; // For displaying preview
 
@@ -34,22 +34,22 @@ class ArticleForm extends Form
         $this->mediaPreview = null;
     }
 
-    public function resetForm(){
+    public function resetForm()
+    {
         // dump('reset article form');
         $this->reset();
     }
 
-    public function submit($selectedInterests,$target)
+    public function submit($selectedInterests, $target)
     {
-        $mediaPath ="";
+        $mediaPath = "";
         $this->validate();
 
         // Save the media to storage
         if ($this->media) {
             $mediaPath = $this->media->store('uploads', 'public');
         }
-
-    Post::create([
+        Post::create([
             'user_id' => Auth::id(),
             'content' => $this->content,
             'target' => $target,
@@ -59,6 +59,7 @@ class ArticleForm extends Form
         ]);
 
         $this->reset();
+
     }
 
 }
