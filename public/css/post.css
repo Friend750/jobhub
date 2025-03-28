@@ -11,7 +11,7 @@
 .card-body img {
     height: fit-content;
     object-fit: cover;
-    width: 40px;
+    width: 50px;
 }
 
 .create-post-card {
@@ -93,11 +93,16 @@
     font-size: small;
 }
 
-#text-muted
-{
+#text-muted {
     font-size: .65rem;
 }
 
 .no-scroll {
     overflow: hidden;
+}
+
+.absolute {
+    position: absolute;
+    left: 0px;
+    margin-top: 0.5rem;
 }

@@ -193,7 +193,7 @@
             </div>
 
             <div class="col-lg-3 p-0">
-                <div class="MakeSticky">
+                <div class="MakeSticky w-75">
                     @livewire('ChatAndFeed')
                 </div>
             </div>

@@ -41,6 +41,11 @@ class Post extends Model
     {
         return $this->hasOneThrough(
             PersonalDetail::class,
-            User::class
+            User::class,
+            'id',          // Foreign key on the users table (users.id)
+            'user_id',     // Foreign key on personal_details table (personal_details.user_id)
+            'user_id',     // Local key on posts table (posts.user_id)
+            'id'           // Local key on users table (users.id)
         );
-    }}
+    }
+}
