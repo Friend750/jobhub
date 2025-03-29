@@ -18,7 +18,7 @@ class CompanyList extends Component
     public function mount()
 {
 
-    $user = auth()->user();
+    $user = Auth::user();
     $this->companies = $user->companies()
         ->get()
         ->map(function ($company) {
@@ -53,7 +53,7 @@ public function follow($connectionId)
             'following_id' => Auth::id(),
             'is_accepted' => 0
         ]);
-        $receiver->notify(new Request( auth()->user(),$receiver));
+        $receiver->notify(new Request(  Auth::user(),$receiver));
 
 }
 public function getFollowStatus($userId)

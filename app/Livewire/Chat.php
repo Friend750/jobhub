@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Conversation;
 use App\Models\User;
 use App\Notifications\SentMessage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -27,21 +28,21 @@ class Chat extends Component
     public function mount($conversationId = null)
     {
 
-        $this->currentUserId = auth()->id(); // تخزين معرف المستخدم الحالي
+        $this->currentUserId =  Auth::id(); // تخزين معرف المستخدم الحالي
 
         $this->chats = Conversation::with([
             'firstUser:id,user_name,user_image',
             'secondUser:id,user_name,user_image'
         ])
             ->where(function ($query) {
-                $query->where('first_user', auth()->id())
-                    ->orWhere('second_user', auth()->id());
+                $query->where('first_user',  Auth::id())
+                    ->orWhere('second_user',  Auth::id());
             }) // Only fetch conversations where the user is a participant
             ->orderBy('updated_at', 'desc')
             ->take(5)
             ->get(['id', 'first_user', 'second_user', 'last_message'])
             ->map(function ($conversation) {
-                $otherUser = auth()->id() === $conversation->first_user
+                $otherUser =  Auth::id() === $conversation->first_user
                     ? $conversation->secondUser
                     : $conversation->firstUser;
 
@@ -85,7 +86,7 @@ class Chat extends Component
         $conversation = Conversation::findOrFail($this->selectedChat['id']);
 
         $this->authorize('sendMessage', $conversation);
-        $receiverId = auth()->id() === $conversation->first_user
+        $receiverId =  Auth::id() === $conversation->first_user
             ? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
             : $conversation->first_user;
         if (!User::find($receiverId)) {
@@ -93,7 +94,7 @@ class Chat extends Component
         }
         $message = \App\Models\Chat::create([
             'message' => $this->message,
-            'sender_id' => auth()->id(),
+            'sender_id' =>  Auth::id(),
             'receiver_id' => $receiverId, // إذا كان المستخدم الحالي هو الثاني، اجعل المستقبل هو الأول
             'conversation_id' => $this->selectedChat['id'],
         ]);
@@ -104,7 +105,7 @@ class Chat extends Component
         // dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
 
         $this->messages[] = $message;
-        User::find($receiverId)->notify(new SentMessage(auth()->user(), $message, $conversation, $receiverId));
+        User::find($receiverId)->notify(new SentMessage(Auth::user(), $message, $conversation, $receiverId));
 
 
 

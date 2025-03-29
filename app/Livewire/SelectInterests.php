@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Interest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
@@ -25,13 +26,13 @@ class SelectInterests extends Component
 
     public function mount()
     {
-        $user = auth()->user();
+        $user = Auth::user();
                 if (!empty($user->interests)) {
             // For instance, redirect them to the dashboard if they already have interests
             return redirect()->to('/posts');
         }
         // Store the authenticated user’s ID
-        $this->userId = auth()->id();
+        $this->userId = Auth::id();
 
         // 1) Fetch all interests (id, name, type). You only need name & type for display.
         $allInterests = Interest::select('name', 'type')->get();

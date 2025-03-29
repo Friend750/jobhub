@@ -30,14 +30,14 @@ class ChatAndFeed extends Component
                     'secondUser:id,user_name,user_image'
                 ])
                 ->where(function ($query) {
-                    $query->where('first_user', auth()->id())
-                        ->orWhere('second_user', auth()->id());
+                    $query->where('first_user',  Auth::id())
+                        ->orWhere('second_user',  Auth::id());
                 })
                 ->orderBy('updated_at', 'asc')
                 ->take(3)
                 ->get(['id', 'first_user', 'second_user', 'last_message'])
                 ->map(function ($conversation) {
-                    $otherUser = auth()->id() === $conversation->first_user
+                    $otherUser =  Auth::id() === $conversation->first_user
                         ? $conversation->secondUser
                         : $conversation->firstUser;
 
@@ -71,7 +71,7 @@ public function follow($connectionId)
             'following_id' => Auth::id(),
             'is_accepted' => 0
         ]);
-        $receiver->notify(new Request( auth()->user(),$receiver));
+        $receiver->notify(new Request(Auth::user(),$receiver));
 
 }
 

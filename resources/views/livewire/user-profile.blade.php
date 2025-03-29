@@ -61,19 +61,48 @@
 
                                     @if (auth()->user()->id !== $user->id)
 
+                                    @php
+                                    // Read status from backend once
+                                    $status = $this->getFollowStatus($user->id);
+                                    $isFollowing = $status['isFollowing'];
+                                    $isRequested = $status['isRequested'];
+                                    $isFollowingMe = \App\Models\Connection::where('following_id', $user->id)
+                                        ->where('follower_id', auth()->id())
+                                        ->where('is_accepted', 1)
+                                        ->exists();
+                                    @endphp
                                         <div class="d-flex gap-2" x-data="{toggle: true}">
-                                            <button type="button" name="" id="" class="btn btn-primary rounded">
+                                            @if($isFollowingMe)
+                                            <button  wire:click='startConversation({{ $user->id }})' type="button" class="btn-outline-primary btn btn-sm">
                                                 <i class="fa-solid fa-paper-plane"></i>
                                                 مراسلة
                                             </button>
-                                            <button type="button" name="" id="" class="btn rounded"
-                                                x-bind:class="toggle?'btn-primary':'btn-outline-primary'"
-                                                x-on:click="toggle=!toggle">
-                                                <i x-bind:class="toggle?'fa-solid fa-plus':''"></i>
+                                        @endif
+                                            <div class="d-flex align-items-center" wire:ignore
+                                            x-data="{
+                                                isFollowing: @json($isFollowing),
+                                                isRequested: false
+                                            }">
+                                           <button class="btn btn-sm"
+                                                   :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')"
+                                                   @click.prevent="
+                                                       if (!isRequested) {
+                                                           if (isFollowing) {
+                                                               // Optimistically update UI for unfollow
+                                                               isFollowing = false;
+                                                               $wire.unFollow({{ $user->id }});
+                                                           } else {
+                                                               // Optimistically update UI for follow (show 'requested')
+                                                               isRequested = true;
+                                                               $wire.follow({{ $user->id }});
+                                                           }
+                                                       }
+                                                   ">
+                                               <i x-bind:class="isFollowing ? 'fa-solid fa-minus' : 'fa-solid fa-plus'"></i>
+                                               <span x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
+                                           </button>
+                                       </div>
 
-                                                <span x-text="toggle?'متابعة':'الغاء المتابعة'">
-                                                </span>
-                                            </button>
                                         </div>
 
                                     @endif

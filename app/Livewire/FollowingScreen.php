@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Connection;
 use App\Models\User;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -18,10 +19,10 @@ class FollowingScreen extends Component
 
     public function getFollowStatus($userId)
 {
-    $connection = DB::table('connections')
-        ->where('follower_id', $userId)
-        ->where('following_id', auth()->id())
-        ->first();
+    $connection = Connection::where('follower_id', $userId)
+    ->where('following_id', Auth::id())
+    ->first();
+
 
     return [
         'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
@@ -32,7 +33,7 @@ class FollowingScreen extends Component
 public function mount()
 {
 
-    $user = User::find(auth()->user()->id);
+    $user = User::find(Auth::user()->id);
 
     $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($follower) {
         return [
@@ -46,12 +47,9 @@ public function mount()
 
 public function unFollow($connectionId)
 {
-        // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
-             DB::table('connections')
-            ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
-            ->where('following_id',  Auth::id()) // ID الذي تم تمريره
-            ->delete(); // Soft Delete
-
+    Connection::where('follower_id', $connectionId)
+    ->where('following_id', Auth::id())
+    ->delete();
 
     $this->dispatch('connectionUpdated');
 }
@@ -60,16 +58,13 @@ public function unFollow($connectionId)
 public function follow($connectionId)
 {
 
-        $receiver = User::Find($connectionId);
-
-        DB::table('connections')->insert([
-            'follower_id' => $connectionId,
-            'following_id' => Auth::id(),
-            'is_accepted' => 0,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        $receiver->notify(new Request( auth()->user(),$receiver));
+    $receiver = User::find($connectionId);
+    Connection::create([
+        'follower_id' => $connectionId,
+        'following_id' => Auth::id(),
+        'is_accepted' => 0
+    ]);
+    $receiver->notify(new Request(Auth::user(),$receiver));
 
 }
 public function showUser($id){

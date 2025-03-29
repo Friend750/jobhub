@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ManageNetwork extends Component
@@ -19,7 +20,7 @@ class ManageNetwork extends Component
    }
    public function refreshNetwork()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::find(Auth::user()->id);
         $this->countCompanies = $user->companies()->count();
         $this->countFollowings = $user->acceptedFollowings()->count();
         $this->countFollowers = $user->acceptedFollowers()->count();

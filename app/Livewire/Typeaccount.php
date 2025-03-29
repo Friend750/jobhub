@@ -12,7 +12,7 @@ class Typeaccount extends Component
 
     public function mount()
     {
-        $user = auth()->user();
+        $user = Auth::user();
                 if (!empty($user->type)) {
             // For instance, redirect them to the dashboard if they already have interests
             return redirect()->to('/posts');
@@ -30,7 +30,7 @@ class Typeaccount extends Component
 
         // Update the authenticated user's type
         $user = Auth::user();
-        
+
         $user->update(['type' => $type]);
 
         // Redirect or emit an event

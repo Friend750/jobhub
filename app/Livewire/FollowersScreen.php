@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Connection;
+use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +16,7 @@ class FollowersScreen extends Component
     public $followers;
     public function mount()
 {
-    $user = User::find(auth()->user()->id);
+    $user = User::find(Auth::user()->id);
 
     $this->followers = $user->acceptedFollowers()
     ->with('experiences')
@@ -32,46 +34,42 @@ class FollowersScreen extends Component
 
 public function deleteConnection($connectionId)
     {
-        // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
-        $deleted = DB::table('connections')
-            ->where('follower_id',Auth::id()) // المستخدم الحالي هو المتابع
-            ->where('following_id', $connectionId ) // ID الذي تم تمريره
-            ->delete(); // Soft Delete
+        $deleted = Connection::where('follower_id', Auth::id())
+        ->where('following_id', $connectionId)
+        ->delete();
 
-        if ($deleted) {
-            session()->flash('message', 'Connection deleted successfully!');
-        } else {
-            session()->flash('error', 'Connection not found or already deleted!');
-        }
+        if ($deleted)
+         {
+                 session()->flash('message', 'Connection deleted successfully!');
+         }
+         else
+         {
+        session()->flash('error', 'Connection not found or already deleted!');
+         }
 
-    $this->dispatch('connectionUpdated');
+$this->dispatch('connectionUpdated');
+
     }
 
 public function startConversation($userId)
 {
-    // التحقق إذا كانت المحادثة موجودة
-    $conversation = DB::table('conversations')
-        ->where(function ($query) use ($userId) {
-            $query->where('first_user', auth()->id())
-                  ->where('second_user', $userId);
-        })
-        ->orWhere(function ($query) use ($userId) {
-            $query->where('first_user', $userId)
-                  ->where('second_user', auth()->id());
-        })
-        ->first();
+    $conversation = Conversation::where(function ($query) use ($userId) {
+        $query->where('first_user', Auth::id())
+              ->where('second_user', $userId);
+    })
+    ->orWhere(function ($query) use ($userId) {
+        $query->where('first_user', $userId)
+              ->where('second_user', Auth::id());
+    })
+    ->first();
 
-    if (!$conversation) {
-        // إذا لم تكن المحادثة موجودة، قم بإنشائها
-        $conversationId = DB::table('conversations')->insertGetId([
-            'first_user' => auth()->id(),
-            'second_user' => $userId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        $conversation = DB::table('conversations')->find($conversationId);
-    }
-
+if (!$conversation) {
+    // إذا لم تكن المحادثة موجودة، قم بإنشائها
+    $conversation = Conversation::create([
+        'first_user' => Auth::id(),
+        'second_user' => $userId,
+    ]);
+}
     // التوجيه إلى شاشة المحادثة
         return redirect()->route('chat', ['conversationId' => $conversation->id]);
 }

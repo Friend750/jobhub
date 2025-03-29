@@ -4,9 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 
-<div
-class="big-container"
- x-data="{
+<div class="big-container" x-data="{
     selectedChat: null,
     isMobile: window.innerWidth <= 768,
     scrollToBottom() {
@@ -24,7 +22,7 @@ class="big-container"
         }
     });">
         <!-- Side Chat List -->
-        <div class="col-md-4 border-end chat-list d-flex flex-column h-100" id="chat-list"
+        <div class="col-md-3 border-end chat-list d-flex flex-column h-100" id="chat-list"
             :class="isMobile && selectedChat ? 'd-none' : ''" style="min-height: 100vh">
             <h4 class="mb-3 mt-3 px-3">{{ __('general.chats') }}</h4>
 
@@ -74,7 +72,7 @@ class="big-container"
 
 
         <!-- Chat Messages -->
-        <div class="col-md-8 d-flex flex-column" id="chat-messages">
+        <div class="col-md-8 d-flex flex-column ms-2" id="chat-messages">
             @if ($selectedChat)
             <!-- Chat Header -->
             <div class="d-flex justify-content-between align-items-center p-1 border-bottom">
@@ -101,7 +99,7 @@ class="big-container"
                     if ($refs.messagesContainer.scrollTop === 0) {
                         saveScrollPosition();
                         $wire.loadMessages().then(() => restoreScrollPosition());
-                    }" x-init="scrollToBottom()" class="flex-grow-1 overflow-auto p-3 chat-messages-area"
+                    }" x-init="scrollToBottom()" class=" flex-grow-1 overflow-auto p-3 chat-messages-area"
                     x-ref="messagesContainer">
                     @foreach ($messages as $message)
                     @php
@@ -143,5 +141,4 @@ class="big-container"
             @endif
         </div>
     </div>
-    <span id="app" data-user-id="{{ auth()->id() }}"></span>
 </div>

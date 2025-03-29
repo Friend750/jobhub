@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Connection;
+use App\Models\Conversation;
 use App\Models\User;
 use App\Notifications\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +46,7 @@ class Search extends Component
     public function loadPeople()
     {
         $results = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', auth()->user()->user_name)
+            ->where('user_name', '!=', Auth::user()->user_name)
             ->where('type', 'user')
             ->take($this->paginateVarPeople + 1) // Fetch one extra record to check for more pages
             ->get()
@@ -56,7 +58,7 @@ class Search extends Component
     public function loadCompany()
     {
         $results = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', auth()->user()->user_name)
+            ->where('user_name', '!=', Auth::user()->user_name)
             ->where('type', 'company')
             ->take($this->paginateVarCompanies + 1) // Fetch one extra record to check for more pages
             ->get()
@@ -68,35 +70,33 @@ class Search extends Component
 
     public function unFollow($connectionId)
     {
-            // البحث عن السجل المرتبط بالمستخدم الحالي وحذفه باستخدام Soft Delete
-                 DB::table('connections')
-                ->where('follower_id',$connectionId) // المستخدم الحالي هو المتابع
-                ->where('following_id',  Auth::id()) // ID الذي تم تمريره
-                ->delete(); // Soft Delete
+        Connection::where('follower_id', $connectionId)
+        ->where('following_id', Auth::id())
+        ->delete();
+
         $this->dispatch('connectionUpdated');
     }
 
-
-
     public function follow($connectionId)
     {
-            $receiver = User::find($connectionId);
-            DB::table('connections')->insert([
-                'follower_id' => $connectionId,
-                'following_id' => Auth::id(),
-                'is_accepted' => 0,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-            $receiver->notify(new Request( auth()->user(),$receiver));
+
+        $receiver = User::find($connectionId);
+        Connection::create([
+            'follower_id' => $connectionId,
+            'following_id' => Auth::id(),
+            'is_accepted' => 0
+        ]);
+        $receiver->notify(new Request(Auth::user(),$receiver));
+
     }
+
 
     public function getFollowStatus($userId)
 {
-    $connection = DB::table('connections')
-        ->where('follower_id', $userId)
-        ->where('following_id', auth()->id())
-        ->first();
+    $connection = Connection::where('follower_id', $userId)
+    ->where('following_id', Auth::id())
+    ->first();
+
 
     return [
         'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
@@ -105,31 +105,26 @@ class Search extends Component
 }
 
 
+
 public function startConversation($userId)
 {
-    // التحقق إذا كانت المحادثة موجودة
-    $conversation = DB::table('conversations')
-        ->where(function ($query) use ($userId) {
-            $query->where('first_user', auth()->id())
-                  ->where('second_user', $userId);
-        })
-        ->orWhere(function ($query) use ($userId) {
-            $query->where('first_user', $userId)
-                  ->where('second_user', auth()->id());
-        })
-        ->first();
+    $conversation = Conversation::where(function ($query) use ($userId) {
+        $query->where('first_user', Auth::id())
+              ->where('second_user', $userId);
+    })
+    ->orWhere(function ($query) use ($userId) {
+        $query->where('first_user', $userId)
+              ->where('second_user', Auth::id());
+    })
+    ->first();
 
-    if (!$conversation) {
-        // إذا لم تكن المحادثة موجودة، قم بإنشائها
-        $conversationId = DB::table('conversations')->insertGetId([
-            'first_user' => auth()->id(),
-            'second_user' => $userId,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        $conversation = DB::table('conversations')->find($conversationId);
-    }
-
+if (!$conversation) {
+    // إذا لم تكن المحادثة موجودة، قم بإنشائها
+    $conversation = Conversation::create([
+        'first_user' => Auth::id(),
+        'second_user' => $userId,
+    ]);
+}
     // التوجيه إلى شاشة المحادثة
         return redirect()->route('chat', ['conversationId' => $conversation->id]);
 }
