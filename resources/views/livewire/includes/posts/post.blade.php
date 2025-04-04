@@ -43,7 +43,6 @@
                         @forelse($tags as $tag)
                             <span class="badge bg-secondary-subtle text-muted me-1">{{ $tag }}#</span>
                         @empty
-                            {{-- <span class="text-muted">لا توجد وسوم</span> --}}
                         @endforelse
                     </div>
                 </div>

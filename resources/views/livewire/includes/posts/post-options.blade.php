@@ -6,18 +6,20 @@
 
         <div x-show="showOptions" @click.away="showOptions = false" x-cloak class="card overlay-card absolute" x-transition>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item hover_color">
-                    <a href="#" class="text-decoration-none text-dark w-100 d-flex justify-content-between">
-                        <small>إلغاء المتابعة</small>
-                        <i class="bi bi-person-dash"></i>
-                    </a>
-                </li>
-                <li class="list-group-item hover_color">
-                    <a href="#" class="text-decoration-none text-dark d-flex justify-content-between">
-                        <small>غير مهتم</small>
-                        <i class="bi bi-emoji-expressionless"></i>
-                    </a>
-                </li>
+                @if (auth()->user()->id != $post->user_id)
+                    <li class="list-group-item hover_color">
+                        <a href="#" class="text-decoration-none text-dark w-100 d-flex justify-content-between">
+                            <small>إلغاء المتابعة</small>
+                            <i class="bi bi-person-dash"></i>
+                        </a>
+                    </li>
+                    <li class="list-group-item hover_color">
+                        <a href="#" class="text-decoration-none text-dark d-flex justify-content-between">
+                            <small>غير مهتم</small>
+                            <i class="bi bi-emoji-expressionless"></i>
+                        </a>
+                    </li>
+                @endif
                 <li class="list-group-item hover_color">
                     <a href="#" class="text-decoration-none text-dark d-flex justify-content-between">
                         <small>نسخ الرابط</small>

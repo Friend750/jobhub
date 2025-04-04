@@ -9,7 +9,7 @@
 }
 
 .card-body img {
-    height: fit-content;
+    /* height: fit-content; */
     object-fit: cover;
 }
 

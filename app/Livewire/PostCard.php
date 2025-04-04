@@ -163,78 +163,15 @@ class PostCard extends Component
 
     public function render()
     {
-        // استعلام الوظائف مع العلاقات المطلوبة
-        $jobs = JobPost::select([
-            'id',
-            'user_id',
-            'job_title',
-            'about_job',
-            'job_tasks',
-            'job_conditions',
-            'job_skills',
-            'job_location',
-            'job_timing',
-            'tags',
-            'target',
-            'is_active',
-            'created_at',
-            DB::raw("'job' as type"),
-            DB::raw("NULL as content"),
-            DB::raw("NULL as post_image"),
-            DB::raw("NULL as deleted_at")
-        ])
-            ->where('is_active', true)
-            ->with([
-                'user' => function ($query) {
-                    $query->select('id', 'user_image')
-                        ->with([
-                            'personal_details' => function ($q) {
-                                $q->select('user_id', 'first_name', 'last_name', 'specialist');
-                            }
-                        ]);
-                }
-            ]);
-
-        // استعلام المنشورات مع العلاقات المطلوبة
-        $posts = Post::select([
-            'id',
-            'user_id',
-            DB::raw("NULL as job_title"),
-            DB::raw("NULL as about_job"),
-            DB::raw("NULL as job_tasks"),
-            DB::raw("NULL as job_conditions"),
-            DB::raw("NULL as job_skills"),
-            DB::raw("NULL as job_location"),
-            DB::raw("NULL as job_timing"),
-            'tags',
-            'target',
-            DB::raw("NULL as is_active"),
-            'created_at',
-            DB::raw("'post' as type"),
-            'content',
-            'post_image',
-            'deleted_at'
-        ])
-            ->whereNull('deleted_at')
-            ->with([
-                'user' => function ($query) {
-                    $query->select('id', 'user_image')
-                        ->with([
-                            'personal_details' => function ($q) {
-                                $q->select('user_id', 'first_name', 'last_name', 'specialist');
-                            }
-                        ]);
-                }
-            ]);
-
-
-        // الدمج والترتيب
-        $allPosts = $jobs->unionAll($posts)
+        $allPosts = JobPost::forFeed()->
+            unionAll(Post::forFeed())
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
+            
         return view('livewire.post-card', [
             'allPosts' => $allPosts
         ]);
+
     }
 }
