@@ -11,7 +11,6 @@
 .card-body img {
     height: fit-content;
     object-fit: cover;
-    width: 50px;
 }
 
 .create-post-card {
@@ -36,16 +35,6 @@
 .overlay-card {
     width: 150px;
     z-index: 1050;
-}
-
-
-.Post-Card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px 0;
-    background-color: #fff;
-    width: 100%;
 }
 
 .comment {
@@ -198,4 +187,37 @@
 
 .send-button:active {
     transform: scale(0.95);
+}
+
+.select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+    right: 7px;
+}
+
+.select2-container--bootstrap-5 .select2-selection {
+    padding-right: 20px;
+}
+
+.select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice .select2-selection__choice__remove {
+    margin-left: .25rem;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.post-card {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+.very-small-text {
+    font-size: 0.65rem;
+}
+
+.post-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
 }

@@ -24,12 +24,14 @@
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </li>
-                <li class="list-group-item hover_color">
-                    <a href="#" class="text-decoration-none text-danger fw-bold d-flex justify-content-between">
-                        <small>حذف المنشور</small>
-                        <i class="bi bi-trash"></i>
-                    </a>
-                </li>
+                @if (auth()->user()->id === $post->user_id)
+                    <li class="list-group-item hover_color">
+                        <a href="#" class="text-decoration-none text-danger fw-bold d-flex justify-content-between">
+                            <small>حذف المنشور</small>
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

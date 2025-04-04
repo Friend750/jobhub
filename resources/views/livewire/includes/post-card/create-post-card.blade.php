@@ -1,7 +1,7 @@
 <div class="create-post-card card mb-3 rounded">
 
     <div class="card-body d-flex justify-content-center align-items-center">
-        <input type="text" class="form-control w-100 ps-3 bg-light" placeholder="Write something..."
+        <input type="text" class="form-control w-100 ps-3 bg-light" placeholder="اكتب شيئا..."
             x-on:click="showCard = true">
         <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;"
             x-on:click="showCard = true">
@@ -16,7 +16,7 @@
     <div class="overlay d-flex" x-show="showCard" x-transition>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6" style="position: relative;">
                     <div class="card post-card rounded " @click.outside="showCard = false">
 
                         <div class="card-body" x-data="FormType(@this)">
@@ -24,73 +24,60 @@
                                 <div class="d-flex align-items-end gap-2">
                                     <div class="d-flex gap-1">
                                         <img src="{{asset('storage/' . auth()->user()->user_image) ?? 'https://ui-avatars.com/api/?name=User' }}"
-                                            alt="User" class="rounded-circle h-100">
-
+                                            alt="User" class="rounded-circle" style="height: 50px;">
 
                                         <div class="d-flex flex-column gap-1">
 
-                                            <h5 class="mb-0">{{auth()->user()->personal_details->first_name ?? 'null'}}
-                                                {{auth()->user()->personal_details->last_name ?? 'null'}}
+                                            <h5 class="mb-0">{{auth()->user()->personal_details->first_name ?? ''}}
+                                                {{auth()->user()->personal_details->last_name ?? ''}}
                                             </h5>
                                             <small class="text-muted bg-secondary badge bg-secondary-subtle"
                                                 style="width: fit-content">
-                                                {{auth()->user()->personal_details->specialist ?? 'null'}}
+                                                {{auth()->user()->personal_details->specialist}}
                                             </small>
                                         </div>
                                     </div>
 
-                                    <div class="d-flex align-items-center ">
-                                        {{-- post visibality --}}
-                                        <div class="dropdown ms-1">
-                                            <button
-                                                class="btn btn-light btn-sm dropdown-toggle py-0 color-bg-blue-light"
-                                                type="button" id="postAudienceDropdown" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <small>
-                                                    {{ $target === 'to_any_one' ? 'عام' : 'المتصلين'
-                                                    }}
-                                                </small>
-                                            </button>
-                                            <ul class="dropdown-menu p-1" aria-labelledby="postAudienceDropdown">
-                                                <li>
-                                                    <a class="dropdown-item p-1 text-end" href="#"
-                                                        wire:click.prevent="setAudience('to_any_one')">
-                                                        <small>عام (يمكن لأي شخص رؤيته)</small>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item p-1 text-end" href="#"
-                                                        wire:click.prevent="setAudience('connection_only')">
-                                                        <small>المستخدمين المتصلين بي</small>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
 
-                                        {{-- post type --}}
-                                        <div class="dropdown">
-                                            <button
-                                                class="btn btn-light btn-sm dropdown-toggle py-0 color-bg-blue-light"
-                                                type="button" id="postAudienceDropdown" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <small
-                                                    x-text="selected === 'content-article' ? 'مقالة' : 'عرض وظيفة'"></small>
-                                            </button>
-                                            <ul class="dropdown-menu p-1" aria-labelledby="postAudienceDropdown">
-                                                <li>
-                                                    <a href="#" class="dropdown-item"
-                                                        @click.prevent="selected = selected === 'content-article' ? 'content-job-offer' : 'content-article'">
-                                                        <small
-                                                            x-text="selected === 'content-article' ? 'عرض وظيفة' : 'مقالة'"></small>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                </div>
+
+                                {{-- dropdowns --}}
+                                <div class="d-flex align-items-center gap-2">
+                                    {{-- post Visibility--}}
+                                    <div class="form-check form-check-reverse form-switch ms-1">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="postVisibilitySwitch"
+                                            wire:change="setAudience({{ $target === 'to_any_one' ? "'connection_only'" : "'to_any_one'" }})"
+                                            {{ $target === 'connection_only' ? '' : 'checked' }}>
+                                        <label class="form-check-label" for="postVisibilitySwitch">
+                                            <small class="fw-bold">
+                                                عام
+                                            </small>
+                                        </label>
+
+                                    </div>
+
+                                    {{-- post type --}}
+                                    <div class="dropdown">
+                                        <button
+                                            class="btn btn-light btn-sm dropdown-toggle p-1 px-2 color-bg-blue-light"
+                                            type="button" id="postAudienceDropdown" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <small class="fw-bold"
+                                                x-text="selected === 'content-article' ? 'مقالة' : 'عرض وظيفة'"></small>
+                                        </button>
+                                        <ul class="dropdown-menu p-1" aria-labelledby="postAudienceDropdown">
+                                            <li>
+                                                <a href="#" class="dropdown-item"
+                                                    @click.prevent="selected = selected === 'content-article' ? 'content-job-offer' : 'content-article'">
+                                                    <small
+                                                        x-text="selected === 'content-article' ? 'عرض وظيفة' : 'مقالة'"></small>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
 
                                 </div>
-                                <button type="button" class="btn-close" x-on:click="showCard = false"
-                                    aria-label="Close"></button>
                             </div>
 
                             {{-- card body --}}
@@ -104,11 +91,12 @@
 
                             {{-- card footer --}}
                             <div class="d-flex mt-3 align-items-end justify-content-between">
-                                <div class="me-2 w-100 flex-grow-1">
+                                <div class="w-100 flex-grow-1">
                                     {{-- ignore must be in a parent container --}}
                                     <div wire:ignore>
                                         <select id="multiDropdown" class="form-select"
-                                            data-placeholder="Optional: Add tag(s) to reach more when public" multiple>
+                                            data-placeholder="اختياري: أضف علامة (علامات) للوصول إلى المزيد عند النشر العام"
+                                            multiple>
                                             @foreach ($interests as $key => $interest)
                                                 <option value="{{ $interest->name }}">{{ $interest->name }}
                                                 </option>
@@ -126,19 +114,6 @@
     </div>
 </div>
 
-<style>
-    .form-group {
-        margin-bottom: 0.5rem;
-    }
-
-    .post-card {
-
-        position: fixed;
-        top: 3rem;
-        width: 46%;
-        left: 27%;
-    }
-</style>
 
 @script()
 <script>

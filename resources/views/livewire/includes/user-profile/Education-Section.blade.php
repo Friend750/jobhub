@@ -42,7 +42,7 @@
 
                     @if (auth()->user()->id === $user->id)
                         <div class="right-icon">
-                            <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                            <i class="bi bi-pencil-square py-0 px-1 me-3 btn" data-bs-toggle="modal"
                                 data-bs-target="#EditEducation" x-on:click="oldData({{ $education->id }})"></i>
                         </div>
                     @endif

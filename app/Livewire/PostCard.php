@@ -152,10 +152,14 @@ class PostCard extends Component
         $this->interests = Interest::select('id', 'name')->get();
 
         $this->posts = Post::all()->sortByDesc('created_at');
-        // $this->jopPosts = JobPost::all();
     }
 
-    public $perPage = 15;
+    public $perPage = 5;
+
+    public function loadMore()
+    {
+        $this->perPage += 5;
+    }
 
     public function render()
     {
@@ -228,7 +232,6 @@ class PostCard extends Component
         $allPosts = $jobs->unionAll($posts)
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
-
 
         return view('livewire.post-card', [
             'allPosts' => $allPosts

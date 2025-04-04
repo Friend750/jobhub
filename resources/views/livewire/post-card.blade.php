@@ -9,8 +9,8 @@
         <div class="container gap-3 d-flex justify-content-end col-md-12">
 
 
-            <div class="col-lg-4"></div>
-            <div class="col-lg-5" x-data="postCard(@this)">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6" x-data="postCard(@this)">
 
                 <!-- alert Success message -->
 

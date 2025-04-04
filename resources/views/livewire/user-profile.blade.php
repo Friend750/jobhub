@@ -83,8 +83,8 @@
                                                 isFollowing: @json($isFollowing),
                                                 isRequested: false
                                             }">
-                                           <button class="btn btn-sm"
-                                                   :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')"
+                                           <button class="btn rounded"
+                                                   :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-primary' : 'btn-primary')"
                                                    @click.prevent="
                                                        if (!isRequested) {
                                                            if (isFollowing) {
