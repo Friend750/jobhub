@@ -24,6 +24,8 @@ class Post extends Model
         'views'
     ];
 
+    // protected $withCount = ['likes'];
+
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -77,5 +79,10 @@ class Post extends Model
             ->whereNull('deleted_at')
             ->with(['user' => $this->userWithDetailsScope()]);
 
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

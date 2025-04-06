@@ -2,8 +2,8 @@
 
     <div class="form-group">
         <textarea class="form-control w-100 @error('articleForm.content') is-invalid
-                @enderror" id="postContent"
-            rows="6" placeholder="ماذا تريد أن تتحدث عنه؟" wire:model="articleForm.content"></textarea>
+        @enderror" id="postContent" rows="6" placeholder="ماذا تريد أن تتحدث عنه؟"
+            wire:model="articleForm.content"></textarea>
         @error('articleForm.content')
             <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -45,6 +45,4 @@
         <button class="btn btn-primary rounded" wire:loading.attr="disabled" style="height: fit-content;">
             <span>نشر المقال</span>
         </button>
-    </div>
-
 </form>

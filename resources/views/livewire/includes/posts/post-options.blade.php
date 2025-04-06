@@ -28,7 +28,8 @@
                 </li>
                 @if (auth()->user()->id === $post->user_id)
                     <li class="list-group-item hover_color">
-                        <a href="#" class="text-decoration-none text-danger fw-bold d-flex justify-content-between">
+                        <a class="text-decoration-none text-danger fw-bold d-flex justify-content-between"
+                            style="cursor: pointer" wire:click='deletePost({{ $post->id }})'>
                             <small>حذف المنشور</small>
                             <i class="bi bi-trash"></i>
                         </a>

@@ -43,7 +43,10 @@ class JobPost extends Model
             ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
     }
 
-
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'post_id'); // Adjust foreign key if needed
+    }
     public function scopeForFeed(Builder $query)
     {
         return $query->select([

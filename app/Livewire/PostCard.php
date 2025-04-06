@@ -36,35 +36,35 @@ class PostCard extends Component
     public $selectedInterests = [];
     public $interests;
     public $media; // For the uploaded file (image or video)
-
+    public $user;
     public $posts;
     public $jopPosts;
+    public $isLiked;
 
     public function setAudience($value)
     {
         $this->target = $value;
     }
-
-    public function isExisting($post)
+    public function isExisting($postId)
     {
-        return Like::where('user_id', Auth::user()->id)
-            ->where('post_id', $post->id)
-            ->first();
-    }
-    public function toggleLike($post)
-    {
-        $existingLike = $this->isExisting($post);
-
-        if ($existingLike) {
-            $existingLike->delete();
-        } else {
-            Like::create([
-                'user_id' => Auth::user()->id,
-                'post_id' => $post->id,
-            ]);
-        }
+        return Like::where('user_id', $this->user->id)
+            ->where('post_id', $postId)
+            ->exists();
     }
 
+    public function toggleLike($postId)
+    {
+        $like = Like::firstOrNew([
+            'user_id' => Auth::id(),
+            'post_id' => $postId
+        ]);
+
+        $like->exists ? $like->delete() : $like->save();
+
+        return Like::where('post_id', $postId)->count(); // Most efficient count
+    }
+
+    
     public function createComment($post, $content)
     {
         $this->validate([
@@ -135,8 +135,8 @@ class PostCard extends Component
     public function SubmitArticleForm()
     {
         $this->articleForm->submit($this->selectedInterests, $this->target);
+        $this->dispatch('article-posted');
 
-        $this->dispatch('article-posted', ['message' => 'Article posted successfully']);
     }
     public function SubmitJobOfferForm()
     {
@@ -145,12 +145,17 @@ class PostCard extends Component
         $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }
 
+    public function deletePost(Post $post)
+    {
+        $post->delete();
+        session()->flash('message', 'Post deleted successfully.');
+    }
     public function mount()
     {
         $this->showCard = false;
         $this->selected = 'content-article';
         $this->interests = Interest::select('id', 'name')->get();
-
+        $this->user = Auth::user();
         $this->posts = Post::all()->sortByDesc('created_at');
     }
 
@@ -168,7 +173,7 @@ class PostCard extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-            
+
         return view('livewire.post-card', [
             'allPosts' => $allPosts
         ]);

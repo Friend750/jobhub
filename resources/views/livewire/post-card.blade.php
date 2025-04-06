@@ -12,14 +12,15 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6" x-data="postCard(@this)">
 
-                <!-- alert Success message -->
 
-                <div x-show="message" x-cloak class="alert alert-success alert-dismissible mt-0 rounded fade show">
+                @include('livewire.includes.post-card.create-post-card')
+
+                <!-- Alert Success message -->
+                <div x-show="message" x-transition x-cloak
+                    class="alert alert-success alert-dismissible mb-3 rounded fade show">
+                    <button type="button" x-on:click="hideAlert()" class="btn-close" aria-label="إغلاق"></button>
                     <span x-text="message"></span>
-                    <button type="button" x-on:click="message =''" class="btn-close" aria-label="Close"></button>
                 </div>
-
-                @include('livewire.includes.post-card.create-post-card', ['showCard' => 'showCard'])
 
                 @include('livewire.includes.posts.post')
             </div>
@@ -42,27 +43,42 @@
         Alpine.data('postCard', (wire) => ({
             showCard: false,
             message: '',
+            showAlert: false,
+            isProcessing: false,
+
             toggleBodyScroll() {
                 document.body.style.overflow = this.showCard ? 'hidden' : '';
             },
+
             resetWhenClose() {
                 if (!this.showCard) {
                     wire.resetAllForms();
                 }
             },
-            handleEvent(data) {
-                this.message = data[0].message;
-                this.showCard = false;
-                setTimeout(() => this.message = '', 3000);
+
+            hideAlert() {
+                this.showAlert = false;
+                this.message = '';
             },
+
+            // For processing completion
+            handleProcessingComplete() {
+                console.log('Processing completed');
+                this.showCard = false,
+                    this.isProcessing = false,
+                    this.message = 'Post completed successfully!';
+                // setTimeout(() => this.hideAlert(), 3000);
+            },
+
             init() {
                 this.$watch('showCard', () => this.toggleBodyScroll());
                 this.$watch('showCard', () => this.resetWhenClose());
-                // Listen for the 'article-posted' event
-                Livewire.on('article-posted', (data) => this.handleEvent(data));
+
+                // Listen for the 'article-posted' event (completion)
+                Livewire.on('article-posted', () => this.handleProcessingComplete());
 
                 // Listen for the 'job-offer-posted' event
-                Livewire.on('job-offer-posted', (data) => this.handleEvent(data));
+                Livewire.on('job-offer-posted', (data) => this.handleProcessingComplete(data));
             }
         }));
     });
