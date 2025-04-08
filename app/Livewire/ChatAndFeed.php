@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\ConnectionTrait;
 use App\Models\Connection;
 use App\Models\Conversation;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Livewire\Component;
 
 class ChatAndFeed extends Component
 {
+    use ConnectionTrait;
 
     public $chats;
     public $suggestions;
@@ -51,29 +53,7 @@ class ChatAndFeed extends Component
             ->toArray();
     }
 
-    public function unFollow($connectionId)
-    {
-        Connection::where('follower_id', $connectionId)
-            ->where('following_id', Auth::id())
-            ->delete();
 
-
-        $this->dispatch('connectionUpdated');
-    }
-
-
-    public function follow($connectionId)
-    {
-
-        $receiver = User::find($connectionId);
-        Connection::create([
-            'follower_id' => $connectionId,
-            'following_id' => Auth::id(),
-            'is_accepted' => 0
-        ]);
-        $receiver->notify(new Request(Auth::user(), $receiver));
-
-    }
 
     public function loadSuggestions()
     {
@@ -98,23 +78,6 @@ class ChatAndFeed extends Component
             ->get();
 
 
-    }
-
-
-    public function getFollowStatus($userId)
-    {
-        $connection = Connection::where('follower_id', $userId)
-            ->where('following_id', Auth::id())
-            ->first();
-
-        return [
-            'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
-            'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
-        ];
-    }
-    public function showUser($id)
-    {
-        return redirect()->route('user-profile', $id);
     }
 
 

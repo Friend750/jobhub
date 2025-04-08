@@ -9,10 +9,12 @@ use App\Notifications\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
+use App\Livewire\Traits\ConnectionTrait;
 use Livewire\Component;
 
 class Search extends Component
 {
+    use ConnectionTrait;
     #[Title('Search')]
     public $paginateVarPeople = 5;
     public $paginateVarCompanies = 5;
@@ -68,70 +70,6 @@ class Search extends Component
     }
 
 
-    public function unFollow($connectionId)
-    {
-        Connection::where('follower_id', $connectionId)
-        ->where('following_id', Auth::id())
-        ->delete();
-
-        $this->dispatch('connectionUpdated');
-    }
-
-    public function follow($connectionId)
-    {
-
-        $receiver = User::find($connectionId);
-        Connection::create([
-            'follower_id' => $connectionId,
-            'following_id' => Auth::id(),
-            'is_accepted' => 0
-        ]);
-        $receiver->notify(new Request(Auth::user(),$receiver));
-
-    }
-
-
-    public function getFollowStatus($userId)
-{
-    $connection = Connection::where('follower_id', $userId)
-    ->where('following_id', Auth::id())
-    ->first();
-
-
-    return [
-        'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
-        'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
-    ];
-}
-
-
-
-public function startConversation($userId)
-{
-    $conversation = Conversation::where(function ($query) use ($userId) {
-        $query->where('first_user', Auth::id())
-              ->where('second_user', $userId);
-    })
-    ->orWhere(function ($query) use ($userId) {
-        $query->where('first_user', $userId)
-              ->where('second_user', Auth::id());
-    })
-    ->first();
-
-if (!$conversation) {
-    // إذا لم تكن المحادثة موجودة، قم بإنشائها
-    $conversation = Conversation::create([
-        'first_user' => Auth::id(),
-        'second_user' => $userId,
-    ]);
-}
-    // التوجيه إلى شاشة المحادثة
-        return redirect()->route('chat', ['conversationId' => $conversation->id]);
-}
-
-public function showUser($id){
-    return redirect()->route('user-profile', $id);
-}
     public function render()
     {
         return view('livewire.search');
