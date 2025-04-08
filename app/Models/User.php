@@ -64,6 +64,12 @@ class User extends Authenticatable
             ->where('type', '!=', 'company');
     }
 
+    public function acceptedAllFollowers()
+    {
+        return $this->followers()
+            ->wherePivot('is_accepted', 1);
+    }
+
     public function acceptedFollowings()
     {
         return $this->followings()
@@ -78,6 +84,7 @@ public function companies()
         ->where('type', 'company')
         ->withPivot('is_accepted');
 }
+
 
 
 

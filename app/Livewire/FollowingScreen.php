@@ -9,26 +9,16 @@ use Livewire\Component;
 use App\Models\Experience;
 use App\Notifications\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Livewire\Traits\ConnectionTrait;
 
 class FollowingScreen extends Component
 {
+    use ConnectionTrait;
     #[Title('Following')]
     public $followings;
 
 
-    public function getFollowStatus($userId)
-{
-    $connection = Connection::where('follower_id', $userId)
-    ->where('following_id', Auth::id())
-    ->first();
 
-
-    return [
-        'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
-        'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
-    ];
-}
 
 public function mount()
 {
@@ -43,32 +33,6 @@ public function mount()
             'user_image' => $follower->user_image ?? null,
         ];
     });
-}
-
-public function unFollow($connectionId)
-{
-    Connection::where('follower_id', $connectionId)
-    ->where('following_id', Auth::id())
-    ->delete();
-
-    $this->dispatch('connectionUpdated');
-}
-
-
-public function follow($connectionId)
-{
-
-    $receiver = User::find($connectionId);
-    Connection::create([
-        'follower_id' => $connectionId,
-        'following_id' => Auth::id(),
-        'is_accepted' => 0
-    ]);
-    $receiver->notify(new Request(Auth::user(),$receiver));
-
-}
-public function showUser($id){
-    return redirect()->route('user-profile', $id);
 }
 
 

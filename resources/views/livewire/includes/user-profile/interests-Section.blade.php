@@ -15,85 +15,75 @@
 
             <div class="tab-pane fade show active" id="companies" role="tabpanel" aria-labelledby="companies-tab">
                 <div class="row mt-3">
-                    <div class="col-md-6 mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-
-                            <div class="d-flex align-items-start justify-content-start gap-2">
-                                <img src="https://ui-avatars.com/api/?name=User" loading="lazy" class="rounded-circle"
-                                    alt="Company Logo">
-                                <div>
-                                    <h6 class="mb-0">Lorem ipsum dolor sit</h6>
-                                    <small class="text-muted">10k followers</small>
-                                    <div class="mt-1">
-                                        <span class="badge bg-light text-dark border btn">تتم المتابعة</span>
+                    @foreach ($topCompanies as $company)
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ route('user-profile', $company->id) }}" class="text-decoration-none text-dark">
+                                <div class="d-flex align-items-start justify-content-start gap-2">
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company->user_name) }}"  loading="lazy"
+                                    class="rounded-circle"
+                                    alt="{{ $company->user_name }}"
+                                    width="40"
+                                    height="40"
+                                        alt="{{ $company->user_name }}">
+                                    <div>
+                                        <h6 class="mb-0">{{ $company->name }}</h6>
+                                        <small class="text-muted">{{ number_format($company->accepted_all_followers_count) }} followers</small>
+                                        <div class="mt-1">
+                                            <span class="badge bg-light text-dark border btn">تتم المتابعة</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
+                        </div>
+                    @endforeach
 
-                        </a>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-
-                            <div class="d-flex align-items-start justify-content-start gap-2">
-                                <img src="https://ui-avatars.com/api/?name=User" loading="lazy" class="rounded-circle"
-                                    alt="Company Logo">
-                                <div>
-                                    <h6 class="mb-0">Lorem ipsum dolor sit</h6>
-                                    <small class="text-muted">122k followers</small>
-                                    <div class="mt-1">
-                                        <span class="badge bg-light text-dark border btn">تتم المتابعة</span>
-                                    </div>
-                                </div>
-                            </div>
-
+                    <div class="text-center mt-3 position-relative">
+                        <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
+                        <a href="{{ route('CompaniesScreen') }}" class="text-decoration-none">
+                            <strong class="text-dark">إظهار الكل</strong>
                         </a>
                     </div>
                 </div>
             </div>
+
 
             <div class="tab-pane fade" id="connections" role="tabpanel" aria-labelledby="connections-tab">
                 <div class="row mt-3">
-                    <div class="col-md-6 mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-
-                            <div class="d-flex align-items-start justify-content-start gap-2">
-                                <img src="https://ui-avatars.com/api/?name=User" loading="lazy" class="rounded-circle"
-                                    alt="Company Logo">
-                                <div>
-                                    <h6 class="mb-0">connection 1</h6>
-                                    <div class="mt-1">
-                                        <span class="badge bg-light text-dark border btn">يتابع</span>
+                    @foreach($topUsers as $user)
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ route('user-profile', $user->id) }}" class="text-decoration-none text-dark">
+                                <div class="d-flex align-items-start justify-content-start gap-2">
+                                    <!-- Use the user's actual avatar if available, fallback to UI avatars -->
+                                    <img
+                                        src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+                                        loading="lazy"
+                                        class="rounded-circle"
+                                        alt="{{ $user->user_name }}"
+                                        width="40"
+                                        height="40"
+                                    >
+                                    <div>
+                                        <h6 class="mb-0">{{ $user->user_name}}</h6>
+                                        <div class="mt-1">
+                                            <span class="badge bg-light text-dark border btn">
+                                                {{ $user->accepted_all_followers_count }} متابع
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <a href="#" class="text-decoration-none text-dark">
-
-                            <div class="d-flex align-items-start justify-content-start gap-2">
-                                <img src="https://ui-avatars.com/api/?name=User" loading="lazy" class="rounded-circle"
-                                    alt="Company Logo">
-                                <div>
-                                    <h6 class="mb-0">connection 2</h6>
-                                    <div class="mt-1">
-                                        <span class="badge bg-light text-dark border btn">يتابع</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="text-center mt-3 position-relative">
+                    <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
+                    <a href="{{ route('FollowingsScreen') }}" class="text-decoration-none"><strong class="text-dark">إظهار الكل
+                        </strong>
+                    </a>
                 </div>
             </div>
-
         </div>
 
-        <div class="text-center mt-3 position-relative">
-            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-            <a href="#" class="text-decoration-none"><strong class="text-dark">إظهار الكل
-                </strong>
-            </a>
-        </div>
+
     </div>
 </div>

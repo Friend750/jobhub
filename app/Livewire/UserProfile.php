@@ -9,6 +9,7 @@ use App\Livewire\Forms\ProfessionalSummaryForm;
 use App\Livewire\Forms\ProjectsForm;
 use App\Livewire\Forms\SkillsForm;
 use App\Livewire\Forms\WebsitesLinksForm;
+use App\Livewire\Traits\ConnectionTrait;
 use App\Models\Connection;
 use App\Models\Conversation;
 use App\Models\Course;
@@ -30,6 +31,7 @@ use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 
 class UserProfile extends Component
 {
+    use ConnectionTrait;
     use WithFileUploads;
     #[Title('Profile')]
 
@@ -46,6 +48,55 @@ class UserProfile extends Component
     // public $selectedSkillName;
     public $languages;
     public $availableLanguages;
+
+    public $topUsers;
+    public $topCompanies;
+
+    public function mount($id = 0)
+    {
+
+        $this->topUsers = $this->getTopFollowedUsers();
+        $this->topCompanies = $this->getTopFollowedCompanies();
+        // $this->skills = Skill::all()->toArray();
+        $this->user = User::find(Auth::user()->id);
+        if ($id != 0) {
+            $this->user = User::findOrFail($id);
+        }
+
+        $this->skills = $this->user->skills()
+            ->get()
+            ->toArray();
+        $this->availableSkills = $this->getAvailableSkills();
+
+        $this->languages = $this->user->languages()->get()->toArray();
+        $this->availableLanguages = $this->getAvailableLanguages();
+
+        $this->experiences = $this->user->Experiences;
+        $this->projects = $this->user->Projects;
+        $this->educations = $this->user->Educations;
+        $this->courses = $this->user->Courses;
+    }
+
+    private function getTopFollowedUsers()
+{
+    return Auth::user()
+        ->acceptedFollowers()
+        ->withCount('acceptedAllFollowers')
+        ->orderByDesc('accepted_all_followers_count')
+        ->take(2)
+        ->get();
+}
+
+private function getTopFollowedCompanies()
+{
+    return Auth::user()
+        ->companies()
+        ->withCount('acceptedAllFollowers')
+        ->orderByDesc('accepted_all_followers_count')
+        ->take(2)
+        ->get();
+}
+
 
     public function updatedProfilePicture()
     {
@@ -261,86 +312,7 @@ class UserProfile extends Component
     public $projects;
     public $educations;
     public $courses;
-    public function mount($id = 0)
-    {
-        // $this->skills = Skill::all()->toArray();
-        $this->user = User::find(Auth::user()->id);
-        if ($id != 0) {
-            $this->user = User::findOrFail($id);
-        }
 
-        $this->skills = $this->user->skills()
-            ->get()
-            ->toArray();
-        $this->availableSkills = $this->getAvailableSkills();
-
-        $this->languages = $this->user->languages()->get()->toArray();
-        $this->availableLanguages = $this->getAvailableLanguages();
-
-        $this->experiences = $this->user->Experiences;
-        $this->projects = $this->user->Projects;
-        $this->educations = $this->user->Educations;
-        $this->courses = $this->user->Courses;
-    }
-
-    public function getFollowStatus($userId)
-    {
-        $connection = Connection::where('follower_id', $userId)
-        ->where('following_id', Auth::id())
-        ->first();
-
-
-        return [
-            'isFollowing' => $connection && $connection->is_accepted == 1, // Active following
-            'isRequested' => $connection && $connection->is_accepted == 0, // Pending request
-        ];
-    }
-
-    public function unFollow($connectionId)
-{
-    Connection::where('follower_id', $connectionId)
-    ->where('following_id', Auth::id())
-    ->delete();
-
-    $this->dispatch('connectionUpdated');
-}
-
-
-public function follow($connectionId)
-{
-
-    $receiver = User::find($connectionId);
-    Connection::create([
-        'follower_id' => $connectionId,
-        'following_id' => Auth::id(),
-        'is_accepted' => 0
-    ]);
-    $receiver->notify(new Request(Auth::user(),$receiver));
-
-}
-
-public function startConversation($userId)
-{
-    $conversation = Conversation::where(function ($query) use ($userId) {
-        $query->where('first_user', Auth::id())
-              ->where('second_user', $userId);
-    })
-    ->orWhere(function ($query) use ($userId) {
-        $query->where('first_user', $userId)
-              ->where('second_user', Auth::id());
-    })
-    ->first();
-
-if (!$conversation) {
-    // إذا لم تكن المحادثة موجودة، قم بإنشائها
-    $conversation = Conversation::create([
-        'first_user' => Auth::id(),
-        'second_user' => $userId,
-    ]);
-}
-    // التوجيه إلى شاشة المحادثة
-        return redirect()->route('chat', ['conversationId' => $conversation->id]);
-}
     public function render()
     {
         return view('livewire.user-profile');
