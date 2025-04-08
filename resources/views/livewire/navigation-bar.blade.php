@@ -8,13 +8,6 @@
             @livewire('searchbar')
         </div>
 
-        @if (auth()->user()->type === 'admin')
-            <div class="dashboard-link">
-                <a href="/dashboard" class="nav-link d-flex align-items-center alert alert-success p-0 px-2 m-0">
-                    <span>{{ __('general.admin') }}</span>
-                </a>
-            </div>
-        @endif
 
         <div class="nav-right">
             <div class="navbar-icons ms-auto">

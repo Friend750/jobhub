@@ -83,8 +83,8 @@
                                                 isFollowing: @json($isFollowing),
                                                 isRequested: false
                                             }">
-                                           <button class="btn btn-sm"
-                                                   :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')"
+                                           <button class="btn rounded"
+                                                   :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-primary' : 'btn-primary')"
                                                    @click.prevent="
                                                        if (!isRequested) {
                                                            if (isFollowing) {
@@ -159,6 +159,56 @@
                         </div>
                     </div>
                 </div>
+
+                <button type="button" class="btn btn-primary mb-3" id="liveToastBtn">Show live toast</button>
+
+                <div class="toast-container position-fixed position-static bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                        <div class="toast-body">
+                            Hello, world! This is a toast message.
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div id="liveToast2" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                        <div class="toast-body">
+                            Hello, world! This is a toast message.
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div id="liveToast3" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="d-flex">
+                        <div class="toast-body">
+                            Hello, world! This is a toast message.
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    const toastTrigger = document.getElementById('liveToastBtn')
+                    const toastLiveExample = document.getElementById('liveToast')
+                    const toastLiveExample2 = document.getElementById('liveToast2')
+                    const toastLiveExample3 = document.getElementById('liveToast3')
+
+                    if (toastTrigger) {
+                        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                        const toastBootstrap2 = bootstrap.Toast.getOrCreateInstance(toastLiveExample2)
+                        const toastBootstrap3 = bootstrap.Toast.getOrCreateInstance(toastLiveExample3)
+                        toastTrigger.addEventListener('click', () => {
+                            toastBootstrap.show()
+                            toastBootstrap2.show()
+                            toastBootstrap3.show()
+                        })
+                    }
+                </script>
+
+
+
 
                 @error('profilePicture')
                     <span class="alert alert-danger d-flex flex-wrap w-100">{{ $message }}</span>

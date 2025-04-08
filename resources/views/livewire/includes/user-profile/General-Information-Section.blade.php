@@ -22,7 +22,7 @@
     aria-labelledby="modalTitleId" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header d-flex justify-content-between">
                 <h5 class="modal-title" id="modalTitleId">
                     General Information
                 </h5>

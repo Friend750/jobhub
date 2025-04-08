@@ -16,7 +16,7 @@
                                 {{ $experience->end_date->format('M Y') ?? 'Present' }}
                             </strong>
                             @if (auth()->user()->id === $user->id)
-                                <i class="bi bi-pencil-square py-0 px-1 ms-3 btn" data-bs-toggle="modal"
+                                <i class="bi bi-pencil-square py-0 px-1 me-3 btn" data-bs-toggle="modal"
                                     data-bs-target="#EditExperience" x-on:click="oldData({{ $experience->id }})"></i>
                             @endif
 

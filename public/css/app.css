@@ -78,6 +78,9 @@ body {
     width: 40px;
 }
 
+.text-bg-primary{
+    background-color: #2B6DAE !important;
+}
 
 /*
 black

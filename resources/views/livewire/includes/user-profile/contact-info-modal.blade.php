@@ -6,7 +6,6 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Contact Information</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="modal-body">

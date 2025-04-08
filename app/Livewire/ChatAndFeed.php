@@ -27,55 +27,55 @@ class ChatAndFeed extends Component
     {
 
 
-        $this->chats =  Conversation::with([
-                    'firstUser:id,user_name,user_image',
-                    'secondUser:id,user_name,user_image'
-                ])
-                ->where(function ($query) {
-                    $query->where('first_user',  Auth::id())
-                        ->orWhere('second_user',  Auth::id());
-                })
-                ->orderBy('updated_at', 'asc')
-                ->take(3)
-                ->get(['id', 'first_user', 'second_user', 'last_message'])
-                ->map(function ($conversation) {
-                    $otherUser =  Auth::id() === $conversation->first_user
-                        ? $conversation->secondUser
-                        : $conversation->firstUser;
+        $this->chats = Conversation::with([
+            'firstUser:id,user_name,user_image',
+            'secondUser:id,user_name,user_image'
+        ])
+            ->where(function ($query) {
+                $query->where('first_user', Auth::id())
+                    ->orWhere('second_user', Auth::id());
+            })
+            ->orderBy('updated_at', 'asc')
+            ->take(3)
+            ->get(['id', 'first_user', 'second_user', 'last_message'])
+            ->map(function ($conversation) {
+                $otherUser = Auth::id() === $conversation->first_user
+                    ? $conversation->secondUser
+                    : $conversation->firstUser;
 
-                    return [
-                        'id' => $conversation->id,
-                        'name' => $otherUser->user_name,
-                        'last_message' => $conversation->last_message,
-                        'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
-                    ];
-                })
-                ->toArray();
+                return [
+                    'id' => $conversation->id,
+                    'name' => $otherUser->user_name,
+                    'last_message' => $conversation->last_message,
+                    'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
+                ];
+            })
+            ->toArray();
     }
 
 
 
     public function loadSuggestions()
     {
-       // الحصول على المستخدم المصادق
-    $user = Auth::user();
+        // الحصول على المستخدم المصادق
+        $user = Auth::user();
 
-    // الحصول على اهتمامات المستخدم
-    $userInterests = $user->interests;
+        // الحصول على اهتمامات المستخدم
+        $userInterests = $user->interests;
 
-    $this->suggestions = User::where('id', '!=', $user->id)
-    ->where(function ($query) use ($userInterests) {
-        foreach ($userInterests as $interest) {
-            $query->orWhereJsonContains('interests', $interest);
-        }
-    })
-    ->whereDoesntHave('connections', function ($query) use ($user) {
-        $query->where('following_id', $user->id);
-    })
-    ->with('personal_details')
-    ->orderBy('views', 'desc')
-    ->take(3)
-    ->get();
+        $this->suggestions = User::where('id', '!=', $user->id)
+            ->where(function ($query) use ($userInterests) {
+                foreach ($userInterests as $interest) {
+                    $query->orWhereJsonContains('interests', $interest);
+                }
+            })
+            ->whereDoesntHave('connections', function ($query) use ($user) {
+                $query->where('following_id', $user->id);
+            })
+            ->with('personal_details')
+            ->orderBy('views', 'desc')
+            ->take(3)
+            ->get();
 
 
     }
