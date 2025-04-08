@@ -32,10 +32,20 @@ class User extends Authenticatable
         'email_verified_at'
     ];
     public function posts()
-{
-    return $this->hasMany(Post::class);
-}
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+    }
 
+    public function likesPost( $post)
+    {
+        return $this->likes()
+            ->where('post_id', $post->id)
+            ->exists();
+    }
 
     public function scopeSearch($query, $value)
     {
@@ -72,12 +82,12 @@ class User extends Authenticatable
     }
 
 
-public function companies()
-{
-    return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
-        ->where('type', 'company')
-        ->withPivot('is_accepted');
-}
+    public function companies()
+    {
+        return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
+            ->where('type', 'company')
+            ->withPivot('is_accepted');
+    }
 
 
 
