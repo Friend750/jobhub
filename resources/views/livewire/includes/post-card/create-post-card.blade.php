@@ -23,8 +23,11 @@
                             <div class="mb-3 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-end gap-2">
                                     <div class="d-flex gap-1">
-                                        <img src="{{asset('storage/' . auth()->user()->user_image) ?? 'https://ui-avatars.com/api/?name=User' }}"
-                                            alt="User" class="rounded-circle" style="height: 50px; width: 50px;">
+                                        <img src="{{ $user->user_image
+                                        ? (strpos($user->user_image, 'googleusercontent.com') !== false
+                                            ? $user->user_image
+                                            : asset('storage/' . $user->user_image))
+                                        : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}" class="rounded-circle" style="height: 50px; width: 50px;">
 
                                         <div class="d-flex flex-column gap-1">
 
