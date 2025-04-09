@@ -50,8 +50,8 @@
                 @includeWhen($post->type == 'post' && $post->post_image, 'livewire.includes.posts.post-media')
 
                 <div class="buttom-content p-3">
-                    @includeWhen($post->type == 'post', 'livewire.includes.posts.interactions')
-                    @includeWhen($post->type == 'post', 'livewire.includes.post-card.comments')
+                    @includeWhen(true, 'livewire.includes.posts.interactions')
+                    @includeWhen(true, 'livewire.includes.post-card.comments')
                 </div>
             </div>
         </div>

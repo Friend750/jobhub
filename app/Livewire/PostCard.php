@@ -13,7 +13,6 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Like;
 use App\Models\ReplyComment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -45,26 +44,19 @@ class PostCard extends Component
     {
         $this->target = $value;
     }
-    public function isExisting($postId)
+
+    public function likePost(Post $post)
     {
-        return Like::where('user_id', $this->user->id)
-            ->where('post_id', $postId)
-            ->exists();
+        $liker = $this->user;
+        $liker->likes()->attach($post->id);
     }
 
-    public function toggleLike($postId)
+    public function unlikePost(Post $post)
     {
-        $like = Like::firstOrNew([
-            'user_id' => Auth::id(),
-            'post_id' => $postId
-        ]);
-
-        $like->exists ? $like->delete() : $like->save();
-
-        return Like::where('post_id', $postId)->count(); // Most efficient count
+        $liker = $this->user;
+        $liker->likes()->detach($post->id);
     }
 
-    
     public function createComment($post, $content)
     {
         $this->validate([
@@ -150,6 +142,13 @@ class PostCard extends Component
         $post->delete();
         session()->flash('message', 'Post deleted successfully.');
     }
+    public $perPage = 10;
+
+    public function loadMore()
+    {
+        $this->perPage += 10;
+    }
+
     public function mount()
     {
         $this->showCard = false;
@@ -157,13 +156,6 @@ class PostCard extends Component
         $this->interests = Interest::select('id', 'name')->get();
         $this->user = Auth::user();
         $this->posts = Post::all()->sortByDesc('created_at');
-    }
-
-    public $perPage = 5;
-
-    public function loadMore()
-    {
-        $this->perPage += 5;
     }
 
     public function render()

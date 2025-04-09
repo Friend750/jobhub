@@ -24,7 +24,6 @@ class Post extends Model
         'views'
     ];
 
-    // protected $withCount = ['likes'];
 
     public function creator()
     {
@@ -43,6 +42,11 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function likes(){
+        return $this->belongsToMany(User::class,'post_like')->withTimestamps();
+    }
+
     public function personalDetails()
     {
         return $this->hasOneThrough(
@@ -81,8 +85,4 @@ class Post extends Model
 
     }
 
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
 }
