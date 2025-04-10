@@ -31,6 +31,19 @@ class User extends Authenticatable
         'google_id',
         'email_verified_at'
     ];
+
+    public function fullName()
+    {
+        $firstName = $this->personal_details->first_name ?? '';
+        $lastName = $this->personal_details->last_name ?? '';
+
+        if ($firstName === '' && $lastName === '') {
+            return '';
+        }
+
+        return $firstName . ' ' . $lastName;
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);

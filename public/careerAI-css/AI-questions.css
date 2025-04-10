@@ -1,0 +1,47 @@
+.card {
+    width: 600px;
+    margin: auto;
+    /* margin-top: 100px; */
+    padding: 30px;
+    border-radius: 15px;
+    /* box-shadow: 0 4px 10px rgb(255, 162, 162); */
+    border: none;
+    animation: colorfulShadow 3s infinite alternate ease-in-out;
+}
+
+@keyframes colorfulShadow {
+    0% {
+        box-shadow:
+            0 4px 20px rgba(12, 124, 253, 0.13);
+    }
+
+    100% {
+        box-shadow:
+            0 4px 20px rgba(0, 89, 255, 0.4);
+        /* Green shadow */
+    }
+}
+
+.textarea-container {
+    position: relative;
+
+}
+
+.textarea-container textarea {
+    width: 100%;
+    padding-bottom: 60px;
+    height: fit-content;
+    box-sizing: border-box;
+    resize: none;
+    overflow: hidden;
+}
+
+.textarea-container button {
+    position: absolute;
+    right: 10px;
+    bottom: 35px;
+    height: 40px;
+    width: 80px;
+}
+
+

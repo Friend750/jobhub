@@ -20,10 +20,10 @@
                          @click="fetch(`/users/{{ $following['id'] }}/ping`, { method: 'GET' })"
                          wire:click='showUser({{ $following['id'] }})'>
                         <!-- Default image -->
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($following['user_name']) }}"
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($following['name']) }}"
                              alt="Logo" class="rounded-circle ms-2" width="40">
                         <div class="ms-3">
-                            <strong>{{ $following['user_name'] }}</strong>
+                            <strong>{{ $following['name'] }}</strong>
                             <div class="text-muted">{{ $following['position'] ?? __('general.position') }}</div>
                         </div>
                     </div>

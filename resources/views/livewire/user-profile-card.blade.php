@@ -53,8 +53,8 @@
 
 
     <div class="my-2 text-center ">
-        <h5 class="mb-0">{{ $user->personal_details->first_name ?? 'first name' }}
-            {{ $user->personal_details->last_name ?? 'last name' }}
+        <h5 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
+            {{ $user->personal_details->last_name ?? '' }}
         </h5>
         <span class="badge bg-secondary text-light"
             style="width: fit-content">{{ $user->user_name ?? __('general.user_name') }}</span>
@@ -74,6 +74,16 @@
             </span>
             <i class="fas fa-language"></i>
         </a>
+
+        <a href="{{route('welcomeCareerAI')}}"
+        class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+        <span class="fw-medium">
+            {{ __('general.careerAI') }}
+        </span>
+        <i class="fas fa-user-tie"></i>
+
+
+    </a>
 
         @guest
             <!-- Login -->

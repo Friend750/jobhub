@@ -23,16 +23,14 @@
                                     ? (strpos($user->user_image, 'googleusercontent.com') !== false
                                         ? $user->user_image
                                         : asset('storage/' . $user->user_image))
-                                    : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+                                    : 'https://ui-avatars.com/api/?name=' . urlencode($user->fullName()) }}"
                                                     class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"
                                                     alt="{{ $user->user_name }}">
                                                 <div class="text-end" style="min-width: 0; flex: 1 1 auto;">
                                                     <div class="fw-bold text-truncate" style="max-width: 200px;">
-                                                        {{ $user->personal_details->first_name ?? 'first name' }}
-                                                        {{ $user->personal_details->last_name ?? 'last name' }}
+                                                        {{ $user->personal_details->first_name ?? '' }}
+                                                        {{ $user->personal_details->last_name ?? '' }}
                                                     </div>
-                                                    <small class="d-block text-truncate"
-                                                        style="max-width: 200px;">{{ $user->user_name }}</small>
                                                     <small class="d-block">
                                                         {{ $user->personal_details->specialist ?? ''}}
                                                     </small>

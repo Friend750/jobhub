@@ -19,8 +19,13 @@ class Searchbar extends Component
     {
         if (strlen($this->query) > 1) {
             $this->results = User::query()
-                ->Where('user_name', 'LIKE', '%' . $this->query . '%')
-                ->orderByDesc('views') // تأكد من وجود حقل views_count في جدول المستخدمين
+                ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+                ->where(function ($query) {
+                    $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
+                          ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
+                })
+                ->orderByDesc('views') // Make sure `views` column is in the users table
+                ->select('users.*') // Make sure to select users' fields only
                 ->take(4)
                 ->get();
 
@@ -29,6 +34,7 @@ class Searchbar extends Component
             $this->results = [];
             $this->showDropdown = false;
         }
+
     }
 
     public function selectUser($userId)

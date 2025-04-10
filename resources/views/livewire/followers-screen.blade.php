@@ -12,9 +12,9 @@
             <div class="d-flex justify-content-between align-items-center border-bottom py-2 position-relative">
                 <div class="d-flex align-items-center" style="cursor: pointer;">
                     <!-- Default avatar image -->
-                    <img src="https://ui-avatars.com/api/?name=Image" alt="Logo" class="rounded-circle ms-2" width="40">
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($follower['name']) }}" alt="Logo" class="rounded-circle ms-2" width="40">
                     <div class="ms-3">
-                        <strong>{{ $follower['user_name'] }}</strong>
+                        <strong>{{ $follower['name'] }}</strong>
                         <div class="text-muted">{{ $follower['position'] ?? __('general.position') }}</div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@
                                 <img src="https://ui-avatars.com/api/?name={{ urlencode($chat['profile']) }}" alt="User"
                                     class="rounded-circle ms-2 sm-img">
                                 <div>
-                                    <strong>{{ $chat['name'] }}</strong>
+                                    <strong>{{ $chat['full_name'] }}</strong>
                                     <p class="text-muted small mb-0 truncate-text">{{ $chat['last_message'] }}</p>
                                 </div>
                             </div>
@@ -43,17 +43,17 @@
                             @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
                             wire:click='showUser({{ $suggestion['id'] }})'>
                             <!-- User Image -->
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion['user_name']) }}" alt="User Image"
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion->fullName()) }}" alt="User Image"
                                 class="rounded-circle ms-2 mt-1 sm-img">
                             <div class="d-flex flex-column">
                                 <div class="flex-grow-1">
                                     <!-- User Name -->
                                     <a href="#" class="text-dark font-weight-bold text-decoration-none">
-                                        <strong>{{ $suggestion['user_name'] }}</strong>
+                                        <strong>{{ $suggestion->fullName() }}</strong>
                                     </a>
                                     <!-- Professional Summary -->
                                     <p class="text-muted small mb-0 truncate-text">
-                                        {{ $suggestion->personal_details['professional_summary'] ?? 'No professional summary available.' }}
+                                        {{ $suggestion->personal_details['specialist'] ?? 'No specialist available' }}
                                     </p>
                                 </div>
                                 @php
@@ -104,9 +104,4 @@
     </style>
 </div>
 
-<script>
-    document.querySelectorAll(".truncate-text").forEach(element => {
-        let text = element.textContent;
-        element.textContent = text.length > 30 ? text.substring(0, 30) + "..." : text;
-    });
-</script>
+

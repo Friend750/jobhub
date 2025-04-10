@@ -45,9 +45,9 @@ class ChatAndFeed extends Component
 
                 return [
                     'id' => $conversation->id,
-                    'name' => $otherUser->user_name,
                     'last_message' => $conversation->last_message,
                     'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
+                    'full_name' =>  $otherUser->fullName(),
                 ];
             })
             ->toArray();

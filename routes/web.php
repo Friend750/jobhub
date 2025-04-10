@@ -5,6 +5,14 @@ use App\Livewire\ChatAndFeed;
 use App\Livewire\Dashboard\UsersTable;
 use App\Livewire\PostCard;
 
+use App\Livewire\CareerAI\AiQuestions;
+use App\Livewire\CareerAI\GenerateQuestines;
+use App\Livewire\CareerAI\Questionnaire;
+use App\Livewire\CareerAI\ReportsAnalysis;
+use App\Livewire\CareerAI\UplaodJobProfile;
+
+use App\Livewire\CareerAI\Welcome;
+use App\Livewire\CareerAI\CongratsAnalys;
 use App\Livewire\UserProfile;
 use Illuminate\Support\Str;
 use App\Livewire\CompanyList;
@@ -115,6 +123,14 @@ Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->grou
     Route::get('/posts', PostCard::class)->name("post");
     Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
     Route::get('/notifications', Notifications::class)->name("notifications");
+
+Route::get('/welcomeCareerAI', Welcome::class)->name('welcomeCareerAI');
+Route::get('/interview_type', GenerateQuestines::class)->name('generateQuestines');
+Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
+Route::get('/AI_questions', AiQuestions::class)->name('AiQuestions');
+Route::get('/Uplaod_Job_Profile', UplaodJobProfile::class)->name('Uplaod_Job_Profile');
+Route::get('/ReportsAnalysis', ReportsAnalysis::class)->name('ReportsAnalysis');
+Route::get('/cong', CongratsAnalys::class)->name('cong');
 });
 
 

@@ -1,0 +1,94 @@
+.card {
+    transition: all 0.3s;
+    margin: 10px;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 40%;
+    margin: auto;
+    height: auto;
+}
+
+.container {
+    margin-top: 2rem;
+}
+
+.selected {
+    border: 4px solid #000 !important;
+    transition: all 0.3s;
+}
+
+/* New Button Style */
+.button {
+    border: none;
+    outline: none;
+    /* width: 100%; */
+    /* Adjusted to fit the button's width */
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.gradient-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 106%;
+    height: 115%;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: -2;
+    filter: blur(10px);
+    transition: all 0.3s;
+}
+
+.gradient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    transition: all 0.3s;
+    background-image: linear-gradient(
+        90deg,
+        hsl(226, 81%, 64%),
+        hsl(271, 81%, 64%),
+        hsl(316, 81%, 64%),
+        hsl(1, 81%, 64%),
+        hsl(46, 81%, 64%),
+        hsl(91, 81%, 64%),
+        hsl(136, 81%, 64%),
+        hsl(181, 81%, 64%)
+    );
+    animation: rotate 2s linear infinite;
+    filter: blur(10px);
+}
+
+.text-red-500 {
+    color: red;
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

@@ -45,7 +45,16 @@
             'home',
             'EnhanceProfile',
             'verify',
-            'username'
+            'username',
+            'welcomeCareerAI',
+            'generateQuestines',
+            'questionnaire',
+            'AiQuestions',
+            'Uplaod_Job_Profile',
+            'ReportsAnalysis',
+            'cong'
+
+
         ])
     )
             @include('livewire.navigation-bar')
