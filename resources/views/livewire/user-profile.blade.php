@@ -35,8 +35,8 @@
                                     @if (!empty($user->personal_details->page_name) && $user->type == 'company')
                                         <h1>{{ $user->personal_details->page_name }}</h1>
                                     @else
-                                        <h1 class="mb-0">{{ $user->personal_details->first_name ?? 'first name' }}
-                                            {{ $user->personal_details->last_name ?? 'last name' }}
+                                        <h1 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
+                                            {{ $user->personal_details->last_name ?? '' }}
                                         </h1>
                                     @endif
                                     <span class="mb-2 d-block fw-bold text-muted fs-5"> {{ $user->personal_details->specialist ?? 'User Specialist' }}</span>

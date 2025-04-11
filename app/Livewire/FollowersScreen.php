@@ -26,7 +26,7 @@ class FollowersScreen extends Component
     ->map(function ($follower) {
         return [
             'id' => $follower->id,
-            'user_name' => $follower->user_name,
+            'name' => $follower->fullName(),
             'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title ?? 'No Position',
             'user_image' => $follower->user_image ?? null,
         ];

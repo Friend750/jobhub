@@ -20,10 +20,10 @@
                      @click="fetch(`/users/{{ $company['id'] }}/ping`, { method: 'GET' })"
                      wire:click='showUser({{ $company['id'] }})'>
                     <!-- Default avatar image -->
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company['user_name']) }}"
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company['name']) }}"
                          alt="Logo" class="rounded-circle ms-2" width="40">
                     <div class="ms-3">
-                        <strong>{{ $company['user_name'] }}</strong>
+                        <strong>{{ $company['name'] }}</strong>
                         <div class="text-muted">{{ $company['position'] ?? __('general.position') }}</div>
                     </div>
                 </div>

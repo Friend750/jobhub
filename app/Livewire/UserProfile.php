@@ -55,12 +55,17 @@ class UserProfile extends Component
     public function mount($id = 0)
     {
 
-        $this->topUsers = $this->getTopFollowedUsers();
-        $this->topCompanies = $this->getTopFollowedCompanies();
+
+       
+
         // $this->skills = Skill::all()->toArray();
         $this->user = User::find(Auth::user()->id);
+        $this->getTopFollowedCompanies(Auth::user()->id);
+        $this->getTopFollowedUsers(Auth::user()->id);
         if ($id != 0) {
             $this->user = User::findOrFail($id);
+            $this->getTopFollowedCompanies($id);
+            $this->getTopFollowedUsers($id);
         }
 
         $this->skills = $this->user->skills()
@@ -77,25 +82,33 @@ class UserProfile extends Component
         $this->courses = $this->user->Courses;
     }
 
-    private function getTopFollowedUsers()
+    private function getTopFollowedUsers($id)
 {
-    return Auth::user()
-        ->acceptedFollowers()
-        ->withCount('acceptedAllFollowers')
-        ->orderByDesc('accepted_all_followers_count')
-        ->take(2)
-        ->get();
+    $user = User::find($id);
+
+    $this->topUsers = $user
+        ? $user->acceptedFollowers()
+               ->withCount('acceptedAllFollowers')
+               ->orderByDesc('accepted_all_followers_count')
+               ->take(2)
+               ->get()
+        : collect(); // Return empty collection if user not found
+    
 }
 
-private function getTopFollowedCompanies()
+private function getTopFollowedCompanies($id)
 {
-    return Auth::user()
-        ->companies()
-        ->withCount('acceptedAllFollowers')
-        ->orderByDesc('accepted_all_followers_count')
-        ->take(2)
-        ->get();
+    $user = User::find($id);
+    $this->topCompanies = $user
+    ? $user->companies()
+           ->withCount('acceptedAllFollowers')
+           ->orderByDesc('accepted_all_followers_count')
+           ->take(2)
+           ->get()
+    : collect();
 }
+
+
 
 
     public function updatedProfilePicture()

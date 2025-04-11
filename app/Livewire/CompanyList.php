@@ -26,7 +26,7 @@ class CompanyList extends Component
         ->map(function ($company) {
             return [
                 'id' => $company->id,
-                'user_name' => $company->user_name,
+                'name' => $company->fullName(),
                 'user_image' => $company->user_image ?? null,
                 'is_accepted' => $company->pivot->is_accepted // Include if needed
             ];

@@ -25,12 +25,12 @@ public function mount()
 
     $user = User::find(Auth::user()->id);
 
-    $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($follower) {
+    $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($following) {
         return [
-            'id' => $follower->id,
-            'user_name' => $follower->user_name,
-            'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title,
-            'user_image' => $follower->user_image ?? null,
+            'id' => $following->id,
+            'name' => $following->fullName(),
+            'position' => optional($following->experiences->sortByDesc('created_at')->first())->job_title,
+            'user_image' => $following->user_image ?? null,
         ];
     });
 }

@@ -1,0 +1,38 @@
+.btn-primary {
+    background-color: #1b355c;
+    border-color: #1b355c;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: oblique;
+    color: #1b355c;
+}
+
+.navbar-brand img {
+    margin-right: -40px;
+}
+
+footer {
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 40px auto;
+    /* 'mt-5' equivalent in Bootstrap */
+}
+
+.text-danger {
+    color: #dc3545;
+    /* or any color you prefer for errors */
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
