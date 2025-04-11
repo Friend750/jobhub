@@ -5,11 +5,15 @@ use App\Traits\HasUserWithDetails;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 class JobPost extends Model
 {
     use HasFactory;
     use HasUserWithDetails;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'user_id',
         'job_title',
@@ -36,6 +40,12 @@ class JobPost extends Model
         return $this->belongsTo(User::class)->select('id', 'user_name');
     }
 
+    // In both Post and JobPost models
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function scopeSearch($query, $term)
     {
         return $query->where('job_title', 'LIKE', "%{$term}%")
@@ -43,9 +53,11 @@ class JobPost extends Model
             ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
     }
 
-    public function likes(){
-        return $this->belongsToMany(User::class,'job_post_like')->withTimestamps();
+    public function jobLikes()
+    {
+        return $this->belongsToMany(JobPost::class, 'job_post_like')->withTimestamps();
     }
+
 
     public function scopeForFeed(Builder $query)
     {
@@ -61,14 +73,12 @@ class JobPost extends Model
             'job_timing',
             'tags',
             'target',
-            'is_active',
             'created_at',
             DB::raw("'job' as type"),
             DB::raw("NULL as content"),
             DB::raw("NULL as post_image"),
-            DB::raw("NULL as deleted_at")
         ])
-            ->where('is_active', true)
+            ->whereNull('deleted_at')
             ->with(['user' => $this->userWithDetailsScope()]);
     }
 }

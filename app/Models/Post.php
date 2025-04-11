@@ -14,6 +14,7 @@ class Post extends Model
     use HasFactory, SoftDeletes;
     use HasUserWithDetails;
 
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'user_id',
         'page_id',
@@ -25,9 +26,15 @@ class Post extends Model
     ];
 
 
-    public function creator()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // In both Post and JobPost models
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     protected function casts(): array
@@ -37,14 +44,9 @@ class Post extends Model
         ];
     }
 
-
-    public function comments()
+    public function likes()
     {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function likes(){
-        return $this->belongsToMany(User::class,'post_like')->withTimestamps();
+        return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
     }
 
     public function personalDetails()
@@ -73,12 +75,10 @@ class Post extends Model
             DB::raw("NULL as job_timing"),
             'tags',
             'target',
-            DB::raw("NULL as is_active"),
             'created_at',
             DB::raw("'post' as type"),
             'content',
             'post_image',
-            'deleted_at'
         ])
             ->whereNull('deleted_at')
             ->with(['user' => $this->userWithDetailsScope()]);

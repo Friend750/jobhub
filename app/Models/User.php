@@ -35,15 +35,32 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function jobPosts()
+    {
+        return $this->hasMany(JobPost::class);
+    }
     public function likes()
     {
         return $this->belongsToMany(Post::class, 'post_like')->withTimestamps();
     }
 
-    public function likesPost( $post)
+    public function jobLikes()
+    {
+        return $this->belongsToMany(JobPost::class, 'job_post_like')->withTimestamps();
+    }
+
+    public function likesPost($post)
     {
         return $this->likes()
             ->where('post_id', $post->id)
+            ->exists();
+    }
+
+    public function likesJobPost($post)
+    {
+        return $this->jobLikes()
+            ->where('job_post_id', $post->id)
             ->exists();
     }
 
@@ -148,6 +165,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Link::class, 'link_user', 'user_id', 'link_id')
             ->withTimestamps(); // If you want to use the timestamps in the pivot table
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
     // Conversation.php
 

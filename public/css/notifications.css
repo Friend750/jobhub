@@ -28,5 +28,8 @@
     background-color: #2B6DAE;
     color: white;
 }
-
+.resize-btn{
+    min-width: fit-content;
+    width: 60px;
+}
 

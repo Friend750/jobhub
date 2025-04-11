@@ -1,10 +1,10 @@
 <div class="container" style="margin-top: 5.5rem !important;">
-    <div class="row">
+    <div class="row d-flex justify-content-center align-items-center">
         <!-- Manage Network Section -->
         @livewire('manage-network')
 
         <!-- Followings List Section -->
-        <div class="col-md-8 containerOfNetwork">
+        <div class="card col-md-6 containerOfNetwork">
             <div class="mb-3 d-flex justify-content-between align-items-center">
                 <h4 class="mt-3 border-b-2">{{ __('general.following') }}</h4>
             </div>

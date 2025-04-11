@@ -3,7 +3,7 @@
     <div>
         <div class="card bg-white rounded border shadow-sm flex-grow-1">
             <!-- Header -->
-            <h5 class="card-header pt-3 pl-3">Chats</h5>
+            <h5 class="card-header pt-3 pl-3">الدردشات</h5>
 
             <!-- Chat List -->
             <div class="card-body">
@@ -34,7 +34,7 @@
     {{-- Feed Card --}}
     <div class="card bg-white rounded border shadow-sm mt-3">
         <!-- Header -->
-        <h5 class="card-header pt-3">Add to feed</h5>
+        <h5 class="card-header pt-3">أضف للمتابعة</h5>
 
         <!-- Feed List -->
         <div class="card-body">

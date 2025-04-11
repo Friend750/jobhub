@@ -45,55 +45,45 @@ class PostCard extends Component
         $this->target = $value;
     }
 
-    public function likePost(Post $post)
+    public function likeItem($itemId, $type)
     {
         $liker = $this->user;
-        $liker->likes()->attach($post->id);
+
+        if ($type === 'post') {
+            $liker->likes()->attach($itemId);
+
+        } elseif ($type === 'job') {
+            $liker->jobLikes()->attach($itemId); // You'll need to define this relationship
+        }
     }
 
-    public function unlikePost(Post $post)
+    public function unlikeItem($itemId, $type)
     {
         $liker = $this->user;
-        $liker->likes()->detach($post->id);
+
+        if ($type === 'post') {
+
+            // find id
+            $post = Post::find($itemId);
+            $liker->likes()->detach($post->id);
+
+        } elseif ($type === 'job') {
+
+            // find id
+            $jobPost = JobPost::find($itemId);
+            $liker->jobLikes()->detach($jobPost->id);
+        }
     }
 
-    public function createComment($post, $content)
+    public function getLikesCount($itemId, $type)
     {
-        $this->validate([
-            'content' => 'required|string|min:1|max:5000',
-        ]);
-
-        // Check if the user is posting too quickly
-        if (Cache::has('comment_limit_' . Auth::user()->id)) {
-            session()->flash('error', 'You are posting too quickly.');
-            return;
+        if ($type === 'job') {
+            return JobPost::find($itemId)->jobLikes()->count();
+        } elseif ($type === 'post') {
+            return Post::find($itemId)->likes()->count();
         }
 
-
-        Comment::create([
-            'user_id' => Auth::user()->id,
-            'post_id' => $post->id,
-            'content' => $content
-        ]);
-    }
-
-    public function replayComment($comment, $content)
-    {
-        $this->validate([
-            'content' => 'required|string|min:1|max:5000',
-        ]);
-
-        // Check if the user is posting too quickly
-        if (Cache::has('comment_limit_' . Auth::user()->id)) {
-            session()->flash('error', 'You are posting too quickly.');
-            return;
-        }
-        ReplyComment::create([
-            'user_id' => Auth::user()->id,
-            'comment_id' => $comment->id,
-            'content' => $content
-        ]);
-
+        return 0;
     }
 
     public function updatedMedia()
@@ -123,12 +113,10 @@ class PostCard extends Component
         $this->selectedInterests = [];
     }
 
-
     public function SubmitArticleForm()
     {
         $this->articleForm->submit($this->selectedInterests, $this->target);
         $this->dispatch('article-posted');
-
     }
     public function SubmitJobOfferForm()
     {
@@ -137,16 +125,26 @@ class PostCard extends Component
         $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }
 
-    public function deletePost(Post $post)
+    public function deletePost($itemID, $type)
     {
-        $post->delete();
-        session()->flash('message', 'Post deleted successfully.');
+        if ($type === 'post') {
+            $post = Post::find($itemID);
+            $post->delete();
+        } elseif ($type === 'job') {
+            $jobPost = JobPost::find($itemID);
+            $jobPost->delete();
+        }
     }
     public $perPage = 10;
 
     public function loadMore()
     {
         $this->perPage += 10;
+    }
+
+    public function createComment($postId, $postType)
+    {
+        $this->commentForm->submit($postId,$postType);
     }
 
     public function mount()
@@ -164,7 +162,6 @@ class PostCard extends Component
             unionAll(Post::forFeed())
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
-
 
         return view('livewire.post-card', [
             'allPosts' => $allPosts
