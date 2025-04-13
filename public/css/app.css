@@ -8,6 +8,12 @@
     --color-whight: #fff;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ruwudu:wght@400;500;600;700&display=swap');
+
+* {
+    font-family: 'Rubik', 'Ruwudu', sans-serif !important;
+}
+
 body {
     background-color: var(--color-bg-blue-light) !important;
     color: var(--color-gray);
@@ -26,7 +32,7 @@ body {
     border-color: var(--color-primary) !important;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background: #3f87cff9 !important;
     border-color: #3f87cff9 !important;
 
@@ -52,33 +58,32 @@ body {
     border-radius: 30px !important;
 }
 
-.text-primary{
+.text-primary {
     color: var(--color-primary) !important;
 }
 
-.bg-wight{
+.bg-wight {
     background-color: var(--color-whight) !important;
 }
 
-.color-bg-blue-light{
+.color-bg-blue-light {
     background-color: var(--color-bg-blue-light);
 }
 
-.rounded{
+.rounded {
     border-radius: 10px !important;
 }
 
-.MakeSticky
-{
+.MakeSticky {
     position: sticky;
     top: 1rem !important;
 }
 
-.sm-img{
+.sm-img {
     width: 40px;
 }
 
-.text-bg-primary{
+.text-bg-primary {
     background-color: #2B6DAE !important;
 }
 
