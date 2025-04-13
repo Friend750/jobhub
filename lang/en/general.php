@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'no_followeds' => 'no followings',
     'careerAI' => 'Career AI',
     'search_for_followings' => 'Search for people',
     'no_followers' => 'No Followers',

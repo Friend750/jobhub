@@ -51,18 +51,21 @@ class UserProfile extends Component
 
     public $topUsers;
     public $topCompanies;
+    public $id;
 
     public function mount($id = 0)
     {
 
 
-       
+
 
         // $this->skills = Skill::all()->toArray();
         $this->user = User::find(Auth::user()->id);
         $this->getTopFollowedCompanies(Auth::user()->id);
         $this->getTopFollowedUsers(Auth::user()->id);
+        $this->id = Auth::user()->id;
         if ($id != 0) {
+            $this->id = $id;
             $this->user = User::findOrFail($id);
             $this->getTopFollowedCompanies($id);
             $this->getTopFollowedUsers($id);
@@ -80,6 +83,7 @@ class UserProfile extends Component
         $this->projects = $this->user->Projects;
         $this->educations = $this->user->Educations;
         $this->courses = $this->user->Courses;
+
     }
 
     private function getTopFollowedUsers($id)
@@ -93,7 +97,7 @@ class UserProfile extends Component
                ->take(2)
                ->get()
         : collect(); // Return empty collection if user not found
-    
+
 }
 
 private function getTopFollowedCompanies($id)

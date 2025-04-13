@@ -30,6 +30,7 @@ use App\Livewire\Typeaccount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
+use App\Livewire\FollowedList;
 use App\Livewire\OtpVerification;
 use App\Livewire\Username;
 use App\Models\PersonalDetail;
@@ -112,6 +113,8 @@ Route::get('/users/{id}/ping', function ($id) {
 // Secured routes: Only accessible to authenticated users
 Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
 
+
+    Route::get('/FollowedList/{id?}/{type?}', FollowedList::class)->name('FollowedList');
 
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'no_followers' => 'لا يوجد متابعين ',
     'careerAI' => 'محاكاة وظيفة',
     'search_for_followings' => 'ابحث عن اشخاص',
     'no_followers' => 'لا يوجد متابعين يتابعوك',
