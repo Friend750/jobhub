@@ -113,6 +113,8 @@ Route::get('/users/{id}/ping', function ($id) {
 Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
 
 
+    Route::get('/FollowedList/{id?}/{type?}', FollowedList::class)->name('FollowedList');
+
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");

@@ -39,7 +39,7 @@
 
                     <div class="text-center mt-3 position-relative">
                         <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-                        <a href="{{ route('CompaniesScreen') }}" class="text-decoration-none">
+                        <a href="{{ url('/FollowedList/' . $id . '/company') }}" class="text-decoration-none">
                             <strong class="text-dark">إظهار الكل</strong>
                         </a>
                     </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="text-center mt-3 position-relative">
                     <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-                    <a href="{{ route('FollowingsScreen') }}" class="text-decoration-none"><strong class="text-dark">إظهار الكل
+                    <a href="{{ url('/FollowedList/' . $id . '/user') }}" class="text-decoration-none"><strong class="text-dark">إظهار الكل
                         </strong>
                     </a>
                 </div>
