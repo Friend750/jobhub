@@ -4,26 +4,38 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Models\JobPost;
+use Illuminate\Support\Facades\Auth;
 
 class JobList extends Component
 {
-    use WithPagination; // تمكين الترقيم في Livewire
+    use WithPagination;
 
     public $sortBy = 'relevant'; // معيار الفرز الافتراضي
     public $timeFilter = ''; // فلترة الوقت
-    public $selectedJob = null; // خاصية لتخزين الوظيفة المحددة
+    public $selectedJob = null; // تخزين الوظيفة المحددة
+    public $profilePicture; // صورة الملف الشخصي
 
-    protected $listeners = ['jobAdded' => '$refresh']; // تحديث القائمة تلقائيًا
+    protected $listeners = ['jobAdded' => '$refresh'];
+
+    public function mount()
+    {
+        if (!$this->selectedJob && JobPost::exists()) {
+            $this->selectedJob = JobPost::latest()->first();
+        }
+    }
 
     public function updatingSortBy()
     {
-        $this->resetPage(); // إعادة تعيين الصفحة عند تغيير الفرز
+        $this->resetPage();
     }
 
     public function updatingTimeFilter()
     {
-        $this->resetPage(); // إعادة تعيين الصفحة عند تغيير الفلترة
+        $this->resetPage();
     }
 
     public function resetFilters()
@@ -35,23 +47,56 @@ class JobList extends Component
 
     public function showDetails($jobId)
     {
-        // تحميل تفاصيل الوظيفة المحددة
         $this->selectedJob = JobPost::find($jobId);
+    }
+
+    public function updatedProfilePicture()
+    {
+        $this->validate([
+            'profilePicture' => 'image|max:2048',
+        ]);
+
+        try {
+            $user = Auth::user();
+
+            if ($user->user_image) {
+                Storage::disk('public')->delete($user->user_image);
+            }
+
+            $imagePath = $this->profilePicture->store('profile-pictures', 'public');
+
+            $manager = new ImageManager(new GdDriver());
+            $resizedImage = $manager->read(Storage::disk('public')->path($imagePath))->scale(width: 300);
+            $resizedImage->save(Storage::disk('public')->path($imagePath));
+
+            $user->update([
+                'user_image' => $imagePath,
+            ]);
+
+            session()->flash('message', 'تم تحديث صورة الملف الشخصي بنجاح.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'حدث خطأ أثناء تحديث صورة الملف الشخصي: ' . $e->getMessage());
+        }
     }
 
     public function render()
     {
-        $query = JobPost::latest(); // ترتيب الوظائف حسب الأحدث
+        $query = JobPost::query();
 
-        // تطبيق فلترة الوقت
         if ($this->timeFilter == '24h') {
             $query->where('created_at', '>=', now()->subDay());
         } elseif ($this->timeFilter == 'week') {
             $query->where('created_at', '>=', now()->subWeek());
         }
 
-        $jobs = $query->paginate(10); // تقسيم الصفحات إلى 10 وظائف لكل صفحة
+        if ($this->sortBy === 'newest') {
+            $query->latest();
+        }
 
-        return view('livewire.job-list', ['jobs' => $jobs]);
+        $jobs = $query->paginate(10);
+
+        return view('livewire.job-list', [
+            'jobs' => $jobs,
+        ]);
     }
 }

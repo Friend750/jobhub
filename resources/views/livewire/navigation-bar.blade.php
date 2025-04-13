@@ -19,7 +19,7 @@
                     <i class="bi bi-people-fill"></i>
                     <span>{{ __('general.network') }}</span>
                 </a>
-                <a href="/JobScreen" class="nav-link d-flex flex-column align-items-center">
+                <a href="/JobList" class="nav-link d-flex flex-column align-items-center">
                     <i class="bi bi-briefcase-fill"></i>
                     <span>{{ __('general.jobs') }}</span>
                 </a>
