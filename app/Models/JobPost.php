@@ -62,7 +62,6 @@ class JobPost extends Model
     public function scopeForFeed(Builder $query)
     {
         return $query->select([
-            'id',
             'user_id',
             'job_title',
             'about_job',

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
 
-*{
+* {
     padding: 0;
     margin: 0;
 }
@@ -10,15 +10,17 @@
     width: 100%;
     background-color: #f0f4fb;
 }
-.navbar
-{
-    width: 100%!important;
+
+.navbar {
+    width: 100% !important;
     box-sizing: border-box;
 
 }
-.navbar-brand{
+
+.navbar-brand {
     font-size: x-large;
 }
+
 .logoName {
     color: #2B6DAE;
     font-family: 'Rubik', Arial, sans-serif;
@@ -35,29 +37,35 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: -7px 10px; /* تقليل المسافة الأفقية بين الروابط */
+    margin: -7px 10px;
+    /* تقليل المسافة الأفقية بين الروابط */
     /* border-bottom: #1e4b8b 3px solid; */
-    width: 50px;
+    width: 60px;
     padding: 0;
 }
 
 
 
 .navbar-icons i {
-    font-size: 22px; /* حجم الأيقونة */
-    margin-bottom: -5px; /* تقليل المسافة بين الأيقونة والنص */
+    font-size: 22px;
+    /* حجم الأيقونة */
+    margin-bottom: -5px;
+    /* تقليل المسافة بين الأيقونة والنص */
 
 }
 
 .navbar-icons .nav-link span {
-    font-size: 12px; /* حجم النص */
+    font-size: 12px;
+    /* حجم النص */
 }
 
 
 .dropdown .nav-link i {
     color: #333333d4;
-    font-size: 23px; /* حجم الأيقونة */
-    vertical-align: middle; /* لضمان محاذاة الأيقونة مع النص */
+    font-size: 23px;
+    /* حجم الأيقونة */
+    vertical-align: middle;
+    /* لضمان محاذاة الأيقونة مع النص */
     margin-bottom: -6px;
 }
 
@@ -70,11 +78,11 @@
 
 
 .dropdown .nav-link span {
-    font-size: 12px; /* حجم النص */
+    font-size: 12px;
+    /* حجم النص */
 }
 
-.dropdown .nav-link .d-flex
-{
+.dropdown .nav-link .d-flex {
     /* background-color: #a9b4c3; */
     padding: 0px 5px;
     border-radius: 999px;
@@ -83,33 +91,39 @@
     justify-content: center;
 
 }
+
 .dropdown .nav-link .d-flex span {
     margin: 0 5px;
     color: #333333d4;
 
 }
 
-.nav-right{
+.nav-right {
     display: flex;
     align-items: center;
     justify-content: center;
 }
- .container-fluid{
+
+.container-fluid {
 
     justify-content: space-around !important;
- }
- .nav-link::click
- {
-    color: #f0f4fb;
- }
+}
 
- .notification-badge {
+.nav-link::click {
+    color: #f0f4fb;
+}
+
+.notification-badge {
     top: 0;
     right: 50%;
-    font-size: 4px; /* تصغير حجم النص داخل الشارة */
-    padding: 2px 4px; /* ضبط الحجم الداخلي للشارة */
-    border-radius: 50%; /* جعل الشكل دائريًا */
-    color: white; /* لون النص */
+    font-size: 4px;
+    /* تصغير حجم النص داخل الشارة */
+    padding: 2px 4px;
+    /* ضبط الحجم الداخلي للشارة */
+    border-radius: 50%;
+    /* جعل الشكل دائريًا */
+    color: white;
+    /* لون النص */
 }
 
 #navbar {
@@ -117,10 +131,20 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1050; /* Ensures the navbar stays on top */
+    z-index: 1050;
+    /* Ensures the navbar stays on top */
     transition: transform 0.3s ease-in-out;
 }
 
 .hidden {
     transform: translateY(-100%);
+}
+
+.active {
+    color: var(--color-primary) !important;
+    background: var(--color-bg-blue-light) !important;
+    border-radius: 10px !important;
+    /* transform: translateY(-2px) !important; */
+    transition: 1.3s ease !important;
+    font-weight: 600 !important;
 }

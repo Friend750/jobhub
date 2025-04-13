@@ -11,30 +11,32 @@
 
         <div class="nav-right">
             <div class="navbar-icons ms-auto">
-                <a href="/posts" class="nav-link d-flex flex-column align-items-center">
+                <a href="/posts"
+                    class="nav-link d-flex flex-column align-items-center {{ Route::is('post') ? 'active' : '' }}">
                     <i class="bi bi-house-door-fill"></i>
                     <span>{{ __('general.home') }}</span>
                 </a>
-                <a href="/Following" class="nav-link d-flex flex-column align-items-center">
+                <a href="/Following"
+                    class="nav-link d-flex flex-column align-items-center {{ Route::is('FollowingsScreen') ? 'active' : '' }}">
                     <i class="bi bi-people-fill"></i>
                     <span>{{ __('general.network') }}</span>
                 </a>
-                <a href="/JobList" class="nav-link d-flex flex-column align-items-center">
+                <a href="/JobList" class="nav-link d-flex flex-column align-items-center {{ Route::is('jobList') ? 'active' : '' }}">
                     <i class="bi bi-briefcase-fill"></i>
                     <span>{{ __('general.jobs') }}</span>
                 </a>
-                <a href="/chat" class="nav-link d-flex flex-column align-items-center">
+                <a href="/chat" class="nav-link d-flex flex-column align-items-center {{ Route::is('chat') ? 'active' : '' }}">
                     <i class="bi bi-chat-dots-fill"></i>
                     <span>{{ __('general.messages') }}</span>
                 </a>
-                <a href="/notifications" class="nav-link d-flex flex-column align-items-center position-relative">
+                <a href="/notifications" class="nav-link d-flex flex-column align-items-center position-relative {{ Route::is('notifications') ? 'active' : '' }}">
                     <i class="bi bi-bell-fill"></i>
                     <span>
                         {{ __('general.notifications') }}
                         @if ($countNotifications > 0)
-                        <span class="ms-4 badge bg-danger notification-badge position-absolute">
-                            {{ $countNotifications }}
-                        </span>
+                            <span class="ms-4 badge bg-danger notification-badge position-absolute">
+                                {{ $countNotifications }}
+                            </span>
                         @endif
                     </span>
                 </a>

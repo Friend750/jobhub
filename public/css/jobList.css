@@ -1,20 +1,222 @@
-.list-group-item {
-    transition: all 0.3s ease-in-out;
-    border-radius: 10px;
-    margin-bottom: 10px;
+/* css color variable*/
+:root {
+    --color-hover: #e9f5ff;
+    --color-primary: #2B6DAE;
 }
 
-.list-group-item:hover {
-    background-color: #f5f5f5;
-    /* transform: scale(1.02); */
+
+.job-page {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
-.btn-primary {
-    border-radius: 20px;
-    font-weight: bold;
+/* Filters Section */
+.filters-section {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-img {
-    border: 2px solid #ddd;
-    padding: 5px;
+.filters-container select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-right: 10px;
+}
+
+.filter-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Job Content */
+.job-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.job-listings {
+    flex: 2;
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+
+.job-listing-card {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.job-listing-card:hover {
+    background-color: var(--color-hover);
+}
+
+.profile-photo-container {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    /* Placeholder background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-photo-container::after {
+    content: "50x50";
+    position: absolute;
+    color: #aaa;
+    font-size: 12px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: none;
+    /* Hidden if no image */
+}
+
+.apply-btn {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.apply-btn:hover {
+    background-color: #005580;
+}
+
+.job-details {
+    flex: 3;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    border-left: 20px solid var(--color-primary);
+}
+
+.item-hover:hover {
+    background: var(--color-hover);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.dropdown-input {
+    background-color: var(--color-hover);
+    border: none;
+    width: 100%;
+}
+
+.dropdown-input:focus {
+    outline: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.card-hover:hover {
+    background: var(--color-hover) !important;
+    cursor: pointer;
+    transition: 0.3s ease;
+    /* shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Custom select styles */
+.custom-select-container {
+    min-width: 120px;
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    padding-left: 1.7rem !important;
+    background-image: none;
+}
+
+.custom-select-icon {
+    pointer-events: none;
+}
+
+/* Dropdown styles */
+.dropdown-container {
+    max-height: 300px;
+}
+
+.dropdown-trigger {
+    background-color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 160px !important;
+    background-color: #fff !important;
+}
+
+.dropdown-icon {
+    pointer-events: none;
+}
+
+.dropdown-panel {
+    width: 160px !important;
+    max-height: 250px;
+}
+
+/* Search input styles */
+.search-icon {
+    pointer-events: none;
+}
+
+.search-input {
+    transition: all 0.3s ease;
+    padding-right: 2.5rem;
 }
