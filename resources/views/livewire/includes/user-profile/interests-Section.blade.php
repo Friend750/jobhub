@@ -19,18 +19,16 @@
                         <div class="col-md-6 mb-3">
                             <a href="{{ route('user-profile', $company->id) }}" class="text-decoration-none text-dark">
                                 <div class="d-flex align-items-start justify-content-start gap-2">
-                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company->user_name) }}"  loading="lazy"
+                                    <img src="https://ui-avatars.com/api/?name={{ urlencode($company->fullName()) }}"  loading="lazy"
                                     class="rounded-circle"
-                                    alt="{{ $company->user_name }}"
+                                    alt="{{ $company->fullName() }}"
                                     width="40"
                                     height="40"
-                                        alt="{{ $company->user_name }}">
+                                     >
                                     <div>
-                                        <h6 class="mb-0">{{ $company->name }}</h6>
-                                        <small class="text-muted">{{ number_format($company->accepted_all_followers_count) }} followers</small>
-                                        <div class="mt-1">
-                                            <span class="badge bg-light text-dark border btn">تتم المتابعة</span>
-                                        </div>
+                                        <h6 class="mb-0">{{ $company->fullName() }}</h6>
+                                        <small class="text-muted">{{ number_format($company->accepted_all_followers_count) }} متابع</small>
+
                                     </div>
                                 </div>
                             </a>
@@ -55,15 +53,15 @@
                                 <div class="d-flex align-items-start justify-content-start gap-2">
                                     <!-- Use the user's actual avatar if available, fallback to UI avatars -->
                                     <img
-                                        src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+                                        src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->fullName()) }}"
                                         loading="lazy"
                                         class="rounded-circle"
-                                        alt="{{ $user->user_name }}"
+                                        alt="{{ $user->fullName() }}"
                                         width="40"
                                         height="40"
                                     >
                                     <div>
-                                        <h6 class="mb-0">{{ $user->user_name}}</h6>
+                                        <h6 class="mb-0">{{ $user->fullName() }}</h6>
                                         <div class="mt-1">
                                             <span class="badge bg-light text-dark border btn">
                                                 {{ $user->accepted_all_followers_count }} متابع
