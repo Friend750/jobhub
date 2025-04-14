@@ -44,10 +44,10 @@
 .container-fluid {
     background-color: #f8f9fa !important;
 }
-.navbar {
+/* .navbar {
     border: 1px solid #f0f4fb;
     padding: 0 !important;
-}
+} */
 /* Apply custom scrollbar for all scrollable containers */
 .chat-messages-area,
 .chat-list ul {

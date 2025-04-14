@@ -14,89 +14,35 @@ class JobList extends Component
 {
     use WithPagination;
 
-    public $sortBy = 'relevant'; // معيار الفرز الافتراضي
-    public $timeFilter = ''; // فلترة الوقت
-    public $selectedJob = null; // تخزين الوظيفة المحددة
-    public $profilePicture; // صورة الملف الشخصي
-
-    protected $listeners = ['jobAdded' => '$refresh'];
+    protected $jobs;
 
     public function mount()
     {
-        if (!$this->selectedJob && JobPost::exists()) {
-            $this->selectedJob = JobPost::latest()->first();
-        }
-    }
-
-    public function updatingSortBy()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingTimeFilter()
-    {
-        $this->resetPage();
-    }
-
-    public function resetFilters()
-    {
-        $this->sortBy = 'relevant';
-        $this->timeFilter = '';
-        $this->resetPage();
-    }
-
-    public function showDetails($jobId)
-    {
-        $this->selectedJob = JobPost::find($jobId);
-    }
-
-    public function updatedProfilePicture()
-    {
-        $this->validate([
-            'profilePicture' => 'image|max:2048',
-        ]);
-
-        try {
-            $user = Auth::user();
-
-            if ($user->user_image) {
-                Storage::disk('public')->delete($user->user_image);
-            }
-
-            $imagePath = $this->profilePicture->store('profile-pictures', 'public');
-
-            $manager = new ImageManager(new GdDriver());
-            $resizedImage = $manager->read(Storage::disk('public')->path($imagePath))->scale(width: 300);
-            $resizedImage->save(Storage::disk('public')->path($imagePath));
-
-            $user->update([
-                'user_image' => $imagePath,
-            ]);
-
-            session()->flash('message', 'تم تحديث صورة الملف الشخصي بنجاح.');
-        } catch (\Exception $e) {
-            session()->flash('error', 'حدث خطأ أثناء تحديث صورة الملف الشخصي: ' . $e->getMessage());
-        }
+        $this->jobs = JobPost::select(
+            'user_id',
+            'job_title',
+            'about_job',
+            'job_tasks',
+            'job_conditions',
+            'job_skills',
+            'job_location',
+            'job_timing',
+            'tags',
+            'target',
+            'is_active',
+            'job_post',
+        )
+            ->with([
+                'user' => fn($q) => $q->select('id', 'user_image'),
+                'user.personal_details' => fn($q) => $q->select('user_id', 'first_name', 'last_name', 'specialist')
+            ])
+            ->where('is_active', 1)
+            ->latest()
+            ->paginate(10);
     }
 
     public function render()
     {
-        $query = JobPost::query();
-
-        if ($this->timeFilter == '24h') {
-            $query->where('created_at', '>=', now()->subDay());
-        } elseif ($this->timeFilter == 'week') {
-            $query->where('created_at', '>=', now()->subWeek());
-        }
-
-        if ($this->sortBy === 'newest') {
-            $query->latest();
-        }
-
-        $jobs = $query->paginate(10);
-
-        return view('livewire.job-list', [
-            'jobs' => $jobs,
-        ]);
+        return view('livewire.job-list');
     }
 }
