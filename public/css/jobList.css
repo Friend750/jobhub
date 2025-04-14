@@ -123,7 +123,7 @@
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    border-left: 20px solid var(--color-primary);
+    border-left: 10px solid var(--color-primary);
 }
 
 .item-hover:hover {
@@ -198,7 +198,7 @@
     background-color: #fff;
     transition: all 0.3s ease;
     cursor: pointer;
-    width: 160px !important;
+    min-width: 160px !important;
     background-color: #fff !important;
 }
 
@@ -219,4 +219,16 @@
 .search-input {
     transition: all 0.3s ease;
     padding-right: 2.5rem;
+}
+
+.f-small{
+    font-size: smaller !important;
+}
+
+.rounded-circle {
+    border-radius: 5% !important;
+}
+
+.hover-sm-border{
+    border-right: 6px solid var(--color-primary) !important;
 }

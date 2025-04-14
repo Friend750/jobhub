@@ -14,11 +14,12 @@ class JobList extends Component
 {
     use WithPagination;
 
-    protected $jobs;
+    public $jobs;
 
     public function mount()
     {
         $this->jobs = JobPost::select(
+            'id',
             'user_id',
             'job_title',
             'about_job',
@@ -31,14 +32,15 @@ class JobList extends Component
             'target',
             'is_active',
             'job_post',
+            'created_at',
         )
             ->with([
-                'user' => fn($q) => $q->select('id', 'user_image'),
-                'user.personal_details' => fn($q) => $q->select('user_id', 'first_name', 'last_name', 'specialist')
+                'user' => fn($q) => $q->select('id', 'user_image', 'user_name'),
+                'user.personal_details' => fn($q) => $q->select('user_id', 'first_name', 'last_name', 'specialist', 'page_name')
             ])
             ->where('is_active', 1)
             ->latest()
-            ->paginate(10);
+            ->get();
     }
 
     public function render()
