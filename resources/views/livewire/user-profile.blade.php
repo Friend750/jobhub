@@ -81,7 +81,7 @@
                                             <div class="d-flex align-items-center" wire:ignore
                                             x-data="{
                                                 isFollowing: @json($isFollowing),
-                                                isRequested: false
+                                                isRequested:  @json($isRequested)
                                             }">
                                            <button class="btn rounded"
                                                    :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-primary' : 'btn-primary')"

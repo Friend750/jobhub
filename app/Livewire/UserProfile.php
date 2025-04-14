@@ -55,20 +55,16 @@ class UserProfile extends Component
 
     public function mount($id = 0)
     {
-
-
-
-
         // $this->skills = Skill::all()->toArray();
-        $this->user = User::find(Auth::user()->id);
-        $this->getTopFollowedCompanies(Auth::user()->id);
-        $this->getTopFollowedUsers(Auth::user()->id);
-        $this->id = Auth::user()->id;
+        $this->user = User::find(Auth::id());
+        $this->getTopRelations('acceptedFollowings',$this->user);
+        $this->getTopRelations('companies',$this->user);
+        $this->id = Auth::id();
         if ($id != 0) {
             $this->id = $id;
             $this->user = User::findOrFail($id);
-            $this->getTopFollowedCompanies($id);
-            $this->getTopFollowedUsers($id);
+            $this->getTopRelations('acceptedFollowings',$this->user);
+            $this->getTopRelations('companies',$this->user);
         }
 
         $this->skills = $this->user->skills()
@@ -86,30 +82,31 @@ class UserProfile extends Component
 
     }
 
-    private function getTopFollowedUsers($id)
-{
-    $user = User::find($id);
 
-    $this->topUsers = $user
-        ? $user->acceptedFollowers()
+private function getTopRelations($relation, $user, $take = 2)
+{
+    if($relation === 'acceptedFollowings')
+    {
+        $this->topUsers = $user
+        ? $user->{$relation}()
                ->withCount('acceptedAllFollowers')
                ->orderByDesc('accepted_all_followers_count')
-               ->take(2)
+               ->take($take)
                ->get()
-        : collect(); // Return empty collection if user not found
+        : collect();
+    }
+    else
+    {
+        $this->topCompanies = $user
+        ? $user->{$relation}()
+               ->withCount('acceptedAllFollowers')
+               ->orderByDesc('accepted_all_followers_count')
+               ->take($take)
+               ->get()
+        : collect();
+    }
 
-}
 
-private function getTopFollowedCompanies($id)
-{
-    $user = User::find($id);
-    $this->topCompanies = $user
-    ? $user->companies()
-           ->withCount('acceptedAllFollowers')
-           ->orderByDesc('accepted_all_followers_count')
-           ->take(2)
-           ->get()
-    : collect();
 }
 
 

@@ -29,6 +29,7 @@ use App\Livewire\Typeaccount;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dashboard\JobsTable;
+use App\Livewire\FollowedList;
 use App\Livewire\JobList;
 use App\Livewire\OtpVerification;
 use App\Livewire\Username;

@@ -34,12 +34,13 @@
             @endphp
 
             <div class="mb-2" >
-                <div class="card-body d-flex align-items-center justify-content-between">
+                <div class="card-body d-flex align-items-center justify-content-between" wire:key="user-{{ $user->id }}">
                     <div style="cursor: pointer" class="d-flex align-items-center mb-2" x-data
                     @click="fetch(`/users/{{ $user['id'] }}/ping`, { method: 'GET' })"
                     wire:click='showUser({{ $user['id'] }})'
                     >
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->fullName()) }}" alt="Logo"
+                        <img src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->fullName()) }}"
+                        alt="Logo"
                             class="rounded-circle ms-2" width="40">
                         <div>
                             <h5 class="mb-0">{{ $user->fullName() }}</h5>
@@ -48,6 +49,8 @@
                             <small class="text-muted">
                                 عدد المتابعين: {{ $user->accepted_all_followers_count ?? 0 }}
                             </small>
+                            <br>
+
 
                         </div>
 
