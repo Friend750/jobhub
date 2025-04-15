@@ -6,15 +6,27 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <a href="{{route('user-profile', $post->user_id)}}" class="text-decoration-none text-dark">
                             <div class="d-flex align-items-start">
-                                <img src="{{ $post->user->user_image ? asset('storage/' . $post->user->user_image) : 'https://ui-avatars.com/api/?name=' . urlencode($post->user->personal_details->first_name ?? 'User') }}"
-                                    alt="User" loading="lazy" class="rounded-circle ms-2 post-img">
+                                @if ($post->user->user_image)
+                                @if (strpos($post->user->user_image, 'googleusercontent.com') !== false)
+                                    {{-- Display Google account image --}}
+                                    <img src="{{ $post->user->user_image }}" alt="Profile Picture"
+                                    class="rounded-circle ms-2 post-img">
+                                @else
+                                    {{-- Display locally stored image --}}
+                                    <img src="{{ asset('storage/' . $post->user->user_image) }}" alt="Profile Picture" loading="lazy"
+                                    class="rounded-circle ms-2 post-img">
+                                @endif
+                             @else
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($post->user->user_image) }}"
+                                    alt="Profile Picture" loading="lazy" class="rounded-circle ms-2 post-img">
+                            @endif
 
                                 <div class="d-flex flex-column gap-0">
                                     <h6 class="mb-0">{{ $post->user->personal_details->first_name ?? 'مستخدم' }}
                                         {{ $post->user->personal_details->last_name ?? 'مستخدم' }}
                                     </h6>
                                     <small
-                                        class="fw-bold text-muted very-small-text">{{ $post->user->personal_details->specialist ?? 'null' }}</small>
+                                        class="fw-bold text-muted very-small-text">{{ $post->user->personal_details->specialist ?? '' }}</small>
                                     <small
                                         class="very-small-text d-flex align-items-center gap-1">{{$post->created_at->diffForHumans()}}
                                         @if ($post->target === 'to_any_one')
