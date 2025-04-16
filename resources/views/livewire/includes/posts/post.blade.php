@@ -4,7 +4,7 @@
             <div class="card-body p-0" x-data="{ showComments: false }">
                 <div class="top-content p-3">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <a href="{{route('user-profile', $post->user_id)}}" class="text-decoration-none text-dark">
+                        <a href="{{ route('user-profile', $post->user_id) }}" class="text-decoration-none text-dark">
                             <div class="d-flex align-items-start">
                                 <img src="{{ $post->user->user_image ? asset('storage/' . $post->user->user_image) : 'https://ui-avatars.com/api/?name=' . urlencode($post->user->personal_details->first_name ?? 'User') }}"
                                     alt="User" loading="lazy" class="rounded-circle ms-2 post-img">
@@ -16,7 +16,7 @@
                                     <small
                                         class="fw-bold text-muted very-small-text">{{ $post->user->personal_details->specialist ?? 'null' }}</small>
                                     <small
-                                        class="very-small-text d-flex align-items-center gap-1">{{$post->created_at->diffForHumans()}}
+                                        class="very-small-text d-flex align-items-center gap-1">{{ $post->created_at->diffForHumans() }}
                                         @if ($post->target === 'to_any_one')
                                             •
                                             <i class="fa-solid fa-earth-americas"></i>

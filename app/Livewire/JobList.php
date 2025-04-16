@@ -16,7 +16,7 @@ class JobList extends Component
 
     public $jobs;
 
-    public function mount()
+    public function mount($id = null)
     {
         $this->jobs = JobPost::select(
             'id',
@@ -40,7 +40,10 @@ class JobList extends Component
             ])
             ->where('is_active', 1)
             ->latest()
-            ->get();
+            ->get()
+            ->when($id, fn($collection) => $collection->sortBy(
+                fn($job) => $job->id == $id ? 0 : 1
+            ));
     }
 
     public function render()
