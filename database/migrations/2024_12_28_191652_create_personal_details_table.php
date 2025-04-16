@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('personal_details', function (Blueprint $table) {
             $table->id(); // Primary key (ID)
-            $table->string('page_name')->nullable(); // Avatar image (nullable)
+            $table->string('page_name')->nullable(); 
             $table->string('first_name')->nullable(); // First name of the person
             $table->string('last_name')->nullable(); // Last name of the person
             $table->string('specialist')->nullable(); // Job title (nullable)

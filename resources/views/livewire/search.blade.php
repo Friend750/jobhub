@@ -103,7 +103,7 @@
                         <img style="width: 40px" class="rounded-circle ms-3"
                             src="{{ $company['profile_image'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($company->fullName()) }}">
                         <div>
-                            <strong>{{ $company->fullName()}}</strong><br>
+                            <strong>{{ $company->page_name ?? $company->fullName() }}</strong><br>
                             <small>{{ $company['position'] ?? __('general.position') }}</small>
                         </div>
                     </div>

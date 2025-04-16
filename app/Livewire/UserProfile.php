@@ -143,6 +143,7 @@ private function getTopRelations($relation, $user, $take = 2)
             session()->flash('message', 'Profile picture updated successfully.');
         } catch (\Exception $e) {
             session()->flash('error', 'An error occurred while updating the profile picture: ' . $e->getMessage());
+
         }
     }
 

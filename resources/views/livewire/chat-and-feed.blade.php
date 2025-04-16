@@ -49,11 +49,11 @@
                                 <div class="flex-grow-1">
                                     <!-- User Name -->
                                     <a href="#" class="text-dark font-weight-bold text-decoration-none">
-                                        <strong>{{ $suggestion->fullName() }}</strong>
+                                        <strong>{{ $suggestion->page_name ??  $suggestion->fullName() }}</strong>
                                     </a>
                                     <!-- Professional Summary -->
                                     <p class="text-muted small mb-0 truncate-text">
-                                        {{ $suggestion->personal_details['specialist'] ?? 'No specialist available' }}
+                                        {{ $suggestion->personal_details->specialist ?? 'No specialist available' }}
                                     </p>
                                 </div>
                                 @php

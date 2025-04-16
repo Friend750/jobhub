@@ -29,8 +29,7 @@
                                                     alt="{{ $user->user_name }}">
                                                 <div class="text-end" style="min-width: 0; flex: 1 1 auto;">
                                                     <div class="fw-bold text-truncate" style="max-width: 200px;">
-                                                        {{ $user->personal_details->first_name ?? '' }}
-                                                        {{ $user->personal_details->last_name ?? '' }}
+                                                        {{  $user->page_name ?? $user->fullName() }}
                                                     </div>
                                                     <small class="d-block">
                                                         {{ $user->personal_details->specialist ?? ''}}
