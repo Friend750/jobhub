@@ -63,19 +63,31 @@ class ChatAndFeed extends Component
         // الحصول على اهتمامات المستخدم
         $userInterests = $user->interests;
 
-        $this->suggestions = User::where('id', '!=', $user->id)
-            ->where(function ($query) use ($userInterests) {
-                foreach ($userInterests as $interest) {
-                    $query->orWhereJsonContains('interests', $interest);
-                }
-            })
-            ->whereDoesntHave('connections', function ($query) use ($user) {
-                $query->where('following_id', $user->id);
-            })
-            ->with('personal_details')
-            ->orderBy('views', 'desc')
-            ->take(3)
-            ->get();
+      // الاقتراحات بناءً على الاهتمامات
+$this->suggestions = User::where('id', '!=', $user->id)
+->where(function ($query) use ($userInterests) {
+    foreach ($userInterests as $interest) {
+        $query->orWhereJsonContains('interests', $interest);
+    }
+})
+->whereDoesntHave('connections', function ($query) use ($user) {
+    $query->where('following_id', $user->id);
+})
+->with('personal_details')
+->orderBy('views', 'desc')
+->take(3)
+->get();
+
+if ($this->suggestions->isEmpty()) {
+$this->suggestions = User::where('id', '!=', $user->id)
+    ->whereDoesntHave('connections', function ($query) use ($user) {
+        $query->where('following_id', $user->id);
+    })
+    ->with('personal_details')
+    ->orderBy('views', 'desc')
+    ->take(3)
+    ->get();
+}
 
 
     }

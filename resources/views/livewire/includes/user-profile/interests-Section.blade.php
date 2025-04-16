@@ -26,7 +26,7 @@
                                     height="40"
                                      >
                                     <div>
-                                        <h6 class="mb-0">{{ $company->fullName() }}</h6>
+                                        <h6 class="mb-0">{{ $company->page_name ?? $company->fullName() }}</h6>
                                         <small class="text-muted">{{ number_format($company->accepted_all_followers_count) }} متابع</small>
 
                                     </div>

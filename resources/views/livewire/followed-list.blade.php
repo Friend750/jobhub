@@ -43,7 +43,7 @@
                         alt="Logo"
                             class="rounded-circle ms-2" width="40">
                         <div>
-                            <h5 class="mb-0">{{ $user->fullName() }}</h5>
+                            <h5 class="mb-0">{{ $user->page_name ?? $user->fullName()  }}</h5>
                             <small class="text-muted">{{ $user->personal_details->specialist ?? 'No specialist available' }}</small>
                             <br>
                             <small class="text-muted">
