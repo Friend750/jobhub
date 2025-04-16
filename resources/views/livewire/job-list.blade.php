@@ -9,7 +9,7 @@
     @include('livewire.includes.jobs.filters')
 
     <!-- Job Content -->
-    <div class="row" x-data="jobSelector({{ json_encode($jobs->toArray()) }})">
+    <div class="row" x-data="jobSelector(@js($jobs), @js($initialJob))">
         <div class="col-4" style="
         max-height: 72vh;
         overflow: auto;">
@@ -23,7 +23,6 @@
         </div>
 
         <div class="col-8">
-            <!-- Job Details -->
             @include('livewire.includes.jobs..job-details')
         </div>
     </div>
@@ -81,23 +80,35 @@
 
 <script>
     document.addEventListener('alpine:init', () => {
-        Alpine.data('jobSelector', (jobs) => ({
+        Alpine.data('jobSelector', (jobs, initialJob) => ({
             jobs: jobs,
-            selectedJob: jobs.length > 0 ? jobs[0] : null,
+            selectedJob: null,
 
             init() {
                 // Set first job as selected by default
-                if (this.jobs.length > 0) {
+                if (initialJob) {
+                    this.selectedJob = initialJob;
+                } else if (this.jobs.length > 0) {
                     this.selectedJob = this.jobs[0];
                 }
+
+                console.log('Initialized with:', {
+                    jobs: this.jobs,
+                    initialJob: initialJob,
+                    selectedJob: this.selectedJob
+                });
             },
 
+            // selectJob(jobId) {
+            //     this.selectedJob = this.jobs.find(j => j.id === jobId);
+            // },
             selectJob(jobId) {
-                this.selectedJob = this.jobs.find(job => job.id === jobId);
-                // console.log(this.selectedJob);
-
+                // Convert the proxy to a real array.
+                const jobsArray = Object.values(this.jobs);
+                // Find the job in the newly created array.
+                const job = jobsArray.find(j => j.id === jobId);
+                this.selectedJob = job;
             },
-
             isSelected(jobId) {
                 return this.selectedJob && this.selectedJob.id === jobId;
             }
