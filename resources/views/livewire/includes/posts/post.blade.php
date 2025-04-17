@@ -4,7 +4,7 @@
             <div class="card-body p-0" x-data="{ showComments: false }">
                 <div class="top-content p-3">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <a href="{{route('user-profile', $post->user_id)}}" class="text-decoration-none text-dark">
+                        <a href="{{ route('user-profile', $post->user_id) }}" class="text-decoration-none text-dark">
                             <div class="d-flex align-items-start">
                                 @if ($post->user->user_image)
                                 @if (strpos($post->user->user_image, 'googleusercontent.com') !== false)
@@ -28,7 +28,7 @@
                                     <small
                                         class="fw-bold text-muted very-small-text">{{ $post->user->personal_details->specialist ?? '' }}</small>
                                     <small
-                                        class="very-small-text d-flex align-items-center gap-1">{{$post->created_at->diffForHumans()}}
+                                        class="very-small-text d-flex align-items-center gap-1">{{ $post->created_at->diffForHumans() }}
                                         @if ($post->target === 'to_any_one')
                                             •
                                             <i class="fa-solid fa-earth-americas"></i>

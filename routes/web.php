@@ -119,7 +119,7 @@ Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->grou
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
     Route::get('/user-profile/{id?}', UserProfile::class)->name("user-profile");
-    Route::get('/JobList', JobList::class)->name("jobList");
+    Route::get('/JobList/{id?}', JobList::class)->name("jobList");
     Route::get('/Search', Search::class)->name("search");
     Route::get('/EnhanceProfile', EnhanceProfile::class)->name("EnhanceProfile");
     Route::get('/posts', PostCard::class)->name("post");

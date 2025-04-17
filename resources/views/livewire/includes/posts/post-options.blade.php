@@ -1,10 +1,14 @@
 <div class="d-flex justify-content-start align-items-center gap-2">
-    @if($post->type === 'job')
-        <a href="#" class="btn color-bg-blue-light text-primary mr-1 fw-bold d-flex align-items-center gap-1">
+
+    @if ($post->type === 'job')
+        <a href="{{ Route('jobList', $post->id) }}"
+            class="btn color-bg-blue-light text-primary mr-1 fw-bold d-flex align-items-center gap-1">
             <span>معرفة التفاصيل</span>
             <i class="fa-solid fa-square-arrow-up-right"></i>
         </a>
     @endif
+
+
     <div x-data="{ showOptions: false }" class="position-relative d-inline-block">
         <a href="#" @click.prevent="showOptions = !showOptions" class="text-muted">
             <i class="bi bi-three-dots-vertical p-1 btn"></i>
@@ -33,7 +37,7 @@
                         <i class="bi bi-link-45deg"></i>
                     </a>
                 </li>
-                @if (auth()->user()->id === $post->user_id )
+                @if (auth()->user()->id === $post->user_id)
                     <li class="list-group-item hover_color">
                         <a class="text-decoration-none text-danger fw-bold d-flex justify-content-between"
                             style="cursor: pointer" wire:click='deletePost({{ $post->id }}, "{{ $post->type }}")'>

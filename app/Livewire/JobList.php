@@ -15,8 +15,8 @@ class JobList extends Component
     use WithPagination;
 
     public $jobs;
-
-    public function mount()
+    public $initialJob = null;
+    public function mount($id = null)
     {
         $this->jobs = JobPost::select(
             'id',
@@ -40,9 +40,17 @@ class JobList extends Component
             ])
             ->where('is_active', 1)
             ->latest()
-            ->get();
-    }
+            ->get()
+            ->when($id, fn($collection) => $collection->sortBy(
+                fn($job) => $job->id == $id ? 0 : 1
+            ));
 
+
+        if ($id) {
+            $this->initialJob = $this->jobs->firstWhere('id', $id);
+        }
+
+    }
     public function render()
     {
         return view('livewire.job-list');
