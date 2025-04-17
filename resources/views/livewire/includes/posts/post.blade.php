@@ -6,20 +6,8 @@
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <a href="{{ route('user-profile', $post->user_id) }}" class="text-decoration-none text-dark">
                             <div class="d-flex align-items-start">
-                                @if ($post->user->user_image)
-                                @if (strpos($post->user->user_image, 'googleusercontent.com') !== false)
-                                    {{-- Display Google account image --}}
-                                    <img src="{{ $post->user->user_image }}" alt="Profile Picture"
-                                    class="rounded-circle ms-2 post-img">
-                                @else
-                                    {{-- Display locally stored image --}}
-                                    <img src="{{ asset('storage/' . $post->user->user_image) }}" alt="Profile Picture" loading="lazy"
-                                    class="rounded-circle ms-2 post-img">
-                                @endif
-                             @else
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($post->user->user_image) }}"
-                                    alt="Profile Picture" loading="lazy" class="rounded-circle ms-2 post-img">
-                            @endif
+                                <img src="{{ $post->user->user_image_url }}" alt="Profile Picture"
+                                class="rounded-circle ms-2 post-img">
 
                                 <div class="d-flex flex-column gap-0">
                                     <h6 class="mb-0">{{ $post->user->personal_details->first_name ?? 'مستخدم' }}

@@ -37,11 +37,7 @@
                    this.userType === 'admin' ? 'text-bg-warning' : 'text-bg-success';
         }
     }">
-        <img src="{{ $user->user_image
-    ? (strpos($user->user_image, 'googleusercontent.com') !== false
-        ? $user->user_image
-        : asset('storage/' . $user->user_image))
-    : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+        <img src="{{$user->user_image_url}}"
             class="rounded-circle shadow-sm mb-2 card-img" alt="User Avatar"
             x-bind:style="'border-color: ' + getBorderColor()">
 
