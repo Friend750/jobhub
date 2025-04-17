@@ -31,12 +31,10 @@
 
                                         <div class="d-flex flex-column gap-1">
 
-                                            <h5 class="mb-0">{{auth()->user()->personal_details->first_name ?? ''}}
-                                                {{auth()->user()->personal_details->last_name ?? ''}}
-                                            </h5>
+                                            <h5 class="mb-0">{{auth()->user()->fullName()}}</h5>
                                             <small class="text-muted bg-secondary badge bg-secondary-subtle"
                                                 style="width: fit-content">
-                                                {{auth()->user()->personal_details->specialist}}
+                                                {{auth()->user()->personal_details->specialist ?? ''}}
                                             </small>
                                         </div>
                                     </div>

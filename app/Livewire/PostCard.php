@@ -6,6 +6,7 @@ use App\Livewire\Forms\ArticleForm;
 use App\Livewire\Forms\CommentForm;
 use App\Livewire\Forms\JobOfferForm;
 use App\Models\Comment;
+use App\Models\Connection;
 use App\Models\Interest;
 use App\Models\JobPost;
 use App\Models\Post;
@@ -158,10 +159,62 @@ class PostCard extends Component
 
     public function render()
     {
-        $allPosts = JobPost::forFeed()->
-            unionAll(Post::forFeed())
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->perPage);
+        $followedIds = Connection::where('following_id', $this->user->id)
+    ->where('is_accepted', 1)
+    ->pluck('follower_id');
+
+$followedIdsPublic = Connection::where('following_id', $this->user->id)
+    ->where('is_accepted', 0)
+    ->pluck('follower_id');
+
+
+
+// First try with accepted followers
+$jobPosts = JobPost::forFeed()
+    ->where(function ($query) use ($followedIds) {
+        $query->whereIn('user_id', $followedIds);
+    })
+    ->orWhere('user_id', $this->user->id);
+
+$normalPosts = Post::forFeed()
+    ->where(function ($query) use ($followedIds) {
+        $query->whereIn('user_id', $followedIds);
+    })
+    ->orWhere('user_id', $this->user->id);
+
+
+
+
+    $preview = (clone $jobPosts)->unionAll(clone $normalPosts)->get();
+if ($preview->isEmpty()) {
+    // fallback to public
+    $jobPosts = JobPost::forFeed()
+        ->where(function ($query) use ($followedIdsPublic) {
+            $query->whereIn('user_id', $followedIdsPublic)
+            ->where('target','to_any_one');
+        })
+        ->orWhere('user_id', $this->user->id);
+
+    $normalPosts = Post::forFeed()
+        ->where(function ($query) use ($followedIdsPublic) {
+            $query->whereIn('user_id', $followedIdsPublic)
+            ->where('target','to_any_one');
+        })
+        ->orWhere('user_id', $this->user->id);
+
+}
+
+
+
+
+// Final paginated result
+$allPosts = $jobPosts
+    ->unionAll($normalPosts)
+    ->orderBy('created_at', 'desc') // This works only if unioned queries have same columns
+    ->paginate($this->perPage);
+
+
+
 
         return view('livewire.post-card', [
             'allPosts' => $allPosts
