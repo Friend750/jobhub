@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Livewire\Forms\ArticleForm;
 use App\Livewire\Forms\CommentForm;
 use App\Livewire\Forms\JobOfferForm;
+use App\Livewire\Traits\ConnectionTrait;
 use App\Models\Comment;
 use App\Models\Connection;
 use App\Models\Interest;
@@ -24,6 +25,8 @@ class PostCard extends Component
 {
     use WithFileUploads;
     use WithPagination;
+    use ConnectionTrait;
+
 
     #[Title('Feed')]
 
@@ -159,28 +162,46 @@ class PostCard extends Component
 
     public function render()
     {
+
+       if( Auth::user()->followings()->get()->isEmpty())
+       {
+        $sameInterestsUsers = Auth::user()->sameInterests();
+
+
+         $jobPosts = JobPost::forFeed()
+        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+        ->orWhere('user_id', $this->user->id);
+
+
+
+        $normalPosts = Post::forFeed()
+        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+        ->orWhere('user_id', $this->user->id);
+
+
+
+       }
+       else
+       {
         $followedIds = Connection::where('following_id', $this->user->id)
-    ->where('is_accepted', 1)
-    ->pluck('follower_id');
+         ->where('is_accepted', 1)
+         ->pluck('follower_id');
 
-$followedIdsPublic = Connection::where('following_id', $this->user->id)
-    ->where('is_accepted', 0)
-    ->pluck('follower_id');
+       $followedIdsPublic = Connection::where('following_id', $this->user->id)
+       ->where('is_accepted', 0)
+       ->pluck('follower_id');
 
-
-
-// First try with accepted followers
-$jobPosts = JobPost::forFeed()
-    ->where(function ($query) use ($followedIds) {
+       $jobPosts = JobPost::forFeed()
+       ->where(function ($query) use ($followedIds) {
         $query->whereIn('user_id', $followedIds);
-    })
-    ->orWhere('user_id', $this->user->id);
+        })
+        ->orWhere('user_id', $this->user->id);
 
-$normalPosts = Post::forFeed()
-    ->where(function ($query) use ($followedIds) {
+       $normalPosts = Post::forFeed()
+       ->where(function ($query) use ($followedIds) {
         $query->whereIn('user_id', $followedIds);
-    })
-    ->orWhere('user_id', $this->user->id);
+        })
+        ->orWhere('user_id', $this->user->id);
 
 
 
@@ -203,7 +224,7 @@ if ($preview->isEmpty()) {
         ->orWhere('user_id', $this->user->id);
 
 }
-
+       }
 
 
 

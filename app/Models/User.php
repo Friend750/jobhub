@@ -41,7 +41,7 @@ class User extends Authenticatable
             return '';
         }
 
-        
+
         return $firstName . ' ' . $lastName;
     }
 
@@ -95,6 +95,20 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
             ->withPivot('is_accepted')
             ->withTimestamps();
+    }
+
+    public function sameInterests()
+    {
+        $userInterests = $this->interests;
+        return User::where('id', '!=', Auth::id())
+        ->where(function ($query) use ($userInterests) {
+            foreach ($userInterests as $interest) {
+                $query->orWhereJsonContains('interests', $interest);
+            }
+        })
+        ->with('personal_details')
+        ->orderBy('views', 'desc')
+        ->get();
     }
 
 

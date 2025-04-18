@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'unActive_jobs' => 'Unactive Jobs',
     'no_followeds' => 'no followings',
     'careerAI' => 'Career AI',
     'search_for_followings' => 'Search for people',

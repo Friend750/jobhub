@@ -36,7 +36,7 @@
                     <div class="d-flex flex-wrap justify-content-evenly align-items-center rounded py-2">
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>{{ __('general.messages') }}</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $messagesCount }}</h6>
                         </div>
                     </div>
                 </div>
@@ -50,11 +50,11 @@
                     <div class="d-flex flex-wrap justify-content-evenly align-items-center rounded py-2">
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>{{ __('general.active_jobs') }}</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $activeJobsCount }}</h6>
                         </div>
                         <div class="text-muted" style="min-width: 80px;">
-                            <strong>{{ __('general.old_jobs') }}</strong>
-                            <h6>xxx</h6>
+                            <strong>{{ __('general.unActive_jobs') }}</strong>
+                            <h6>{{ $unActiveJobsCount }}</h6>
                         </div>
                     </div>
                 </div>
@@ -68,11 +68,11 @@
                     <div class="d-flex flex-wrap justify-content-evenly align-items-center rounded py-2">
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>{{ __('general.likes') }}</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $likesCount }}</h6>
                         </div>
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>{{ __('general.comments') }}</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $commentsCount }}</h6>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <div class="d-flex flex-wrap justify-content-evenly align-items-center rounded py-2">
                         <div class="text-muted" style="min-width: 80px;">
                             <strong>{{ __('general.posts') }}</strong>
-                            <h6>xxx</h6>
+                            <h6>{{ $postsCount }}</h6>
                         </div>
                     </div>
                 </div>
