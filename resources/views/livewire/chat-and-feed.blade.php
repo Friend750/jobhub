@@ -12,8 +12,7 @@
                     @forelse ($chats as $chat)
                         <a href="/chat/{{ $chat['id'] }}" class="text-decoration-none text-dark">
                             <div class="d-flex align-items-center clickable-div py-1 justify-content-start">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($chat['profile']) }}" alt="User"
-                                    class="rounded-circle ms-2 sm-img">
+                                <img src="{{ $chat['profile'] }}" alt="User" class="rounded-circle ms-2 mt-1 sm-img" style="height: 40px;">
                                 <div>
                                     <strong>{{ $chat['full_name'] }}</strong>
                                     <p class="text-muted small mb-0 truncate-text">{{ $chat['last_message'] }}</p>
@@ -39,33 +38,35 @@
         <!-- Feed List -->
         <div class="card-body">
             @forelse($suggestions as $suggestion)
-                        <div class="d-flex align-items-start mb-3 cursor-pointer" x-data
-                            @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
-                            wire:click='showUser({{ $suggestion['id'] }})'>
-                            <!-- User Image -->
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($suggestion->fullName()) }}" alt="User Image"
-                                class="rounded-circle ms-2 mt-1 sm-img">
-                            <div class="d-flex flex-column">
-                                <div class="flex-grow-1">
-                                    <!-- User Name -->
-                                    <a href="#" class="text-dark font-weight-bold text-decoration-none">
-                                        <strong>{{ $suggestion->page_name ??  $suggestion->fullName() }}</strong>
-                                    </a>
-                                    <!-- Professional Summary -->
-                                    <p class="text-muted small mb-0 truncate-text">
-                                        {{ $suggestion->personal_details->specialist ?? 'No specialist available' }}
-                                    </p>
-                                </div>
-                                @php
-                                    // Fetch follow status from the backend once using your helper method
-                                    $status = $this->getFollowStatus($suggestion['id']);
-                                    $isFollowing = $status['isFollowing'];
-                                    $isRequested = $status['isRequested'];
-                                @endphp
-                                <!-- Alpine.js container for optimistic update -->
-                                <div class="mt-2" wire:ignore
-                                    x-data="{ isFollowing: @json($isFollowing), isRequested: @json($isRequested) }">
-                                    <button class="btn w-100 btn-sm" :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')" @click.prevent="
+                <div class="d-flex align-items-start mb-3 cursor-pointer" x-data
+                    @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
+                    wire:click='showUser({{ $suggestion['id'] }})'>
+                    <!-- User Image -->
+                    <img src="{{ $suggestion->user_image_url }}" alt="User Image"
+                        class="rounded-circle ms-2 mt-1 sm-img">
+                    <div class="d-flex flex-column">
+                        <div class="flex-grow-1">
+                            <!-- User Name -->
+                            <a href="#" class="text-dark font-weight-bold text-decoration-none">
+                                <strong>{{ $suggestion->page_name ?? $suggestion->fullName() }}</strong>
+                            </a>
+                            <!-- Professional Summary -->
+                            <p class="text-muted small mb-0 truncate-text">
+                                {{ $suggestion->personal_details->specialist ?? 'No specialist available' }}
+                            </p>
+                        </div>
+                        @php
+                            // Fetch follow status from the backend once using your helper method
+                            $status = $this->getFollowStatus($suggestion['id']);
+                            $isFollowing = $status['isFollowing'];
+                            $isRequested = $status['isRequested'];
+                        @endphp
+                        <!-- Alpine.js container for optimistic update -->
+                        <div class="mt-2" wire:ignore x-data="{ isFollowing: @json($isFollowing), isRequested: @json($isRequested) }">
+                            <button class="btn w-100 btn-sm"
+                                :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' :
+                                    'btn-outline-primary')"
+                                @click.prevent="
                                                                 if (!isRequested) {
                                                                     if (isFollowing) {
                                                                         // Optimistically update UI for unfollow
@@ -78,12 +79,12 @@
                                                                     }
                                                                 }
                                                             ">
-                                        <span
-                                            x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
-                                    </button>
-                                </div>
-                            </div>
+                                <span
+                                    x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
+                            </button>
                         </div>
+                    </div>
+                </div>
             @empty
                 <!-- Message when no suggestions available -->
                 <div class="text-center text-muted py-3">
@@ -103,5 +104,3 @@
         }
     </style>
 </div>
-
-

@@ -18,12 +18,12 @@
                     @include('livewire.includes.jobs.job-card')
                 </div>
             @empty
-                @include('livewire.includes.jobs..no-jobs')
+                @include('livewire.includes.jobs.no-jobs')
             @endforelse
         </div>
 
         <div class="col-8">
-            @include('livewire.includes.jobs..job-details')
+            @include('livewire.includes.jobs.job-details')
         </div>
     </div>
 </div>
@@ -92,11 +92,6 @@
                     this.selectedJob = this.jobs[0];
                 }
 
-                console.log('Initialized with:', {
-                    jobs: this.jobs,
-                    initialJob: initialJob,
-                    selectedJob: this.selectedJob
-                });
             },
 
             // selectJob(jobId) {

@@ -41,10 +41,23 @@ class User extends Authenticatable
             return '';
         }
 
-        
+
         return $firstName . ' ' . $lastName;
     }
 
+    protected $appends = ['user_image_url']; // Makes it available in JSON responses
+
+    public function getUserImageUrlAttribute()
+    {
+        if (!$this->user_image) {
+            return 'https://ui-avatars.com/api/?name='.urlencode($this->user_name ?? ' ');
+        }
+
+        return str_contains($this->user_image, 'googleusercontent.com')
+            ? $this->user_image
+            : asset('storage/'.$this->user_image);
+    }
+    
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -95,6 +108,20 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
             ->withPivot('is_accepted')
             ->withTimestamps();
+    }
+
+    public function sameInterests()
+    {
+        $userInterests = $this->interests;
+        return User::where('id', '!=', Auth::id())
+        ->where(function ($query) use ($userInterests) {
+            foreach ($userInterests as $interest) {
+                $query->orWhereJsonContains('interests', $interest);
+            }
+        })
+        ->with('personal_details')
+        ->orderBy('views', 'desc')
+        ->get();
     }
 
 

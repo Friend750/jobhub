@@ -29,7 +29,10 @@
             </p>
             <p class="mb-0 text-muted f-small">
                 <i class="bi bi-geo-alt-fill"></i>
-                {{ $job->job_location ?? '' }} • {{ $job->created_at->diffForHumans() }}
+                {{ $job->job_location ?? '' }} •
+                <span class="fw-semibold">
+                    {{ $job->created_at->diffForHumans() }}
+                </span>
             </p>
         </div>
     </div>

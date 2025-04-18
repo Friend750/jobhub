@@ -9,7 +9,6 @@
 }
 
 .card-body img {
-    /* height: fit-content; */
     object-fit: cover;
 }
 
@@ -210,6 +209,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100%;
+    max-height: 70vh;
 }
 
 .very-small-text {
