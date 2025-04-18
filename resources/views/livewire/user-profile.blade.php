@@ -13,20 +13,8 @@
                     <div class="card-header bg-dark" style="height: 180px; border-radius: 8px 8px 0 0;"></div>
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-start">
-                            @if ($user->user_image)
-                            @if (strpos($user->user_image, 'googleusercontent.com') !== false)
-                            {{-- Display Google account image --}}
-                            <img src="{{ $user->user_image }}" alt="Profile Picture"
+                            <img src="{{ $user->user_image_url }}" alt="Profile Picture"
                                 class="profile-picture rounded-circle">
-                            @else
-                            {{-- Display locally stored image --}}
-                            <img src="{{ asset('storage/' . $user->user_image) }}" alt="Profile Picture" loading="lazy"
-                                class="profile-picture rounded-circle">
-                            @endif
-                            @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($user->user_name) }}"
-                                alt="Profile Picture" loading="lazy" class="profile-picture rounded-circle">
-                            @endif
 
                             <div class="d-flex align-items-end justify-content-between w-100 mt-3">
                                 <!-- Left Section -->

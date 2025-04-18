@@ -45,6 +45,19 @@ class User extends Authenticatable
         return $firstName . ' ' . $lastName;
     }
 
+    protected $appends = ['user_image_url']; // Makes it available in JSON responses
+
+    public function getUserImageUrlAttribute()
+    {
+        if (!$this->user_image) {
+            return 'https://ui-avatars.com/api/?name='.urlencode($this->user_name ?? ' ');
+        }
+
+        return str_contains($this->user_image, 'googleusercontent.com')
+            ? $this->user_image
+            : asset('storage/'.$this->user_image);
+    }
+    
     public function posts()
     {
         return $this->hasMany(Post::class);

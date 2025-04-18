@@ -1,25 +1,13 @@
 <div>
     @foreach ($allPosts as $post)
-    <div class="card mb-3" wire:key="post-{{ $post->id }}">
-        <div class="card-body p-0" x-data="{ showComments: false }">
-            <div class="top-content p-3">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <a href="{{ route('user-profile', $post->user_id) }}" class="text-decoration-none text-dark">
-                        <div class="d-flex align-items-start">
-                            @if ($post->user->user_image)
-                            @if (strpos($post->user->user_image, 'googleusercontent.com') !== false)
-                            {{-- Display Google account image --}}
-                            <img src="{{ $post->user->user_image }}" alt="Profile Picture"
+        <div class="card mb-3" wire:key="post-{{ $post->id }}">
+            <div class="card-body p-0" x-data="{ showComments: false }">
+                <div class="top-content p-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <a href="{{ route('user-profile', $post->user_id) }}" class="text-decoration-none text-dark">
+                            <div class="d-flex align-items-start">
+                                <img src="{{ $post->user->user_image_url }}" alt="Profile Picture"
                                 class="rounded-circle ms-2 post-img">
-                            @else
-                            {{-- Display locally stored image --}}
-                            <img src="{{ asset('storage/' . $post->user->user_image) }}" alt="Profile Picture"
-                                loading="lazy" class="rounded-circle ms-2 post-img">
-                            @endif
-                            @else
-                            <img src="https://ui-avatars.com/api/?name={{ urlencode($post->user->user_image) }}"
-                                alt="Profile Picture" loading="lazy" class="rounded-circle ms-2 post-img">
-                            @endif
 
                             <div class="d-flex flex-column gap-0">
                                 <h6 class="mb-0">{{ $post->user->fullName() }}

@@ -23,113 +23,123 @@
         /* matching blue */
     }
 </style>
+<div class="card">
+    <img src="{{ $user->user_image_url }}" class="card-img-top" alt="..."
+        style="
+    /* background: #df3; */
+    height: 120px;
+    background: darkblue;
+    object-fit: cover;">
 
-<div class="card-body cardprofile text-end p-3" style="min-width: 230px;">
+    <div class="card-body cardprofile text-end p-3" style="min-width: 230px;">
 
-    <div class="text-center position-relative mb-2" x-data="{
-        userType: '{{ $user->type }}',
-        getBorderColor() {
-            return this.userType === 'company' ? '#2B6DAE' :
-                   this.userType === 'admin' ? '#FFC107' : '#28A745';
-        },
-        getBadgeClass() {
-            return this.userType === 'company' ? 'text-bg-primary' :
-                   this.userType === 'admin' ? 'text-bg-warning' : 'text-bg-success';
-        }
-    }">
-        <img src="{{ $user->user_image
-    ? (strpos($user->user_image, 'googleusercontent.com') !== false
-        ? $user->user_image
-        : asset('storage/' . $user->user_image))
-    : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
-            class="rounded-circle shadow-sm mb-2 card-img" alt="User Avatar"
-            x-bind:style="'border-color: ' + getBorderColor()">
+        {{-- <div class="text-center position-relative mb-2" x-data="{
+            userType: '{{ $user->type }}',
+            getBorderColor() {
+                return this.userType === 'company' ? '#2B6DAE' :
+                       this.userType === 'admin' ? '#FFC107' : '#28A745';
+            },
+            getBadgeClass() {
+                return this.userType === 'company' ? 'text-bg-primary' :
+                       this.userType === 'admin' ? 'text-bg-warning' : 'text-bg-success';
+            }
+        }">
+            <img src="{{$user->user_image_url}}"
+                class="rounded-circle shadow-sm mb-2 card-img" alt="User Avatar"
+                x-bind:style="'border-color: ' + getBorderColor()">
 
-        <span
-            x-bind:class="'badge rounded-pill position-absolute bottom-0 start-50 translate-middle-x ' + getBadgeClass()">
-            {{ $user->type === 'company' ? 'حساب اعمال' : ($user->type === 'admin' ? 'حساب مشرف' : 'حساب شخصي') }}
-        </span>
-    </div>
-
-
-    <div class="my-2 text-center ">
-        <h5 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
-            {{ $user->personal_details->last_name ?? '' }}
-        </h5>
-        <span class="badge bg-secondary text-light"
-            style="width: fit-content">{{ $user->user_name ?? __('general.user_name') }}</span>
-
-    </div>
-
-    <a href="/user-profile" class="btn btn-outline-primary profile rounded w-100">
-        {{ __('general.view_profile') }}
-    </a>
-
-    <div class="mt-2">
-        <!-- Language -->
-        <a href="#"
-            class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-            <span class="fw-medium">
-                {{ __('general.language') }}
+            <span
+                x-bind:class="'badge rounded-pill position-absolute bottom-0 start-50 translate-middle-x ' + getBadgeClass()">
+                {{ $user->type === 'company' ? 'حساب اعمال' : ($user->type === 'admin' ? 'حساب مشرف' : 'حساب شخصي') }}
             </span>
-            <i class="fas fa-language"></i>
-        </a>
-
-        <a href="{{route('welcomeCareerAI')}}"
-        class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-        <span class="fw-medium">
-            {{ __('general.careerAI') }}
-        </span>
-        <i class="fas fa-user-tie"></i>
+        </div> --}}
 
 
-    </a>
+        <div class="mb-3 text-center ">
+            <h5 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
+                {{ $user->personal_details->last_name ?? '' }}
+            </h5>
+            <span class="badge bg-secondary text-light"
+                style="width: fit-content">{{ $user->user_name ?? __('general.user_name') }}</span>
 
-        @guest
-            <!-- Login -->
-            <a class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
-                href="{{ route('login') }}">
-                <span class="fw-medium">
-                    {{ __('general.login') }}
-                </span>
-                <i class="fas fa-sign-in-alt"></i>
+        </div>
+
+
+        <div class="mt-2 text-dark">
+            <!-- user profile -->
+            <a href="{{ route('user-profile') }}"
+                class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                <small class="fw-medium">
+                    {{ __('general.view_profile') }}
+                </small>
+                <i class="text-dark fas fa-user"></i>
             </a>
 
-            <!-- Register -->
-            <a class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
-                href="{{ route('register') }}">
-                <span class="fw-medium">
-                    {{ __('general.register') }}
-                </span>
-                <i class="fas fa-user-plus"></i>
-            </a>
-        @endguest
-
-        @auth
-            @if ($user->type === 'admin')
-                <!-- Dashboard -->
-                <a href="{{route('dashboard')}}"
-                    class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-                    <span class="fw-medium">
-                        لوحة التحكم
-                    </span>
-                    <i class="fas fa-tachometer-alt"></i>
-                </a>
-            @endif
-
-            <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
-                @csrf
-            </form>
-
-            <!-- Logout -->
+            <!-- Language -->
             <a href="#"
-                class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <span class="fw-medium">
-                    {{ __('general.logout') }}
-                </span>
-                <i class="fas fa-sign-out-alt"></i>
+                class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                <small class="fw-medium">
+                    {{ __('general.language') }}
+                </small>
+                <i class="text-dark fas fa-language"></i>
             </a>
-        @endauth
+
+            <a href="{{ route('welcomeCareerAI') }}"
+                class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                <small class="fw-medium">
+                    {{ __('general.careerAI') }}
+                </small>
+                <i class="text-dark fas fa-user-tie"></i>
+
+
+            </a>
+
+            @guest
+                <!-- Login -->
+                <a class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
+                    href="{{ route('login') }}">
+                    <small class="fw-medium">
+                        {{ __('general.login') }}
+                    </small>
+                    <i class="text-dark fas fa-sign-in-alt"></i>
+                </a>
+
+                <!-- Register -->
+                <a class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
+                    href="{{ route('register') }}">
+                    <small class="fw-medium">
+                        {{ __('general.register') }}
+                    </small>
+                    <i class="text-dark fas fa-user-plus"></i>
+                </a>
+            @endguest
+
+            @auth
+                @if ($user->type === 'admin')
+                    <!-- Dashboard -->
+                    <a href="{{ route('dashboard') }}"
+                        class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                        <small class="fw-medium">
+                            لوحة التحكم
+                        </small>
+                        <i class="text-dark fas fa-tachometer-alt"></i>
+                    </a>
+                @endif
+
+                <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
+                    @csrf
+                </form>
+
+                <!-- Logout -->
+                <a href="#"
+                    class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <small class="fw-medium">
+                        {{ __('general.logout') }}
+                    </small>
+                    <i class="text-dark fas fa-sign-out-alt"></i>
+                </a>
+            @endauth
+        </div>
     </div>
 </div>
