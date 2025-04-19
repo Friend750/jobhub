@@ -38,16 +38,16 @@
         <!-- Feed List -->
         <div class="card-body">
             @forelse($suggestions as $suggestion)
-                <div class="d-flex align-items-start mb-3 cursor-pointer" x-data
-                    @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
-                    wire:click='showUser({{ $suggestion['id'] }})'>
+                <div class="d-flex align-items-start mb-3 " >
                     <!-- User Image -->
                     <img src="{{ $suggestion->user_image_url }}" alt="User Image"
-                        class="rounded-circle ms-2 mt-1 sm-img">
+                        class="rounded-circle ms-2 mt-1 sm-img cursor-pointer" x-data
+                        @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
+                        wire:click='showUser({{ $suggestion['id'] }})'>
                     <div class="d-flex flex-column">
                         <div class="flex-grow-1">
                             <!-- User Name -->
-                            <a href="#" class="text-dark font-weight-bold text-decoration-none">
+                            <a  class="text-dark font-weight-bold text-decoration-none">
                                 <strong>{{ $suggestion->page_name ?? $suggestion->fullName() }}</strong>
                             </a>
                             <!-- Professional Summary -->

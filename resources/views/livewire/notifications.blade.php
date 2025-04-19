@@ -1,15 +1,27 @@
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+<link rel="stylesheet" href="{{ asset('css/notifications.css') }}">
+<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 
 <div class="container col-8" x-data x-init="
     console.log('Echo initialized');
     let channel = Echo.private('users.{{ auth()->user()->id }}');
-    channel.notification((notification) => {
-        if (notification.type === 'App\\Notifications\\Request') {
+    channel.notification((notification) =>
+    {
+        if (notification.type === 'App\\Notifications\\Request')
+        {
             console.log('Request');
+            $wire.dispatch('loadNotifications');
+        }
+        else if (notification.type === 'App\\Notifications\\Comment')
+        {
+            console.log('Comment');
+            $wire.dispatch('loadNotifications');
+        }
+        else if (notification.type === 'App\\Notifications\\Like')
+        {
+            console.log('Like');
             $wire.dispatch('loadNotifications');
         }
     });
@@ -33,12 +45,12 @@
         </div>
 
         <!-- Notifications Section -->
-        <div class="col-md-9 mt-3">
+        <div class="col-md-9 mt-3 ">
             <div class="card h-100">
                 <div class="card-body d-flex justify-content-between" style="flex:none;">
                     <span>{{ __('general.notifications') }}</span>
                     <a wire:click.prevent="markAllAsRead()" href="#" class="text-primary">{{
-    __('general.mark_all_as_read') }}</a>
+                        __('general.mark_all_as_read') }}</a>
                 </div>
                 <div class=" mb-3">
                     <div class="card-body">
@@ -66,84 +78,173 @@
                             <div class="tab-content mt-3" id="myTabContent">
                                 <div class="tab-pane fade show active" id="All" role="tabpanel">
                                     @foreach ($notifications as $notification)
-                                                                <div
-                                                                    class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
-                                                                    <div>
-                                                                        <strong>
-                                                                            {{ $notification['user_name'] ?? __('general.unknown_sender') }}
-                                                                        </strong>
-                                                                        @if ($notification['type'] === 'App\\Notifications\\Request')
-                                                                            {{ __('general.wants_to_follow') }}
-                                                                            <div>
-                                                                                <button class="btn btn-sm blue mt-2 resize-btn rounded"
-                                                                                    wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
-                                                                                    {{ __('general.accept') }}
-                                                                                </button>
-                                                                                <button class="btn btn-outline-primary btn-sm mt-2 resize-btn rounded"
-                                                                                    wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
-                                                                                    {{ __('general.decline') }}
-                                                                                </button>
-                                                                            </div>
-                                                                        @else
-                                                                                                            {{ __('general.added_comment') }} "{{ $notification['data']['message'] ??
-                                                                            __('general.no_message') }}"
-                                                                        @endif
-                                                                    </div>
-                                                                    <div class="d-flex flex-column align-items-center">
-                                                                        <span class="text-muted small text-center mb-2">
-                                                                            {{ $notification['read_at'] ?? __('general.unknown_time') }}
-                                                                        </span>
-                                                                        @if (is_null($notification['read_at']))
-                                                                            <button
-                                                                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2 rounded"
-                                                                                wire:click="markAsRead('{{ $notification['id'] }}')">
-                                                                                <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
-                                                                            </button>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
+                                    <div
+                                        class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>
+                                                {{ ($notification['data']['personalDetails']['first_name'] ?? '') . ' ' . ($notification['data']['personalDetails']['last_name'] ?? '') }}
+                                            </strong>
+                                            @if ($notification['type'] === 'App\\Notifications\\Request')
+                                            {{ __('general.wants_to_follow') }}
+                                            <div>
+                                                <button class="btn btn-sm blue mt-2 resize-btn rounded"
+                                                    wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
+                                                    {{ __('general.accept') }}
+                                                </button>
+                                                <button class="btn btn-outline-primary btn-sm mt-2 resize-btn rounded"
+                                                    wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
+                                                    {{ __('general.decline') }}
+                                                </button>
+                                            </div>
+                                            @endif
+                                            @if ($notification['type'] === 'App\\Notifications\\Like')
+                                            {{ __('general.added_like') }}
+                                            @endif
+                                            @if ($notification['type'] === 'App\\Notifications\\Comment')
+                                                {{ __('general.added_comment') }} "{{ $notification['data']['comment'] ??
+                                            __('general.no_message') }}"
+                                            @endif
+
+
+
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center">
+                                            @if ($notification['data']['post_type'] === 'Post')
+                                            @php
+                                                $post = $notification['data']['post'];
+                                            @endphp
+
+                                            @if (!empty($post['post_image']))
+                                                <img src="{{ asset('storage/' . $post['post_image']) }}"
+                                                     alt="Image"
+                                                     class="img-fluid mt-2"
+                                                     style="max-width: 100px;">
+                                                     <span>
+                                                        {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                    </span>
+                                            @elseif (!empty($post['content']))
+                                            <span>
+                                                {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                            </span>
+                                            @else
+                                                <span>No content available.</span>
+                                            @endif
+                                         @else
+                                         <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                        @endif
+
+                                            <span class="text-muted small text-center mb-2">
+                                                {{ $notification['read_at'] ?? __('general.unknown_time') }}
+                                            </span>
+
+                                            @if (is_null($notification['read_at']))
+                                            <button
+                                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2 rounded"
+                                                wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
+                                            </button>
+                                            @endif
+                                        </div>
+                                    </div>
 
                                     @endforeach
                                 </div>
-                                <div class="tab-pane fade" id="Mentions" role="tabpanel">
-                                    Mentions content here...
+                                <div class="tab-pane fade bg-white" id="Mentions" role="tabpanel">
+                                    @foreach ($notifications as $notification)
+                                    @if ($notification['type'] === 'App\Notifications\Comment' || $notification['type'] === 'App\Notifications\Like')
+                                    <div class="alert {{ $notification['read_at'] ? 'alert-light' : 'alert-primary' }} d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>
+                                                {{ ($notification['data']['personalDetails']['first_name'] ?? '') . ' ' . ($notification['data']['personalDetails']['last_name'] ?? '') }}
+                                            </strong>
+                                            @if ($notification['type'] === 'App\\Notifications\\Like')
+                                            {{ __('general.added_like') }}
+                                            @endif
+                                            @if ($notification['type'] === 'App\\Notifications\\Comment')
+                                                {{ __('general.added_comment') }} "{{ $notification['data']['comment'] ??
+                                            __('general.no_message') }}"
+                                            @endif
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <div class="d-flex flex-column align-items-center">
+                                                @if ($notification['data']['post_type'] === 'Post')
+                                                @php
+                                                    $post = $notification['data']['post'];
+                                                @endphp
+
+                                                @if (!empty($post['post_image']))
+                                                    <img src="{{ asset('storage/' . $post['post_image']) }}"
+                                                         alt="Image"
+                                                         class="img-fluid mt-2"
+                                                         style="max-width: 100px;">
+                                                         <span>
+                                                            {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                        </span>
+                                                @elseif (!empty($post['content']))
+                                                <span>
+                                                    {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                </span>
+                                                @else
+                                                    <span>No content available.</span>
+                                                @endif
+                                             @else
+                                             <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                            @endif
+
+                                                <span class="text-muted small text-center mb-2">
+                                                    {{ $notification['read_at'] ?? __('general.unknown_time') }}
+                                                </span>
+                                                @if (is_null($notification['read_at']))
+                                                <button
+                                                    class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2 rounded"
+                                                    wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                    <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
+                                                </button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @endforeach
                                 </div>
                                 <div class="tab-pane fade" id="Unread" role="tabpanel">
                                     @foreach ($notifications as $notification)
-                                                            @if (is_null($notification['read_at']))
-                                                                                    <div class="alert alert-primary d-flex justify-content-between align-items-center">
-                                                                                        <div>
-                                                                                            <strong>{{ $notification['user_name'] ?? __('general.unknown_sender')
-                                                                                                                                                                                                                                                                }}</strong>
-                                                                                            @if ($notification['type'] === 'App\\Notifications\\Request')
-                                                                                                {{ __('general.wants_to_follow') }}
-                                                                                                <div>
-                                                                                                    <button class="btn btn-sm blue mt-2 rounded resize-btn"
-                                                                                                        wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
-                                                                                                        {{ __('general.accept') }}
-                                                                                                    </button>
-                                                                                                    <button class="btn btn-outline-primary btn-sm mt-2 rounded resize-btn"
-                                                                                                        wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
-                                                                                                        {{ __('general.decline') }}
-                                                                                                    </button>
-                                                                                                </div>
-                                                                                            @else
-                                                                                                                            {{ __('general.added_comment') }}"{{ $notification['data']['message'] ??
-                                                                                                __('general.no_message') }}"
-                                                                                            @endif
-                                                                                        </div>
-                                                                                        <div class="d-flex flex-column align-items-center">
-                                                                                            <span class="text-muted small text-center mb-2">
-                                                                                                {{ $notification['created_at'] ?? __('general.unknown_time') }}
-                                                                                            </span>
-                                                                                            <button
-                                                                                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
-                                                                                                wire:click="markAsRead('{{ $notification['id'] }}')">
-                                                                                                <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
-                                                                                            </button>
-                                                                                        </div>
-                                                                                    </div>
-                                                            @endif
+                                    @if (is_null($notification['read_at']))
+                                    <div class="alert alert-primary d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>
+                                                {{ ($notification['data']['personalDetails']['first_name'] ?? '') . ' ' . ($notification['data']['personalDetails']['last_name'] ?? '') }}
+                                            </strong>
+
+                                            @if ($notification['type'] === 'App\\Notifications\\Request')
+                                            {{ __('general.wants_to_follow') }}
+                                            <div>
+                                                <button class="btn btn-sm blue mt-2 rounded resize-btn"
+                                                    wire:click="acceptRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
+                                                    {{ __('general.accept') }}
+                                                </button>
+                                                <button class="btn btn-outline-primary btn-sm mt-2 rounded resize-btn"
+                                                    wire:click="declineRequest({{ $notification['data']['user_id'] }}, {{ auth()->id() }}, '{{ $notification['id'] }}')">
+                                                    {{ __('general.decline') }}
+                                                </button>
+                                            </div>
+                                            @else
+                                            {{ __('general.added_comment') }}"{{ $notification['data']['comment'] ??
+                                            __('general.no_message') }}"
+                                            @endif
+                                        </div>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="text-muted small text-center mb-2">
+                                                {{ $notification['created_at'] ?? __('general.unknown_time') }}
+                                            </span>
+                                            <button
+                                                class="btn btn-sm btn-outline-primary d-flex align-items-center gap-2"
+                                                wire:click="markAsRead('{{ $notification['id'] }}')">
+                                                <i class="bi bi-check-circle"></i> {{ __('general.mark_as_read') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @endif
                                     @endforeach
                                 </div>
 

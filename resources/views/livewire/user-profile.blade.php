@@ -19,14 +19,7 @@
                             <div class="d-flex align-items-end justify-content-between w-100 mt-3">
                                 <!-- Left Section -->
                                 <div>
-
-                                    @if (!empty($user->personal_details->page_name) && $user->type == 'company')
-                                    <h1>{{ $user->personal_details->page_name }}</h1>
-                                    @else
-                                    <h1 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
-                                        {{ $user->personal_details->last_name ?? '' }}
-                                    </h1>
-                                    @endif
+                                    <h1>{{ $user->page_name ?? $user->fullName() }}</h1>
                                     <span class="mb-2 d-block fw-bold text-muted fs-5"> {{
                                         $user->personal_details->specialist ?? 'User Specialist' }}</span>
                                     <span>{{ $user->personal_details->city ?? 'city' }} •
