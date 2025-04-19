@@ -16,6 +16,8 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\ReplyComment;
+use App\Models\User;
+use App\Notifications\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -53,12 +55,18 @@ class PostCard extends Component
     {
         $liker = $this->user;
 
+        $post = $type === 'post'
+        ? Post::find($itemId)
+        : JobPost::find($itemId);
+
         if ($type === 'post') {
             $liker->likes()->attach($itemId);
 
         } elseif ($type === 'job') {
-            $liker->jobLikes()->attach($itemId); // You'll need to define this relationship
+            $liker->jobLikes()->attach($itemId);
         }
+        User::find($post->user_id)->notify(new Like(Auth::user(),Auth::user()->personal_details, $post->user_id, $post));
+
     }
 
     public function unlikeItem($itemId, $type)
@@ -165,8 +173,8 @@ class PostCard extends Component
 
        if( Auth::user()->followings()->get()->isEmpty())
        {
-        $sameInterestsUsers = Auth::user()->sameInterests();
 
+        $sameInterestsUsers = Auth::user()->sameInterests();
 
          $jobPosts = JobPost::forFeed()
         ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
