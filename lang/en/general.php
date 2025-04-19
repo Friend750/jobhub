@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'addToFollowing' => 'Add to Follow',
+    'dashboard' => 'Dashboard',
     'added_like' => 'added a like:',
     'unActive_jobs' => 'Unactive Jobs',
     'no_followeds' => 'no followings',

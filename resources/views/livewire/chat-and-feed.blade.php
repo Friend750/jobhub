@@ -3,7 +3,7 @@
     <div>
         <div class="card bg-white rounded border shadow-sm flex-grow-1">
             <!-- Header -->
-            <h5 class="card-header pt-3 pl-3">الدردشات</h5>
+            <h5 class="card-header pt-3 pl-3">{{ __('general.chats') }}</h5>
 
             <!-- Chat List -->
             <div class="card-body">
@@ -21,8 +21,9 @@
                         </a>
                     @empty
                         <div class="text-center text-muted my-3">
-                            <p class="mb-0">لا توجد محادثات متوفرة.</p>
-                            <a href="/Followers" class="text-decoration-none">ابدأ محادثة جديدة</a>
+                            <a href="/Followers" class="text-decoration-none">
+                                {{ __('general.start_new_chat') }}
+                            </a>
                         </div>
                     @endforelse
                 </div>
@@ -33,7 +34,7 @@
     {{-- Feed Card --}}
     <div class="card bg-white rounded border shadow-sm mt-3">
         <!-- Header -->
-        <h5 class="card-header pt-3">أضف للمتابعة</h5>
+        <h5 class="card-header pt-3">{{ __('general.addToFollowing') }}</h5>
 
         <!-- Feed List -->
         <div class="card-body">

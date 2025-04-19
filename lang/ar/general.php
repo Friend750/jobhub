@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'addToFollowing' => 'أضف للمتابعة',
+    'dashboard' => 'لوحة التحكم',
     'added_like' => 'أضاف إعجابًا:',
     'unActive_jobs' => 'الوظائف غير النشطة',
     'no_followers' => 'لا يوجد متابعين ',

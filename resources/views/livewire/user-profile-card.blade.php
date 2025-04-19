@@ -76,13 +76,25 @@
             </a>
 
             <!-- Language -->
-            <a href="#"
-                class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-                <small class="fw-medium">
-                    {{ __('general.language') }}
-                </small>
-                <i class="text-dark fas fa-language"></i>
+            @if(app()->getLocale() == 'en')
+            <a href="{{ route('lang.switch', 'ar') }}"
+            class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+            <small class="fw-medium">
+                {{ __('general.language') }}
+            </small>
+            <i class="text-dark fas fa-language"></i>
             </a>
+            @else
+            <a href="{{ route('lang.switch', 'en') }}"
+            class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+            <small class="fw-medium">
+                {{ __('general.language') }}
+            </small>
+            <i class="text-dark fas fa-language"></i>
+            </a>
+            @endif
+
+
 
             <a href="{{ route('welcomeCareerAI') }}"
                 class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
@@ -120,7 +132,7 @@
                     <a href="{{ route('dashboard') }}"
                         class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
                         <small class="fw-medium">
-                            لوحة التحكم
+                            {{ __('general.dashboard') }}
                         </small>
                         <i class="text-dark fas fa-tachometer-alt"></i>
                     </a>

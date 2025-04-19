@@ -111,7 +111,7 @@ Route::get('/users/{id}/ping', function ($id) {
 });
 
 // Secured routes: Only accessible to authenticated users
-Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->group(function () {
+Route::middleware(['auth','hasInterestsAndType','hasUsername','verified','setLocale'])->group(function () {
 
 
     Route::get('/FollowedList/{id?}/{type?}', FollowedList::class)->name('FollowedList');
@@ -125,6 +125,16 @@ Route::middleware(['auth','hasInterestsAndType','hasUsername','verified'])->grou
     Route::get('/posts', PostCard::class)->name("post");
     Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
     Route::get('/notifications', Notifications::class)->name("notifications");
+    Route::get('lang/{locale}', function ($locale) {
+        if (! in_array($locale, ['en', 'ar'])) {
+            abort(400);
+        }
+
+        session(['locale' => $locale]);
+        return redirect()->back();
+    })->name('lang.switch');
+
+
 
 Route::get('/welcomeCareerAI', Welcome::class)->name('welcomeCareerAI');
 Route::get('/interview_type', GenerateQuestines::class)->name('generateQuestines');
