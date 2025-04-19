@@ -25,7 +25,7 @@
         <!-- Job Details Column -->
         <div class="col-8">
             <div class="job-details bg-white p-4 rounded-3 shadow-sm custom-scrollbar"
-                style="height: 72vh; overflow: auto;">
+                style="height: 72vh; overflow: auto; font-size: large;">
 
                 <!-- Loading State (shows only when loading) -->
                 <div x-show="loading" class="h-100">
@@ -112,6 +112,7 @@
             jobTasks: null,
             jobConditions: null,
             jobSkills: null,
+            jobTags: null,
 
             init() {
                 // Initialize with parent's selected job if available
@@ -170,6 +171,7 @@
                 this.jobTasks = job.job_tasks;
                 this.jobConditions = job.job_conditions;
                 this.jobSkills = job.job_skills;
+                this.jobTags = job.tags;
             }
         }));
     });

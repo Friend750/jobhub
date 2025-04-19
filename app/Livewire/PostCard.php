@@ -132,7 +132,7 @@ class PostCard extends Component
     }
     public function SubmitJobOfferForm()
     {
-        $this->JOForm->submit($this->target);
+        $this->JOForm->submit($this->selectedInterests, $this->target);
 
         $this->dispatch('job-offer-posted', ['message' => 'Job Offer posted successfully']);
     }

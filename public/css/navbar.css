@@ -142,7 +142,7 @@
 
 .active {
     color: var(--color-primary) !important;
-  //  background: var(--color-bg-blue-light) !important;
+    background: var(--color-bg-blue-light) !important;
     border-radius: 10px !important;
     /* transform: translateY(-2px) !important; */
     transition: 1.3s ease !important;
