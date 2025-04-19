@@ -3,7 +3,8 @@
         <div class="filters d-flex align-items-center gap-2">
             <!-- Sort Filter -->
             <div class="position-relative d-inline-block custom-select-container">
-                <select class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
+                <select wire:model="relative"
+                    class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
                     <option>الاكثر صلة</option>
                     <option>الاحدث</option>
                 </select>
@@ -14,9 +15,10 @@
 
             <!-- Time Filter -->
             <div class="position-relative d-inline-block custom-select-container">
-                <select class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
+                <select wire:model="time"
+                    class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
                     <option>اي وقت</option>
-                    <option>هذا اسبوع</option>
+                    <option>هذا الاسبوع</option>
                     <option>هذا الشهر</option>
                 </select>
                 <span class="position-absolute top-50 start-0 translate-middle-y ps-2 custom-select-icon">
@@ -25,7 +27,8 @@
             </div>
 
             <!-- Governorates Dropdown -->
-            <div x-data="searchableDropdown()" x-cloak x-on:click.away="closeDropdown" class="position-relative dropdown-container">
+            <div x-data="searchableDropdown(@this)" x-cloak x-on:click.away="closeDropdown"
+                class="position-relative dropdown-container">
                 <div x-text="selected || 'كل المحافظات'" @click="open = !open"
                     class="form-control border-2 py-2 border-primary border-opacity-10 rounded-3 ps-5 text-right dropdown-trigger"
                     :class="{ 'text-gray-400': !selected }">
@@ -64,10 +67,57 @@
                 <span class="position-absolute top-0 end-0 z-3 h-100 d-flex align-items-center px-3 search-icon">
                     <i class="bi bi-search text-primary"></i>
                 </span>
-                <input type="text"
+                <input type="text" wire:model.live.debounce.400ms="search"
                     class="form-control border-2 border-primary border-opacity-10 rounded-3 focus:border-primary focus:border-opacity-50 focus:shadow-none search-input"
                     placeholder="ابحث على وظيفة" aria-describedby="basic-addon1">
             </div>
         </div>
     </div>
 </div>
+<script>
+    function searchableDropdown($wire) {
+        return {
+            query: '',
+            selected: '',
+            open: false,
+            governorates: [
+                'كل المحافظات',
+                'صنعاء',
+                'عدن',
+                'تعز',
+                'حضرموت',
+                'المهرة',
+                'الحديدة',
+                'إب',
+                'الضالع',
+                'المحويت',
+                'ذمار',
+                'البيضاء'
+            ],
+            dropdownPosition: {
+                top: '0',
+                right: '0'
+            },
+
+            get filteredGovernorates() {
+                return this.governorates.filter(
+                    gov => gov.toLowerCase().includes(this.query.toLowerCase())
+                );
+            },
+
+            toggleDropdown() {
+                this.open = !this.open;
+            },
+
+            closeDropdown() {
+                this.open = false;
+            },
+
+            selectItem(gov) {
+                this.selected = gov;
+                this.closeDropdown();
+                $wire.gov = gov;
+            },
+        }
+    }
+</script>
