@@ -1,9 +1,13 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/enhanceProfile.css') }}">
 @endpush
 
 <div>
+    @if (session()->has('error'))
+    <div class="alert alert-danger text-center my-3">
+        {{ session('error') }}
+    </div>
+@endif
 
 
     <div x-data="{ userType: @js($userType) }">
