@@ -1,12 +1,14 @@
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/userProfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 <div>
     <div class="container">
 
         <div class="row justify-content-center">
+
+
             <div class="col-lg-8">
                 <!-- Profile Header -->
                 <div class="card mb-3 rounded">
@@ -20,8 +22,8 @@
                                 <!-- Left Section -->
                                 <div>
                                     <h1>{{ $user->page_name ?? $user->fullName() }}</h1>
-                                    <span class="mb-2 d-block fw-bold text-muted fs-5"> {{
-                                        $user->personal_details->specialist ?? 'User Specialist' }}</span>
+                                    <span class="mb-2 d-block fw-bold text-muted fs-5">
+                                        {{ $user->personal_details->specialist ?? 'User Specialist' }}</span>
                                     <span>{{ $user->personal_details->city ?? 'city' }} •
                                         <a href="#" class="text-primary fw-bold text-decoration-none"
                                             data-bs-toggle="modal" data-bs-target="#contactModal"> معلومات التواصل</a>
@@ -43,31 +45,32 @@
 
                                     @if (auth()->user()->id !== $user->id)
 
-                                    @php
-                                    // Read status from backend once
-                                    $status = $this->getFollowStatus($user->id);
-                                    $isFollowing = $status['isFollowing'];
-                                    $isRequested = $status['isRequested'];
-                                    $isFollowingMe = \App\Models\Connection::where('following_id', $user->id)
-                                    ->where('follower_id', auth()->id())
-                                    ->where('is_accepted', 1)
-                                    ->exists();
-                                    @endphp
-                                    <div class="d-flex gap-2" x-data="{toggle: true}">
-                                        @if($isFollowingMe)
-                                        <button wire:click='startConversation({{ $user->id }})' type="button"
-                                            class="btn-outline-primary btn btn-sm">
-                                            <i class="fa-solid fa-paper-plane"></i>
-                                            مراسلة
-                                        </button>
-                                        @endif
-                                        <div class="d-flex align-items-center" wire:ignore x-data="{
+                                        @php
+                                            // Read status from backend once
+                                            $status = $this->getFollowStatus($user->id);
+                                            $isFollowing = $status['isFollowing'];
+                                            $isRequested = $status['isRequested'];
+                                            $isFollowingMe = \App\Models\Connection::where('following_id', $user->id)
+                                                ->where('follower_id', auth()->id())
+                                                ->where('is_accepted', 1)
+                                                ->exists();
+                                        @endphp
+                                        <div class="d-flex gap-2" x-data="{ toggle: true }">
+                                            @if ($isFollowingMe)
+                                                <button wire:click='startConversation({{ $user->id }})'
+                                                    type="button" class="btn-outline-primary btn btn-sm">
+                                                    <i class="fa-solid fa-paper-plane"></i>
+                                                    مراسلة
+                                                </button>
+                                            @endif
+                                            <div class="d-flex align-items-center" wire:ignore x-data="{
                                                 isFollowing: @json($isFollowing),
-                                                isRequested:  @json($isRequested)
+                                                isRequested: @json($isRequested)
                                             }">
-                                            <button class="btn rounded"
-                                                :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-primary' : 'btn-primary')"
-                                                @click.prevent="
+                                                <button class="btn rounded"
+                                                    :class="isFollowing ? 'btn-outline-danger' : (isRequested ?
+                                                        'btn-outline-primary' : 'btn-primary')"
+                                                    @click.prevent="
                                                        if (!isRequested) {
                                                            if (isFollowing) {
                                                                // Optimistically update UI for unfollow
@@ -80,27 +83,26 @@
                                                            }
                                                        }
                                                    ">
-                                                <i
-                                                    x-bind:class="isFollowing ? 'fa-solid fa-minus' : 'fa-solid fa-plus'"></i>
-                                                <span
-                                                    x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
-                                            </button>
-                                        </div>
+                                                    <i
+                                                        x-bind:class="isFollowing ? 'fa-solid fa-minus' : 'fa-solid fa-plus'"></i>
+                                                    <span
+                                                        x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
+                                                </button>
+                                            </div>
 
-                                    </div>
+                                        </div>
 
                                     @endif
 
                                     @if (auth()->user()->id === $user->id)
-                                    <div>
-                                        <label for="profilePicture"
-                                            class="mb-0 text-dark btn btn-outline-secondary btn-custom rounded">
-                                            <i class="fas fa-camera"></i> تعديل الصورة الشخصية
-                                        </label>
-                                        <input type="file" id="profilePicture" wire:model="profilePicture"
-                                            class="d-none" accept="image/*">
-                                    </div>
-
+                                        <div>
+                                            <label for="profilePicture"
+                                                class="mb-0 text-dark btn btn-outline-secondary btn-custom rounded">
+                                                <i class="fas fa-camera"></i> تعديل الصورة الشخصية
+                                            </label>
+                                            <input type="file" id="profilePicture" wire:model="profilePicture"
+                                                class="d-none" accept="image/*">
+                                        </div>
                                     @endif
 
                                     <div x-data="{ open: false }" class="position-relative">
@@ -114,13 +116,13 @@
                                             <ul class="list-unstyled ">
 
                                                 @if (auth()->user()->id == $user->id)
-                                                <li>
-                                                    <a href="/EnhanceProfile"
-                                                        class=" text-decoration-none text-dark d-flex gap-2 align-items-center">
-                                                        <i class="fas fa-user-edit"></i>
-                                                        تحسين الملف الشخصي
-                                                    </a>
-                                                </li>
+                                                    <li>
+                                                        <a href="/EnhanceProfile"
+                                                            class=" text-decoration-none text-dark d-flex gap-2 align-items-center">
+                                                            <i class="fas fa-user-edit"></i>
+                                                            تحسين الملف الشخصي
+                                                        </a>
+                                                    </li>
                                                 @endif
                                                 <li class="d-flex gap-2 align-items-center">
                                                     <i class="fas fa-share-alt me-2"></i>
@@ -201,61 +203,61 @@
 
 
                 @error('profilePicture')
-                <span class="alert alert-danger d-flex flex-wrap w-100">{{ $message }}</span>
+                    <span class="alert alert-danger d-flex flex-wrap w-100">{{ $message }}</span>
                 @enderror
 
                 @if (session()->has('message'))
-                <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
-                    {{ session('message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                    <div class="alert alert-success d-flex flex-wrap justify-content-between w-100">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 @endif
 
                 @if (session()->has('error'))
-                <div class="alert alert-danger d-flex flex-wrap w-100">
-                    {{ session('error') }}
-                </div>
+                    <div class="alert alert-danger d-flex flex-wrap w-100">
+                        {{ session('error') }}
+                    </div>
                 @endif
 
                 {{-- link_updated --}}
                 @if (session()->has('link_updated'))
-                <div class="alert alert-success d-flex flex-wrap w-100">
-                    {{ session('link_updated') }}
-                </div>
+                    <div class="alert alert-success d-flex flex-wrap w-100">
+                        {{ session('link_updated') }}
+                    </div>
                 @endif
                 {{-- link_deleted --}}
                 @if (session()->has('link_deleted'))
-                <div class="alert alert-success d-flex flex-wrap w-100">
-                    {{ session('link_deleted') }}
-                </div>
+                    <div class="alert alert-success d-flex flex-wrap w-100">
+                        {{ session('link_deleted') }}
+                    </div>
                 @endif
 
                 @if (!empty($user->personal_details->professional_summary))
-                <!-- General Information Section -->
-                @include('livewire.includes.user-profile.General-Information-Section')
+                    <!-- General Information Section -->
+                    @include('livewire.includes.user-profile.General-Information-Section')
                 @endif
 
                 @if ($user->type != 'company')
-                <!-- Experience Section -->
-                @include('livewire.includes.user-profile.Experience-Section')
+                    <!-- Experience Section -->
+                    @include('livewire.includes.user-profile.Experience-Section')
 
-                <!-- Projects-Section -->
-                @include('livewire.includes.user-profile.Projects-Section')
+                    <!-- Projects-Section -->
+                    @include('livewire.includes.user-profile.Projects-Section')
 
-                <!-- Education Section -->
-                @include('livewire.includes.user-profile.Education-Section')
+                    <!-- Education Section -->
+                    @include('livewire.includes.user-profile.Education-Section')
 
-                <!-- Courses-Section -->
-                @include('livewire.includes.user-profile.Courses-Section')
+                    <!-- Courses-Section -->
+                    @include('livewire.includes.user-profile.Courses-Section')
 
-                <!-- Skills-Section -->
-                @include('livewire.includes.user-profile.Skills-Section')
+                    <!-- Skills-Section -->
+                    @include('livewire.includes.user-profile.Skills-Section')
 
-                {{-- languages section --}}
-                @include('livewire.includes.user-profile.languages')
+                    {{-- languages section --}}
+                    @include('livewire.includes.user-profile.languages')
 
-                {{-- interests-Section --}}
-                @include('livewire.includes.user-profile.interests-Section')
+                    {{-- interests-Section --}}
+                    @include('livewire.includes.user-profile.interests-Section')
                 @endif
 
 

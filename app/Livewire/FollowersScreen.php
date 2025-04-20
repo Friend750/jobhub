@@ -17,39 +17,36 @@ class FollowersScreen extends Component
     #[Title('Followers')]
     public $followers;
     public function mount()
-{
-    $user = User::find(Auth::user()->id);
+    {
+        $user = User::find(Auth::user()->id);
 
-    $this->followers = $user->acceptedFollowers()
-    ->with('experiences')
-    ->get()
-    ->map(function ($follower) {
-        return [
-            'id' => $follower->id,
-            'name' => $follower->fullName(),
-            'position' => optional($follower->experiences->sortByDesc('created_at')->first())->job_title ?? 'No Position',
-            'user_image' => $follower->user_image ?? null,
-        ];
-    })->toArray();
+        $this->followers = $user->acceptedFollowers()
+            ->with('experiences')
+            ->get()
+            ->map(function ($follower) {
+                return [
+                    'id' => $follower->id,
+                    'name' => $follower->fullName(),
+                    'position' => $follower->personal_details->specialist,
+                    'user_image' => $follower->user_image_url ?? null,
+                ];
+            })->toArray();
 
-}
+    }
 
-public function deleteConnection($connectionId)
+    public function deleteConnection($connectionId)
     {
         $deleted = Connection::where('follower_id', Auth::id())
-        ->where('following_id', $connectionId)
-        ->delete();
+            ->where('following_id', $connectionId)
+            ->delete();
 
-        if ($deleted)
-         {
-                 session()->flash('message', 'Connection deleted successfully!');
-         }
-         else
-         {
-        session()->flash('error', 'Connection not found or already deleted!');
-         }
+        if ($deleted) {
+            session()->flash('message', 'Connection deleted successfully!');
+        } else {
+            session()->flash('error', 'Connection not found or already deleted!');
+        }
 
-$this->dispatch('connectionUpdated');
+        $this->dispatch('connectionUpdated');
 
     }
 

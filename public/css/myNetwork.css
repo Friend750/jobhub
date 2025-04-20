@@ -1,50 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
+.active-item {
+    color: var(--color-primary) !important;
+    background: var(--color-bg-blue-light) !important;
+    border-radius: 0px !important;
+    transition: 1.3s ease !important;
+    font-weight: 600 !important;
 }
 
-h4 {
-    color: #333;
-}
-
-.bg-light {
-    background-color: #f8f9fa !important;
-}
-
-.btn-outline-primary {
-    color: #007bff;
-    border-color: #007bff;
-}
-.dropdown-item:hover
-{
- color: #007bff;
-}
-
-.dropdown-item:active
-{
-    color: #007bff;
-    background-color:#f8f9fa ;
-}
-
-.btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
-}
-.containerOfNetwork
-{
-    background-color: #fff;
-}
-a
-{
-    color: black;
-    text-decoration-line: none;
-}
-a:hover
-{
-    color: #333;
-    text-decoration-line: none;
-
-}
-.list-unstyled
-{
-    font-size: 14px !important;
+.active-item:hover {
+    color: var(--color-primary) !important;
+    background: var(--color-bg-blue-light) !important;
+    border-radius: 0px !important;
+    transition: 1.3s ease !important;
+    font-weight: 600 !important;
 }

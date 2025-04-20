@@ -30,10 +30,10 @@
     {{-- main app css --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @stack('styles')
-    <title>Yemen Jobs | {{ $title ?? 'Page Title' }}</title>
+    <title>يمن إن | {{ $title ?? 'Page Title' }}</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     @if (
         !in_array(Route::currentRouteName(), [
             'dashboard',
@@ -60,8 +60,9 @@
             @include('livewire.navigation-bar')
     @endif
 
-
+<main class="flex-grow-1">
     {{ $slot }}
+</main>
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

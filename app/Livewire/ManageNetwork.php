@@ -14,11 +14,11 @@ class ManageNetwork extends Component
 
 
     protected $listeners = ['connectionUpdated' => 'refreshNetwork'];
-   public function mount()
-   {
-    $this->refreshNetwork();
-   }
-   public function refreshNetwork()
+    public function mount()
+    {
+        $this->refreshNetwork();
+    }
+    public function refreshNetwork()
     {
         $user = User::find(Auth::user()->id);
         $this->countCompanies = $user->companies()->count();

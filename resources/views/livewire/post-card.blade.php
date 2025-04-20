@@ -9,7 +9,14 @@
         <div class="container gap-3 d-flex justify-content-end col-md-12">
 
 
-            <div class="col-lg-3"></div>
+            <div class="col-lg-3 p-0 d-flex justify-content-end">
+                <div class="MakeSticky w-75" style="
+                height: fit-content;">
+                    @livewire('manage-network')
+                </div>
+            </div>
+
+
             <div class="col-lg-6" x-data="postCard(@this)">
 
 
