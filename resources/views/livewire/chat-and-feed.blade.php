@@ -3,7 +3,7 @@
     <div>
         <div class="card bg-white rounded border shadow-sm flex-grow-1">
             <!-- Header -->
-            <h5 class="card-header pt-3 pl-3">الدردشات</h5>
+            <h5 class="card-header pt-3 pl-3">{{ __('general.chats') }}</h5>
 
             <!-- Chat List -->
             <div class="card-body">
@@ -21,8 +21,9 @@
                         </a>
                     @empty
                         <div class="text-center text-muted my-3">
-                            <p class="mb-0">لا توجد محادثات متوفرة.</p>
-                            <a href="/Followers" class="text-decoration-none">ابدأ محادثة جديدة</a>
+                            <a href="/Followers" class="text-decoration-none">
+                                {{ __('general.start_new_chat') }}
+                            </a>
                         </div>
                     @endforelse
                 </div>
@@ -33,21 +34,21 @@
     {{-- Feed Card --}}
     <div class="card bg-white rounded border shadow-sm mt-3">
         <!-- Header -->
-        <h5 class="card-header pt-3">أضف للمتابعة</h5>
+        <h5 class="card-header pt-3">{{ __('general.addToFollowing') }}</h5>
 
         <!-- Feed List -->
         <div class="card-body">
             @forelse($suggestions as $suggestion)
-                <div class="d-flex align-items-start mb-3 cursor-pointer" x-data
-                    @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
-                    wire:click='showUser({{ $suggestion['id'] }})'>
+                <div class="d-flex align-items-start mb-3 " >
                     <!-- User Image -->
                     <img src="{{ $suggestion->user_image_url }}" alt="User Image"
-                        class="rounded-circle ms-2 mt-1 sm-img">
+                        class="rounded-circle ms-2 mt-1 sm-img cursor-pointer" x-data
+                        @click="fetch(`/users/{{ $suggestion['id'] }}/ping`, { method: 'GET' })"
+                        wire:click='showUser({{ $suggestion['id'] }})'>
                     <div class="d-flex flex-column">
                         <div class="flex-grow-1">
                             <!-- User Name -->
-                            <a href="#" class="text-dark font-weight-bold text-decoration-none">
+                            <a  class="text-dark font-weight-bold text-decoration-none">
                                 <strong>{{ $suggestion->page_name ?? $suggestion->fullName() }}</strong>
                             </a>
                             <!-- Professional Summary -->

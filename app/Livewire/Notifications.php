@@ -33,10 +33,11 @@ class Notifications extends Component
         $this->notifications = DB::table('notifications')
             ->where('notifiable_id', $userId) // جلب الإشعارات للمستخدم الحالي فقط
             ->where('type', '!=', 'App\\Notifications\\SentMessage') // استثناء النوع غير المطلوب
+            ->orderBy('created_at', 'desc') // ترتيب الإشعارات حسب تاريخ الإنشاء
             ->get()
             ->map(function ($notification) {
                 $data = json_decode($notification->data, true); // فك JSON
-                $user = \App\Models\User::find($data['user_id']); // الحصول على المستخدم
+                $user = \App\Models\User::find($data['user']['id']); // الحصول على المستخدم
                 return [
                     'id' => $notification->id,
                     'type' => $notification->type,

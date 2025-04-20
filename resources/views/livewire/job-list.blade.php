@@ -8,104 +8,188 @@
     <!-- Filters Section -->
     @include('livewire.includes.jobs.filters')
 
-    <!-- Job Content -->
-    <div class="row" x-data="jobSelector(@js($jobs), @js($initialJob))">
-        <div class="col-4" style="
-        max-height: 72vh;
-        overflow: auto;">
+    <div class="row" x-data="jobSelector(@js($jobs->items()), @js($initialJob))"
+        wire:key="jobs-container-{{ count($jobs) }}-{{ $initialJob?->id }}">
+
+        <div class="col-4 custom-scrollbar" style="max-height: 72vh; overflow: auto;" x-data="{ hasMore: @js($jobs->hasMorePages()) }">
             @forelse ($jobs as $job)
-                <div>
-                    @include('livewire.includes.jobs.job-card')
+                <div wire:key="job-card-{{ $job->id }}" x-on:click="selectJob({{ $job->id }})">
+                    @include('livewire.includes.jobs.job-card', [
+                        'isSelected' => $initialJob?->id === $job->id,
+                    ])
                 </div>
             @empty
-                @include('livewire.includes.jobs.no-jobs')
+                <div class="text-center py-4 text-muted">لا توجد وظائف</div>
             @endforelse
+
+            {{-- Infinite scroll loader --}}
+            <template x-if="hasMore">
+                <div
+                    x-intersect.once="$wire.loadMore().then(() => {
+                        hasMore = @js($jobs->hasMorePages());
+                    })"
+                    class="text-center py-4 text-muted">
+                    جاري تحميل المزيد...
+                </div>
+            </template>
+
+            {{-- No more jobs message --}}
+            <div x-show="!hasMore" class="text-center py-4 text-muted">
+                لا توجد المزيد من الوظائف
+            </div>
         </div>
 
+
+        <!-- Job Details Column -->
         <div class="col-8">
-            @include('livewire.includes.jobs.job-details')
+            <div class="job-details bg-white p-4 rounded-3 shadow-sm custom-scrollbar"
+                style="height: 72vh; overflow: auto; font-size: large;">
+
+                <!-- Loading State (shows only when loading) -->
+                <div x-show="loading" class="h-100">
+
+                    <div class="h-100 d-flex flex-column align-items-center justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">جاري تحميل تفاصيل الوظيفة...</p>
+
+                    </div>
+                </div>
+
+                <!-- Job Details Content (shows only when a job is selected and not loading) -->
+                <template x-if="selectedJob && !loading">
+                    <div x-data="jobData()" x-init="updateData(selectedJob)">
+                        @include('livewire.includes.jobs.job-details')
+                    </div>
+                </template>
+
+                <!-- Empty State -->
+                <template x-if="!loading && jobs.length === 0">
+                    @include('livewire.includes.jobs.no-jobs')
+                </template>
+
+            </div>
         </div>
     </div>
+
 </div>
-
-
-<script>
-    function searchableDropdown() {
-        return {
-            query: '',
-            selected: '',
-            open: false,
-            governorates: [
-                'كل المحافظات',
-                'صنعاء',
-                'عدن',
-                'تعز',
-                'حضرموت',
-                'المهرة',
-                'الحديدة',
-                'إب',
-                'الضالع',
-                'المحويت',
-                'ذمار',
-                'البيضاء'
-            ],
-            dropdownPosition: {
-                top: '0',
-                right: '0'
-            },
-
-            get filteredGovernorates() {
-                return this.governorates.filter(
-                    gov => gov.toLowerCase().includes(this.query.toLowerCase())
-                );
-            },
-
-            toggleDropdown() {
-                this.open = !this.open;
-            },
-
-            closeDropdown() {
-                this.open = false;
-            },
-
-            selectItem(gov) {
-                this.selected = gov;
-                this.closeDropdown();
-                this.$dispatch('governorate-selected', gov);
-            },
-
-        }
-    }
-</script>
 
 <script>
     document.addEventListener('alpine:init', () => {
         Alpine.data('jobSelector', (jobs, initialJob) => ({
-            jobs: jobs,
+            jobs: Array.isArray(jobs) ? jobs : Object.values(jobs), // safer array conversion
             selectedJob: null,
+            loading: false,
 
             init() {
-                // Set first job as selected by default
-                if (initialJob) {
-                    this.selectedJob = initialJob;
-                } else if (this.jobs.length > 0) {
+                // Set initial job selection
+                this.updateSelectedJob(initialJob);
+
+
+                // Watch for Livewire re-renders
+                this.$watch('jobs', (newJobs) => {
+                    if (!this.selectedJob && newJobs.length > 0) {
+                        this.updateSelectedJob(newJobs[0]);
+                    }
+                });
+            },
+
+            async selectJob(jobId) {
+                this.loading = true;
+                const foundJob = this.jobs.find(j => j.id === jobId);
+                this.updateSelectedJob(foundJob);
+                this.loading = false;
+            },
+
+            updateSelectedJob(job) {
+                if (jobs.length > 0 && job === null) {
                     this.selectedJob = this.jobs[0];
+                    return;
+                }
+                this.selectedJob = job || null;
+
+            },
+
+            isSelected(jobId) {
+                return this.selectedJob?.id === jobId;
+            }
+        }));
+    });
+
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('jobData', () => ({
+            user: null,
+            personalDetails: null,
+            jobTitle: null,
+            jobLocation: null,
+            jobTiming: null,
+            createdAt: '',
+            aboutJob: null,
+            jobTasks: null,
+            jobConditions: null,
+            jobSkills: null,
+            jobTags: null,
+
+            init() {
+                // Initialize with parent's selected job if available
+                if (this.selectedJob) {
+                    this.updateData(this.selectedJob);
+                }
+                // Also watch parent's selectedJob in case it changes
+                this.$watch('selectedJob', (job) => {
+                    this.updateData(job);
+                });
+            },
+
+            getCompanyName() {
+                return this.personalDetails?.page_name || this.getFullName() || 'Company';
+            },
+
+            getFullName() {
+                return (this.personalDetails?.first_name || '') + ' ' +
+                    (this.personalDetails?.last_name || '');
+            },
+
+            formatBulletPoints(text) {
+                if (!text || !text.trim()) return '';
+                const points = text.trim().split('\n')
+                    .filter(point => point.trim())
+                    .map(point => `• ${point.trim()}`)
+                    .join('<br>');
+                return points || '';
+            },
+
+            updateData(job) {
+                if (!job) {
+                    // Clear all data
+                    this.user = null;
+                    this.personalDetails = null;
+                    this.jobTitle = null;
+                    this.jobLocation = null;
+                    this.jobTiming = null;
+                    this.createdAt = '';
+                    this.aboutJob = null;
+                    this.jobTasks = null;
+                    this.jobConditions = null;
+                    this.jobSkills = null;
+                    return;
                 }
 
-            },
-
-            // selectJob(jobId) {
-            //     this.selectedJob = this.jobs.find(j => j.id === jobId);
-            // },
-            selectJob(jobId) {
-                // Convert the proxy to a real array.
-                const jobsArray = Object.values(this.jobs);
-                // Find the job in the newly created array.
-                const job = jobsArray.find(j => j.id === jobId);
-                this.selectedJob = job;
-            },
-            isSelected(jobId) {
-                return this.selectedJob && this.selectedJob.id === jobId;
+                // Update with new job data
+                this.user = job.user;
+                this.personalDetails = job.user?.personal_details;
+                this.jobTitle = job.job_title;
+                this.jobLocation = job.job_location;
+                this.jobTiming = job.job_timing;
+                this.createdAt = job.created_at ? new Date(job.created_at).toLocaleDateString() :
+                    '';
+                this.aboutJob = job.about_job;
+                this.jobTasks = job.job_tasks;
+                this.jobConditions = job.job_conditions;
+                this.jobSkills = job.job_skills;
+                this.jobTags = job.tags;
             }
         }));
     });

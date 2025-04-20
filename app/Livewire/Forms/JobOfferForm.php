@@ -31,7 +31,7 @@ class JobOfferForm extends Form
 
     public $tags = [];
 
-    public function submit($target)
+    public function submit($selectedInterests ,$target)
     {
         $this->validate();
 
@@ -44,7 +44,7 @@ class JobOfferForm extends Form
             'job_skills' => $this->job_skills,
             'job_location' => $this->job_location,
             'job_timing' => $this->job_timing,
-            'tags' => $this->tags,
+            'tags' => $selectedInterests,
             'target' => $target,
         ]);
 

@@ -5,7 +5,7 @@
     $details = $user->personal_details ?? null;
 @endphp
 
-<div class="container p-3 bg-light rounded mb-2 card-hover" style="height: fit-content;" wire:key="{{ $job->id }}"
+<div class="container p-3 bg-light rounded mb-2 card-hover" style="height: fit-content;"
     x-on:click="selectJob({{ $job->id }})">
 
     <div class="d-flex align-items-start p-3 bg-white rounded-1"

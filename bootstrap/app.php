@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'IsAdmin' => \App\Http\Middleware\CheckAdmin::class,
             'hasInterestsAndType' => \App\Http\Middleware\CheckAccountTypeAndInterests::class,
             'hasUsername' => \App\Http\Middleware\CheckUsername::class,
-            'verified' => \App\Http\Middleware\CheckVerifiedUser::class
+            'verified' => \App\Http\Middleware\CheckVerifiedUser::class,
+            'setLocale' => \App\Http\Middleware\SetLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

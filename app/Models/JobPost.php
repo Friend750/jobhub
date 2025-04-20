@@ -46,18 +46,16 @@ class JobPost extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $value)
     {
-        return $query->where('job_title', 'LIKE', "%{$term}%")
-            ->orWhere('job_location', 'LIKE', "%{$term}%")
-            ->orWhereRaw("JSON_CONTAINS(tags, '\"$term\"')");
+        $searchTerm = trim($value); // Remove whitespace from both ends
+        $query->where('job_title', 'like', "%{$searchTerm}%");
     }
 
     public function jobLikes()
     {
         return $this->belongsToMany(JobPost::class, 'job_post_like')->withTimestamps();
     }
-
 
     public function scopeForFeed(Builder $query)
     {

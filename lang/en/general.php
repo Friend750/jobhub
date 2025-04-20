@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'addToFollowing' => 'Add to Follow',
+    'dashboard' => 'Dashboard',
+    'added_like' => 'added a like:',
     'unActive_jobs' => 'Unactive Jobs',
     'no_followeds' => 'no followings',
     'careerAI' => 'Career AI',
@@ -86,7 +89,7 @@ return [
     'decline' => 'Decline',
     'added_comment' => 'added a comment:',
     'no_message' => 'No message provided',
-    'unknown_time' => 'Unknown time',
+    'unknown_time' => '',
     'mark_as_read' => 'Mark as Read',
     'view_profile' => 'View Profile',
     'language' => 'Language',

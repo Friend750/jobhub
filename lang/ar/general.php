@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'addToFollowing' => 'أضف للمتابعة',
+    'dashboard' => 'لوحة التحكم',
+    'added_like' => 'أضاف إعجابًا:',
     'unActive_jobs' => 'الوظائف غير النشطة',
     'no_followers' => 'لا يوجد متابعين ',
     'careerAI' => 'محاكاة وظيفة',
@@ -80,7 +83,7 @@ return [
     'profile_views' => 'مشاهدات الملف الشخصي',
     'mark_all_as_read' => 'وضع علامة كمقروء للجميع',
     'all' => 'الكل',
-    'mentions' => 'الإشارات',
+    'mentions' => 'التفاعلات',
     'unread' => 'غير المقروءة',
     'unknown_sender' => 'مرسل غير معروف',
     'wants_to_follow' => 'يريد متابعتك.',
@@ -88,7 +91,7 @@ return [
     'decline' => 'رفض',
     'added_comment' => 'أضاف تعليقًا:',
     'no_message' => 'لم يتم تقديم رسالة',
-    'unknown_time' => 'وقت غير معروف',
+    'unknown_time' => '',
     'mark_as_read' => 'وضع علامة كمقروء',
     'view_profile' => 'عرض الملف الشخصي',
     'language' => 'اللغة',
