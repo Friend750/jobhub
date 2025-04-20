@@ -8,10 +8,10 @@
     <!-- Filters Section -->
     @include('livewire.includes.jobs.filters')
 
-    <div class="row" x-data="jobSelector(@js($jobs), @js($initialJob))" wire:key="jobs-container-{{ count($jobs) }}-{{ $initialJob?->id }}">
+    <div class="row" x-data="jobSelector(@js($jobs->items()), @js($initialJob))"
+        wire:key="jobs-container-{{ count($jobs) }}-{{ $initialJob?->id }}">
 
-        <!-- Jobs List Column -->
-        <div class="col-4 custom-scrollbar" style="max-height: 72vh; overflow: auto;">
+        <div class="col-4 custom-scrollbar" style="max-height: 72vh; overflow: auto;" x-data="{ hasMore: @js($jobs->hasMorePages()) }">
             @forelse ($jobs as $job)
                 <div wire:key="job-card-{{ $job->id }}" x-on:click="selectJob({{ $job->id }})">
                     @include('livewire.includes.jobs.job-card', [
@@ -19,8 +19,26 @@
                     ])
                 </div>
             @empty
+                <div class="text-center py-4 text-muted">لا توجد وظائف</div>
             @endforelse
+
+            {{-- Infinite scroll loader --}}
+            <template x-if="hasMore">
+                <div
+                    x-intersect.once="$wire.loadMore().then(() => {
+                        hasMore = @js($jobs->hasMorePages());
+                    })"
+                    class="text-center py-4 text-muted">
+                    جاري تحميل المزيد...
+                </div>
+            </template>
+
+            {{-- No more jobs message --}}
+            <div x-show="!hasMore" class="text-center py-4 text-muted">
+                لا توجد المزيد من الوظائف
+            </div>
         </div>
+
 
         <!-- Job Details Column -->
         <div class="col-8">

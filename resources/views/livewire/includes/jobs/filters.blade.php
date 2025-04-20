@@ -3,13 +3,14 @@
         <div class="filters d-flex align-items-center gap-2">
             <!-- Sort Filter -->
             <div class="position-relative d-inline-block custom-select-container">
-                <select wire:model="relative"
-                    class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
-                    <option value="">الاكثر صلة</option>
-                    <option value="">الاكثر مشاهدة</option>
-                    <option value="">الاكثر تفاعلا</option>
-                    <option value="my_jobs">وظائفي المنشورة</option>
-                </select>
+                <select wire:model.live="relative"
+    class="filter form-select m-0 py-2 border-2 border-primary border-opacity-10 rounded-3 text-right custom-select">
+    <option value="related">الاكثر صلة</option>
+    <option value="views">الاكثر مشاهدة</option>
+    <option value="likes">الاكثر تفاعلا</option>
+    <option value="my_jobs">وظائفي المنشورة</option>
+</select>
+
                 <span class="position-absolute top-50 start-0 translate-middle-y ps-2 custom-select-icon">
                     <i class="bi bi-chevron-down text-primary"></i>
                 </span>
