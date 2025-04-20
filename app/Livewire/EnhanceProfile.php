@@ -137,6 +137,12 @@ class EnhanceProfile extends Component
         $this->CompanyPageForm->oldData();
     }
 
+    public function savePersonalDetails()
+{
+    $this->PDFrom->submit();
+    $this->dispatch('formSaved'); // لإلغاء المنع بعد الحفظ
+}
+
     public function mount(){
         $this->userType = Auth::user()->type;
         $this->getOldUserData();

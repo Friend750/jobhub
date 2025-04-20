@@ -4,11 +4,10 @@
 
 <div>
     @if (session()->has('error'))
-    <div class="alert alert-danger text-center my-3">
-        {{ session('error') }}
-    </div>
-@endif
-
+        <div class="alert alert-danger text-center my-3">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div x-data="{ userType: @js($userType) }">
 
@@ -24,7 +23,6 @@
 
                             <!-- Content Area (Heavy Component) -->
                             @include('livewire.includes.enhance-profile.content-area')
-
 
                         </div>
                     </div>
@@ -45,6 +43,7 @@
 
     </div>
 </div>
+
 
 <script>
     // if we want to use $wire in alpine scope we need to pass wire to the component name 'sectionManager' then receive as '@this'

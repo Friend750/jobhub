@@ -1,55 +1,61 @@
 <?php
 
-use App\Livewire\Chat;
-use App\Livewire\ChatAndFeed;
-use App\Livewire\Dashboard\UsersTable;
-use App\Livewire\PostCard;
-
-use App\Livewire\CareerAI\AiQuestions;
-use App\Livewire\CareerAI\GenerateQuestines;
-use App\Livewire\CareerAI\Questionnaire;
-use App\Livewire\CareerAI\ReportsAnalysis;
-use App\Livewire\CareerAI\UplaodJobProfile;
-
-use App\Livewire\CareerAI\Welcome;
-use App\Livewire\CareerAI\CongratsAnalys;
-use App\Livewire\UserProfile;
-use Illuminate\Support\Str;
-use App\Livewire\CompanyList;
-use App\Livewire\Dashboard\Dashboard;
-use App\Livewire\EnhanceProfile;
-use App\Livewire\FollowersScreen;
-use App\Livewire\FollowingScreen;
-use App\Livewire\HomePage;
-use App\Livewire\NavigationBar;
-use App\Livewire\Notifications;
-use App\Livewire\Search;
-use App\Livewire\SelectInterests;
-use App\Livewire\Typeaccount;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Dashboard\JobsTable;
-use App\Livewire\FollowedList;
-use App\Livewire\JobList;
-use App\Livewire\OtpVerification;
-use App\Livewire\Username;
-use App\Models\PersonalDetail;
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
-// Publicly accessible routes
+use App\Models\User;
+use App\Models\PersonalDetail;
+
+use App\Livewire\{
+    Chat,
+    ChatAndFeed,
+    PostCard,
+    CompanyList,
+    Dashboard\Dashboard,
+    Dashboard\UsersTable,
+    Dashboard\JobsTable,
+    EnhanceProfile,
+    FollowersScreen,
+    FollowingScreen,
+    FollowedList,
+    HomePage,
+    NavigationBar,
+    Notifications,
+    Search,
+    SelectInterests,
+    Typeaccount,
+    OtpVerification,
+    Username,
+    UserProfile,
+    CareerAI\AiQuestions,
+    CareerAI\CongratsAnalys,
+    CareerAI\GenerateQuestines,
+    CareerAI\Questionnaire,
+    CareerAI\ReportsAnalysis,
+    CareerAI\UplaodJobProfile,
+    CareerAI\Welcome
+};
+
+// ----------------------
+// 🌐 Public Routes
+// ----------------------
+
+// الصفحة الرئيسية
 Route::get('/', HomePage::class)->name("home");
-Route::get('/unauthorized-access', function () {
-    return view('unauthorized'); // Use a clearer view name
-})->name('error');
+
+// صفحة الوصول غير المصرح بها
+Route::get('/unauthorized-access', fn () => view('unauthorized'))->name('error');
+
+// مسارات تسجيل الدخول
 Auth::routes();
 
-Route::get('/auth/google', function () {
-    return Socialite::driver('google')->redirect();
-})->name('google.login');
+// تسجيل الدخول عبر Google
+Route::get('/auth/google', fn () => Socialite::driver('google')->redirect())->name('google.login');
 
+// عودة من Google بعد التسجيل
 Route::get('/auth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
 
@@ -58,21 +64,18 @@ Route::get('/auth/google/callback', function () {
     $firstName = $nameParts[0] ?? null;
     $lastName = isset($nameParts[1]) ? implode(' ', array_slice($nameParts, 1)) : null;
 
-    // البحث عن المستخدم
     $user = User::where('email', $googleUser->getEmail())->first();
 
     if (!$user) {
-        // المستخدم جديد، قم بإنشائه وأعطه user_name = "0"
         $user = User::create([
             'email' => $googleUser->getEmail(),
             'user_name' => "0",
             'user_image' => $googleUser->getAvatar(),
             'google_id' => $googleUser->getId(),
-            'password' => bcrypt(Str::random(16)), // إنشاء كلمة مرور عشوائية مشفرة
+            'password' => bcrypt(Str::random(16)),
             'email_verified_at' => Carbon::now('Asia/Aden')
         ]);
 
-        // إنشاء تفاصيل المستخدم فقط إذا كان جديدًا
         PersonalDetail::create([
             'first_name' => $firstName,
             'last_name' =>  $lastName,
@@ -80,27 +83,20 @@ Route::get('/auth/google/callback', function () {
         ]);
     }
 
-    // تسجيل الدخول مباشرة
     Auth::login($user);
 
-    // إذا كان user_name هو "0"، أعد توجيهه لاختيار اسم المستخدم
-    if ($user->user_name === "0") {
-        return redirect('/username');
-    }
-
-    return redirect('/posts'); // أو أي صفحة رئيسية
+    return $user->user_name === "0"
+        ? redirect('/username')
+        : redirect('/posts');
 });
 
+// تتبع الزيارات للملف الشخصي
 Route::get('/users/{id}/ping', function ($id) {
     $user = User::findOrFail($id);
     $authUser = auth()->user();
 
-    // Check if there is an authenticated user
     if ($authUser) {
-        // Create a unique session key for the visited profile
         $sessionKey = 'visited_profile_' . $authUser->id . '_' . $user->id;
-
-        // If the profile hasn't been visited before, increment the view count and mark it as visited
         if (!session()->has($sessionKey)) {
             $user->increment('views');
             session()->put($sessionKey, true);
@@ -110,53 +106,68 @@ Route::get('/users/{id}/ping', function ($id) {
     return response()->noContent();
 });
 
-// Secured routes: Only accessible to authenticated users
-Route::middleware(['auth','hasInterestsAndType','hasUsername','verified','setLocale'])->group(function () {
+// ----------------------
+// 🔒 Authenticated Routes
+// ----------------------
 
+// الوصول إلى صفحة EnhanceProfile
+Route::get('/EnhanceProfile', EnhanceProfile::class)
+    ->middleware(['auth'])
+    ->name("EnhanceProfile");
+
+// مسارات للمستخدمين الذين أكملوا بياناتهم الشخصية
+Route::middleware([
+    'auth',
+    'hasInterestsAndType',
+    'hasUsername',
+    'verified',
+    'enhanced.profile',
+    'setLocale'
+])->group(function () {
+    Route::get('/posts', PostCard::class)->name("post");
+    Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
+    Route::get('/notifications', Notifications::class)->name("notifications");
 
     Route::get('/FollowedList/{id?}/{type?}', FollowedList::class)->name('FollowedList');
     Route::get('/Followers', FollowersScreen::class)->name("FollowersScreen");
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
     Route::get('/user-profile/{id?}', UserProfile::class)->name("user-profile");
-    Route::get('/JobList/{id?}', JobList::class)->name("jobList");
+    Route::get('/JobList/{id?}', \App\Livewire\JobList::class)->name("jobList");
     Route::get('/Search', Search::class)->name("search");
-    Route::get('/EnhanceProfile', EnhanceProfile::class)->name("EnhanceProfile");
-    Route::get('/posts', PostCard::class)->name("post");
-    Route::get('/chat/{conversationId?}', Chat::class)->name("chat");
-    Route::get('/notifications', Notifications::class)->name("notifications");
-    Route::get('lang/{locale}', function ($locale) {
-        if (! in_array($locale, ['en', 'ar'])) {
-            abort(400);
-        }
 
-        session(['locale' => $locale]);
-        return redirect()->back();
-    })->name('lang.switch');
-
-
-
-Route::get('/welcomeCareerAI', Welcome::class)->name('welcomeCareerAI');
-Route::get('/interview_type', GenerateQuestines::class)->name('generateQuestines');
-Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
-Route::get('/AI_questions', AiQuestions::class)->name('AiQuestions');
-Route::get('/Uplaod_Job_Profile', UplaodJobProfile::class)->name('Uplaod_Job_Profile');
-Route::get('/ReportsAnalysis', ReportsAnalysis::class)->name('ReportsAnalysis');
-Route::get('/cong', CongratsAnalys::class)->name('cong');
+    // Career AI
+    Route::get('/welcomeCareerAI', Welcome::class)->name('welcomeCareerAI');
+    Route::get('/interview_type', GenerateQuestines::class)->name('generateQuestines');
+    Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
+    Route::get('/AI_questions', AiQuestions::class)->name('AiQuestions');
+    Route::get('/Uplaod_Job_Profile', UplaodJobProfile::class)->name('Uplaod_Job_Profile');
+    Route::get('/ReportsAnalysis', ReportsAnalysis::class)->name('ReportsAnalysis');
+    Route::get('/cong', CongratsAnalys::class)->name('cong');
 });
 
-
-Route::middleware(['auth','hasUsername','verified'])->group(function () {
+// مسارات لإعدادات الحساب مثل اختيار الاهتمامات ونوع الحساب
+Route::middleware(['auth', 'hasUsername', 'verified'])->group(function () {
     Route::get('/typeaccount', Typeaccount::class)->name("typeaccount");
     Route::get('/interests', SelectInterests::class)->name("interests");
 });
 
-Route::get('/username', Username::class)->name("username")->middleware('auth');
-Route::get('/otp', OtpVerification::class)->name("verify")->middleware('auth');
+// مسارات لإعداد الاسم وتحقق OTP
+Route::get('/username', Username::class)->middleware('auth')->name("username");
+Route::get('/otp', OtpVerification::class)->middleware('auth')->name("verify");
 
+// مسارات الإدارة
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name("dashboard");
     Route::get('/users-table', UsersTable::class)->name("users-table");
     Route::get('/jobs-table', JobsTable::class)->name('dashboard.jobs-table');
 });
 
+// تبديل اللغة بين الإنجليزية والعربية
+Route::get('/lang/{locale}', function ($locale) {
+    if (!in_array($locale, ['en', 'ar'])) {
+        abort(400);
+    }
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('lang.switch');

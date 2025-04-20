@@ -19,6 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'hasUsername' => \App\Http\Middleware\CheckUsername::class,
             'verified' => \App\Http\Middleware\CheckVerifiedUser::class,
             'setLocale' => \App\Http\Middleware\SetLocale::class,
+            'enhanced.profile' => \App\Http\Middleware\CheckEnhancedProfile::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
