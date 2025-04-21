@@ -24,8 +24,8 @@ class Searchbar extends Component
                     $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
                           ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
                 })
-                ->orderByDesc('views') // Make sure `views` column is in the users table
-                ->select('users.*') // Make sure to select users' fields only
+                ->orderByDesc('views')
+                ->select('users.*') 
                 ->take(4)
                 ->get();
 

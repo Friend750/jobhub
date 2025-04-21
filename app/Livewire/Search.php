@@ -47,14 +47,25 @@ class Search extends Component
 
     public function loadPeople()
     {
-        $results = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', Auth::user()->user_name)
-            ->where('type', 'user')
-            ->take($this->paginateVarPeople + 1) // Fetch one extra record to check for more pages
+        $currentUserId = Auth::id(); // استبعاد المستخدم الحالي باستخدام ID وهو أدق
+
+        $results = User::query()
+            ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+            ->where(function ($query) {
+                $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
+                      ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
+            })
+            ->where('users.id', '!=', $currentUserId)
+            ->where('users.type', 'user')
+            ->orderByDesc('views') // إذا تحب تحافظ على ترتيب حسب views
+            ->select('users.*')
+            ->take($this->paginateVarPeople + 1) // Fetch one extra to check for pagination
             ->get()
             ->values();
-        $this->hasMorePeople = $results->count() > $this->paginateVarPeople; // Check if there are more records
-        $this->people = $results->take($this->paginateVarPeople); // Only take the current page's data
+
+        $this->hasMorePeople = $results->count() > $this->paginateVarPeople;
+        $this->people = $results->take($this->paginateVarPeople);
+
     }
 
     public function loadCompany()

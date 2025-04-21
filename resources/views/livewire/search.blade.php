@@ -35,7 +35,7 @@
                     @click="fetch(`/users/{{ $person['id'] }}/ping`, { method: 'GET' })"
                     wire:click='showUser({{ $person['id'] }})'>
                         <img style="width: 40px;" class="rounded-circle ms-3"
-                            src="{{ $person['profile_image'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($person->fullName()) }}">
+                        src="{{ $person->user_image_url }}">
                         <div>
                             <strong>{{ $person->fullName()}}</strong><br>
                             <small>{{ $person['position'] ?? __('general.position') }}</small>
@@ -101,7 +101,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <img style="width: 40px" class="rounded-circle ms-3"
-                            src="{{ $company['profile_image'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($company->fullName()) }}">
+                        src="{{ $company->user_image_url }}">
                         <div>
                             <strong>{{ $company->page_name ?? $company->fullName() }}</strong><br>
                             <small>{{ $company['position'] ?? __('general.position') }}</small>
