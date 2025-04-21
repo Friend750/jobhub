@@ -33,28 +33,6 @@
 
     <div class="card-body cardprofile text-end p-3" style="min-width: 230px;">
 
-        {{-- <div class="text-center position-relative mb-2" x-data="{
-            userType: '{{ $user->type }}',
-            getBorderColor() {
-                return this.userType === 'company' ? '#2B6DAE' :
-                       this.userType === 'admin' ? '#FFC107' : '#28A745';
-            },
-            getBadgeClass() {
-                return this.userType === 'company' ? 'text-bg-primary' :
-                       this.userType === 'admin' ? 'text-bg-warning' : 'text-bg-success';
-            }
-        }">
-            <img src="{{$user->user_image_url}}"
-                class="rounded-circle shadow-sm mb-2 card-img" alt="User Avatar"
-                x-bind:style="'border-color: ' + getBorderColor()">
-
-            <span
-                x-bind:class="'badge rounded-pill position-absolute bottom-0 start-50 translate-middle-x ' + getBadgeClass()">
-                {{ $user->type === 'company' ? 'حساب اعمال' : ($user->type === 'admin' ? 'حساب مشرف' : 'حساب شخصي') }}
-            </span>
-        </div> --}}
-
-
         <div class="mb-3 text-center ">
             <h5 class="mb-0">{{ $user->personal_details->first_name ?? '' }}
                 {{ $user->personal_details->last_name ?? '' }}
@@ -76,22 +54,22 @@
             </a>
 
             <!-- Language -->
-            @if(app()->getLocale() == 'en')
-            <a href="{{ route('lang.switch', 'ar') }}"
-            class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-            <small class="fw-medium">
-                {{ __('general.language') }}
-            </small>
-            <i class="text-dark fas fa-language"></i>
-            </a>
+            @if (app()->getLocale() == 'en')
+                <a href="{{ route('lang.switch', 'ar') }}"
+                    class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                    <small class="fw-medium">
+                        {{ __('general.language') }}
+                    </small>
+                    <i class="text-dark fas fa-language"></i>
+                </a>
             @else
-            <a href="{{ route('lang.switch', 'en') }}"
-            class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
-            <small class="fw-medium">
-                {{ __('general.language') }}
-            </small>
-            <i class="text-dark fas fa-language"></i>
-            </a>
+                <a href="{{ route('lang.switch', 'en') }}"
+                    class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
+                    <small class="fw-medium">
+                        {{ __('general.language') }}
+                    </small>
+                    <i class="text-dark fas fa-language"></i>
+                </a>
             @endif
 
 
@@ -99,9 +77,12 @@
             <a href="{{ route('welcomeCareerAI') }}"
                 class="d-flex justify-content-between align-items-center mb-2 px-2 py-1 nav-link rounded nav-list-item">
                 <small class="fw-medium">
-                    {{ __('general.careerAI') }}
+                    {{ __('general.careerAI') }} AI
+                    <span class="badge bg-secondary text-light" style="font-size: xx-small">
+                        Beta
+                    </span>
                 </small>
-                <i class="text-dark fas fa-user-tie"></i>
+                <i class="text-dark bi bi-stars"></i>
 
 
             </a>

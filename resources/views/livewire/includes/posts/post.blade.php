@@ -30,7 +30,6 @@
                     @include('livewire.includes.posts.post-options')
                 </div>
 
-                @includeWhen($post->type == 'job', 'livewire.includes.posts.job-content')
                 @includeWhen($post->type == 'post', 'livewire.includes.posts.post-content')
 
                 <div class="mt-2">
@@ -45,6 +44,8 @@
                     @endforelse
                 </div>
             </div>
+            
+            @includeWhen($post->type == 'job', 'livewire.includes.posts.job-content')
 
             @includeWhen($post->type == 'post' && $post->post_image, 'livewire.includes.posts.post-media')
 
