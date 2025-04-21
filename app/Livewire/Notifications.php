@@ -29,6 +29,8 @@ class Notifications extends Component
 
     public function loadNotifications()
     {
+
+
         $userId = Auth::id(); // الحصول على معرف المستخدم الحالي
         $this->notifications = DB::table('notifications')
             ->where('notifiable_id', $userId) // جلب الإشعارات للمستخدم الحالي فقط
@@ -37,7 +39,7 @@ class Notifications extends Component
             ->get()
             ->map(function ($notification) {
                 $data = json_decode($notification->data, true); // فك JSON
-                $user = \App\Models\User::find($data['user']['id']); // الحصول على المستخدم
+                $user = \App\Models\User::find($data['user_id']); // الحصول على المستخدم
                 return [
                     'id' => $notification->id,
                     'type' => $notification->type,

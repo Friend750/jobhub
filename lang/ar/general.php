@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'search_for_companies' => 'ابحث عن شركات',
     'addToFollowing' => 'أضف للمتابعة',
     'dashboard' => 'لوحة التحكم',
     'added_like' => 'أضاف إعجابًا:',

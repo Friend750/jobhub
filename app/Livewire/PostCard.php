@@ -178,12 +178,14 @@ class PostCard extends Component
 
          $jobPosts = JobPost::forFeed()
         ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+        ->where('target','to_any_one')
         ->orWhere('user_id', $this->user->id);
 
 
 
         $normalPosts = Post::forFeed()
         ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+        ->where('target','to_any_one')
         ->orWhere('user_id', $this->user->id);
 
 
