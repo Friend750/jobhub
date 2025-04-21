@@ -6,7 +6,10 @@
     <div id="loadData" style="width: 100%;">
         <div class="d-flex justify-content-center align-items-center vh-100 bg-white">
             <div class="d-flex flex-column align-items-center">
-                <h1 class="logoName mb-2"> {{ __('general.logo') }}</h1>
+                <h1 class="logoName mb-2">
+                    <img src="{{ asset('favicon/apple-touch-icon.png') }}" height="80" alt="Logo" class="logo-image">
+
+                </h1>
                 <span class="loader"></span>
             </div>
         </div>

@@ -4,8 +4,9 @@
     <nav class="navbar w-100 bg-wight fixed-top">
         <div class="container">
             <div class="nav-left d-flex justify-content-center align-items-center">
-                <a class="navbar-brand" href="#">
-                    <span class="logoName">{{ __('general.logo') }}</span>
+                <a class="navbar-brand m-0 p-0" href="#">
+                    {{-- <span class="logoName">{{ __('general.logo') }}</span> --}}
+                    <img src="{{ asset('apple-touch-icon.png') }}" height="40" alt="Logo" class="logo-image">
                 </a>
             </div>
             <div class="nav-right">
