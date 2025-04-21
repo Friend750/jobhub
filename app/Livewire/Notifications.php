@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Connection;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -39,7 +40,7 @@ class Notifications extends Component
             ->get()
             ->map(function ($notification) {
                 $data = json_decode($notification->data, true); // فك JSON
-                $user = \App\Models\User::find($data['user_id']); // الحصول على المستخدم
+                $user = User::find($data['user']['id']); // الحصول على المستخدم
                 return [
                     'id' => $notification->id,
                     'type' => $notification->type,

@@ -7,7 +7,7 @@ return [
     'added_like' => 'أضاف إعجابًا:',
     'unActive_jobs' => 'الوظائف غير النشطة',
     'no_followers' => 'لا يوجد متابعين ',
-    'careerAI' => 'محاكاة وظيفة',
+    'careerAI' => 'مهنة',
     'search_for_followings' => 'ابحث عن اشخاص',
     'no_followers' => 'لا يوجد متابعين يتابعوك',
     'no_followed_companies' => 'ابحث عن شركات',

@@ -112,7 +112,7 @@
                                                 class="fa-solid fa-ellipsis"></i></button>
 
                                         <div x-show="open" x-cloak x-on:click="open=false" @click.outside="open=false"
-                                            class="options-card mt-2">
+                                            class="options-card mt-2 bg-white">
                                             <ul class="list-unstyled ">
 
                                                 @if (auth()->user()->id == $user->id)

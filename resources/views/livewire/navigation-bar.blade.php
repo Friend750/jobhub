@@ -3,8 +3,7 @@
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
             <a class="ms-1" href="#">
-                {{-- <span class="logoName ms-3 badeen-display-regular">{{ __('general.logo') }}</span> --}}
-                <img src="{{ asset('favicon/apple-touch-icon.png') }}" alt="Logo" class="logo">
+                <img src="{{ asset('apple-touch-icon.png') }}" height="40" alt="Logo" class="logo">
             </a>
             @livewire('searchbar')
         </div>

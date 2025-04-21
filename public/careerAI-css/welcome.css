@@ -4,6 +4,11 @@
     font-family: 'Rubik', 'Ruwudu', sans-serif;
     margin: 0;
     padding: 0;
+    color: #000;
+}
+
+body {
+    background-color: #FFF !important;
 }
 
 .img-placeholder {
@@ -22,6 +27,10 @@
     /* لون خلفية Placeholder */
     color: #666;
     /* لون النص */
+}
+
+.r-img-raduis {
+    border-radius: 20px 0px 0px 20px;
 }
 
 .img-placeholder-left {
@@ -44,6 +53,10 @@
 
 }
 
+.l-img-raduis {
+    border-radius: 0px 20px 20px 0px;
+}
+
 .checkbox-list {
     display: flex;
     flex-direction: column;
@@ -59,13 +72,14 @@ section {
     margin: 8rem 0;
 }
 
-.bolder-weight{
+.bolder-weight {
     font-weight: 500;
 }
 
-img{
+img {
     height: 100%;
 }
+
 /* From Uiverse.io by Na3ar-17 */
 .button {
     border: none;
@@ -83,9 +97,9 @@ img{
     cursor: pointer;
     position: relative;
     transition: all 0.3s;
-  }
+}
 
-  .gradient-container {
+.gradient-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -97,9 +111,9 @@ img{
     z-index: -2;
     filter: blur(10px);
     transition: all 0.3s;
-  }
+}
 
-  .gradient {
+.gradient {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -108,36 +122,34 @@ img{
     aspect-ratio: 1;
     border-radius: 100%;
     transition: all 0.3s;
-    background-image: linear-gradient(
-      90deg,
-      hsl(226, 81%, 64%),
-      hsl(271, 81%, 64%),
-      hsl(316, 81%, 64%),
-      hsl(1, 81%, 64%),
-      hsl(46, 81%, 64%),
-      hsl(91, 81%, 64%),
-      hsl(136, 81%, 64%),
-      hsl(181, 81%, 64%)
-    );
+    background-image: linear-gradient(90deg,
+            hsl(226, 81%, 64%),
+            hsl(271, 81%, 64%),
+            hsl(316, 81%, 64%),
+            hsl(1, 81%, 64%),
+            hsl(46, 81%, 64%),
+            hsl(91, 81%, 64%),
+            hsl(136, 81%, 64%),
+            hsl(181, 81%, 64%));
     animation: rotate 2s linear infinite;
     filter: blur(10px);
-  }
+}
 
-  .button:hover .gradient-container {
+.button:hover .gradient-container {
     transform: translate(-50%, -50%) scale(0.98);
     filter: blur(5px);
-  }
+}
 
-  .button:hover .gradient {
+.button:hover .gradient {
     filter: blur(5px);
-  }
+}
 
-  @keyframes rotate {
+@keyframes rotate {
     0% {
-      transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
     }
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
 
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

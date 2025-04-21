@@ -87,7 +87,7 @@
                 </div>
 
                 <!-- Jobs Table Section -->
-                <div class="table-section">
+                <div class="table-section p-2">
                     <div class="table-responsive">
                         <table class="table table-hover table-sm m-0" aria-describedby="jobs-management-heading">
                             <thead class="table-light">
@@ -133,7 +133,7 @@
                                         </td>
                                         <td class="text-end pe-4">
                                             <div class="d-flex justify-content-end gap-2">
-                                                <a href="{{ Route('jobList', $jobPost->id) }}" 
+                                                <a href="{{ Route('jobList', $jobPost->id) }}"
                                                    class="btn btn-sm btn-outline-primary"
                                                    wire:loading.attr="disabled"
                                                    aria-label="عرض الوظيفة {{ $jobPost->job_title }}">
@@ -141,7 +141,7 @@
                                                     <span class="d-none d-md-inline">عرض</span>
                                                 </a>
                                                 <button wire:click="confirmDelete({{ $jobPost->id }})"
-                                                    wire:loading.attr="disabled" 
+                                                    wire:loading.attr="disabled"
                                                     class="btn btn-sm btn-outline-danger"
                                                     aria-label="حذف الوظيفة {{ $jobPost->job_title }}">
                                                     <i class="bi bi-trash" aria-hidden="true"></i>
@@ -162,13 +162,7 @@
                         </table>
                     </div>
 
-                    <!-- Loading Indicator -->
-                    <div wire:loading.class.remove="d-none" class="d-none text-center py-4" aria-live="polite">
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">جاري التحميل...</span>
-                        </div>
-                        <p class="mt-2 text-muted">جاري تحميل البيانات...</p>
-                    </div>
+
 
                     <!-- Pagination -->
                     @if ($jobPosts->hasPages())
@@ -225,21 +219,21 @@
                                         <div class="fw-medium" style="white-space: pre-line;">{{ $selectedJob['about_job'] ?? 'غير محدد' }}</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label text-muted">المهام:</label>
                                         <div class="fw-medium" style="white-space: pre-line;">{{ $selectedJob['job_tasks'] ?? 'غير محدد' }}</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label text-muted">الشروط:</label>
                                         <div class="fw-medium" style="white-space: pre-line;">{{ $selectedJob['job_conditions'] ?? 'غير محدد' }}</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label text-muted">المهارات المطلوبة:</label>

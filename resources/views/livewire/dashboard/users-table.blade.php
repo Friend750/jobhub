@@ -86,11 +86,12 @@
                                                     class="bi bi-pen-fill"></i></button>
 
                                             <div x-data="{ showOverlay: false }">
-                                                <button type="button" x-on:click="showOverlay = !showOverlay"
-                                                    class="btn btn-danger btn-sm">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                </button>
-
+                                                @if ($user->type !== 'admin')
+                                                    <button type="button" x-on:click="showOverlay = !showOverlay"
+                                                        class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                @endif
 
                                                 <div x-show="showOverlay" x-cloak>
                                                     <div style="z-index: 999"
@@ -103,8 +104,12 @@
                                                             </h2>
                                                             <p>{{ __('general.cannot_undo') }}</p>
                                                             <div class="d-flex justify-content-center gap-3">
-                                                                <button wire:click="delete(@js($user->id))"
+
+                                                                <button
+                                                                    wire:click="delete(@js($user->id))"
                                                                     class="btn btn-danger">{{ __('general.yes_delete') }}</button>
+
+
                                                                 <button @click="showOverlay = false"
                                                                     class="btn btn-secondary">{{ __('general.cancel') }}</button>
                                                             </div>

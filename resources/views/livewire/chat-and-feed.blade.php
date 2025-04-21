@@ -87,6 +87,7 @@
                                                                 "
                                 style="
                                             font-size: xx-small;
+                                            width: fit-content !important;
                                         ">
                                 <span
                                     x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>

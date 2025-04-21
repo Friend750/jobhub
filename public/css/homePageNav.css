@@ -12,6 +12,10 @@
 
 .logoName {
     color: #2B6DAE;
-    font-family: 'Rubik', Arial, sans-serif;
-    font-weight: 700;
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
 }
