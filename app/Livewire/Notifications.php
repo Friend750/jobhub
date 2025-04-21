@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Connection;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -39,16 +38,26 @@ class Notifications extends Component
             ->orderBy('created_at', 'desc') // ترتيب الإشعارات حسب تاريخ الإنشاء
             ->get()
             ->map(function ($notification) {
-                $data = json_decode($notification->data, true); // فك JSON
-                $user = User::find($data['user']['id']); // الحصول على المستخدم
+                $data = json_decode($notification->data, true);
+
+                // تأكد من وجود المفتاح 'user' داخل البيانات
+                $user = null;
+                if (isset($data['user']['id'])) {
+                    $user = \App\Models\User::find($data['user']['id']);
+                }
+                else if(isset($data['user_id'])) {
+                    $user = \App\Models\User::find($data['user_id']);
+                }
+
                 return [
                     'id' => $notification->id,
                     'type' => $notification->type,
                     'read_at' => $notification->read_at,
                     'data' => $data,
-                    'user_name' => $user ? $user->user_name : 'Unknown User', // إضافة اسم المستخدم
+                    'user_name' => $user ? $user->user_name : 'Unknown User',
                 ];
             });
+
     }
     public function markAsRead($id)
     {

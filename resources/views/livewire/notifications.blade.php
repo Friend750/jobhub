@@ -109,9 +109,9 @@
 
                                         </div>
                                         <div class="d-flex flex-column align-items-center">
-                                            @if ($notification['data']['post_type'] === 'Post')
+                                            @if (isset($notification['data']['post_type']) && $notification['data']['post_type'] === 'Post')
                                             @php
-                                                $post = $notification['data']['post'];
+                                                $post = $notification['data']['post'] ?? null;
                                             @endphp
 
                                             @if (!empty($post['post_image']))
@@ -119,19 +119,21 @@
                                                      alt="Image"
                                                      class="img-fluid mt-2"
                                                      style="max-width: 100px;">
-                                                     <span>
-                                                        {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
-                                                    </span>
+                                                <span>
+                                                    {{ strlen($post['content'] ?? '') > 15 ? substr($post['content'], 0, 15) . '...' : ($post['content'] ?? '') }}
+                                                </span>
                                             @elseif (!empty($post['content']))
-                                            <span>
-                                                {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
-                                            </span>
+                                                <span>
+                                                    {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                </span>
                                             @else
                                                 <span>No content available.</span>
                                             @endif
-                                         @else
-                                         <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                        @elseif (isset($notification['data']['post']['job_title']))
+                                            <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                        @else
                                         @endif
+
 
                                             <span class="text-muted small text-center mb-2">
                                                 {{ $notification['read_at'] ?? __('general.unknown_time') }}
@@ -167,9 +169,9 @@
                                         </div>
                                         <div class="d-flex flex-column align-items-center">
                                             <div class="d-flex flex-column align-items-center">
-                                                @if ($notification['data']['post_type'] === 'Post')
+                                                @if (isset($notification['data']['post_type']) && $notification['data']['post_type'] === 'Post')
                                                 @php
-                                                    $post = $notification['data']['post'];
+                                                    $post = $notification['data']['post'] ?? null;
                                                 @endphp
 
                                                 @if (!empty($post['post_image']))
@@ -177,19 +179,21 @@
                                                          alt="Image"
                                                          class="img-fluid mt-2"
                                                          style="max-width: 100px;">
-                                                         <span>
-                                                            {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
-                                                        </span>
+                                                    <span>
+                                                        {{ strlen($post['content'] ?? '') > 15 ? substr($post['content'], 0, 15) . '...' : ($post['content'] ?? '') }}
+                                                    </span>
                                                 @elseif (!empty($post['content']))
-                                                <span>
-                                                    {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
-                                                </span>
+                                                    <span>
+                                                        {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                    </span>
                                                 @else
                                                     <span>No content available.</span>
                                                 @endif
-                                             @else
-                                             <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                            @elseif (isset($notification['data']['post']['job_title']))
+                                                <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                            @else
                                             @endif
+
 
                                                 <span class="text-muted small text-center mb-2">
                                                     {{ $notification['read_at'] ?? __('general.unknown_time') }}

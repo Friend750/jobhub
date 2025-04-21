@@ -5,6 +5,7 @@ namespace App\Livewire\Traits;
 use App\Models\Connection;
 use App\Models\User;
 use App\Models\Conversation;
+use App\Models\PersonalDetail;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\Request;
 
@@ -27,7 +28,7 @@ trait ConnectionTrait
             'following_id' => Auth::id(),
             'is_accepted' => 0
         ]);
-        $receiver->notify(new Request(Auth::user(), $receiver));
+        $receiver->notify(new Request(Auth::user(), $receiver,PersonalDetail::find(Auth::id())));
     }
 
     public function getFollowStatus($userId)
