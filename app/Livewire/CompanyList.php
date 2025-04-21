@@ -29,7 +29,7 @@ class CompanyList extends Component
                     'name' => $company->fullName(),
                     'user_image' => $company->user_image_url ?? null,
                     'is_accepted' => $company->pivot->is_accepted, // Include if needed
-                    'position' => $company->personal_details->specialist,
+                    'position' => $company->personal_details->specialist ?? "",
                 ];
             })->toArray();
 
