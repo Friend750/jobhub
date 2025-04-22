@@ -48,9 +48,12 @@ class JobList extends Component
                     default => $q,
                 };
             })
-            ->when($this->gov, function ($query) {
-                return $query->where('job_location', 'like', "%{$this->gov}%");
+            ->when($this->gov && $this->gov !== 'كل المحافظات', function ($query) {
+                return $query->where(function ($q) {
+                    $q->where('job_location', 'like', "%{$this->gov}%");
+                });
             })
+
             ->when($this->relative, function ($query) {
                 return match ($this->relative) {
                     'related' => $query->whereIn('tags', Auth::user()->interests),
@@ -67,7 +70,7 @@ class JobList extends Component
         if ($this->id) {
             $this->initialJob = $jobs->firstWhere('id', $this->id);
         } elseif (!$this->initialJob && $jobs->count()) {
-            $this->initialJob = $jobs->first(); // fallback
+            $this->initialJob = null; // fallback
         }
 
         return view('livewire.job-list', [

@@ -19,7 +19,7 @@
                     ])
                 </div>
             @empty
-                <div class="text-center py-4 text-muted">لا توجد وظائف</div>
+
             @endforelse
 
             {{-- Infinite scroll loader --}}
@@ -33,10 +33,7 @@
                 </div>
             </template>
 
-            {{-- No more jobs message --}}
-            <div x-show="!hasMore" class="text-center py-4 text-muted">
-                لا توجد المزيد من الوظائف
-            </div>
+
         </div>
 
 
@@ -76,6 +73,7 @@
 </div>
 
 <script>
+     window.authUser = @json(auth()->user());
     document.addEventListener('alpine:init', () => {
         Alpine.data('jobSelector', (jobs, initialJob) => ({
             jobs: Array.isArray(jobs) ? jobs : Object.values(jobs), // safer array conversion
@@ -124,6 +122,7 @@
             personalDetails: null,
             jobTitle: null,
             jobLocation: null,
+            auth: window.authUser ?? null, // 👈 أضف هذا
             jobTiming: null,
             createdAt: '',
             aboutJob: null,

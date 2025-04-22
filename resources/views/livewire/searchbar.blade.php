@@ -36,7 +36,7 @@
                                             class="search-result-avatar"
                                             alt="{{ $user->user_name }}">
                                         <div class="search-result-info text-end">
-                                            <h6 class="search-result-name">{{ $user->fullName() ?? $user->page_name }}</h6>
+                                            <h6 class="search-result-name">{{ $user->fullName()  }}</h6>
                                             <p class="search-result-specialty">{{ $user->personal_details->specialist ?? '' }}</p>
                                         </div>
                                     </a>

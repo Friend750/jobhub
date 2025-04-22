@@ -28,7 +28,7 @@ trait ConnectionTrait
             'following_id' => Auth::id(),
             'is_accepted' => 0
         ]);
-        $receiver->notify(new Request(Auth::user(), $receiver,PersonalDetail::find(Auth::id())));
+        $receiver->notify(new Request(Auth::user(), $receiver,PersonalDetail::where('user_id', Auth::id())->first()));
     }
 
     public function getFollowStatus($userId)

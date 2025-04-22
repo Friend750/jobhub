@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Searchbar extends Component
@@ -19,15 +20,24 @@ class Searchbar extends Component
     {
         if (strlen($this->query) > 1) {
             $this->results = User::query()
-                ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
-                ->where(function ($query) {
-                    $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
-                          ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
-                })
-                ->orderByDesc('views')
-                ->select('users.*') 
-                ->take(4)
-                ->get();
+    ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+    ->where('users.id', '!=', Auth::id()) // استبعاد المستخدم الحالي
+    ->where(function ($query) {
+        $query->where(function ($q) {
+            $q->where('users.type', 'user')
+              ->where(function ($qq) {
+                  $qq->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
+                     ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
+              });
+        })->orWhere(function ($q) {
+            $q->where('users.type', 'company')
+              ->where('personal_details.page_name', 'LIKE', '%' . $this->query . '%');
+        });
+    })
+    ->orderByDesc('views')
+    ->select('users.*')
+    ->take(4)
+    ->get();
 
             $this->showDropdown = true;
         } else {

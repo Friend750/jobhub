@@ -70,12 +70,16 @@ class Search extends Component
 
     public function loadCompany()
     {
-        $results = User::where('user_name', 'like', '%' . $this->query . '%')
-            ->where('user_name', '!=', Auth::user()->user_name)
-            ->where('type', 'company')
-            ->take($this->paginateVarCompanies + 1) // Fetch one extra record to check for more pages
-            ->get()
-            ->values();
+        $results = User::query()
+        ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+        ->where('users.type', 'company')
+        ->where('personal_details.page_name', 'LIKE', '%' . $this->query . '%')
+        ->where('users.user_name', '!=', Auth::user()->user_name)
+        ->select('users.*') // اختياري: لو تحتاج معلومات إضافية من personal_details عدل هنا
+        ->take($this->paginateVarCompanies + 1)
+        ->get()
+        ->values();
+
         $this->hasMoreCompanies = $results->count() > $this->paginateVarCompanies; // Check if there are more records
         $this->companies = $results->take($this->paginateVarCompanies); // Only take the current page's data
     }

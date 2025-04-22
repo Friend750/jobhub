@@ -103,7 +103,7 @@
                         <img style="width: 40px" class="rounded-circle ms-3"
                         src="{{ $company->user_image_url }}">
                         <div>
-                            <strong>{{ $company->page_name ?? $company->fullName() }}</strong><br>
+                            <strong>{{  $company->fullName() ?? $company->page_name }}</strong><br>
                             <small>{{ $company['position'] ?? __('general.position') }}</small>
                         </div>
                     </div>
