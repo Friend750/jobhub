@@ -26,14 +26,11 @@
                 <!-- Submit Button - Full Width Below Both Columns -->
                 <div class="col-12 mt-3">
                     <button type="submit" class="btn btn-dark w-100 button rounded"
-                        :class="isLoading === false ? ' ' : ''">
+                        x-bind:disabled="isLoading === true">
                         <div x-show="isLoading === true" x-cloak>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 يتم تحليل البيانات ثواني من فضلك...
-                                <span class="gradient-container">
-                                    <span class="gradient"></span>
-                                </span>
                             </div>
                         </div>
                         <span x-show="isLoading === false" x-cloak>
@@ -164,6 +161,7 @@
                     const file = fileInput ? fileInput.files[0] : null;
                     this.errors.cv = null;
                     this.uploadState = 'Analyzing';
+                    this.isLoading = true;
                     console.log(this.uploadState);
 
 
@@ -238,7 +236,7 @@ ${exFile}
 
                     } catch (error) {
                         console.error(error);
-                        this.errors.cv = 'حدث خطأ أثناء تحليل السيرة الذاتية';
+                        this.errors.cv = 'يرجى التأكد من رفع الملف';
                         this.uploadState = 'error';
                         console.log(this.uploadState);
 

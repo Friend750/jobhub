@@ -1,14 +1,14 @@
-<label class="d-flex flex-column p-3 w-100 custum-file-upload" for="cvInput">
-    <div class="icon py-2" x-bind:class="uploadState === 'error'? 'd-none' : ''">
+<label class="d-flex flex-column justify-content-center p-3 w-100 h-50 gap-3 custum-file-upload" for="cvInput">
+    <div class="icon " x-bind:class="(uploadState === 'error' || errors.cv) ? 'd-none' : ''">
         <i class="fas fa-cloud-upload-alt text-muted" style="font-size: 80px"></i>
     </div>
 
 
-    <div class="upload-status text-center py-2" x-cloak>
+    <div class="upload-status text-center " x-cloak>
         <!-- All states in one clean structure -->
 
         <!-- Idle State -->
-        <div x-show="uploadState === 'idle'" class="text-muted">
+        <div x-show="uploadState === 'idle' && !errors.cv" class="text-muted">
             <div>ارفع سيرتك الذاتية (PDF)</div>
         </div>
 
@@ -26,7 +26,7 @@
 
         <!-- Success States -->
         <div x-show="uploadState === 'success' || uploadState === 'successfully-analyzed'"
-            class="text-success text-end">
+            class="text-success">
             <div>
                 <i class="fas fa-check-circle"></i>
                 <span x-show="uploadState === 'success'" class="fw-bold">تم رفع الملف بنجاح!</span>
@@ -39,14 +39,14 @@
         </div>
 
         <!-- Error State -->
-        <div x-show="uploadState === 'error'" class="text-danger">
-            <i class="fas fa-exclamation-circle py-2" style="font-size: 80px"></i>
+        <div x-show="uploadState === 'error' || errors.cv" class="text-danger">
+            <i class="fas fa-exclamation-circle " style="font-size: 80px"></i>
             <div class="fw-bold">
                 حدث خطأ أثناء رفع الملف
                 !
             </div>
             <div class="small text-muted mt-2" x-text="errors.cv"></div>
-            <button type="button" x-on:click="retryUpload" class="btn btn-sm btn-outline-primary mt-2">
+            <button type="button" x-on:click="retryUpload" class="btn btn-sm btn-outline-dark mt-2">
                 <i class="fas fa-redo me-1"></i> إعادة المحاولة
             </button>
         </div>
@@ -57,7 +57,6 @@
     <style>
         .upload-status {
             transition: all 0.3s ease;
-            padding: 1rem;
             border-radius: 0.5rem;
 
         }
