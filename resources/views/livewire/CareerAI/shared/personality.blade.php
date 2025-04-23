@@ -73,7 +73,7 @@
                     'الوعي',
                     'الاجتهاد',
                     'الوفاق',
-                    'العصابية'
+                    'إدارة الضغوط'
                 ],
                 personalityColors: ["red", "red", "green", "orange", "green"],
                 personalityDescriptions: [
