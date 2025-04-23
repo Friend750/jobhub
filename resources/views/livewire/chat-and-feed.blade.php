@@ -52,12 +52,17 @@
 
                         <div class="flex-grow-1">
                             <!-- User Name -->
-                            <a class="text-dark font-weight-bold text-decoration-none">
-                                <strong>{{ $suggestion->page_name ?? $suggestion->fullName() }}</strong>
-                            </a>
+                            @if ($suggestion->fullName())
+                                <a class="text-dark font-weight-bold text-decoration-none">
+                                    <strong>{{ $suggestion->fullName() ?? $suggestion->user_name }}</strong>
+                                </a>
+                            @else
+                                <a class="text-dark font-weight-bold text-decoration-none">
+                                    <strong>{{ $suggestion->user_name }}</strong>
+                            @endif
                             <!-- Professional Summary -->
                             <p class="text-muted small mb-0 truncate-text">
-                                {{ $suggestion->personal_details->specialist ?? 'No specialist available' }}
+                                {{ $suggestion->personal_details->specialist ?? 'No specialist' }}
                             </p>
                         </div>
 
@@ -70,7 +75,7 @@
                         <!-- Alpine.js container for optimistic update -->
                         <div class="" wire:ignore x-data="{ isFollowing: @json($isFollowing), isRequested: @json($isRequested) }">
                             <button class="btn w-100 btn-sm badge"
-                                :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' :
+                                :class="isFollowing ? 'btn-outline-primary' : (isRequested ? 'btn-outline-primary' :
                                     'btn-outline-primary')"
                                 @click.prevent="
                                                                     if (!isRequested) {

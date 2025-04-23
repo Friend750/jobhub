@@ -32,4 +32,7 @@
     min-width: fit-content;
     width: 60px;
 }
-
+.active{
+    border-radius: 0 !important;
+    background: none !important;
+}
