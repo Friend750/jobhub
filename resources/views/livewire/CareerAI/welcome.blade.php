@@ -26,11 +26,31 @@
                 <h3 class="section-header fw-bold">تقرير تحليل الشخصية</h3>
                 <p class="bolder-weight">احصل على تقرير تحليل الشخصية في خمسة مجالات رئيسية</p>
                 <ul class="checkbox-list d-flex flex-direction-column gap-2 list-unstyled">
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> الانفتاح</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> الوعي</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> الاجتهاد</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> التوافق</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> العصابية</li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>الانفتاح:</strong> حب التجربة، والخيال، والفضول، وتقبّل الأفكار الجديدة.
+                        <br>مثال: الشخص المنفتح يحب تعلّم أشياء جديدة، تجربة أطعمة غريبة، أو السفر لأماكن مختلفة.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>الوعي:</strong> التنظيم، والانضباط، وتحمل المسؤولية، والعمل بجد.
+                        <br>مثال: الشخص الواعي يخطط لوقته، ينجز واجباته في وقتها، ويهتم بالتفاصيل.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>الانبساطية:</strong> حب التفاعل الاجتماعي، والتحدث مع الآخرين، والحيوية.
+                        <br>مثال: الشخص المنبسط يحب التحدث مع الناس، يكون نشيطًا في الاجتماعات، ويشعر بالسعادة عند وجوده مع الآخرين.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>التوافق:</strong> اللطف، والتعاون، والتعاطف مع الآخرين.
+                        <br>مثال: الشخص المتوافق يساعد الآخرين، يحب الخير، ويحب أن يكون هناك انسجام في العلاقات.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>العصابية:</strong> الميل للقلق، والتوتر، والتقلبات المزاجية.
+                        <br>مثال: الشخص العصابي قد يشعر بسرعة بالغضب أو الحزن، أو يقلق كثيرًا من الأمور البسيطة.
+                    </li>
                 </ul>
             </div>
             <div class="col-md-6">
@@ -65,10 +85,26 @@
                 <h3 class="section-header fw-bold">تقرير المقابلة السلوكية والمهارات</h3>
                 <p class="bolder-weight">تعرف على المهارات التي تتقنها والتي تحتاج إلى تحسين</p>
                 <ul class="checkbox-list d-flex flex-direction-column gap-2 list-unstyled">
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> حل المشكلات</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> التواصل</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> العمل الجماعي</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> التكيف</li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>حل المشكلات:</strong> القدرة على التفكير وإيجاد حلول عند مواجهة صعوبات.
+                        <br>مثال: إذا توقف الكمبيوتر عن العمل، يحاول الشخص <br> فهم السبب وإصلاحه بدلاً من الاستسلام.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>التواصل:</strong> التعبير عن الأفكار بوضوح، والاستماع للآخرين بطريقة فعالة.
+                        <br>مثال: التحدث بوضوح في اجتماع، أو كتابة رسالة بريدية مفهومة.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>العمل الجماعي:</strong> التعاون مع الآخرين لإنجاز المهام بشكل أفضل.
+                        <br>مثال: مشاركة الأفكار مع الفريق والعمل معًا لإنهاء مشروع.
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check fs-5"></i>
+                        <strong>التكيف:</strong> القدرة على التغير مع الظروف الجديدة أو غير المتوقعة.
+                        <br>مثال: إذا تغير نظام العمل في الشركة، يتعلّم الشخص الطريقة الجديدة بسرعة ويكمل عمله.
+                    </li>
                 </ul>
             </div>
             <div class="col-md-6">

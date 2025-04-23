@@ -14,14 +14,15 @@
 
     <!-- Action Buttons -->
     <div class="d-flex gap-2 mb-4" >
-        <a target="_blank"   :href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + user.email + '&su=' + encodeURIComponent('Application for ' + jobTitle)"  >
-            <button  class="btn btn-primary btn-sm px-3 py-2 rounded fw-bold">
-            تقديم طلب
-
-            <i class="fa-solid fa-up-right-from-square"></i>
-        </button>
+        <a x-show="auth?.id !== user?.id" target="_blank"
+           :href="'https://mail.google.com/mail/?view=cm&fs=1&to=' + user.email + '&su=' + encodeURIComponent('Application for ' + jobTitle)">
+            <button class="btn btn-primary btn-sm px-3 py-2 rounded fw-bold">
+                تقديم طلب
+                <i class="fa-solid fa-up-right-from-square"></i>
+            </button>
         </a>
     </div>
+
 </div>
 
 <!-- About Section -->
