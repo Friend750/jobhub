@@ -78,21 +78,33 @@
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 \\boxed{
 {
   "analysis": [
     {
-      "question": "نص السؤال هنا",
-      "answer": "نص الإجابة هنا",
+      "question": "السؤال الأول",
+      "answer": "إجابة السؤال الأول",
       "report": {
-        "evaluation": "التقييم العام للأداء",
-        "strengths": ["نقاط القوة 1", "نقاط القوة 2"],
-        "weaknesses": ["نقاط الضعف 1", "نقاط الضعف 2"],
-        "improvements": ["اقتراحات التحسين 1", "اقتراحات التحسين 2"],
-        "score": 8.5
+        "evaluation": "شرح قصير للتقييم",
+        "strengths": ["نقطة قوة ١", "نقطة قوة ٢"],
+        "weaknesses": ["نقطة ضعف ١", "نقطة ضعف ٢"],
+        "improvements": ["اقتراح تحسين ١", "اقتراح تحسين ٢"],
+        "score": 6.5
       }
-    }
+    },
+    {
+      "question": "السؤال الثاني",
+      "answer": "إجابة السؤال الثاني",
+      "report": {
+        "evaluation": "شرح قصير للتقييم",
+        "strengths": ["نقطة قوة ١", "نقطة قوة ٢"],
+        "weaknesses": ["نقطة ضعف ١", "نقطة ضعف ٢"],
+        "improvements": ["اقتراح تحسين ١", "اقتراح تحسين ٢"],
+        "score": 7.0
+      }
+    },
   ]
 }
 }
@@ -128,7 +140,8 @@ ${answers.map((a, i) =>
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 
 \\boxed{
 {
@@ -138,7 +151,7 @@ ${answers.map((a, i) =>
     "strengths": ["نقاط القوة 1", "نقاط القوة 2"],
     "weaknesses": ["نقاط الضعف 1", "نقاط الضعف 2"],
     "improvements": ["اقتراحات التحسين 1", "اقتراحات التحسين 2"],
-    "score": {"openness": "8.5", "conscientiousness": "9.3","diligence": "9", "agreeableness": "7","neuroticism": "5"}
+    "score": {"openness": "0.0", "conscientiousness": "4.0","diligence": "2.9", "agreeableness": "7","neuroticism": "9"}
     "dimensions": {
       "openness": "تحليل مستوى الانفتاح استناداً إلى جميع الإجابات",
       "conscientiousness": "تحليل مستوى الوعي استناداً إلى جميع الإجابات",
@@ -180,6 +193,7 @@ ${answers.map((a, i) =>
         // استرجاع الإجابات من sessionStorage
         const answers = JSON.parse(sessionStorage.getItem('answers')) || [];
 
+
         // بناء prompt للذكاء الاصطناعي
         const prompt = this.buildAnalysisPromptPersonalityDimensions(answers);
 
@@ -214,7 +228,8 @@ ${answers.map((a, i) =>
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 {
   "analysis": {
     "evaluation": "التقييم العام للأداء بناءً على جميع الإجابات",
@@ -301,10 +316,6 @@ async analyzeAll() {
             this.analyzeAnswersTechDimensions(),
             this.analyzeAnswers()
         ]);
-
-        console.log("تحليل الشخصية:", personalityResult);
-        console.log("تحليل المهارات التقنية:", techResult);
-        console.log("التحليل العام:", generalResult);
 
         // إعادة التوجيه بعد انتهاء التحليل
         window.location.href = 'http://127.0.0.1:8000/ReportsAnalysis';
