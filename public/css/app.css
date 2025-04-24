@@ -1,3 +1,4 @@
+
 :root {
     --color-black: #181818;
     --color-gray: #666666;
@@ -7,8 +8,7 @@
     --color-hover: #2B6DAE;
     --color-whight: #fff;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ruwudu:wght@400;500;600;700&display=swap')
+@import url('https://;fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ruwudu:wght@400;500;600;700&display=swap')
 
 *{
     font-family: 'Rubik', 'Ruwudu', sans-serif !important;
