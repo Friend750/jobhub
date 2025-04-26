@@ -37,17 +37,23 @@
             <!-- Input Section -->
             <div class="chat-input-section p-3 border-top">
                 <form class="comment-form" wire:submit.prevent="sendMessage"
-                    @submit="$nextTick(() => scrollToBottom())">
+    @submit="$nextTick(() => scrollToBottom())" x-data>
 
-                    <div class="textarea-container">
-                        <textarea class="form-control comment-input rounded" wire:model="message" rows="1"
-                            placeholder="{{ __('general.write_message') }}" @focus="$nextTick(() => scrollToBottom())"
-                            oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, parseInt(getComputedStyle(this).lineHeight) * 6) + 'px';"></textarea>
-                        <button class="btn send-button ms-2 text-primary" type="submit">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </form>
+    <div class="textarea-container">
+        <textarea class="form-control comment-input rounded"
+            wire:model="message" rows="1"
+            placeholder="{{ __('general.write_message') }}"
+            @focus="$nextTick(() => scrollToBottom())"
+            @keydown.enter="if (event.shiftKey) return; event.preventDefault(); $refs.submitButton.click();"
+            oninput="this.style.height = ''; this.style.height = Math.min(this.scrollHeight, parseInt(getComputedStyle(this).lineHeight) * 6) + 'px';">
+        </textarea>
+        <button x-ref="submitButton" class="btn send-button ms-2 text-primary" type="submit">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </div>
+</form>
+
+
             </div>
 
 

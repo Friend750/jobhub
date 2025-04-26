@@ -16,7 +16,7 @@
                                     style="height: 40px;">
                                 <div>
                                     <strong>{{ $chat['full_name'] }}</strong>
-                                    <p class="text-muted small mb-0 truncate-text">{{ $chat['last_message'] }}</p>
+                                    <p class="text-muted small mb-0 truncate-text"   style="max-width: 20ch; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ $chat['last_message'] }}</p>
                                 </div>
                             </div>
                         </a>

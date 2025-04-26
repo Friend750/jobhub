@@ -7,10 +7,13 @@
 <div class="container rounded p-3 shadow-sm" style="margin-top: 5.5rem;" x-data="chatApp" @resize.window="isMobile = window.innerWidth <= 768">
     <div class="row col-md-12 justify-content-center m-0 p-0 rounded border" x-data x-init="initEcho()">
 
+        
         <!-- Side Chat List -->
         @include('livewire.includes.chat.chat-list')
         <!-- Chat Messages -->
         @include('livewire.includes.chat.chat-messages')
+
+
 
     </div>
 </div>

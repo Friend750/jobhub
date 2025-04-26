@@ -82,7 +82,7 @@ class Chat extends Component
     public function sendMessage()
     {
         $this->validate([
-            'message' => 'required|string|max:1000',
+            'message' => 'required|string|max:60000',
         ]);
         $conversation = Conversation::findOrFail($this->selectedChat['id']);
 
