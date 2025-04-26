@@ -57,7 +57,7 @@
                                         <div class="d-flex gap-2" x-data="{ toggle: true }">
                                             @if ($isFollowingMe)
                                                 <button wire:click='startConversation({{ $user->id }})'
-                                                    type="button" class="btn-outline-primary btn btn-sm">
+                                                    type="button" class="btn-outline-primary btn btn-sm rounded">
                                                     <i class="fa-solid fa-paper-plane"></i>
                                                     مراسلة
                                                 </button>
@@ -67,7 +67,7 @@
                                                 isRequested: @json($isRequested)
                                             }">
                                                 <button class="btn rounded"
-                                                    :class="isFollowing ? 'btn-outline-danger' : (isRequested ?
+                                                    :class="isFollowing ? 'btn-outline-secondary rounded' : (isRequested ?
                                                         'btn-outline-primary' : 'btn-primary')"
                                                     @click.prevent="
                                                        if (!isRequested) {
