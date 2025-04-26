@@ -29,12 +29,7 @@
                 @include('livewire.CareerAI.shared.cv-matching')
             </div>
 
-            <div class="text-center mt-4 mb-5"
-                style="
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            ">
+            <div class="text-center mt-4 mb-5">
                 <a href="/posts" class="btn btn-primary px-4 py-2 rounded-pill">
                     <i class="fas fa-newspaper me-2"></i>
                      انتقل إلى صفحة المنشورات

@@ -60,15 +60,18 @@
             })
         });
 
+
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
+        console.log("Report:",data.choices[0].message);
+        debugger;
 
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('report', this.analysisResult);
         return this.analysisResult; // إرجاع النتيجة بدلاً من إعادة التوجيه هنا
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في تقرير الاجوبة' );
     }
 }
             ,
@@ -117,8 +120,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - استخدم علامات الترقيم العربية بشكل صحيح
 - تجنب أي محتوى غير عربي بشكل قطعي
 - التزم الهيكل المحدد بدقة دون أي انحراف
@@ -170,8 +171,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - قم بتحليل جميع الإجابات بشكل عام كمجموعة، وليس كل سؤال على حدة
 - يجب تحليل الأبعاد الخمس التالية استناداً إلى جميع الإجابات: openness، conscientiousness، diligence، agreeableness، neuroticism
 - استخدم علامات الترقيم العربية بشكل صحيح
@@ -210,16 +209,17 @@ ${answers.map((a, i) =>
                 temperature: 0.7
             })
         });
-
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
+        console.log("PersonailtyReport:",data.choices[0].message);
+
 
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('personalityDimensions', this.analysisResult);
         return this.analysisResult;
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في التقرير الشخصي');
     }
 },
 
@@ -254,8 +254,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - قم بتحليل جميع الإجابات بشكل عام كمجموعة، وليس كل سؤال على حدة
 - يجب تحليل الأبعاد الخمس التالية استناداً إلى جميع الإجابات: openness، conscientiousness، diligence، agreeableness، neuroticism
 - استخدم علامات الترقيم العربية بشكل صحيح
@@ -294,41 +292,58 @@ ${answers.map((a, i) =>
             })
         });
 
+
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
-
+        console.log("TechReport:",data.choices[0]);
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('techDimensions', this.analysisResult);
         return this.analysisResult;
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert(' حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في التقرير التقني');
     }
 },
 
-async analyzeAll() {
+async analyzeAll(retries = 2) {
     try {
         this.isLoading = true;
-        this.startTimer(); // تشغيل المؤقت هنا فقط مرة واحدة
+        this.startTimer();
 
-        const [personalityResult, techResult, generalResult] = await Promise.all([
+        // تنفيذ 3 تحليلات بالتوازي
+        const [generalResult, personalityResult, techResult] = await Promise.all([
+            this.analyzeAnswers(),
             this.analyzeAnswersPersonalityDimensions(),
-            this.analyzeAnswersTechDimensions(),
-            this.analyzeAnswers()
+            this.analyzeAnswersTechDimensions()
         ]);
 
-        // إعادة التوجيه بعد انتهاء التحليل
+        // التحقق من النتائج
+        if (!generalResult) throw new Error('فشل في التحليل العام');
+        if (!personalityResult) throw new Error('فشل في تحليل الشخصية');
+        if (!techResult) throw new Error('فشل في التحليل التقني');
+
+        // الانتقال للصفحة إذا نجحت كلها
         window.location.href = 'http://127.0.0.1:8000/ReportsAnalysis';
 
         return { personalityResult, techResult, generalResult };
+
     } catch (error) {
         console.error("حدث خطأ أثناء التحليل:", error);
+
+        if (retries > 0) {
+            console.log(`إعادة المحاولة... المتبقي: ${retries}`);
+            retries--;
+            return await this.analyzeAll(retries);
+        } else {
+            alert("حدث خطأ متكرر أثناء التحليل، يرجى المحاولة لاحقاً.");
+            window.location.href = 'http://127.0.0.1:8000/Uplaod_Job_Profile';
+        }
     } finally {
         this.isLoading = false;
-        this.stopTimer(); // إيقاف المؤقت هنا فقط
+        this.stopTimer();
     }
-},
-
+}
+,
 
 
 
