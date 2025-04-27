@@ -56,8 +56,8 @@ class PostCard extends Component
         $liker = $this->user;
 
         $post = $type === 'post'
-        ? Post::find($itemId)
-        : JobPost::find($itemId);
+            ? Post::find($itemId)
+            : JobPost::find($itemId);
 
         if ($type === 'post') {
             $liker->likes()->attach($itemId);
@@ -65,7 +65,7 @@ class PostCard extends Component
         } elseif ($type === 'job') {
             $liker->jobLikes()->attach($itemId);
         }
-        User::find($post->user_id)->notify(new Like(Auth::user(),Auth::user()->personal_details, $post->user_id, $post));
+        User::find($post->user_id)->notify(new Like(Auth::user(), Auth::user()->personal_details, $post->user_id, $post));
 
     }
 
@@ -156,7 +156,7 @@ class PostCard extends Component
 
     public function createComment($postId, $postType)
     {
-        $this->commentForm->submit($postId,$postType);
+        $this->commentForm->submit($postId, $postType);
     }
 
     public function mount()
@@ -166,83 +166,81 @@ class PostCard extends Component
         $this->interests = Interest::select('id', 'name')->get();
         $this->user = Auth::user();
         $this->posts = Post::all()->sortByDesc('created_at');
+        // dd($this->posts);
     }
 
     public function render()
     {
 
-       if( Auth::user()->followings()->get()->isEmpty())
-       {
+        if (Auth::user()->followings()->get()->isEmpty()) {
 
-        $sameInterestsUsers = Auth::user()->sameInterests();
+            $sameInterestsUsers = Auth::user()->sameInterests();
 
-         $jobPosts = JobPost::forFeed()
-        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-        ->where('target','to_any_one')
-        ->orWhere('user_id', $this->user->id);
-
-
-
-        $normalPosts = Post::forFeed()
-        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-        ->where('target','to_any_one')
-        ->orWhere('user_id', $this->user->id);
+            $jobPosts = JobPost::forFeed()
+                ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+                ->where('target', 'to_any_one')
+                ->orWhere('user_id', $this->user->id);
 
 
 
-       }
-       else
-       {
-        $followedIds = Connection::where('following_id', $this->user->id)
-         ->where('is_accepted', 1)
-         ->pluck('follower_id');
+            $normalPosts = Post::forFeed()
+                ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
+                ->where('target', 'to_any_one')
+                ->orWhere('user_id', $this->user->id);
 
-       $followedIdsPublic = Connection::where('following_id', $this->user->id)
-       ->where('is_accepted', 0)
-       ->pluck('follower_id');
 
-       $jobPosts = JobPost::forFeed()
-       ->where(function ($query) use ($followedIds) {
-        $query->whereIn('user_id', $followedIds);
-        })
-        ->orWhere('user_id', $this->user->id);
 
-       $normalPosts = Post::forFeed()
-       ->where(function ($query) use ($followedIds) {
-        $query->whereIn('user_id', $followedIds);
-        })
-        ->orWhere('user_id', $this->user->id);
+        } else {
+            $followedIds = Connection::where('following_id', $this->user->id)
+                ->where('is_accepted', 1)
+                ->pluck('follower_id');
+
+            $followedIdsPublic = Connection::where('following_id', $this->user->id)
+                ->where('is_accepted', 0)
+                ->pluck('follower_id');
+
+            $jobPosts = JobPost::forFeed()
+                ->where(function ($query) use ($followedIds) {
+                    $query->whereIn('user_id', $followedIds);
+                })
+                ->orWhere('user_id', $this->user->id);
+
+            $normalPosts = Post::forFeed()
+                ->where(function ($query) use ($followedIds) {
+                    $query->whereIn('user_id', $followedIds);
+                })
+                ->orWhere('user_id', $this->user->id);
 
 
 
 
-    $preview = (clone $jobPosts)->unionAll(clone $normalPosts)->get();
-if ($preview->isEmpty()) {
-    // fallback to public
-    $jobPosts = JobPost::forFeed()
-        ->where(function ($query) use ($followedIdsPublic) {
-            $query->whereIn('user_id', $followedIdsPublic)
-            ->where('target','to_any_one');
-        })
-        ->orWhere('user_id', $this->user->id);
+            $preview = (clone $jobPosts)->unionAll(clone $normalPosts)->get();
+            if ($preview->isEmpty()) {
+                // fallback to public
+                $jobPosts = JobPost::forFeed()
+                    ->where(function ($query) use ($followedIdsPublic) {
+                        $query->whereIn('user_id', $followedIdsPublic)
+                            ->where('target', 'to_any_one');
+                    })
+                    ->orWhere('user_id', $this->user->id);
 
-    $normalPosts = Post::forFeed()
-        ->where(function ($query) use ($followedIdsPublic) {
-            $query->whereIn('user_id', $followedIdsPublic)
-            ->where('target','to_any_one');
-        })
-        ->orWhere('user_id', $this->user->id);
+                $normalPosts = Post::forFeed()
+                    ->where(function ($query) use ($followedIdsPublic) {
+                        $query->whereIn('user_id', $followedIdsPublic)
+                            ->where('target', 'to_any_one');
+                    })
+                    ->orWhere('user_id', $this->user->id);
 
-}
-       }
+            }
+        }
 
 
 
-// Final paginated result
-$allPosts = $jobPosts
-    ->unionAll($normalPosts)
-    ->orderBy('created_at', 'desc') // This works only if unioned queries have same columns
-    ->paginate($this->perPage);
+        // Final paginated result
+        $allPosts = $jobPosts
+            ->unionAll($normalPosts)
+            ->orderBy('created_at', 'desc') // This works only if unioned queries have same columns
+            ->paginate($this->perPage);
 
 
 

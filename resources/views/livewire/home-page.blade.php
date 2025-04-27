@@ -8,7 +8,6 @@
             <div class="d-flex flex-column align-items-center">
                 <h1 class="logoName mb-2">
                     <img src="{{ asset('favicon/apple-touch-icon.png') }}" height="80" alt="Logo" class="logo-image">
-
                 </h1>
                 <span class="loader"></span>
             </div>

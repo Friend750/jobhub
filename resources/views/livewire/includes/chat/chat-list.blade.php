@@ -24,8 +24,9 @@
                 style="cursor: pointer;">
 
 
-                <div class="ms-2" style="width:50px; height:50px">
-                    <img src="{{ $chat['profile'] }}" class="rounded-circle h-100 object-fit-cover">
+                <div class="ms-2">
+                    <img src="{{ $chat['profile'] }}" class="rounded-circle object-fit-cover" height="50px" width="50px"
+                        alt="{{ $chat['name'] }}" style="object-fit: cover; width: 50px; height: 50px;">
                 </div>
 
 
