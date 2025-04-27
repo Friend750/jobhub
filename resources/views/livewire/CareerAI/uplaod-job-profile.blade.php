@@ -293,8 +293,9 @@ ${exFile}
                         let jobData = {
                             title: this.jobTitle,
                             description: this.jobDescription,
-                            cv: null, // سيتم تحديثه لاحقًا
+                            cv: null,
                         };
+                        console.log(jobData);
 
                         localStorage.setItem('jobData', JSON.stringify(jobData));
 
@@ -351,12 +352,15 @@ ${exFile}
                     this.selectedPosition = position;
                     this.jobDescription = position.default_description;
                     this.jobTitle = position.name;
-                    this.jobTitleQuery = position
-                        .name; // Update input field with selected job title
+                    this.jobTitleQuery = position.name; // Update input field with selected job title
                     this.showList = false; // Hide the list after selection
                 },
 
-
+                handleJobTitleBlur() {
+                    if (!this.selectedPosition || this.jobTitle === '') {
+                        this.jobTitle = this.jobTitleQuery;
+                    }
+                },
 
             }));
         });

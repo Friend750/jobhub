@@ -1,7 +1,7 @@
 <!-- Job Title Search Input -->
 <div class="mb-3">
     <label class="form-label">المسمى الوظيفي المطلوب:</label>
-    <input type="text" class="form-control" placeholder="مثلاً: مهندس برمجيات" x-model="jobTitleQuery"
+    <input type="text" class="form-control" placeholder="مثلاً: مهندس برمجيات" x-model="jobTitleQuery" x-on:blur="handleJobTitleBlur"
         @click="showList = true">
     <div x-text="errors.title" class="text-danger"></div>
 </div>

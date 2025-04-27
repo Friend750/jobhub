@@ -234,8 +234,6 @@ class PostCard extends Component
             }
         }
 
-
-
         // Final paginated result
         $allPosts = $jobPosts
             ->unionAll($normalPosts)
