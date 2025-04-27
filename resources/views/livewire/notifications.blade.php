@@ -37,9 +37,7 @@ channel.notification((notification) => {
         </div>
 
         <!-- Notifications Section -->
-        <div class="col-md-9 mt-3 "style="
-        height: 70vh;
-    ">
+        <div class="col-md-9 mt-3 ">
             <div class="card h-100">
                 <div class="card-body d-flex justify-content-between" style="flex:none;">
                     <span>{{ __('general.notifications') }}</span>
@@ -148,7 +146,15 @@ channel.notification((notification) => {
                                             لا يوجد اي اشعارات حاليا
                                         </h6>
                                     @endforelse
+                                    <div wire:click="loadMore" style="text-align: center; margin-top: 10px;">
+                                        @if ($hasMoreNotifications)
+                                            <button class="btn btn-outline-primary">
+                                                تحميل المزيد من الاشعارات
+                                            </button>
+                                        @endif
+                                    </div>
                                 </div>
+
                                 <div class="tab-pane fade bg-white" id="Mentions" role="tabpanel">
                                     @forelse ($notifications as $notification)
                                         @if ($notification['type'] === 'App\Notifications\Comment' || $notification['type'] === 'App\Notifications\Like')
@@ -213,7 +219,15 @@ channel.notification((notification) => {
                                         لا يوجد اي تفاعلات حاليا
                                     </h6>
                                     @endforelse
+                                    <div wire:click="loadMore" style="text-align: center; margin-top: 10px;">
+                                        @if ($hasMoreNotifications)
+                                            <button class="btn btn-outline-primary">
+                                                تحميل المزيد من الاشعارات
+                                            </button>
+                                        @endif
+                                    </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="Unread" role="tabpanel">
                                     @forelse ($notifications as $notification)
                                         @if (is_null($notification['read_at']))
@@ -237,11 +251,39 @@ channel.notification((notification) => {
                                                                 {{ __('general.decline') }}
                                                             </button>
                                                         </div>
-                                                    @else
-                                                        {{ __('general.added_comment') }}"{{ $notification['data']['comment'] ?? __('general.no_message') }}"
                                                     @endif
+                                                    @if ($notification['type'] === 'App\\Notifications\\Like')
+                                                    {{ __('general.added_like') }}
+                                                @endif
+                                                @if ($notification['type'] === 'App\\Notifications\\Comment')
+                                                    {{ __('general.added_comment') }}
+                                                    "{{ $notification['data']['comment'] ?? __('general.no_message') }}"
+                                                @endif
                                                 </div>
                                                 <div class="d-flex flex-column align-items-center">
+                                                    @if (isset($notification['data']['post_type']) && $notification['data']['post_type'] === 'Post')
+                                                    @php
+                                                        $post = $notification['data']['post'] ?? null;
+                                                    @endphp
+
+                                                    @if (!empty($post['post_image']))
+                                                        <img src="{{ asset('storage/' . $post['post_image']) }}"
+                                                            alt="Image" class="img-fluid mt-2"
+                                                            style="max-width: 100px;">
+                                                        <span>
+                                                            {{ strlen($post['content'] ?? '') > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] ?? '' }}
+                                                        </span>
+                                                    @elseif (!empty($post['content']))
+                                                        <span>
+                                                            {{ strlen($post['content']) > 15 ? substr($post['content'], 0, 15) . '...' : $post['content'] }}
+                                                        </span>
+                                                    @else
+                                                        <span>No content available.</span>
+                                                    @endif
+                                                @elseif (isset($notification['data']['post']['job_title']))
+                                                    <span>{{ $notification['data']['post']['job_title'] }}</span>
+                                                @else
+                                                @endif
                                                     <span class="text-muted small text-center mb-2">
                                                         {{ $notification['created_at'] ?? __('general.unknown_time') }}
                                                     </span>
@@ -259,6 +301,13 @@ channel.notification((notification) => {
                                             لا يوجد اي اشعارات غير مقروءة حاليا
                                         </h6>
                                     @endforelse
+                                    <div wire:click="loadMore" style="text-align: center; margin-top: 10px;">
+                                        @if ($hasMoreNotifications)
+                                            <button class="btn btn-outline-primary">
+                                                تحميل المزيد من الاشعارات
+                                            </button>
+                                        @endif
+                                    </div>
                                 </div>
 
                             </div>
@@ -270,3 +319,10 @@ channel.notification((notification) => {
         </div>
     </div>
 </div>
+<script>
+    window.addEventListener('scroll', function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+            Livewire.emit('loadMore');
+        }
+    });
+</script>
