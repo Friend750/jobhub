@@ -25,7 +25,7 @@ class SentMessage extends Notification implements ShouldBroadcastNow
     public function __construct($user,$message, $conversation,$receiverId)
     {
         $this->user = $user;
-        $this->conversation = $conversation;    
+        $this->conversation = $conversation;
         $this->message = $message;
         $this->receiverId = $receiverId;
     }
@@ -58,19 +58,19 @@ class SentMessage extends Notification implements ShouldBroadcastNow
      */
     public function toArray(object $notifiable): array
     {
-        return 
+        return
         [
         'user_id' => $this->user->id,
         'message' => $this->message->id,
         'conversation_id' => $this->conversation->id,
         'receiver_id' => $this->receiverId,
         ];
-        
+
+    }
+    public function broadcastOn()
+    {
+        Log::info('Broadcasting on private channel: users.' . $this->receiverId);
+        return new PrivateChannel('users.' . $this->receiverId);
     }
 
-public function broadcastOn()
-{
-    // هنا نحدّد القناة الخاصة بالـ receiverId
-    return new PrivateChannel('users.' . $this->receiverId);
-}
 }

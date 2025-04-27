@@ -51,6 +51,7 @@ class Notifications extends Component
                     return $data['user']['id'] != $data['receiverId'];
                 }
 
+                return true; // إذا لم يكن هناك شرط، نعيد الإشعار كما هو
             })
             ->map(function ($notification) {
                 $data = json_decode($notification->data, true);

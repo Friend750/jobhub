@@ -23,7 +23,7 @@ class Chat extends Component
 
     protected $listeners = ['messageReceived' => 'loadMore'];
     public $paginateVar = 10;
-
+    
 
     public function mount($conversationId = null)
     {
