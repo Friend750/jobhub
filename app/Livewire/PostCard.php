@@ -172,7 +172,8 @@ class PostCard extends Component
     public function render()
     {
 
-        if (Auth::user()->followings()->get()->isEmpty()) {
+        if (!Auth::user()->followings()->exists())
+ {
 
             $sameInterestsUsers = Auth::user()->sameInterests();
 

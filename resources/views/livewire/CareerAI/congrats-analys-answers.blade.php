@@ -64,7 +64,7 @@
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
         console.log("Report:",data.choices[0].message);
-        debugger;
+
 
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('report', this.analysisResult);

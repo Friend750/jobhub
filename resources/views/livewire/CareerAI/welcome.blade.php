@@ -30,7 +30,7 @@
                     <li><i class="fa-regular fa-circle-check fs-5"></i> الوعي</li>
                     <li><i class="fa-regular fa-circle-check fs-5"></i> الاجتهاد</li>
                     <li><i class="fa-regular fa-circle-check fs-5"></i> التوافق</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> تحمل الضفوط</li>
+                    <li><i class="fa-regular fa-circle-check fs-5"></i>العصابية</li>
                 </ul>
             </div>
             <div class="col-md-6">
