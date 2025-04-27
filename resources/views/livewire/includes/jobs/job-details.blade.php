@@ -73,7 +73,8 @@
         <h6 class="fw-bold mb-2 text-dark">المهارات المطلوبة:</h6>
         <div class="d-flex flex-wrap gap-2">
             <template x-for="skill in jobSkills.split(',')">
-                <span class="badge bg-primary bg-opacity-10 text-primary" x-text="skill.trim()"></span>
+                <span class="badge bg-primary bg-opacity-10 text-primary text-wrap text-end"style="
+                line-height: normal;" x-text="skill.trim()"></span>
             </template>
         </div>
     </div>
