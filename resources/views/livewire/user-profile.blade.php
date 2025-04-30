@@ -176,11 +176,14 @@
                     </div>
                 @endif
 
+
                 @if (!empty($user->personal_details->professional_summary))
-                    <!-- General Information Section -->
-                    @include('livewire.includes.user-profile.General-Information-Section')
+                <!-- General Information Section -->
+                @include('livewire.includes.user-profile.General-Information-Section')
                 @endif
 
+                @include('livewire.includes.user-profile.activities')
+                
                 @if ($user->type != 'company')
                     <!-- Experience Section -->
                     @include('livewire.includes.user-profile.Experience-Section')
