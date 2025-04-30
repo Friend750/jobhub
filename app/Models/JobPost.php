@@ -37,7 +37,7 @@ class JobPost extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->select('id', 'user_name');
+        return $this->belongsTo(User::class);
     }
 
     // In both Post and JobPost models
