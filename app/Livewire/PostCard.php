@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class PostCard extends Component
 {
@@ -235,17 +237,30 @@ class PostCard extends Component
             }
         }
 
-        // Final paginated result
-        $allPosts = $jobPosts
-            ->unionAll($normalPosts)
-            ->orderBy('created_at', 'desc') // This works only if unioned queries have same columns
-            ->paginate($this->perPage);
+        $jobPosts = $jobPosts->with(['comments', 'user.personal_details',])->get();
+        $normalPosts = $normalPosts->with(['comments', 'user.personal_details'])->get();
+        $merged = $jobPosts->merge($normalPosts)->sortByDesc('created_at')->values();
+
+
+
+// بعد عملية الدمج:
+$page = request()->get('page', 1);
+$offset = ($page - 1) * $this->perPage;
+
+$paginated = new LengthAwarePaginator(
+    $merged->slice($offset, $this->perPage)->values(),
+    $merged->count(),
+    $this->perPage,
+    $page,
+    ['path' => request()->url(), 'query' => request()->query()]
+);
+
 
 
 
 
         return view('livewire.post-card', [
-            'allPosts' => $allPosts
+            'allPosts' => $paginated
         ]);
 
     }

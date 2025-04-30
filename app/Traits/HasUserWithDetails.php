@@ -10,7 +10,8 @@ trait HasUserWithDetails
             $query->select('id', 'user_image')
                 ->with([
                     'personal_details' => function ($q) {
-                        $q->select('user_id', 'first_name', 'last_name', 'specialist');
+                        $q->select('user_id', 'first_name', 'last_name', 'specialist','page_name')
+                           ;
                     }
                 ]);
         };

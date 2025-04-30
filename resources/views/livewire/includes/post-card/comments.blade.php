@@ -24,9 +24,7 @@
             $commenterName = $commenter->personal_details->first_name ?? 'مستخدم';
             $commenterLastName = $commenter->personal_details->last_name ?? 'مستخدم';
             $commenterSpecialist = $commenter->personal_details->specialist ?? null;
-            $commenterImage = $commenter->user_image
-                ? asset('storage/' . $commenter->user_image)
-                : 'https://ui-avatars.com/api/?name=' . urlencode($commenterName);
+            $commenterImage = $commenter->user_image_url;
         @endphp
 
         <div class="comment mb-3">

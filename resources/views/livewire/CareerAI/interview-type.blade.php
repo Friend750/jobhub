@@ -68,8 +68,8 @@
             sessionStorage.removeItem('personalityDimensions');
             sessionStorage.removeItem('techDimensions');
             Alpine.data('questionsGen', () => ({
-                API_KEY: window.env.API_KEY,
-                MODEL: window.env.MODEL,
+                API_KEY: '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',
+                MODEL: 'deepseek/deepseek-r1-zero:free',
 
                 isLoading: false,
                 errors: null,
