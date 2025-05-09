@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FeedScopes;
 use App\Traits\HasUserWithDetails;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
     use HasUserWithDetails;
+    use FeedScopes;
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
