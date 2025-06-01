@@ -9,6 +9,7 @@
         </div>
     @endif
 
+    
     <div x-data="{ userType: @js($userType) }">
 
         <!-- User Cards Form (Only renders if userType is 'user' or 'admin') -->
