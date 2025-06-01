@@ -1,5 +1,5 @@
 @push('styles')
-    <link rel="stylesheet" href="{{asset('careerAI-css/welcome.css')}}">
+    <link rel="stylesheet" href="{{ asset('careerAI-css/welcome.css') }}">
 @endpush
 <div lang="ar" dir="rtl">
     <section class="container text-center">
@@ -8,23 +8,15 @@
             درجة السيرة
             الذاتية.</p>
 
-            <div class="d-flex w-100 justify-content-center gap-3 mt-3">
-                <!-- زر ابدأ المقابلة -->
-                <a href="{{route('Uplaod_Job_Profile')}}" class="button bg-dark text-decoration-none">
-                    <span class="label">ابدأ المقابلة</span>
-                    <span class="gradient-container">
-                        <span class="gradient"></span>
-                    </span>
-                </a>
-
-                <!-- زر العودة إلى المنشورات -->
-                <a href="/posts" class="button bg-secondary text-decoration-none">
-                    <span class="label">العودة إلى المنشورات</span>
-                    <span class="gradient-container">
-                        <span class="gradient"></span>
-                    </span>
-                </a>
-            </div>
+        <div class="d-flex w-100 justify-content-center gap-3 mt-3">
+            <!-- زر ابدأ المقابلة -->
+            <a href="{{ route('Uplaod_Job_Profile') }}" class="button bg-dark text-decoration-none">
+                <span class="label text-light">ابدأ المقابلة</span>
+                <span class="gradient-container">
+                    <span class="gradient"></span>
+                </span>
+            </a>
+        </div>
 
     </section>
 
@@ -38,12 +30,12 @@
                     <li><i class="fa-regular fa-circle-check fs-5"></i> الوعي</li>
                     <li><i class="fa-regular fa-circle-check fs-5"></i> الاجتهاد</li>
                     <li><i class="fa-regular fa-circle-check fs-5"></i> التوافق</li>
-                    <li><i class="fa-regular fa-circle-check fs-5"></i> العصابية</li>
+                    <li><i class="fa-regular fa-circle-check fs-5"></i>العصابية</li>
                 </ul>
             </div>
             <div class="col-md-6">
-                <div class="img-placeholder-left"> <img src="{{ asset('images/personalAnalysis.jpg') }}"
-                        alt="التقرير التحليلي">
+                <div class="img-placeholder-left">
+                    <img src="{{ asset('images/personalAnalysis.jpg') }}" class="l-img-raduis" alt="التقرير التحليلي">
                 </div>
             </div>
         </section>
@@ -51,7 +43,7 @@
         <section class="row align-items-center mt-4">
             <div class="col-md-6">
                 <div class="img-placeholder">
-                    <img src="{{ asset('images/performace.jpg') }}" alt="التقرير الأدا��">
+                    <img src="{{ asset('images/performace.jpg') }}" class="r-img-raduis" alt="التقرير الأدا��">
                 </div>
             </div>
             <div class="col-md-6 fs-4" dir="ltr">
@@ -80,7 +72,8 @@
             </div>
             <div class="col-md-6">
                 <div class="img-placeholder-left">
-                    <img wire:lazy src="{{ asset('images/begavior.avif') }}" alt="التقرير السلوكي والمهارات">
+                    <img wire:lazy src="{{ asset('images/begavior.avif') }}" class="l-img-raduis"
+                        alt="التقرير السلوكي والمهارات">
                 </div>
             </div>
         </section>
@@ -99,7 +92,8 @@
             </div>
             <div class="col-md-6">
                 <div class="img-placeholder">
-                    <img wire:lazy src="{{ asset('images/resumeAnalysis.jpg') }}" alt="التقرير الأدا��">
+                    <img wire:lazy src="{{ asset('images/resumeAnalysis.jpg') }}" class="r-img-raduis"
+                        alt="التقرير الأدا��">
                 </div>
             </div>
         </section>

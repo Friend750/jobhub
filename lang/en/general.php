@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'search_for_companies' => 'Search for companies',
     'addToFollowing' => 'Add to Follow',
     'dashboard' => 'Dashboard',
     'added_like' => 'added a like:',

@@ -15,6 +15,9 @@ class Notifications extends Component
 
     public $statistics = [];
     public $notifications = [];
+    public $perPage = 10;
+    public $hasMoreNotifications = true; // افترض أنه لديك هذا المتغير
+
 
     public function mount()
     {
@@ -26,27 +29,55 @@ class Notifications extends Component
         ];
     }
 
-
+    public function loadMore()
+    {
+        $this->perPage += 10;
+        $this->loadNotifications();
+    }
     public function loadNotifications()
     {
-        $userId = Auth::id(); // الحصول على معرف المستخدم الحالي
-        $this->notifications = DB::table('notifications')
-            ->where('notifiable_id', $userId) // جلب الإشعارات للمستخدم الحالي فقط
-            ->where('type', '!=', 'App\\Notifications\\SentMessage') // استثناء النوع غير المطلوب
-            ->orderBy('created_at', 'desc') // ترتيب الإشعارات حسب تاريخ الإنشاء
+        $userId = Auth::id();
+
+        // تحميل الإشعارات من قاعدة البيانات
+        $notifications = DB::table('notifications')
+            ->where('notifiable_id', $userId)
+            ->where('type', '!=', 'App\\Notifications\\SentMessage')
+            ->orderBy('created_at', 'desc')
             ->get()
+            ->filter(function ($notification) {
+                $data = json_decode($notification->data, true);
+
+                if (isset($data['user']['id']) && isset($data['receiverId'])) {
+                    return $data['user']['id'] != $data['receiverId'];
+                }
+
+                return true; // إذا لم يكن هناك شرط، نعيد الإشعار كما هو
+            })
             ->map(function ($notification) {
-                $data = json_decode($notification->data, true); // فك JSON
-                $user = \App\Models\User::find($data['user']['id']); // الحصول على المستخدم
+                $data = json_decode($notification->data, true);
+
                 return [
                     'id' => $notification->id,
                     'type' => $notification->type,
                     'read_at' => $notification->read_at,
                     'data' => $data,
-                    'user_name' => $user ? $user->user_name : 'Unknown User', // إضافة اسم المستخدم
                 ];
             });
+
+        // تحديد عدد الإشعارات التي سيتم إرجاعها بناءً على قيمة perPage
+        $loadedNotifications = $notifications->take($this->perPage);
+
+        // تحديث الإشعارات في الكائن
+        $this->notifications = $loadedNotifications;
+
+        // التحقق إذا كان هناك المزيد من الإشعارات لتحميلها
+        if ($loadedNotifications->count() < $this->perPage) {
+            $this->hasMoreNotifications = false; // لا توجد إشعارات أخرى لتحميلها
+        } else {
+            $this->hasMoreNotifications = true; // هناك إشعارات أخرى لتحميلها
+        }
     }
+
     public function markAsRead($id)
     {
 

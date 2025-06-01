@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anaheim:wght@400..800&family=Badeen+Display&family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 body {
     background-color: #f0f4f8;
     overflow-x: hidden;
@@ -115,16 +117,10 @@ body {
     /* height: 300px; */
 }
 
-section{
+section {
     height: 80vh !important;
     display: flex !important;
     align-items: center !important;
-}
-
-.logoName {
-    color: #2B6DAE;
-    font-family: 'Rubik', Arial, sans-serif;
-    font-weight: 700;
 }
 
 .btn {
@@ -132,12 +128,12 @@ section{
     /* background-color: #277a1f; */
 }
 
-footer{
+footer {
     /* background-color: #ddd; */
     height: 100px;
 }
 
-footer .container{
+footer .container {
     padding-top: 50px;
 }
 
@@ -147,25 +143,27 @@ footer .container{
     height: 16px;
     border-radius: 50%;
     display: block;
-    margin:15px auto;
+    margin: 15px auto;
     position: relative;
     background: #FFF;
     box-shadow: -24px 0 #FFF, 24px 0 #FFF;
     box-sizing: border-box;
     animation: shadowPulse 2s linear infinite;
-  }
+}
 
-  @keyframes shadowPulse {
+@keyframes shadowPulse {
     33% {
-      background: #FFF;
-      box-shadow: -24px 0 #2B6DAE, 24px 0 #FFF;
+        background: #FFF;
+        box-shadow: -24px 0 #2B6DAE, 24px 0 #FFF;
     }
+
     66% {
-      background: #2B6DAE;
-      box-shadow: -24px 0 #FFF, 24px 0 #FFF;
+        background: #2B6DAE;
+        box-shadow: -24px 0 #FFF, 24px 0 #FFF;
     }
+
     100% {
-      background: #FFF;
-      box-shadow: -24px 0 #FFF, 24px 0 #2B6DAE;
+        background: #FFF;
+        box-shadow: -24px 0 #FFF, 24px 0 #2B6DAE;
     }
-  }
+}

@@ -20,20 +20,20 @@ class FollowingScreen extends Component
 
 
 
-public function mount()
-{
+    public function mount()
+    {
 
-    $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
 
-    $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($following) {
-        return [
-            'id' => $following->id,
-            'name' => $following->fullName(),
-            'position' => optional($following->experiences->sortByDesc('created_at')->first())->job_title,
-            'user_image' => $following->user_image ?? null,
-        ];
-    });
-}
+        $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($following) {
+            return [
+                'id' => $following->id,
+                'name' => $following->fullName(),
+                'position' => $following->personal_details->specialist ?? null,
+                'user_image' => $following->user_image_url ?? null,
+            ];
+        });
+    }
 
 
     public function render()

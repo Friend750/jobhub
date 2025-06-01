@@ -9,7 +9,7 @@
                     <svg width="30" height="30" viewBox="0 0 70 70">
                         <circle cx="35" cy="35" r="30" class="bg"></circle>
                         <circle cx="35" cy="35" r="30" stroke-width="8" :stroke="getColor(percent)"
-                            stroke-dasharray="188.4" :stroke-dashoffset="188.4 - (188.4 * percent / 10)">
+                            stroke-dasharray="188.4" :stroke-dashoffset="188.4 - (188.4 * percent / 100)">
                         </circle>
                     </svg>
                     <span class="progress-value" x-text="percent + '%'"></span>
@@ -54,10 +54,10 @@
 
                 // استخراج القيم بناءً على البيانات المسترجعة
                 technicalPercentages: [
-                    score.problem_solving || 0,
-                    score.communication || 0,
-                    score.teamwork || 0,
-                    score.adaptability || 0
+                    score.problem_solving * 10  || 0,
+                    score.communication * 10 || 0,
+                    score.teamwork * 10 || 0,
+                    score.adaptability * 10 || 0
                 ],
                 technicalLabels: [
                     'حل المشكلات',
@@ -73,8 +73,8 @@
                     dimensions.adaptability || "لا يوجد تحليل متاح."
                 ],
                 getColor(percent) {
-                    if (percent >= 8) return '#28a745';
-                    if (percent >= 6) return '#ffc107';
+                    if (percent >= 80) return '#28a745';
+                    if (percent >= 60) return '#ffc107';
                     return '#dc3545';
                 },
                 // التقييم والاقتراحات

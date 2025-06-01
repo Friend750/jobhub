@@ -30,8 +30,8 @@
     };
     document.addEventListener('alpine:init', () => {
         Alpine.data('interviewReport', () => ({
-            API_KEY: window.env.API_KEY,
-            MODEL: window.env.MODEL,
+            API_KEY: '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',
+            MODEL: 'deepseek/deepseek-r1-zero:free',
 
             isLoading: false,
             timer: 0,
@@ -60,15 +60,18 @@
             })
         });
 
+
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
+        console.log("Report:",data.choices[0].message);
+
 
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('report', this.analysisResult);
         return this.analysisResult; // إرجاع النتيجة بدلاً من إعادة التوجيه هنا
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في تقرير الاجوبة' );
     }
 }
             ,
@@ -78,21 +81,33 @@
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 \\boxed{
 {
   "analysis": [
     {
-      "question": "نص السؤال هنا",
-      "answer": "نص الإجابة هنا",
+      "question": "السؤال الأول",
+      "answer": "إجابة السؤال الأول",
       "report": {
-        "evaluation": "التقييم العام للأداء",
-        "strengths": ["نقاط القوة 1", "نقاط القوة 2"],
-        "weaknesses": ["نقاط الضعف 1", "نقاط الضعف 2"],
-        "improvements": ["اقتراحات التحسين 1", "اقتراحات التحسين 2"],
-        "score": 8.5
+        "evaluation": "شرح قصير للتقييم",
+        "strengths": ["نقطة قوة ١", "نقطة قوة ٢"],
+        "weaknesses": ["نقطة ضعف ١", "نقطة ضعف ٢"],
+        "improvements": ["اقتراح تحسين ١", "اقتراح تحسين ٢"],
+        "score": 6.5
       }
-    }
+    },
+    {
+      "question": "السؤال الثاني",
+      "answer": "إجابة السؤال الثاني",
+      "report": {
+        "evaluation": "شرح قصير للتقييم",
+        "strengths": ["نقطة قوة ١", "نقطة قوة ٢"],
+        "weaknesses": ["نقطة ضعف ١", "نقطة ضعف ٢"],
+        "improvements": ["اقتراح تحسين ١", "اقتراح تحسين ٢"],
+        "score": 7.0
+      }
+    },
   ]
 }
 }
@@ -105,8 +120,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - استخدم علامات الترقيم العربية بشكل صحيح
 - تجنب أي محتوى غير عربي بشكل قطعي
 - التزم الهيكل المحدد بدقة دون أي انحراف
@@ -128,7 +141,8 @@ ${answers.map((a, i) =>
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 
 \\boxed{
 {
@@ -138,7 +152,7 @@ ${answers.map((a, i) =>
     "strengths": ["نقاط القوة 1", "نقاط القوة 2"],
     "weaknesses": ["نقاط الضعف 1", "نقاط الضعف 2"],
     "improvements": ["اقتراحات التحسين 1", "اقتراحات التحسين 2"],
-    "score": {"openness": "8.5", "conscientiousness": "9.3","diligence": "9", "agreeableness": "7","neuroticism": "5"}
+    "score": {"openness": "0.0", "conscientiousness": "4.0","diligence": "2.9", "agreeableness": "7","neuroticism": "9"}
     "dimensions": {
       "openness": "تحليل مستوى الانفتاح استناداً إلى جميع الإجابات",
       "conscientiousness": "تحليل مستوى الوعي استناداً إلى جميع الإجابات",
@@ -157,8 +171,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - قم بتحليل جميع الإجابات بشكل عام كمجموعة، وليس كل سؤال على حدة
 - يجب تحليل الأبعاد الخمس التالية استناداً إلى جميع الإجابات: openness، conscientiousness، diligence، agreeableness، neuroticism
 - استخدم علامات الترقيم العربية بشكل صحيح
@@ -180,6 +192,7 @@ ${answers.map((a, i) =>
         // استرجاع الإجابات من sessionStorage
         const answers = JSON.parse(sessionStorage.getItem('answers')) || [];
 
+
         // بناء prompt للذكاء الاصطناعي
         const prompt = this.buildAnalysisPromptPersonalityDimensions(answers);
 
@@ -196,16 +209,17 @@ ${answers.map((a, i) =>
                 temperature: 0.7
             })
         });
-
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
+        console.log("PersonailtyReport:",data.choices[0].message);
+
 
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('personalityDimensions', this.analysisResult);
         return this.analysisResult;
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في التقرير الشخصي');
     }
 },
 
@@ -214,7 +228,8 @@ ${answers.map((a, i) =>
 ### التوجيهات الأساسية:
 1. اللغة المطلوبة: العربية فقط بشكل صارم (بدون أي كلمات إنجليزية)
 2. التنسيق المطلوب: JSON صالح بدون أي نص إضافي
-3. الهيكل المطلوب:
+3. اذا كان الممتحن اجاب اجابة بعيدة عن السؤال اجعل تقييمه 0 لا تجامله
+4. الهيكل المطلوب:
 {
   "analysis": {
     "evaluation": "التقييم العام للأداء بناءً على جميع الإجابات",
@@ -239,8 +254,6 @@ ${answers.map((a, i) =>
                 ).join('\n\n')}
 
 ### التعليمات التفصيلية:
-- ابدأ التحليل بعبارة "بدأ التحليل" (كتعليق داخل الـ JSON)
-- انهي التحليل بعبارة "انتهى التحليل" (كتعليق داخل الـ JSON)
 - قم بتحليل جميع الإجابات بشكل عام كمجموعة، وليس كل سؤال على حدة
 - يجب تحليل الأبعاد الخمس التالية استناداً إلى جميع الإجابات: openness، conscientiousness، diligence، agreeableness، neuroticism
 - استخدم علامات الترقيم العربية بشكل صحيح
@@ -279,45 +292,58 @@ ${answers.map((a, i) =>
             })
         });
 
+
         const data = await response.json();
         this.analysisResult = data.choices[0].message.content;
-
+        console.log("TechReport:",data.choices[0]);
         // حفظ النتيجة في sessionStorage
         sessionStorage.setItem('techDimensions', this.analysisResult);
         return this.analysisResult;
     } catch (error) {
         console.error('Error:', error);
-        alert('حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى');
+        alert(' حدث خطأ أثناء التحليل، يرجى المحاولة مرة أخرى في التقرير التقني');
     }
 },
 
-async analyzeAll() {
+async analyzeAll(retries = 2) {
     try {
         this.isLoading = true;
-        this.startTimer(); // تشغيل المؤقت هنا فقط مرة واحدة
+        this.startTimer();
 
-        const [personalityResult, techResult, generalResult] = await Promise.all([
+        // تنفيذ 3 تحليلات بالتوازي
+        const [generalResult, personalityResult, techResult] = await Promise.all([
+            this.analyzeAnswers(),
             this.analyzeAnswersPersonalityDimensions(),
-            this.analyzeAnswersTechDimensions(),
-            this.analyzeAnswers()
+            this.analyzeAnswersTechDimensions()
         ]);
 
-        console.log("تحليل الشخصية:", personalityResult);
-        console.log("تحليل المهارات التقنية:", techResult);
-        console.log("التحليل العام:", generalResult);
+        // التحقق من النتائج
+        if (!generalResult) throw new Error('فشل في التحليل العام');
+        if (!personalityResult) throw new Error('فشل في تحليل الشخصية');
+        if (!techResult) throw new Error('فشل في التحليل التقني');
 
-        // إعادة التوجيه بعد انتهاء التحليل
+        // الانتقال للصفحة إذا نجحت كلها
         window.location.href = 'http://127.0.0.1:8000/ReportsAnalysis';
 
         return { personalityResult, techResult, generalResult };
+
     } catch (error) {
         console.error("حدث خطأ أثناء التحليل:", error);
+
+        if (retries > 0) {
+            console.log(`إعادة المحاولة... المتبقي: ${retries}`);
+            retries--;
+            return await this.analyzeAll(retries);
+        } else {
+            alert("حدث خطأ متكرر أثناء التحليل، يرجى المحاولة لاحقاً.");
+            window.location.href = 'http://127.0.0.1:8000/Uplaod_Job_Profile';
+        }
     } finally {
         this.isLoading = false;
-        this.stopTimer(); // إيقاف المؤقت هنا فقط
+        this.stopTimer();
     }
-},
-
+}
+,
 
 
 

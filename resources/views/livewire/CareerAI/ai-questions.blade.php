@@ -1,9 +1,10 @@
 @push('styles')
-<link rel="stylesheet" href="{{asset('careerAI-css/AI-questions.css')}}">
+    <link rel="stylesheet" href="{{ asset('careerAI-css/AI-questions.css') }}">
 @endpush
 
-<div style="margin-top: 100px">
-    <div class="card p-4 my-3" style="width: 100%; max-width: 600px;">
+<div style="">
+    <div class="card p-4 my-3"
+        style="width: 100%;max-width: 600px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);">
         <h6 class="text-muted mb-3"><i class="bi bi-stars"></i> السؤال <span id="question-number">1</span></h6>
         <h5 class="mb-4 fw-bold"> <span id="question-text">كيف تصف مهاراتك في التواصل؟</span>
         </h5>
@@ -12,7 +13,12 @@
             <div id="error-message" class="text-danger mb-2" style="display: none;">
                 يرجى إدخال إجابة قبل الانتقال إلى السؤال التالي.
             </div>
-            <textarea id="answer" class="form-control mb-4" rows="4" placeholder="اكتب إجابتك هنا."></textarea>
+            <textarea id="answer" class="form-control mb-4" rows="4" placeholder="اكتب إجابتك هنا."
+            style="
+                max-height: 70vh;
+                min-height: fit-content;
+                overflow: auto;"
+            ></textarea>
             <button class="btn btn-dark" id="submit-button">إرسال</button>
         </div>
     </div>
@@ -54,8 +60,9 @@
     displayCurrentQuestion();
 
     // الانتقال إلى السؤال التالي عند النقر على "إرسال"
-    document.getElementById('submit-button').addEventListener('click', function () {
-        const currentAnswer = document.getElementById('answer').value.trim(); // الحصول على الإجابة مع إزالة المسافات الزائدة
+    document.getElementById('submit-button').addEventListener('click', function() {
+        const currentAnswer = document.getElementById('answer').value
+            .trim(); // الحصول على الإجابة مع إزالة المسافات الزائدة
 
         // التحقق من أن textarea غير فارغ
         if (!currentAnswer) {
@@ -88,7 +95,7 @@
 
     // جعل textarea تتوسع تلقائيًا مع الكتابة
     const textarea = document.querySelector('.textarea-container textarea');
-    textarea.addEventListener('input', function () {
+    textarea.addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = this.scrollHeight + 'px';
     });

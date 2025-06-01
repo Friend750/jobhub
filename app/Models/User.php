@@ -32,17 +32,20 @@ class User extends Authenticatable
         'email_verified_at'
     ];
 
-    public function fullName()
+    public function fullName(): string
     {
-        $firstName = $this->personal_details->first_name ?? '';
-        $lastName = $this->personal_details->last_name ?? '';
-
-        if ($firstName === '' && $lastName === '') {
-            return '';
+        // Strict check for non-empty specialist
+        if (!empty($this->personal_details?->page_name)) {
+            return trim($this->personal_details->page_name);
         }
 
+        // Proceed with name components
+        $nameParts = [
+            $this->personal_details->first_name ?? '',
+            $this->personal_details->last_name ?? ''
+        ];
 
-        return $firstName . ' ' . $lastName;
+        return trim(implode(' ', $nameParts));
     }
 
     protected $appends = ['user_image_url']; // Makes it available in JSON responses
@@ -50,14 +53,14 @@ class User extends Authenticatable
     public function getUserImageUrlAttribute()
     {
         if (!$this->user_image) {
-            return 'https://ui-avatars.com/api/?name='.urlencode($this->user_name ?? ' ');
+            return 'https://ui-avatars.com/api/?name=' . urlencode($this->user_name ?? ' ');
         }
 
         return str_contains($this->user_image, 'googleusercontent.com')
             ? $this->user_image
-            : asset('storage/'.$this->user_image);
+            : asset('storage/' . $this->user_image);
     }
-    
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -114,14 +117,14 @@ class User extends Authenticatable
     {
         $userInterests = $this->interests;
         return User::where('id', '!=', Auth::id())
-        ->where(function ($query) use ($userInterests) {
-            foreach ($userInterests as $interest) {
-                $query->orWhereJsonContains('interests', $interest);
-            }
-        })
-        ->with('personal_details')
-        ->orderBy('views', 'desc')
-        ->get();
+            ->where(function ($query) use ($userInterests) {
+                foreach ($userInterests as $interest) {
+                    $query->orWhereJsonContains('interests', $interest);
+                }
+            })
+            ->with('personal_details')
+            ->orderBy('views', 'desc')
+            ->get();
     }
 
 

@@ -47,12 +47,12 @@
                     </a>
                 </li>
 
-                <li class="list-group-item hover_color">
+                {{-- <li class="list-group-item hover_color">
                     <a href="#" class="text-decoration-none text-dark d-flex justify-content-between">
                         <small>غير مهتم</small>
                         <i class="bi bi-emoji-expressionless"></i>
                     </a>
-                </li>
+                </li> --}}
                 @endif
                 <li class="list-group-item hover_color">
                     <a href="#" class="text-decoration-none text-dark d-flex justify-content-between">

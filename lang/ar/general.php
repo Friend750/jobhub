@@ -1,12 +1,13 @@
 <?php
 
 return [
+    'search_for_companies' => 'ابحث عن شركات',
     'addToFollowing' => 'أضف للمتابعة',
     'dashboard' => 'لوحة التحكم',
     'added_like' => 'أضاف إعجابًا:',
     'unActive_jobs' => 'الوظائف غير النشطة',
     'no_followers' => 'لا يوجد متابعين ',
-    'careerAI' => 'محاكاة وظيفة',
+    'careerAI' => 'مهنة',
     'search_for_followings' => 'ابحث عن اشخاص',
     'no_followers' => 'لا يوجد متابعين يتابعوك',
     'no_followed_companies' => 'ابحث عن شركات',
@@ -69,7 +70,7 @@ return [
     'follow' => 'متابعة',
     'requested' => 'تم الطلب',
     'manage_network' => 'إدارة شبكتي',
-    'following' => 'المتابعون',
+    'following' => 'اتابع',
     'followers' => 'المتابعين',
     'companies' => 'الشركات',
     'chats' => 'الدردشات',
@@ -185,7 +186,7 @@ return [
     'add_course' => 'إضافة دورة',
     'remove_course' => 'إزالة الدورة',
     'error_interests' => '.رجاءا اختر اقل شيء اهتمامين',
-    'logo' => 'وظائف اليمن',
+    'logo' => 'يمن',
     'join_now' => 'انضم الآن',
     'sign_in' => 'تسجيل الدخول',
     'hero_title' => 'اتصل، اكتشف، وانجح في مسيرتك المهنية',

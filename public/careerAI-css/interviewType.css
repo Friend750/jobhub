@@ -1,3 +1,6 @@
+body{
+    background-color: #fff !important;
+}
 .card {
     transition: all 0.3s;
     margin: 10px;

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Anaheim:wght@400..800&family=Badeen+Display&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 * {
     padding: 0;
@@ -144,7 +144,22 @@
     color: var(--color-primary) !important;
     background: var(--color-bg-blue-light) !important;
     border-radius: 10px !important;
-    /* transform: translateY(-2px) !important; */
     transition: 1.3s ease !important;
     font-weight: 600 !important;
+}
+
+.badeen-display-regular {
+    font-family: "Badeen Display", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+.logo{
+    height: 37.798px;
+}
+
+.withHover:hover{
+
+    background: var(--color-bg-blue-light) !important;
+    transition: .3s ease !important;
 }

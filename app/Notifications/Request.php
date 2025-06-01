@@ -15,13 +15,15 @@ class Request extends Notification implements ShouldBroadcastNow
 
     public $user;
     public $receiver;
+    public $personalDetails;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user,$receiver)
+    public function __construct($user,$receiver,$personalDetails)
     {
         $this->user = $user;
         $this->receiver = $receiver;
+        $this->personalDetails = $personalDetails;
     }
 
     /**
@@ -52,12 +54,14 @@ class Request extends Notification implements ShouldBroadcastNow
      */
     public function toArray(object $notifiable): array
     {
-        return 
+        return
         [
         'user_id' => $this->user->id,
         'receiver_id' => $this->receiver->id,
+        'personalDetails' => $this->personalDetails,
+
         ];
-        
+
     }
 
 public function broadcastOn()

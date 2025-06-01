@@ -1,12 +1,14 @@
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/followedsList.css') }}">
-<link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/followedsList.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 
 <div class="mt-5 pt-4 row justify-content-center">
-    <div class="col-md-3">
-        <div class="">
+    <div class="col-lg-3 p-0 d-flex justify-content-end">
+        <div class="MakeSticky w-75" style="
+        height: fit-content;">
+            @livewire('manage-network')
         </div>
     </div>
 
@@ -25,47 +27,47 @@
             </button>
         </div>
         <div class="border-top mt-2 mb-2" style="height: 1px;"></div>
-        <div  id="followers-list">
+        <div id="followers-list">
             @forelse ($users as $user)
-            @php
-                $status = $this->getFollowStatus($user->id);
-                $isFollowing = $status['isFollowing'];
-                $isRequested = $status['isRequested'];
-            @endphp
+                @php
+                    $status = $this->getFollowStatus($user->id);
+                    $isFollowing = $status['isFollowing'];
+                    $isRequested = $status['isRequested'];
+                @endphp
 
-            <div class="mb-2" >
-                <div class="card-body d-flex align-items-center justify-content-between" wire:key="user-{{ $user->id }}">
-                    <div style="cursor: pointer" class="d-flex align-items-center mb-2" x-data
-                    @click="fetch(`/users/{{ $user['id'] }}/ping`, { method: 'GET' })"
-                    wire:click='showUser({{ $user['id'] }})'
-                    >
-                        <img src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->fullName()) }}"
-                        alt="Logo"
-                            class="rounded-circle ms-2" width="40">
-                        <div>
-                            <h5 class="mb-0">{{ $user->page_name ?? $user->fullName()  }}</h5>
-                            <small class="text-muted">{{ $user->personal_details->specialist ?? 'No specialist available' }}</small>
-                            <br>
-                            <small class="text-muted">
-                                عدد المتابعين: {{ $user->accepted_all_followers_count ?? 0 }}
-                            </small>
-                            <br>
+                <div class="mb-2">
+                    <div class="card-body d-flex align-items-center justify-content-between"
+                        wire:key="user-{{ $user->id }}">
+                        <div style="cursor: pointer" class="d-flex align-items-center mb-2" x-data
+                            @click="fetch(`/users/{{ $user['id'] }}/ping`, { method: 'GET' })"
+                            wire:click='showUser({{ $user['id'] }})'>
+                            <img src="{{ $user->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($user->fullName()) }}"
+                                alt="Logo" class="rounded-circle ms-2" width="40">
+                            <div>
+                                <h5 class="mb-0">{{ $user->page_name ?? $user->fullName() }}</h5>
+                                <small
+                                    class="text-muted">{{ $user->personal_details->specialist ?? 'No specialist available' }}</small>
+                                <br>
+                                <small class="text-muted">
+                                    عدد المتابعين: {{ $user->accepted_all_followers_count ?? 0 }}
+                                </small>
+                                <br>
+
+
+                            </div>
 
 
                         </div>
 
-
-                    </div>
-
-                    {{-- زر المتابعة --}}
-                    <div class="d-flex align-items-center" wire:ignore
-                        x-data="{
+                        {{-- زر المتابعة --}}
+                        <div class="d-flex align-items-center" wire:ignore x-data="{
                             isFollowing: @json($isFollowing),
                             isRequested: @json($isRequested)
                         }">
-                        <button class="btn btn-sm"
-                            :class="isFollowing ? 'btn-outline-danger' : (isRequested ? 'btn-outline-warning' : 'btn-outline-primary')"
-                            @click.prevent="
+                            <button class="btn btn-sm"
+                                :class="isFollowing ? 'btn-secondary' : (isRequested ? 'btn-secondary' :
+                                    'btn-primary')"
+                                @click.prevent="
                                 if (!isRequested) {
                                     if (isFollowing) {
                                         isFollowing = false;
@@ -76,41 +78,44 @@
                                     }
                                 }
                             ">
-                            <span x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
-                        </button>
+                                <span
+                                    x-text="isFollowing ? '{{ __('general.unfollow') }}' : (isRequested ? '{{ __('general.requested') }}' : '{{ __('general.follow') }}')"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
             @empty
-            <div class="text-center py-4 text-muted">
-                {{ __('general.no_followeds') }}
-            </div>
+                <div class="text-center py-4 text-muted">
+                    {{ __('general.no_followeds') }}
+                </div>
             @endforelse
 
 
             @if ($type === 'company' && $hasMoreCompanies)
-            <div class="text-center py-3">
-                <button wire:click="loadMore" wire:loading.attr="disabled" class="btn btn-primary">
-                    تحميل المزيد
-                    <span wire:loading wire:target="loadMore" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
-                </button>
-            </div>
-        @endif
+                <div class="text-center py-3">
+                    <button wire:click="loadMore" wire:loading.attr="disabled" class="btn btn-primary">
+                        تحميل المزيد
+                        <span wire:loading wire:target="loadMore" class="spinner-border spinner-border-sm ms-2"
+                            role="status" aria-hidden="true"></span>
+                    </button>
+                </div>
+            @endif
 
-        @if ($type === 'user' && $hasMoreUsers)
-            <div class="text-center py-3">
-                <button wire:click="loadMore" wire:loading.attr="disabled" class="btn btn-primary">
-                    تحميل المزيد
-                    <span wire:loading wire:target="loadMore" class="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
-                </button>
-            </div>
-        @endif
+            @if ($type === 'user' && $hasMoreUsers)
+                <div class="text-center py-3">
+                    <button wire:click="loadMore" wire:loading.attr="disabled" class="btn btn-primary">
+                        تحميل المزيد
+                        <span wire:loading wire:target="loadMore" class="spinner-border spinner-border-sm ms-2"
+                            role="status" aria-hidden="true"></span>
+                    </button>
+                </div>
+            @endif
 
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="w-75">
+    <div class="col-lg-3 p-0">
+        <div class="MakeSticky w-75">
             @livewire('ChatAndFeed')
         </div>
     </div>

@@ -18,10 +18,13 @@ use Livewire\WithFileUploads;
 use App\Models\ReplyComment;
 use App\Models\User;
 use App\Notifications\Like;
+use App\Services\FeedService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class PostCard extends Component
 {
@@ -42,7 +45,6 @@ class PostCard extends Component
     public $interests;
     public $media; // For the uploaded file (image or video)
     public $user;
-    public $posts;
     public $jopPosts;
     public $isLiked;
 
@@ -56,8 +58,8 @@ class PostCard extends Component
         $liker = $this->user;
 
         $post = $type === 'post'
-        ? Post::find($itemId)
-        : JobPost::find($itemId);
+            ? Post::find($itemId)
+            : JobPost::find($itemId);
 
         if ($type === 'post') {
             $liker->likes()->attach($itemId);
@@ -65,7 +67,7 @@ class PostCard extends Component
         } elseif ($type === 'job') {
             $liker->jobLikes()->attach($itemId);
         }
-        User::find($post->user_id)->notify(new Like(Auth::user(),Auth::user()->personal_details, $post->user_id, $post));
+        User::find($post->user_id)->notify(new Like(Auth::user(), Auth::user()->personal_details, $post->user_id, $post));
 
     }
 
@@ -156,7 +158,7 @@ class PostCard extends Component
 
     public function createComment($postId, $postType)
     {
-        $this->commentForm->submit($postId,$postType);
+        $this->commentForm->submit($postId, $postType);
     }
 
     public function mount()
@@ -165,89 +167,29 @@ class PostCard extends Component
         $this->selected = 'content-article';
         $this->interests = Interest::select('id', 'name')->get();
         $this->user = Auth::user();
-        $this->posts = Post::all()->sortByDesc('created_at');
     }
 
     public function render()
     {
-
-       if( Auth::user()->followings()->get()->isEmpty())
-       {
-
-        $sameInterestsUsers = Auth::user()->sameInterests();
-
-         $jobPosts = JobPost::forFeed()
-        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-        ->orWhere('user_id', $this->user->id);
-
-
-
-        $normalPosts = Post::forFeed()
-        ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-        ->orWhere('user_id', $this->user->id);
-
-
-
-       }
-       else
-       {
-        $followedIds = Connection::where('following_id', $this->user->id)
-         ->where('is_accepted', 1)
-         ->pluck('follower_id');
-
-       $followedIdsPublic = Connection::where('following_id', $this->user->id)
-       ->where('is_accepted', 0)
-       ->pluck('follower_id');
-
-       $jobPosts = JobPost::forFeed()
-       ->where(function ($query) use ($followedIds) {
-        $query->whereIn('user_id', $followedIds);
-        })
-        ->orWhere('user_id', $this->user->id);
-
-       $normalPosts = Post::forFeed()
-       ->where(function ($query) use ($followedIds) {
-        $query->whereIn('user_id', $followedIds);
-        })
-        ->orWhere('user_id', $this->user->id);
-
-
-
-
-    $preview = (clone $jobPosts)->unionAll(clone $normalPosts)->get();
-if ($preview->isEmpty()) {
-    // fallback to public
-    $jobPosts = JobPost::forFeed()
-        ->where(function ($query) use ($followedIdsPublic) {
-            $query->whereIn('user_id', $followedIdsPublic)
-            ->where('target','to_any_one');
-        })
-        ->orWhere('user_id', $this->user->id);
-
-    $normalPosts = Post::forFeed()
-        ->where(function ($query) use ($followedIdsPublic) {
-            $query->whereIn('user_id', $followedIdsPublic)
-            ->where('target','to_any_one');
-        })
-        ->orWhere('user_id', $this->user->id);
-
-}
-       }
-
-
-
-// Final paginated result
-$allPosts = $jobPosts
-    ->unionAll($normalPosts)
-    ->orderBy('created_at', 'desc') // This works only if unioned queries have same columns
-    ->paginate($this->perPage);
-
-
-
+        $feedService = new FeedService();
+        $allPosts = $feedService->getFeedForUser($this->user);
 
         return view('livewire.post-card', [
-            'allPosts' => $allPosts
+            'allPosts' => $this->paginatePosts($allPosts),
         ]);
+    }
 
+    protected function paginatePosts($posts)
+    {
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $this->perPage;
+
+        return new LengthAwarePaginator(
+            $posts->slice($offset, $this->perPage)->values(),
+            $posts->count(),
+            $this->perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
     }
 }

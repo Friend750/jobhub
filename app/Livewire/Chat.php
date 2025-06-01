@@ -23,26 +23,26 @@ class Chat extends Component
 
     protected $listeners = ['messageReceived' => 'loadMore'];
     public $paginateVar = 10;
-
+    
 
     public function mount($conversationId = null)
     {
 
-        $this->currentUserId =  Auth::id(); // تخزين معرف المستخدم الحالي
+        $this->currentUserId = Auth::id(); // تخزين معرف المستخدم الحالي
 
         $this->chats = Conversation::with([
             'firstUser:id,user_name,user_image',
             'secondUser:id,user_name,user_image'
         ])
             ->where(function ($query) {
-                $query->where('first_user',  Auth::id())
-                    ->orWhere('second_user',  Auth::id());
+                $query->where('first_user', Auth::id())
+                    ->orWhere('second_user', Auth::id());
             }) // Only fetch conversations where the user is a participant
             ->orderBy('updated_at', 'desc')
             ->take(5)
             ->get(['id', 'first_user', 'second_user', 'last_message'])
             ->map(function ($conversation) {
-                $otherUser =  Auth::id() === $conversation->first_user
+                $otherUser = Auth::id() === $conversation->first_user
                     ? $conversation->secondUser
                     : $conversation->firstUser;
 
@@ -51,7 +51,8 @@ class Chat extends Component
                     'id' => $conversation->id,
                     'name' => $otherUser->fullName(),
                     'last_message' => $conversation->last_message,
-                    'profile' => $otherUser->user_image ?? 'https://ui-avatars.com/api/?name=' . urlencode($otherUser->user_name),
+                    'profile' => $otherUser->user_image_url,
+                    'specialist' => $otherUser->personal_details->specialist,
                 ];
             })
             ->toArray();
@@ -67,7 +68,7 @@ class Chat extends Component
     }
 
 
-    public function  isUserPartOfConversation($conversation)
+    public function isUserPartOfConversation($conversation)
     {
         if ($conversation->firstUser->id === $this->currentUserId || $conversation->secondUser->id === $this->currentUserId) {
             // Auth user is either firstUser or secondUser
@@ -81,12 +82,12 @@ class Chat extends Component
     public function sendMessage()
     {
         $this->validate([
-            'message' => 'required|string|max:1000',
+            'message' => 'required|string|max:60000',
         ]);
         $conversation = Conversation::findOrFail($this->selectedChat['id']);
 
         $this->authorize('sendMessage', $conversation);
-        $receiverId =  Auth::id() === $conversation->first_user
+        $receiverId = Auth::id() === $conversation->first_user
             ? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
             : $conversation->first_user;
         if (!User::find($receiverId)) {
@@ -94,7 +95,7 @@ class Chat extends Component
         }
         $message = \App\Models\Chat::create([
             'message' => $this->message,
-            'sender_id' =>  Auth::id(),
+            'sender_id' => Auth::id(),
             'receiver_id' => $receiverId, // إذا كان المستخدم الحالي هو الثاني، اجعل المستقبل هو الأول
             'conversation_id' => $this->selectedChat['id'],
         ]);

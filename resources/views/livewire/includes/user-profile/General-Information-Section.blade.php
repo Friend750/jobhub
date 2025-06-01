@@ -24,16 +24,16 @@
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between">
                 <h5 class="modal-title" id="modalTitleId">
-                    General Information
+                    نظرة عامة
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
             </div>
             <div class="modal-body">
                 <div id="professionalSummary" class="collapse show">
                     <form wire:submit.prevent="saveSummary">
 
                         <div class="form-group mb-3">
-                            <label for="description" class=" mb-2">Overview</label>
+                            {{-- <label for="description" class=" mb-2">Overview</label> --}}
                             <textarea class="form-control @error('PSForm.description') is-invalid
                             @enderror" id="description" wire:model="PSForm.description" rows="3"
                                 placeholder="Add a description here..."></textarea>

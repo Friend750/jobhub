@@ -2,8 +2,8 @@
 <nav id="navbar" class="navbar navbar-light nav-bg-light w-100 mb-5">
     <div class="container-fluid">
         <div class="nav-left d-flex justify-content-center align-items-center">
-            <a class="navbar-brand" href="#">
-                <span class="logoName ms-3">{{ __('general.logo') }}</span>
+            <a class="ms-1" href="#">
+                <img src="{{ asset('apple-touch-icon.png') }}" height="40" alt="Logo" class="logo">
             </a>
             @livewire('searchbar')
         </div>

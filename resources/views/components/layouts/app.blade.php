@@ -14,6 +14,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
 
+    {{-- <script type="module" src="{{ Vite::asset('resources/js/bootstrap.js') }}"></script> --}}
+
     <link rel="manifest" href="{{ asset('favicon/site.webmanifest') }}">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,10 +32,10 @@
     {{-- main app css --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @stack('styles')
-    <title>Yemen Jobs | {{ $title ?? 'Page Title' }}</title>
+    <title>يمن إن | {{ $title ?? 'Page Title' }}</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     @if (
         !in_array(Route::currentRouteName(), [
             'dashboard',
@@ -60,8 +62,9 @@
             @include('livewire.navigation-bar')
     @endif
 
-
+<main class="flex-grow-1">
     {{ $slot }}
+</main>
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

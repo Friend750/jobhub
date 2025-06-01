@@ -5,81 +5,28 @@
     <link rel="stylesheet" href="{{ asset('css/search.css') }}">
 @endpush
 <div>
-    <div class="container">
-        <div class="container gap-3 d-flex justify-content-end col-md-12">
-
-
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6" x-data="postCard(@this)">
-
-
-                @include('livewire.includes.post-card.create-post-card')
-
-                <!-- Alert Success message -->
-                <div x-show="message" x-transition x-cloak
-                    class="alert alert-success alert-dismissible mb-3 rounded fade show">
-                    <button type="button" x-on:click="hideAlert()" class="btn-close" aria-label="إغلاق"></button>
-                    <span x-text="message"></span>
-                </div>
-
-                @include('livewire.includes.posts.post')
-            </div>
-
-            <div class="col-lg-3 p-0">
-                <div class="MakeSticky w-75">
-                    @livewire('ChatAndFeed')
+    <div wire:ignore>
+        <div id="loadData" style="width: 100%;">
+            <div class="d-flex justify-content-center align-items-center vh-100 bg-white">
+                <div class="d-flex flex-column align-items-center">
+                    <span class="loader"></span>
                 </div>
             </div>
-
-
         </div>
-
-
     </div>
 
+    <!-- Main Content -->
+    <div id="content">
+        <div style="width: 100%;" >
+            @include('livewire.includes.post-card.main-content')
+        </div>
+    </div>
 </div>
+
 <script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('postCard', (wire) => ({
-            showCard: false,
-            message: '',
-            showAlert: false,
-            isProcessing: false,
-
-            toggleBodyScroll() {
-                document.body.style.overflow = this.showCard ? 'hidden' : '';
-            },
-
-            resetWhenClose() {
-                if (!this.showCard) {
-                    wire.resetAllForms();
-                }
-            },
-
-            hideAlert() {
-                this.showAlert = false;
-                this.message = '';
-            },
-
-            // For processing completion
-            handleProcessingComplete() {
-                console.log('Processing completed');
-                this.showCard = false,
-                    this.isProcessing = false,
-                    this.message = 'Post completed successfully!';
-                // setTimeout(() => this.hideAlert(), 3000);
-            },
-
-            init() {
-                this.$watch('showCard', () => this.toggleBodyScroll());
-                this.$watch('showCard', () => this.resetWhenClose());
-
-                // Listen for the 'article-posted' event (completion)
-                Livewire.on('article-posted', () => this.handleProcessingComplete());
-
-                // Listen for the 'job-offer-posted' event
-                Livewire.on('job-offer-posted', (data) => this.handleProcessingComplete(data));
-            }
-        }));
+    window.addEventListener('load', function () {
+        document.getElementById('loadData').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
     });
 </script>
+
