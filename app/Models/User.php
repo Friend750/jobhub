@@ -52,13 +52,12 @@ class User extends Authenticatable
 
     public function getUserImageUrlAttribute()
     {
-        if (!$this->user_image) {
+        if ($this->user_image == null) {
             return 'https://ui-avatars.com/api/?name=' . urlencode($this->user_name ?? ' ');
-        }
-
-        return str_contains($this->user_image, 'googleusercontent.com')
-            ? $this->user_image
-            : asset('storage/' . $this->user_image);
+        } else if (str_contains($this->user_image, 'googleusercontent.com'))
+            return $this->user_image;
+        else
+            return asset('storage/' . $this->user_image);
     }
 
     public function posts()
