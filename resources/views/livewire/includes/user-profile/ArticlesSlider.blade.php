@@ -2,7 +2,8 @@
     <div class="row mt-3">
         @forelse ($articles as $article)
             <div class="col-md-6 mb-3">
-                <div class="card border h-100 article-card">
+                <a href="{{ route('ArticleLink', $article->id) }}"
+                    class="card border h-100 article-card text-decoration-none">
                     <div class="card-body d-flex flex-column">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <div class="d-flex align-items-start">
@@ -30,7 +31,7 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         @empty
             <div class="col-12">
@@ -41,18 +42,21 @@
         @endforelse
     </div>
 
-    <div class="text-center mt-3 position-relative">
-        <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-        <a href="#" class="text-decoration-none">
-            <strong class="text-dark">إظهار الكل</strong>
-            {{-- the number of posts --}}
-            <strong class="text-dark">
-                (
-                {{ $articles->count() }}
-                )
-            </strong>
-        </a>
-    </div>
+    {{-- activities show all button --}}
+    @if ($articles->Count() > 1)
+        <div class="text-center mt-3 position-relative">
+            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
+            <a href="{{ route('ShowAllPosts', $user->id) }}" class="text-decoration-none">
+                <strong class="text-dark">إظهار الكل</strong>
+                {{-- the number of posts --}}
+                <strong class="text-dark">
+                    (
+                    {{ $articles->count() }}
+                    )
+                </strong>
+            </a>
+        </div>
+    @endif
 </div>
 
 <style>

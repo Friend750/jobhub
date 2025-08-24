@@ -35,12 +35,12 @@
                             class="rounded-circle ms-2" style="width: 40px; height: 40px; object-fit: cover;">
 
                         <div class="d-flex flex-column gap-0">
-                            <h5 class="mb-0">
+                            <h6 class="mb-0">
                                 {{ $commenterName }} {{ $commenterLastName }}
                                 @if($post->trashed())
                                     <span class="badge bg-secondary">منشور محذوف</span>
                                 @endif
-                            </h5>
+                            </h6>
                             @if($commenterSpecialist)
                                 <small class="fw-bold text-muted">{{ $commenterSpecialist }}</small>
                             @endif
