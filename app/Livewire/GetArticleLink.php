@@ -75,7 +75,12 @@ class GetArticleLink extends Component
     {
         if ($this->id != null) {
             $this->articleId = $this->id;
-            $this->Posts = Post::find($this->articleId);
+            $this->Posts = Post::with([
+                'comments.user.personal_details',
+                'user.personal_details',
+                'likes'
+                ])->
+            find($this->articleId);
 
             // Post::find($id) returns:
             // A Post model object if found
@@ -88,8 +93,15 @@ class GetArticleLink extends Component
             }
 
         } else {
-            $user = User::find($this->UserID);
-            $this->Posts = $user ? $user->posts()->latest()->get() : collect();
+            $user = User::with([
+            'personal_details',
+            'posts' => fn($q) => $q->latest()->with([
+                'likes',
+                'user.personal_details',
+                'comments.user.personal_details'
+            ]),
+            ])->find($this->UserID);
+            $this->Posts = $user ? $user->posts : collect();
         }
     }
     public function render()
