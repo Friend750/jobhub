@@ -12,19 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing primary key
+    $table->id();
 
-            
-            $table->foreignId('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
-            $table->foreignId('receiver_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('sender_id')->references('id')->on('users')->onDelete('cascade');
+    $table->foreignId('conversation_id')
+          ->constrained('conversations')
+          ->onDelete('cascade');
 
+    $table->foreignId('sender_id')
+          ->constrained('users')
+          ->onDelete('cascade');
 
-            $table->text('message'); // Chat message content
-            //$table->foreignId('')->constrained('users')->onDelete('cascade'); // Foreign key referencing users table
-            $table->softDeletes(); // Adds the 'deleted_at' column
-            $table->timestamps(); // created_at and updated_at columns
-        });
+    // إذا محادثة ثنائية (2 users فقط) → ما تحتاج receiver_id
+    // إذا حابب تدعم group chat → خليه موجود
+    $table->foreignId('receiver_id')
+          ->nullable()
+          ->constrained('users')
+          ->onDelete('cascade');
+
+    $table->text('message');
+
+    $table->softDeletes();
+    $table->timestamps();
+});
+
     }
 
     /**
