@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-    protected $fillable = ['content', 'user_id', 'post_id'];
+    protected $fillable = ['content', 'user_id', 'post_id', 'parent_id'];
 
     public function commentable()
     {
@@ -23,8 +23,15 @@ class Comment extends Model
     //     return $this->belongsTo(Post::class);
     // }
 
+    // التعليق عنده ردود
     public function replies()
-{
-    return $this->hasMany(ReplyComment::class);
-}
+    {
+        return $this->hasMany(Comment::class, 'parent_id');
+    }
+
+    // التعليق ممكن يكون رد على تعليق آخر
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
 }

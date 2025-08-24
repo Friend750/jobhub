@@ -49,19 +49,21 @@ class Search extends Component
     {
         $currentUserId = Auth::id(); // استبعاد المستخدم الحالي باستخدام ID وهو أدق
 
-        $results = User::query()
-            ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
-            ->where(function ($query) {
-                $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
-                      ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%');
-            })
-            ->where('users.id', '!=', $currentUserId)
-            ->where('users.type', 'user')
-            ->orderByDesc('views') // إذا تحب تحافظ على ترتيب حسب views
-            ->select('users.*')
-            ->take($this->paginateVarPeople + 1) // Fetch one extra to check for pagination
-            ->get()
-            ->values();
+       $results = User::query()
+    ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+    ->where(function ($query) {
+        $query->where('personal_details.first_name', 'LIKE', '%' . $this->query . '%')
+              ->orWhere('personal_details.last_name', 'LIKE', '%' . $this->query . '%')
+              ->orWhereRaw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) LIKE ?", ['%' . $this->query . '%']);
+    })
+    ->where('users.id', '!=', $currentUserId)
+    ->where('users.type', 'user')
+    ->orderByDesc('views')
+    ->select('users.*')
+    ->take($this->paginateVarPeople + 1)
+    ->get()
+    ->values();
+
 
         $this->hasMorePeople = $results->count() > $this->paginateVarPeople;
         $this->people = $results->take($this->paginateVarPeople);
