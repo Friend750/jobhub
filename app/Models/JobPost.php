@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use App\Traits\FeedScopes;
 use App\Traits\HasUserWithDetails;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +13,7 @@ class JobPost extends Model
     use HasFactory;
     use HasUserWithDetails;
     use SoftDeletes;
+    use FeedScopes;
 
     protected $dates = ['deleted_at'];
     protected $fillable = [
@@ -79,4 +81,5 @@ class JobPost extends Model
             ->whereNull('deleted_at')
             ->with(['user' => $this->userWithDetailsScope()]);
     }
+
 }

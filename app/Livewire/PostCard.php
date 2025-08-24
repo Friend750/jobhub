@@ -18,6 +18,7 @@ use Livewire\WithFileUploads;
 use App\Models\ReplyComment;
 use App\Models\User;
 use App\Notifications\Like;
+use App\Services\FeedService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,6 @@ class PostCard extends Component
     public $interests;
     public $media; // For the uploaded file (image or video)
     public $user;
-    public $posts;
     public $jopPosts;
     public $isLiked;
 
@@ -167,101 +167,29 @@ class PostCard extends Component
         $this->selected = 'content-article';
         $this->interests = Interest::select('id', 'name')->get();
         $this->user = Auth::user();
-        $this->posts = Post::all()->sortByDesc('created_at');
-        // dd($this->posts);
     }
 
     public function render()
     {
-
-        if (!Auth::user()->followings()->exists())
- {
-
-            $sameInterestsUsers = Auth::user()->sameInterests();
-
-            $jobPosts = JobPost::forFeed()
-                ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-                ->where('target', 'to_any_one')
-                ->orWhere('user_id', $this->user->id);
-
-
-
-            $normalPosts = Post::forFeed()
-                ->whereIn('user_id', $sameInterestsUsers->pluck('id'))
-                ->where('target', 'to_any_one')
-                ->orWhere('user_id', $this->user->id);
-
-
-
-        } else {
-            $followedIds = Connection::where('following_id', $this->user->id)
-                ->where('is_accepted', 1)
-                ->pluck('follower_id');
-
-            $followedIdsPublic = Connection::where('following_id', $this->user->id)
-                ->where('is_accepted', 0)
-                ->pluck('follower_id');
-
-            $jobPosts = JobPost::forFeed()
-                ->where(function ($query) use ($followedIds) {
-                    $query->whereIn('user_id', $followedIds);
-                })
-                ->orWhere('user_id', $this->user->id);
-
-            $normalPosts = Post::forFeed()
-                ->where(function ($query) use ($followedIds) {
-                    $query->whereIn('user_id', $followedIds);
-                })
-                ->orWhere('user_id', $this->user->id);
-
-
-
-
-            $preview = (clone $jobPosts)->unionAll(clone $normalPosts)->get();
-            if ($preview->isEmpty()) {
-                // fallback to public
-                $jobPosts = JobPost::forFeed()
-                    ->where(function ($query) use ($followedIdsPublic) {
-                        $query->whereIn('user_id', $followedIdsPublic)
-                            ->where('target', 'to_any_one');
-                    })
-                    ->orWhere('user_id', $this->user->id);
-
-                $normalPosts = Post::forFeed()
-                    ->where(function ($query) use ($followedIdsPublic) {
-                        $query->whereIn('user_id', $followedIdsPublic)
-                            ->where('target', 'to_any_one');
-                    })
-                    ->orWhere('user_id', $this->user->id);
-
-            }
-        }
-
-        $jobPosts = $jobPosts->with(['comments', 'user.personal_details',])->get();
-        $normalPosts = $normalPosts->with(['comments', 'user.personal_details'])->get();
-        $merged = $jobPosts->merge($normalPosts)->sortByDesc('created_at')->values();
-
-
-
-// بعد عملية الدمج:
-$page = request()->get('page', 1);
-$offset = ($page - 1) * $this->perPage;
-
-$paginated = new LengthAwarePaginator(
-    $merged->slice($offset, $this->perPage)->values(),
-    $merged->count(),
-    $this->perPage,
-    $page,
-    ['path' => request()->url(), 'query' => request()->query()]
-);
-
-
-
-
+        $feedService = new FeedService();
+        $allPosts = $feedService->getFeedForUser($this->user);
 
         return view('livewire.post-card', [
-            'allPosts' => $paginated
+            'allPosts' => $this->paginatePosts($allPosts),
         ]);
+    }
 
+    protected function paginatePosts($posts)
+    {
+        $page = request()->get('page', 1);
+        $offset = ($page - 1) * $this->perPage;
+
+        return new LengthAwarePaginator(
+            $posts->slice($offset, $this->perPage)->values(),
+            $posts->count(),
+            $this->perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
     }
 }

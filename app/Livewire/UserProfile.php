@@ -52,19 +52,20 @@ class UserProfile extends Component
     public $topUsers;
     public $topCompanies;
     public $id;
-
+    public $articles;
+    public $jobs;
     public function mount($id = 0)
     {
         // $this->skills = Skill::all()->toArray();
         $this->user = User::find(Auth::id());
-        $this->getTopRelations('acceptedFollowings',$this->user);
-        $this->getTopRelations('companies',$this->user);
+        $this->getTopRelations('acceptedFollowings', $this->user);
+        $this->getTopRelations('companies', $this->user);
         $this->id = Auth::id();
         if ($id != 0) {
             $this->id = $id;
             $this->user = User::findOrFail($id);
-            $this->getTopRelations('acceptedFollowings',$this->user);
-            $this->getTopRelations('companies',$this->user);
+            $this->getTopRelations('acceptedFollowings', $this->user);
+            $this->getTopRelations('companies', $this->user);
         }
 
         $this->skills = $this->user->skills()
@@ -80,34 +81,40 @@ class UserProfile extends Component
         $this->educations = $this->user->Educations;
         $this->courses = $this->user->Courses;
 
+        $this->articles = $this->user->posts()
+            ->latest()
+            ->take(2)
+            ->get();
+
+        $this->jobs = $this->user->jobPosts()
+            ->latest()
+            ->take(2)
+            ->get();
     }
 
 
-private function getTopRelations($relation, $user, $take = 2)
-{
-    if($relation === 'acceptedFollowings')
+    private function getTopRelations($relation, $user, $take = 2)
     {
-        $this->topUsers = $user
-        ? $user->{$relation}()
-               ->withCount('acceptedAllFollowers')
-               ->orderByDesc('accepted_all_followers_count')
-               ->take($take)
-               ->get()
-        : collect();
-    }
-    else
-    {
-        $this->topCompanies = $user
-        ? $user->{$relation}()
-               ->withCount('acceptedAllFollowers')
-               ->orderByDesc('accepted_all_followers_count')
-               ->take($take)
-               ->get()
-        : collect();
-    }
+        if ($relation === 'acceptedFollowings') {
+            $this->topUsers = $user
+                ? $user->{$relation}()
+                    ->withCount('acceptedAllFollowers')
+                    ->orderByDesc('accepted_all_followers_count')
+                    ->take($take)
+                    ->get()
+                : collect();
+        } else {
+            $this->topCompanies = $user
+                ? $user->{$relation}()
+                    ->withCount('acceptedAllFollowers')
+                    ->orderByDesc('accepted_all_followers_count')
+                    ->take($take)
+                    ->get()
+                : collect();
+        }
 
 
-}
+    }
 
 
 
@@ -232,7 +239,8 @@ private function getTopRelations($relation, $user, $take = 2)
         $this->PSForm->oldData();
     }
 
-    public function updateExp(){
+    public function updateExp()
+    {
         $this->experiences = $this->user->experiences()->latest()->get();
     }
 
@@ -255,7 +263,8 @@ private function getTopRelations($relation, $user, $take = 2)
         session()->flash('ExperienceMsg', 'تم تحديث الملف الشخصي');
     }
 
-    public function updatePro(){
+    public function updatePro()
+    {
         $this->projects = $this->user->Projects()->latest()->get();
     }
 
@@ -277,7 +286,8 @@ private function getTopRelations($relation, $user, $take = 2)
         $this->dispatch('close-modal');
         session()->flash('ProjectMsg', 'تم تحديث الملف الشخصي');
     }
-    public function updateEdu(){
+    public function updateEdu()
+    {
         $this->educations = $this->user->Educations()->latest()->get();
     }
 
@@ -300,7 +310,8 @@ private function getTopRelations($relation, $user, $take = 2)
         session()->flash('EducationMsg', 'تم تحديث الملف الشخصي');
     }
 
-    public function updateCourses(){
+    public function updateCourses()
+    {
         $this->courses = $this->user->Courses()->latest()->get();
     }
 
