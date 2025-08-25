@@ -15,8 +15,6 @@ class GetArticleLink extends Component
 
     public $articleId;
     // This property can be used to pass the article ID to the component
-    public $id;
-    public $UserID;
     public $post;
     public $Posts;
     public function likeItem($itemId, $type)
@@ -71,37 +69,37 @@ class GetArticleLink extends Component
     }
 
 
-    public function mount()
+    public function mount($id = null, $UserID = null)
     {
-        if ($this->id != null) {
-            $this->articleId = $this->id;
+        if ($id != null) {
+            $this->articleId = $id;
             $this->Posts = Post::with([
                 'comments.user.personal_details',
                 'user.personal_details',
                 'likes'
-                ])->
-            find($this->articleId);
+            ])->
+                find($this->articleId);
 
             // Post::find($id) returns:
             // A Post model object if found
             // null if not found
 
-            if (!$this->Posts) {
-                $this->Posts = collect(); // Empty collection
-            } else {
-                $this->Posts = collect([$this->Posts]); // Wrap single post in collection
-            }
+            $this->Posts = $this->Posts ? collect([$this->Posts]) : collect();
 
         } else {
-            $user = User::with([
-            'personal_details',
-            'posts' => fn($q) => $q->latest()->with([
-                'likes',
-                'user.personal_details',
-                'comments.user.personal_details'
-            ]),
-            ])->find($this->UserID);
-            $this->Posts = $user ? $user->posts : collect();
+            $userWithPosts = User::with([
+                'personal_details',
+                'posts' => fn($q) => $q->latest()->with([
+                    'likes',
+                    'user.personal_details',
+                    'comments.user.personal_details'
+                ]),
+            ])->find($UserID);
+
+            $this->Posts = $userWithPosts
+                ? $userWithPosts->posts
+                : collect();
+
         }
     }
     public function render()

@@ -54,43 +54,6 @@ class UserProfile extends Component
     public $id;
     public $articles;
     public $jobs;
-    public function mount($id = 0)
-    {
-        // $this->skills = Skill::all()->toArray();
-        $this->user = User::find(Auth::id());
-        $this->getTopRelations('acceptedFollowings', $this->user);
-        $this->getTopRelations('companies', $this->user);
-        $this->id = Auth::id();
-        if ($id != 0) {
-            $this->id = $id;
-            $this->user = User::findOrFail($id);
-            $this->getTopRelations('acceptedFollowings', $this->user);
-            $this->getTopRelations('companies', $this->user);
-        }
-
-        $this->skills = $this->user->skills()
-            ->get()
-            ->toArray();
-        $this->availableSkills = $this->getAvailableSkills();
-
-        $this->languages = $this->user->languages()->get()->toArray();
-        $this->availableLanguages = $this->getAvailableLanguages();
-
-        $this->experiences = $this->user->Experiences;
-        $this->projects = $this->user->Projects;
-        $this->educations = $this->user->Educations;
-        $this->courses = $this->user->Courses;
-
-        $this->articles = $this->user->posts()
-            ->latest()
-            ->take(2)
-            ->get();
-
-        $this->jobs = $this->user->jobPosts()
-            ->latest()
-            ->take(2)
-            ->get();
-    }
 
 
     private function getTopRelations($relation, $user, $take = 2)
@@ -98,6 +61,7 @@ class UserProfile extends Component
         if ($relation === 'acceptedFollowings') {
             $this->topUsers = $user
                 ? $user->{$relation}()
+                    ->with('personal_details')
                     ->withCount('acceptedAllFollowers')
                     ->orderByDesc('accepted_all_followers_count')
                     ->take($take)
@@ -106,6 +70,7 @@ class UserProfile extends Component
         } else {
             $this->topCompanies = $user
                 ? $user->{$relation}()
+                    ->with('personal_details')
                     ->withCount('acceptedAllFollowers')
                     ->orderByDesc('accepted_all_followers_count')
                     ->take($take)
@@ -338,6 +303,49 @@ class UserProfile extends Component
     public $projects;
     public $educations;
     public $courses;
+    public function mount($id = 0)
+    {
+        $userId = $id != 0 ? $id : Auth::id();
+
+        // Eager load ALL relationships in one query
+        $this->user = User::with([
+            'skills',
+            'languages',
+            'Experiences',
+            'Projects',
+            'Educations',
+            'Courses',
+            'posts' => function ($query) {
+                $query->latest()->take(2);
+            },
+            'jobPosts' => function ($query) {
+                $query->latest()->take(2);
+            },
+            'acceptedFollowings',
+            'companies',
+            'personal_details'
+        ])->findOrFail($userId);
+
+        $this->getTopRelations('acceptedFollowings', $this->user);
+        $this->getTopRelations('companies', $this->user);
+
+        $this->id = $userId;
+
+        // Now these are already loaded - no additional queries!
+        $this->skills = $this->user->skills->toArray();
+        $this->availableSkills = $this->getAvailableSkills();
+
+        $this->languages = $this->user->languages->toArray();
+        $this->availableLanguages = $this->getAvailableLanguages();
+
+        $this->experiences = $this->user->Experiences;
+        $this->projects = $this->user->Projects;
+        $this->educations = $this->user->Educations;
+        $this->courses = $this->user->Courses;
+
+        $this->articles = $this->user->posts;
+        $this->jobs = $this->user->jobPosts;
+    }
 
     public function render()
     {
