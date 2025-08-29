@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="articles" role="tabpanel" aria-labelledby="articles-tab">
     <div class="row mt-3">
         @forelse ($articles as $article)
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-3" wire:key="article-{{ $article->id }}">
                 <a href="{{ route('ArticleLink', $article->id) }}"
                     class="card border h-100 article-card text-decoration-none">
                     <div class="card-body d-flex flex-column">
