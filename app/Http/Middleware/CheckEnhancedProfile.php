@@ -20,17 +20,21 @@ class CheckEnhancedProfile
         }
 
         // تحقق من المعلومات الشخصية فقط
-        $personal = Auth::user()->personal_details;
+        // $personal = Auth::user()->personal_details;
+        // تحميل العلاقة مسبقاً لتجنب N+1
+        $user = Auth::user();
+
+        $personal = $user->personal_details;
 
         // الشروط: إذا ما عبى البيانات الشخصية الأساسية، نحوله إلى EnhanceProfile
         if (
-            (!$personal || 
-            !$personal->first_name || 
-            !$personal->last_name || 
-            !$personal->specialist || 
-            !$personal->phone || 
-            !$personal->city || 
-            !$personal->professional_summary)
+            (!$personal ||
+                !$personal->first_name ||
+                !$personal->last_name ||
+                !$personal->specialist ||
+                !$personal->phone ||
+                !$personal->city ||
+                !$personal->professional_summary)
             && !$request->is('EnhanceProfile')
         ) {
             return redirect('/EnhanceProfile')->with('error', 'You need to fill in your personal details first.');

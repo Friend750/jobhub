@@ -2,7 +2,7 @@
     <div class="mt-3">
         <div class="row">
             @forelse ($jobs as $job)
-                <div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3" wire:key="job-{{ $job->id }}">
                     <div class="job-card card border-0 shadow-sm hover-shadow transition h-100">
                         <div class="card-body p-3 d-flex flex-column">
                             <div class="d-flex flex-column flex-grow-1">

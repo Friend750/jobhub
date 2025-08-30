@@ -47,7 +47,7 @@ class ChatAndFeed extends Component
                     'id' => $conversation->id,
                     'last_message' => $conversation->last_message,
                     'profile' => $otherUser->user_image_url,
-                    'full_name' =>  $otherUser->fullName(),
+                    'full_name' => $otherUser->fullName(),
                 ];
             })
             ->toArray();
@@ -63,31 +63,31 @@ class ChatAndFeed extends Component
         // الحصول على اهتمامات المستخدم
         $userInterests = $user->interests;
 
-      // الاقتراحات بناءً على الاهتمامات
-$this->suggestions = User::where('id', '!=', $user->id)
-->where(function ($query) use ($userInterests) {
-    foreach ($userInterests as $interest) {
-        $query->orWhereJsonContains('interests', $interest);
-    }
-})
-->whereDoesntHave('connections', function ($query) use ($user) {
-    $query->where('following_id', $user->id);
-})
-->with('personal_details')
-->orderBy('views', 'desc')
-->take(3)
-->get();
+        // الاقتراحات بناءً على الاهتمامات
+        $this->suggestions = User::where('id', '!=', $user->id)
+            ->where(function ($query) use ($userInterests) {
+                foreach ($userInterests as $interest) {
+                    $query->orWhereJsonContains('interests', $interest);
+                }
+            })
+            ->whereDoesntHave('connections', function ($query) use ($user) {
+                $query->where('following_id', $user->id);
+            })
+            ->with('personal_details')
+            ->orderBy('views', 'desc')
+            ->take(3)
+            ->get();
 
-if ($this->suggestions->isEmpty()) {
-$this->suggestions = User::where('id', '!=', $user->id)
-    ->whereDoesntHave('connections', function ($query) use ($user) {
-        $query->where('following_id', $user->id);
-    })
-    ->with('personal_details')
-    ->orderBy('views', 'desc')
-    ->take(3)
-    ->get();
-}
+        if ($this->suggestions->isEmpty()) {
+            $this->suggestions = User::where('id', '!=', $user->id)
+                ->whereDoesntHave('connections', function ($query) use ($user) {
+                    $query->where('following_id', $user->id);
+                })
+                ->with('personal_details')
+                ->orderBy('views', 'desc')
+                ->take(3)
+                ->get();
+        }
 
 
     }
