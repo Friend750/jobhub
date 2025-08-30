@@ -47,6 +47,12 @@ class PostCard extends Component
     public $user;
     public $jopPosts;
     public $isLiked;
+    public $commentsToShow = 5;
+
+    public function loadMoreComments()
+    {
+        $this->commentsToShow += 5;
+    }
 
     public function setAudience($value)
     {

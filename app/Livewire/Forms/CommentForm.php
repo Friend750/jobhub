@@ -18,7 +18,7 @@ class CommentForm extends Form
 {
     #[Rule('required')]
     public $content = '';
-
+    
     public function submit($postId, $type) // 'post' or 'job'
     {
         $this->validate();
