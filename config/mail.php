@@ -11,16 +11,16 @@ return [
             'host' => 'smtp.gmail.com',
             'port' => 587,
             'encryption' => 'tls',
-            'username' => 'friendsmoaha@gmail.com',
-            'password' => 'cpjdavscikzjjfjo',
+            'username' => 'yemenin2025@gmail.com',
+            'password' => 'nyusohlmvfttbpcg',
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
     ],
 
     'from' => [
-        'address' => 'friendsmoaha@gmail.com',
-        'name' => 'friendsmoaha',
+        'address' => 'yemenin2025@gmail.com',
+        'name' => 'Yemen In 2025',
     ],
 
 ];
