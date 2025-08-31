@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\LoadCommentsTrait;
 use App\Livewire\Forms\CommentForm;
+use App\Livewire\Traits\ConnectionTrait;
 use App\Models\JobPost;
 use App\Models\Post;
 use Livewire\Component;
@@ -11,12 +13,15 @@ use App\Notifications\Like;
 use Illuminate\Support\Facades\Auth;
 class GetArticleLink extends Component
 {
+    use LoadCommentsTrait;
+    use ConnectionTrait;
     public CommentForm $commentForm;
 
     public $articleId;
     // This property can be used to pass the article ID to the component
     public $post;
     public $Posts;
+
     public function likeItem($itemId, $type)
     {
         $liker = $this->user;

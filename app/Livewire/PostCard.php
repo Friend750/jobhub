@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\LoadCommentsTrait;
 use App\Livewire\Forms\ArticleForm;
 use App\Livewire\Forms\CommentForm;
 use App\Livewire\Forms\JobOfferForm;
@@ -31,6 +32,7 @@ class PostCard extends Component
     use WithFileUploads;
     use WithPagination;
     use ConnectionTrait;
+    use LoadCommentsTrait;
 
 
     #[Title('Feed')]
@@ -47,12 +49,6 @@ class PostCard extends Component
     public $user;
     public $jopPosts;
     public $isLiked;
-    public $commentsToShow = 5;
-
-    public function loadMoreComments()
-    {
-        $this->commentsToShow += 5;
-    }
 
     public function setAudience($value)
     {
@@ -166,6 +162,12 @@ class PostCard extends Component
     {
         $this->commentForm->submit($postId, $postType);
     }
+   // داخل Livewire Component
+public function createReplyComment($commentId)
+{
+    $comment = Comment::findOrFail($commentId);
+    return $this->commentForm->replyComment($comment);
+}
 
     public function mount()
     {

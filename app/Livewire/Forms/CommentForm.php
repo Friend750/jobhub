@@ -5,8 +5,7 @@ namespace App\Livewire\Forms;
 use App\Models\Comment;
 use App\Models\JobPost;
 use App\Models\Post;
-use App\Models\ReplyComment;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Notifications\Comment as CommentNotification;
@@ -16,12 +15,16 @@ use Livewire\Form;
 
 class CommentForm extends Form
 {
-    #[Rule('required')]
+
     public $content = '';
-    
+    public $reply = '';
+
+
     public function submit($postId, $type) // 'post' or 'job'
     {
-        $this->validate();
+        $this->validateOnly('content', [
+        'content' => 'required|string|min:3'
+    ]);
 
 
        $commentable = $type === 'post'
@@ -49,12 +52,11 @@ if ($commentable->user_id !== auth()->id()) {
         $this->reset();
     }
 
-    public function replyComment(Comment $comment, $content)
+    public function replyComment(Comment $comment)
 {
-    $this->validate([
-        'content' => 'required|string|min:1|max:5000',
+    $this->validateOnly('reply', [
+        'reply' => 'required|string|min:3'
     ]);
-
     // Check if the user is posting too quickly
     if (Cache::has('comment_limit_' . auth()->id())) {
         session()->flash('error', 'You are posting too quickly.');
@@ -64,7 +66,7 @@ if ($commentable->user_id !== auth()->id()) {
     // إنشاء رد على تعليق موجود
     $reply = Comment::create([
         'user_id'    => auth()->id(),
-        'content'    => $content,
+        'content'    => $this->reply,
         'parent_id'  => $comment->id,           // الربط مع التعليق الأب
         'commentable_id'   => $comment->commentable_id,   // نفس البوست/الوظيفة
         'commentable_type' => $comment->commentable_type, // نفس النوع (Post أو JobPost)
@@ -76,7 +78,7 @@ if ($commentable->user_id !== auth()->id()) {
             new CommentNotification(
                 auth()->user(),
                 auth()->user()->personal_details,
-                $content,
+               $this->reply,
                 $comment->user_id,
                 $comment->commentable
             )
@@ -86,7 +88,8 @@ if ($commentable->user_id !== auth()->id()) {
     // حط كاش لمنع السبام (مثلاً ثانية واحدة)
     Cache::put('comment_limit_' . auth()->id(), true, now()->addSeconds(1));
 
-    $this->reset('content');
+    $this->reset('reply');
+    return $reply;
 }
 
 
