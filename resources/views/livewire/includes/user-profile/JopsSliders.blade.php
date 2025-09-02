@@ -36,18 +36,19 @@
             @endforelse
         </div>
 
-        <div class="text-center mt-3 position-relative">
-            <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
-            <a href="#" class="text-decoration-none">
-                <strong class="text-dark">إظهار الكل</strong>
-                <strong class="text-dark">
-                    (
-                    {{ $jobs->count() }}
-                    )
-                </strong>
-
-            </a>
-        </div>
+        @if ($jobs->count() > 1)
+            <div class="text-center mt-3 position-relative">
+                <div class="border-top my-3" style="border-color: #d3d3d3; width: 100%;"></div>
+                <a href="{{route('ShowAllJobs', $user->id)}}" class="text-decoration-none">
+                    <strong class="text-dark">إظهار الكل</strong>
+                    <strong class="text-dark">
+                        (
+                        {{ $jobs->count() }}
+                        )
+                    </strong>
+                </a>
+            </div>
+        @endif
     </div>
 </div>
 

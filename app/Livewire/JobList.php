@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Models\JobPost;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +24,8 @@ class JobList extends Component
     public $time = '';
     public $gov = '';
     public $id; // this is will auto recieve from the route
-
+    public $UserID;
+    public $isShowAllJobs = false;
 
     public $perPage = 10;
 
@@ -31,6 +33,12 @@ class JobList extends Component
     {
         $this->perPage += 10;
 
+    }
+
+    public function mount($UserID = null)
+    {
+        $this->UserID = $UserID;
+        $this->isShowAllJobs = request()->routeIs('ShowAllJobs');
     }
     public function render()
     {
@@ -41,6 +49,10 @@ class JobList extends Component
             ])
             ->withCount('jobLikes')
             ->where('is_active', 1)
+            ->when($this->isShowAllJobs, function ($query) {
+                $userId = $this->UserID ?: Auth::id();
+                return $query->where('user_id', $userId);
+            })
             ->when($this->time, function ($q) {
                 return match ($this->time) {
                     'هذا الاسبوع' => $q->where('created_at', '>=', Carbon::now()->subDays(7)),
