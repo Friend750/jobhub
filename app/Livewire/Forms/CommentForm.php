@@ -23,7 +23,7 @@ class CommentForm extends Form
     public function submit($postId, $type) // 'post' or 'job'
     {
         $this->validateOnly('content', [
-        'content' => 'required|string|min:3'
+        'content' => 'required|string'
     ]);
 
 
