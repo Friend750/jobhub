@@ -192,6 +192,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(PersonalDetail::class, 'user_id');
     }
+
     public function connections()
     {
         return $this->hasMany(Connection::class, 'follower_id');

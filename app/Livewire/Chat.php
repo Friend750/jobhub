@@ -6,6 +6,7 @@ use App\Models\Conversation;
 use App\Models\User;
 use App\Notifications\SentMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -23,61 +24,66 @@ class Chat extends Component
 
     protected $listeners = ['messageReceived' => 'loadMore'];
     public $paginateVar = 10;
-    
+
 
     public function mount($conversationId = null)
-    {
+{
+    // تخزين معرف المستخدم الحالي مرة واحدة
+    $this->currentUserId = Auth::id();
 
-        $this->currentUserId = Auth::id(); // تخزين معرف المستخدم الحالي
+    $this->chats = \App\Models\Conversation::query()
+        // 1) تحديد الأعمدة المطلوبة فقط لتقليل الحمل
+        ->select(['id', 'first_user', 'second_user', 'last_message', 'updated_at'])
 
-        $this->chats = Conversation::with([
+        // 2) eager load للعلاقات المتداخلة (users + personalDetails) لتجنب N+1
+        ->with([
             'firstUser:id,user_name,user_image',
-            'secondUser:id,user_name,user_image'
+            'firstUser.personal_details:id,user_id,first_name,last_name,page_name,specialist',
+            'secondUser:id,user_name,user_image',
+            'secondUser.personal_details:id,user_id,first_name,last_name,page_name,specialist',
         ])
-            ->where(function ($query) {
-                $query->where('first_user', Auth::id())
-                    ->orWhere('second_user', Auth::id());
-            }) // Only fetch conversations where the user is a participant
-            ->orderBy('updated_at', 'desc')
-            ->take(5)
-            ->get(['id', 'first_user', 'second_user', 'last_message'])
-            ->map(function ($conversation) {
-                $otherUser = Auth::id() === $conversation->first_user
-                    ? $conversation->secondUser
-                    : $conversation->firstUser;
 
+        // 3) فلترة: المستخدم الحالي لازم يكون طرف في المحادثة
+        ->where(function ($q) {
+            $q->where('first_user', $this->currentUserId)
+              ->orWhere('second_user', $this->currentUserId);
+        })
 
-                return [
-                    'id' => $conversation->id,
-                    'name' => $otherUser->fullName(),
-                    'last_message' => $conversation->last_message,
-                    'profile' => $otherUser->user_image_url,
-                    'specialist' => $otherUser->personal_details->specialist,
-                ];
-            })
-            ->toArray();
+        // 4) ترتيب وحدّ أعلى داخل SQL
+        ->orderByDesc('updated_at')
+        ->limit(5)
+        ->get()
 
-        if ($conversationId != null) {
-            $conversation = Conversation::findOrFail($conversationId);
+        // 5) تجهيز البيانات للعرض (Business Logic في Laravel)
+        ->map(function ($conversation) {
+            // نحدد الطرف الآخر
+           $otherUser = $conversation->getOtherUser($this->currentUserId);
 
-            // Use policy to check access
-            $this->authorize('view', $conversation);
+            return [
+                'id'           => $conversation->id,
+                'name'         => method_exists($otherUser, 'fullName')
+                                  ? $otherUser->fullName()
+                                  : ($otherUser->user_name ?? ''),
+                'profile'      => $otherUser->user_image_url ?? $otherUser->user_image ?? null,
+                'specialist'   => data_get($otherUser, 'personal_details.specialist'),
+                'last_message' => $conversation->last_message,
+            ];
+        })
+        ->toArray();
 
-            $this->selectChat($conversationId);
-        }
+    // إذا تم تمرير conversationId
+    if ($conversationId != null) {
+        $conversation = Conversation::findOrFail($conversationId);
+
+        // التحقق من الصلاحية
+        $this->authorize('view', $conversation);
+
+        $this->selectChat($conversationId);
     }
+}
 
 
-    public function isUserPartOfConversation($conversation)
-    {
-        if ($conversation->firstUser->id === $this->currentUserId || $conversation->secondUser->id === $this->currentUserId) {
-            // Auth user is either firstUser or secondUser
-            return true;
-        } else {
-            // Auth user is not part of the conversation
-            return false;
-        }
-    }
+
 
     public function sendMessage()
     {
@@ -90,29 +96,30 @@ class Chat extends Component
         $receiverId = Auth::id() === $conversation->first_user
             ? $conversation->second_user // إذا كان المستخدم الحالي هو الأول، اجعل المستقبل هو الثاني
             : $conversation->first_user;
-        if (!User::find($receiverId)) {
-            abort(404, 'Receiver not found');
-        }
-        $message = \App\Models\Chat::create([
-            'message' => $this->message,
-            'sender_id' => Auth::id(),
-            'receiver_id' => $receiverId, // إذا كان المستخدم الحالي هو الثاني، اجعل المستقبل هو الأول
-            'conversation_id' => $this->selectedChat['id'],
-        ]);
-        $conversation->update([
-            'last_message' => $this->message,
-        ]);
-
-        // dd(auth()->user() .' ' .$message.' ' . $conversation.' ' . $receiverId);
-
-        $this->messages[] = $message;
-        User::find($receiverId)->notify(new SentMessage(Auth::user(), $message, $conversation, $receiverId));
+      if (!User::where('id', $receiverId)->exists()) {
+    abort(404, 'Receiver not found');
+}
 
 
+       DB::transaction(function () use ($conversation, $receiverId) {
+    $message = Chat::create([
+        'message' => $this->message,
+        'sender_id' => $this->currentUserId,
+        'receiver_id' => $receiverId,
+        'conversation_id' => $this->selectedChat['id'],
+    ]);
 
+    $conversation->update([
+        'last_message' => $this->message,
+    ]);
 
+    $this->messages[] = $message;
 
-        $this->message = '';
+    $receiver = User::findOrFail($receiverId);
+    $receiver->notify(new SentMessage(Auth::user(), $message, $conversation, $receiver->id));
+});
+
+$this->message = '';
     }
 
     //trigger_error("🚨 Deprecated: Use calculateDiscount() instead.", E_USER_DEPRECATED);
@@ -123,61 +130,52 @@ class Chat extends Component
 
 
 
-    public function loadMore()
-    {
-        // احصل على معرف آخر رسالة حالية في القائمة
-        $lastMessageId = end($this->messages)['id'] ?? null;
+    // public function loadMore()
+    // {
+    //     // احصل على معرف آخر رسالة حالية في القائمة
+    //     $lastMessageId = end($this->messages)['id'] ?? null;
 
-        if (!$lastMessageId) {
-            return []; // لا توجد رسائل لتحميلها
-        }
+    //     if (!$lastMessageId) {
+    //         return []; // لا توجد رسائل لتحميلها
+    //     }
 
-        // تحميل الرسائل الجديدة فقط
-        $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-            ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
-            ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
-            ->get()->toArray();
+    //     // تحميل الرسائل الجديدة فقط
+    //     $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
+    //         ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
+    //         ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
+    //         ->get()
+    //         ->toArray();
 
-        // دمج الرسائل الجديدة مع الرسائل الحالية
-        $this->messages = array_merge($this->messages, $newMessages);
+    //     // دمج الرسائل الجديدة مع الرسائل الحالية
+    //     $this->messages = array_merge($this->messages, $newMessages);
 
-        // إرجاع الرسائل الجديدة إذا لزم الأمر
-        return $newMessages;
+    //     // إرجاع الرسائل الجديدة إذا لزم الأمر
+    //     return $newMessages;
+    // }
+public function loadMessages()
+{
+    $totalMessages = Chat::where('conversation_id', $this->selectedChat)->count();
+
+    if ($this->paginateVar >= $totalMessages) {
+        return [];
     }
 
-    public function loadMessages()
-    {
-        // عدد الرسائل الإجمالي في المحادثة
-        $totalMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)->count();
+    $newMessages = Chat::with(['sender:id,user_name,user_image'])
+        ->where('conversation_id', $this->selectedChat)
+        ->latest('created_at') // نفس orderByDesc
+        ->skip($totalMessages - $this->paginateVar - 10)
+        ->take(10)
+        ->get()
+        ->sortBy('created_at')
+        ->values();
 
-        // التحقق إذا كان هناك رسائل متبقية لتحميلها
-        if ($this->paginateVar >= $totalMessages) {
-            return []; // لا توجد رسائل إضافية
-        }
-
-        // تحميل الرسائل المتبقية
-        $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-            ->orderBy('created_at', 'desc') // ترتيب عكسي
-            ->skip($totalMessages - $this->paginateVar - 10) // تجاوز الرسائل المحملة
-            ->take(10) // تحميل 10 رسائل فقط
-            ->get()
-            ->sortBy('created_at') // إعادة الترتيب ليصبح الأقدم أولاً
-            ->values()->toArray();
-
-        if (count($newMessages) > 0) {
-            // زيادة العدد الإجمالي للرسائل
-            $this->paginateVar += count($newMessages);
-
-            // إضافة الرسائل الجديدة إلى الرسائل الحالية
-            $this->messages = array_merge($newMessages, $this->messages);
-        } else {
-            // لا توجد رسائل إضافية
-            // يمكن تنفيذ إجراء إضافي هنا إذا لزم الأمر
-        }
-
-
-        return $newMessages;
+    if ($newMessages->isNotEmpty()) {
+        $this->paginateVar += $newMessages->count();
+        $this->messages = $newMessages->toArray() + $this->messages;
     }
+
+    return $newMessages;
+}
 
 
     public function selectChat($chatId)
@@ -193,7 +191,6 @@ class Chat extends Component
             ->orderBy('created_at', 'desc') // ترتيب عكسي للحصول على الأحدث أولاً
             ->take($this->paginateVar)
             ->get()
-            ->sortBy('created_at') // إعادة ترتيب الرسائل ليصبح الأقدم أولاً
             ->values()->toArray();
     }
 
