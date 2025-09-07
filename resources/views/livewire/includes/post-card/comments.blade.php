@@ -4,7 +4,6 @@
             <div class="textarea-container d-flex align-items-center w-100">
                 <input type="text" class="form-control comment-input me-5" wire:model="commentForm.content"
                     placeholder="أضف تعليق...">
-
                 <button type="submit" class="btn send-button">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>

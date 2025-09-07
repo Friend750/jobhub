@@ -191,7 +191,8 @@ public function loadMessages()
             ->orderBy('created_at', 'desc') // ترتيب عكسي للحصول على الأحدث أولاً
             ->take($this->paginateVar)
             ->get()
-            ->values()->toArray();
+            ->values()
+            ->toArray();
     }
 
 

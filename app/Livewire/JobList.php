@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Interest;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,6 +24,7 @@ class JobList extends Component
     public $relative = '';
     public $time = '';
     public $gov = '';
+    public string $category = '';
     public $id; // this is will auto recieve from the route
     public $UserID;
     public $isShowAllJobs = false;
@@ -42,6 +44,7 @@ class JobList extends Component
     }
     public function render()
     {
+        $categories = Interest::select('name', 'type')->get();
         $jobs = JobPost::search($this->search)
             ->with([
                 'user' => fn($q) => $q->select('id', 'user_image', 'user_name', 'email'),
@@ -75,6 +78,9 @@ class JobList extends Component
                     default => $query,
                 };
             })
+            ->when($this->category, function ($query) {
+                return $query->whereJsonContains('tags', $this->category);
+            })
             ->latest()
             ->paginate($this->perPage);
 
@@ -88,6 +94,7 @@ class JobList extends Component
         return view('livewire.job-list', [
             'jobs' => $jobs,
             'initialJob' => $this->initialJob,
+            'categories' => $categories,
         ]);
     }
 
