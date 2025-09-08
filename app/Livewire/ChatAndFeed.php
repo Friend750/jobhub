@@ -17,6 +17,8 @@ class ChatAndFeed extends Component
 
     public $chats;
     public $suggestions;
+    protected int $sidebarLimit = 3;
+
     public function mount()
     {
         $this->loadChats();
@@ -35,14 +37,11 @@ class ChatAndFeed extends Component
                 $query->where('first_user', Auth::id())
                     ->orWhere('second_user', Auth::id());
             })
-            ->orderBy('updated_at', 'asc')
-            ->take(3)
+            ->orderBy('updated_at', 'desc')
+            ->take($this->sidebarLimit)
             ->get(['id', 'first_user', 'second_user', 'last_message'])
             ->map(function ($conversation) {
-                $otherUser = Auth::id() === $conversation->first_user
-                    ? $conversation->secondUser
-                    : $conversation->firstUser;
-
+                $otherUser = $conversation->getOtherUser();
                 return [
                     'id' => $conversation->id,
                     'last_message' => $conversation->last_message,
@@ -56,41 +55,45 @@ class ChatAndFeed extends Component
 
 
     public function loadSuggestions()
-    {
-        // الحصول على المستخدم المصادق
-        $user = Auth::user();
+{
+    $user = Auth::user();
+    $userInterests = $user->interests;
 
-        // الحصول على اهتمامات المستخدم
-        $userInterests = $user->interests;
+    // الاستعلام الأساسي
+    $query = User::query()
+        ->where('id', '!=', $user->id) // استبعد المستخدم نفسه
+        ->whereDoesntHave('connections', function ($q) use ($user) {
+            $q->where('following_id', $user->id);
+        })
+        ->with('personal_details')
+        ->orderByDesc('views');
 
-        // الاقتراحات بناءً على الاهتمامات
-        $this->suggestions = User::where('id', '!=', $user->id)
-            ->where(function ($query) use ($userInterests) {
-                foreach ($userInterests as $interest) {
-                    $query->orWhereJsonContains('interests', $interest);
-                }
-            })
-            ->whereDoesntHave('connections', function ($query) use ($user) {
-                $query->where('following_id', $user->id);
+    // إذا لدى المستخدم اهتمامات، اضف شرط الاهتمامات
+    if (!empty($userInterests)) {
+        $query->where(function ($q) use ($userInterests) {
+            foreach ($userInterests as $interest) {
+                $q->orWhereJsonContains('interests', $interest);
+            }
+        });
+    }
+
+    // جلب النتائج
+    $this->suggestions = $query->take($this->sidebarLimit)->get();
+
+    // fallback: إذا لم يتم العثور على أي اقتراحات بناءً على الاهتمامات
+    if ($this->suggestions->isEmpty()) {
+        $this->suggestions = User::query()
+            ->where('id', '!=', $user->id)
+            ->whereDoesntHave('connections', function ($q) use ($user) {
+                $q->where('following_id', $user->id);
             })
             ->with('personal_details')
-            ->orderBy('views', 'desc')
-            ->take(3)
+            ->orderByDesc('views')
+            ->take($this->sidebarLimit)
             ->get();
-
-        if ($this->suggestions->isEmpty()) {
-            $this->suggestions = User::where('id', '!=', $user->id)
-                ->whereDoesntHave('connections', function ($query) use ($user) {
-                    $query->where('following_id', $user->id);
-                })
-                ->with('personal_details')
-                ->orderBy('views', 'desc')
-                ->take(3)
-                ->get();
-        }
-
-
     }
+}
+
 
 
 

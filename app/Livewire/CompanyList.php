@@ -20,18 +20,7 @@ class CompanyList extends Component
     public function mount()
     {
 
-        $user = Auth::user();
-        $this->companies = $user->companies()
-            ->get()
-            ->map(function ($company) {
-                return [
-                    'id' => $company->id,
-                    'name' => $company->fullName(),
-                    'user_image' => $company->user_image_url ?? null,
-                    'is_accepted' => $company->pivot->is_accepted, // Include if needed
-                    'position' => $company->personal_details->specialist ?? "",
-                ];
-            })->toArray();
+         $this->companies = Auth::user()->getCompaniesData();
 
     }
 
