@@ -57,17 +57,18 @@ class Chat extends Component
         // 5) تجهيز البيانات للعرض (Business Logic في Laravel)
         ->map(function ($conversation) {
             // نحدد الطرف الآخر
-           $otherUser = $conversation->getOtherUser($this->currentUserId);
+         $otherUser = $conversation->getOtherUser($this->currentUserId);
 
-            return [
-                'id'           => $conversation->id,
-                'name'         => method_exists($otherUser, 'fullName')
-                                  ? $otherUser->fullName()
-                                  : ($otherUser->user_name ?? ''),
-                'profile'      => $otherUser->user_image_url ?? $otherUser->user_image ?? null,
-                'specialist'   => data_get($otherUser, 'personal_details.specialist'),
-                'last_message' => $conversation->last_message,
-            ];
+return [
+    'id'           => $conversation->id,
+    'name'         => $otherUser && method_exists($otherUser, 'fullName')
+                      ? $otherUser->fullName()
+                      : ($otherUser->user_name ?? 'Unknown User'),
+    'profile'      => $otherUser->user_image_url ?? $otherUser->user_image ?? null,
+    'specialist'   => $otherUser ? data_get($otherUser, 'personal_details.specialist') : null,
+    'last_message' => $conversation->last_message ?? '',
+];
+
         })
         ->toArray();
 

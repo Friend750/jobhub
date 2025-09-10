@@ -25,32 +25,44 @@ class ChatAndFeed extends Component
         $this->loadSuggestions();
     }
 
-    public function loadChats()
-    {
+   public function loadChats()
+{
+    $this->chats = Conversation::with([
+        'firstUser:id,user_name,user_image',
+        'firstUser.personal_details',
+        'secondUser:id,user_name,user_image',
+        'secondUser.personal_details'
+    ])
+    ->where(function ($query) {
+        $query->where('first_user', Auth::id())
+              ->orWhere('second_user', Auth::id());
+    })
+    ->orderBy('updated_at', 'desc')
+    ->take($this->sidebarLimit)
+    ->get(['id', 'first_user', 'second_user', 'last_message'])
+    ->map(function ($conversation) {
+        $otherUser = $conversation->getOtherUser();
 
+        // إذا لم يكن هناك مستخدم آخر، استخدم بيانات افتراضية
+        if (!$otherUser) {
+            return [
+                'id' => $conversation->id,
+                'last_message' => $conversation->last_message,
+                'profile' => '',
+                'full_name' => 'Unknown User',
+            ];
+        }
 
-        $this->chats = Conversation::with([
-            'firstUser:id,user_name,user_image',
-            'secondUser:id,user_name,user_image'
-        ])
-            ->where(function ($query) {
-                $query->where('first_user', Auth::id())
-                    ->orWhere('second_user', Auth::id());
-            })
-            ->orderBy('updated_at', 'desc')
-            ->take($this->sidebarLimit)
-            ->get(['id', 'first_user', 'second_user', 'last_message'])
-            ->map(function ($conversation) {
-                $otherUser = $conversation->getOtherUser();
-                return [
-                    'id' => $conversation->id,
-                    'last_message' => $conversation->last_message,
-                    'profile' => $otherUser->user_image_url,
-                    'full_name' => $otherUser->fullName(),
-                ];
-            })
-            ->toArray();
-    }
+        return [
+            'id' => $conversation->id,
+            'last_message' => $conversation->last_message,
+            'profile' => $otherUser->user_image_url ?? '',
+            'full_name' => $otherUser->fullName() ?? '',
+        ];
+    })
+    ->toArray();
+}
+
 
 
 

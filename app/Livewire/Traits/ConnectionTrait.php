@@ -13,60 +13,101 @@ trait ConnectionTrait
 {
     public function unFollow($connectionId)
     {
-        Connection::where('follower_id', $connectionId)
-            ->where('following_id', Auth::id())
-            ->delete();
+       $connection = Connection::where('following_id', Auth::id())
+    ->where('follower_id', $connectionId)
+    ->first();
 
-        $this->dispatch('connectionUpdated');
+if ($connection) {
+    $connection->delete();
+    $this->dispatch('connectionUpdated');
+}
+
     }
 
-    public function follow($connectionId)
-    {
-        $receiver = User::find($connectionId);
-        Connection::create([
-            'follower_id' => $connectionId,
-            'following_id' => Auth::id(),
-            'is_accepted' => 0
-        ]);
-        $receiver->notify(new Request(Auth::user(), $receiver,PersonalDetail::where('user_id', Auth::id())->first()));
+private function createFollow(int $followerId, int $followingId): ?Connection
+{
+    if ($followerId === $followingId) {
+        return null; // لا يمكن متابعة نفسه
     }
+
+    $existing = Connection::withTrashed()
+        ->where('follower_id', $followerId)
+        ->where('following_id', $followingId)
+        ->first();
+
+    if ($existing) {
+        if ($existing->trashed()) {
+            $existing->restore();
+        }
+        return $existing;
+    }
+
+    return Connection::create([
+        'follower_id' => $followerId,
+        'following_id' => $followingId,
+        'is_accepted' => 0
+    ]);
+}
+
+private function notifyFollow(Connection $connection)
+{
+    $receiver = User::with('personal_details')->find($connection->follower_id);
+    if ($receiver) {
+        $receiver->notify(new Request(
+            Auth::user(),
+            $receiver,
+            Auth::user()->personal_details
+        ));
+    }
+}
+
+public function follow(int $connectionId)
+{
+    $connection = $this->createFollow($connectionId, Auth::id());
+
+    if (!$connection) {
+        session()->flash('error', 'Invalid follow request.');
+        return;
+    }
+
+    if (!$connection->wasRecentlyCreated) {
+        session()->flash('message', 'Follow request already exists or restored.');
+    } else {
+        $this->notifyFollow($connection);
+        session()->flash('message', 'Follow request sent.');
+    }
+}
+
+
+
 
     public function getFollowStatus($userId)
     {
-        $connection = Connection::where('follower_id', $userId)
-            ->where('following_id', Auth::id())
-            ->first();
+       $status = Connection::where('follower_id', $userId)
+    ->where('following_id', Auth::id())
+    ->value('is_accepted'); // يرجع قيمة العمود مباشرة أو null
 
-        return [
-            'isFollowing' => $connection && $connection->is_accepted == 1,
-            'isRequested' => $connection && $connection->is_accepted == 0,
-        ];
+    return [
+    'isFollowing' => $status === 1,
+    'isRequested' => $status === 0,
+           ];
     }
 
-    public function startConversation($userId)
-    {
-        $conversation = Conversation::where(function ($query) use ($userId) {
-            $query->where('first_user', Auth::id())
-                  ->where('second_user', $userId);
-        })
-        ->orWhere(function ($query) use ($userId) {
-            $query->where('first_user', $userId)
-                  ->where('second_user', Auth::id());
-        })
-        ->first();
+   public function startConversation(int $userId)
+{
+    $conversation = Conversation::betweenUsers(Auth::id(), $userId);
 
-        if (!$conversation) {
-            $conversation = Conversation::create([
-                'first_user'  => Auth::id(),
-                'second_user' => $userId,
-            ]);
-        }
+    return redirect()->route('chat', ['conversationId' => $conversation->id]);
+}
 
-        return redirect()->route('chat', ['conversationId' => $conversation->id]);
+public function showUser($id)
+{
+    $user = User::find($id);
+    if (!$user) {
+        abort(404, 'User not found');
     }
 
-    public function showUser($id)
-    {
-        return redirect()->route('user-profile', $id);
-    }
+    return redirect()->route('user-profile', $user->id);
+}
+
 }

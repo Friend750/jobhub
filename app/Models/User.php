@@ -36,7 +36,7 @@ class User extends Authenticatable
     {
         // Strict check for non-empty specialist
         if (!empty($this->personal_details?->page_name)) {
-            return trim($this->personal_details->page_name);
+            return trim($this->personal_details->page_name ?? '');
         }
 
         // Proceed with name components
