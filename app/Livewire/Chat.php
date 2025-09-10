@@ -22,7 +22,7 @@ class Chat extends Component
     public $newMessage = false; // لتحديد إذا كانت هناك رسالة جديدة
     public $currentUserId; // معرف المستخدم الحالي
 
-    protected $listeners = ['messageReceived' => 'loadMore'];
+    protected $listeners = ['messageReceived' => 'loadNewMessages'];
     public $paginateVar = 10;
 
 
@@ -57,17 +57,18 @@ class Chat extends Component
         // 5) تجهيز البيانات للعرض (Business Logic في Laravel)
         ->map(function ($conversation) {
             // نحدد الطرف الآخر
-           $otherUser = $conversation->getOtherUser($this->currentUserId);
+         $otherUser = $conversation->getOtherUser($this->currentUserId);
 
-            return [
-                'id'           => $conversation->id,
-                'name'         => method_exists($otherUser, 'fullName')
-                                  ? $otherUser->fullName()
-                                  : ($otherUser->user_name ?? ''),
-                'profile'      => $otherUser->user_image_url ?? $otherUser->user_image ?? null,
-                'specialist'   => data_get($otherUser, 'personal_details.specialist'),
-                'last_message' => $conversation->last_message,
-            ];
+return [
+    'id'           => $conversation->id,
+    'name'         => $otherUser && method_exists($otherUser, 'fullName')
+                      ? $otherUser->fullName()
+                      : ($otherUser->user_name ?? 'Unknown User'),
+    'profile'      => $otherUser->user_image_url ?? $otherUser->user_image ?? null,
+    'specialist'   => $otherUser ? data_get($otherUser, 'personal_details.specialist') : null,
+    'last_message' => $conversation->last_message ?? '',
+];
+
         })
         ->toArray();
 
@@ -102,7 +103,7 @@ class Chat extends Component
 
 
        DB::transaction(function () use ($conversation, $receiverId) {
-    $message = Chat::create([
+    $message = \App\Models\Chat::create([
         'message' => $this->message,
         'sender_id' => $this->currentUserId,
         'receiver_id' => $receiverId,
@@ -130,37 +131,38 @@ $this->message = '';
 
 
 
-    // public function loadMore()
-    // {
-    //     // احصل على معرف آخر رسالة حالية في القائمة
-    //     $lastMessageId = end($this->messages)['id'] ?? null;
+    public function loadNewMessages()
+    {
+        // احصل على معرف آخر رسالة حالية في القائمة
+        $lastMessageId = end($this->messages)['id'] ?? null;
 
-    //     if (!$lastMessageId) {
-    //         return []; // لا توجد رسائل لتحميلها
-    //     }
+        if (!$lastMessageId) {
+            return []; // لا توجد رسائل لتحميلها
+        }
 
-    //     // تحميل الرسائل الجديدة فقط
-    //     $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
-    //         ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
-    //         ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
-    //         ->get()
-    //         ->toArray();
+        // تحميل الرسائل الجديدة فقط
+        $newMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)
+            ->where('id', '>', $lastMessageId) // جلب الرسائل التي معرفها أكبر من آخر رسالة
+            ->orderBy('created_at', 'asc') // ترتيب حسب الأقدمية
+            ->get()
+            ->toArray();
 
-    //     // دمج الرسائل الجديدة مع الرسائل الحالية
-    //     $this->messages = array_merge($this->messages, $newMessages);
+        // دمج الرسائل الجديدة مع الرسائل الحالية
+        $this->messages = array_merge($this->messages, $newMessages);
 
-    //     // إرجاع الرسائل الجديدة إذا لزم الأمر
-    //     return $newMessages;
-    // }
-public function loadMessages()
+        // إرجاع الرسائل الجديدة إذا لزم الأمر
+        return $newMessages;
+    }
+
+public function loadPreviousMessages()
 {
-    $totalMessages = Chat::where('conversation_id', $this->selectedChat)->count();
+    $totalMessages = \App\Models\Chat::where('conversation_id', $this->selectedChat)->count();
 
     if ($this->paginateVar >= $totalMessages) {
         return [];
     }
 
-    $newMessages = Chat::with(['sender:id,user_name,user_image'])
+    $newMessages = \App\Models\Chat::with(['sender:id,user_name,user_image'])
         ->where('conversation_id', $this->selectedChat)
         ->latest('created_at') // نفس orderByDesc
         ->skip($totalMessages - $this->paginateVar - 10)

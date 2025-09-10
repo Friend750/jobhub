@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Livewire\Traits\ConnectionTrait;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -18,10 +19,10 @@ class FollowersScreen extends Component
     public $followers;
     public function mount()
     {
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
         $this->followers = $user->acceptedFollowers()
-            ->with('experiences')
+            ->with('personal_details')
             ->get()
             ->map(function ($follower) {
                 return [
@@ -34,21 +35,25 @@ class FollowersScreen extends Component
 
     }
 
-    public function deleteConnection($connectionId)
-    {
-        $deleted = Connection::where('follower_id', Auth::id())
-            ->where('following_id', $connectionId)
-            ->delete();
+    public function deleteUserConnection($connectionId)
+{
+    try {
+        $deleted =  Auth::user()->followers()->detach($connectionId);
+
 
         if ($deleted) {
             session()->flash('message', 'Connection deleted successfully!');
         } else {
             session()->flash('error', 'Connection not found or already deleted!');
         }
-
-        $this->dispatch('connectionUpdated');
-
+    } catch (\Exception $e) {
+        session()->flash('error', 'An error occurred while deleting connection.');
+        Log::error("Delete connection failed: " . $e->getMessage());
     }
+
+    $this->dispatch('connectionUpdated');
+}
+
 
 
 

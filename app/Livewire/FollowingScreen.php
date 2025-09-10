@@ -23,16 +23,16 @@ class FollowingScreen extends Component
     public function mount()
     {
 
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
 
-        $this->followings = $user->acceptedFollowings()->with('experiences')->get()->map(function ($following) {
+        $this->followings = $user->acceptedFollowings()->with('personal_details')->get()->map(function ($following) {
             return [
                 'id' => $following->id,
                 'name' => $following->fullName(),
                 'position' => $following->personal_details->specialist ?? null,
                 'user_image' => $following->user_image_url ?? null,
             ];
-        });
+        })->toArray();
     }
 
 

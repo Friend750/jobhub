@@ -52,7 +52,7 @@
             handleScroll(container) {
                 if (container.scrollTop === 0) {
                     this.saveScrollPosition();
-                    this.$wire.loadMessages().then(() => this.restoreScrollPosition());
+                    this.$wire.loadPreviousMessages().then(() => this.restoreScrollPosition());
                 }
             },
             scrollToBottom() {

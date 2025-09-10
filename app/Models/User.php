@@ -36,7 +36,7 @@ class User extends Authenticatable
     {
         // Strict check for non-empty specialist
         if (!empty($this->personal_details?->page_name)) {
-            return trim($this->personal_details->page_name);
+            return trim($this->personal_details->page_name ?? '');
         }
 
         // Proceed with name components
@@ -153,6 +153,22 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'connections', 'following_id', 'follower_id')
             ->where('type', 'company')
             ->withPivot('is_accepted');
+    }
+
+    public function getCompaniesData(): array
+    {
+        return $this->companies()
+            ->with('personal_details')
+            ->get()
+            ->map(function ($company) {
+                return [
+                    'id'           => $company->id,
+                    'name'         => $company->fullName() ?? $company->name,
+                    'user_image'   => $company->user_image_url ?? null,
+                    'is_accepted'  => $company->pivot->is_accepted ?? false,
+                    'position'     => $company->personal_details->specialist ?? '',
+                ];
+            })->toArray();
     }
 
 
