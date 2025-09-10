@@ -40,6 +40,7 @@ class ArticleForm extends Form
         $this->reset();
     }
 
+
     public function submit($selectedInterests, $target)
     {
         $mediaPath = "";
@@ -49,7 +50,7 @@ class ArticleForm extends Form
         if ($this->media) {
             $mediaPath = $this->media->store('uploads', 'public');
         }
-        Post::create([
+        $newPost = Post::create([
             'user_id' => Auth::id(),
             'content' => $this->content,
             'target' => $target,
@@ -59,7 +60,8 @@ class ArticleForm extends Form
         ]);
 
         $this->reset();
-
+        // dd($newPost);
+        // return $newPost->id;
     }
 
 }

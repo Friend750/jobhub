@@ -17,11 +17,11 @@
                 @include('livewire.includes.post-card.create-post-card')
 
                 <!-- Alert Success message -->
-                <div x-show="message" x-transition x-cloak
+                {{-- <div x-show="message" x-transition x-cloak
                     class="alert alert-success alert-dismissible mb-3 rounded fade show">
                     <button type="button" x-on:click="hideAlert()" class="btn-close" aria-label="إغلاق"></button>
                     <span x-text="message"></span>
-                </div>
+                </div> --}}
 
                 @include('livewire.includes.posts.post')
             </div>
@@ -64,7 +64,7 @@
 
             // For processing completion
             handleProcessingComplete() {
-                console.log('Processing completed');
+                // console.log('Processing completed');
                 this.showCard = false,
                     this.isProcessing = false,
                     this.message = 'Post completed successfully!';

@@ -87,7 +87,7 @@
                             <div class="textarea-container d-flex align-items-center w-100">
 
                                 <input wire:model="commentForm.reply" type="text"
-                                    class="form-control comment-input me-5" x-model="replyContent"
+                                    class="form-control comment-input me-5"
                                     placeholder="اكتب ردك هنا...">
 
                                 <button type="submit" class="btn send-button"><i

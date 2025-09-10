@@ -42,13 +42,14 @@ class PostCard extends Component
     public CommentForm $commentForm;
     public $showCard;
     public $selected;
-    public $target = 'connection_only';
+    public $target = 'to_any_one';
     public $selectedInterests = [];
     public $interests;
     public $media; // For the uploaded file (image or video)
     public $user;
     public $jopPosts;
     public $isLiked;
+    public $usersToMention = [];
 
     public function setAudience($value)
     {
@@ -162,12 +163,21 @@ class PostCard extends Component
     {
         $this->commentForm->submit($postId, $postType);
     }
-   // داخل Livewire Component
-public function createReplyComment($commentId)
-{
-    $comment = Comment::findOrFail($commentId);
-    return $this->commentForm->replyComment($comment);
-}
+    // داخل Livewire Component
+    public function createReplyComment($commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        return $this->commentForm->replyComment($comment);
+    }
+
+    public function loadUsersToMention()
+    {
+        // Fetch users to mention (you can customize the query as needed)
+        $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image as avatar' )
+            ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+            ->get()
+            ->toArray();
+    }
 
     public function mount()
     {

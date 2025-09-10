@@ -1,10 +1,9 @@
 <div class="create-post-card card mb-3 rounded">
 
     <div class="card-body d-flex justify-content-center align-items-center">
-        <input type="text" class="form-control w-100 ps-3 bg-light" placeholder="اكتب شيئا..."
-            x-on:click="showCard = true">
-        <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;"
-            x-on:click="showCard = true">
+        <input type="text" name="ShowCard" class="form-control w-100 ps-3 bg-light" placeholder="اكتب شيئا..."
+            x-on:click="showCard = true" x-bind:disabled="showCard">
+        <div class="btn bg-light me-2 p-2 rounded-circle " style="width: 40px; height: 40px;" x-on:click="showCard = true">
             <i class="bi bi-image"></i>
         </div>
     </div>
@@ -24,17 +23,18 @@
                                 <div class="d-flex align-items-end gap-2">
                                     <div class="d-flex gap-1">
                                         <img src="{{ $user->user_image
-                                        ? (strpos($user->user_image, 'googleusercontent.com') !== false
-                                            ? $user->user_image
-                                            : asset('storage/' . $user->user_image))
-                                        : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}" class="rounded-circle" style="height: 50px; width: 50px;">
+                                            ? (strpos($user->user_image, 'googleusercontent.com') !== false
+                                                ? $user->user_image
+                                                : asset('storage/' . $user->user_image))
+                                            : 'https://ui-avatars.com/api/?name=' . urlencode($user->user_name) }}"
+                                            class="rounded-circle" style="height: 50px; width: 50px;">
 
                                         <div class="d-flex flex-column gap-1">
 
-                                            <h5 class="mb-0">{{auth()->user()->fullName()}}</h5>
+                                            <h5 class="mb-0">{{ auth()->user()->fullName() }}</h5>
                                             <small class="text-muted bg-secondary badge bg-secondary-subtle"
                                                 style="width: fit-content">
-                                                {{auth()->user()->personal_details->specialist ?? ''}}
+                                                {{ auth()->user()->personal_details->specialist ?? '' }}
                                             </small>
                                         </div>
                                     </div>
@@ -44,7 +44,7 @@
 
                                 {{-- dropdowns --}}
                                 <div class="d-flex align-items-center gap-2">
-                                    {{-- post Visibility--}}
+                                    {{-- post Visibility --}}
                                     <div class="form-check form-check-reverse form-switch ms-1">
                                         <input class="form-check-input" type="checkbox" role="switch"
                                             id="postVisibilitySwitch"
@@ -82,9 +82,9 @@
                             </div>
 
                             {{-- card body --}}
-                            <template x-if="selected === 'content-article'">
+                            <div x-data="selected === 'content-article'">
                                 @include('livewire.includes.post-card.articleForm')
-                            </template>
+                            </div>
 
                             <template x-if="selected === 'content-job-offer'">
                                 @include('livewire.includes.post-card.JobOfferForm')
@@ -117,37 +117,37 @@
 
 
 @script()
-<script>
-    // Initialize the select2 widget with a placeholder text and allow multiple selection
-    $(document).ready(function () {
-        $('#multiDropdown').select2({
-            theme: "bootstrap-5",
-            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                'style',
-            placeholder: $(this).data('placeholder'),
-            // closeOnSelect: false,
-            allowClear: true,
+    <script>
+        // Initialize the select2 widget with a placeholder text and allow multiple selection
+        $(document).ready(function() {
+            $('#multiDropdown').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                // closeOnSelect: false,
+                allowClear: true,
+
+            });
+
+            // Add custom event listeners to the select2 widget
+            $('#multiDropdown').on('change', function() {
+                // Get the selected options
+                let $data = $(this).val();
+
+                // Update the selectedInterests property from the Blade
+                // with false indicating that no server request is made or simply use the method 2
+
+                // method 1
+                $wire.set('selectedInterests', $data, false);
+
+                // method 2
+                // $wire.selectedInterests =$data;
+            });
+
 
         });
-
-        // Add custom event listeners to the select2 widget
-        $('#multiDropdown').on('change', function () {
-            // Get the selected options
-            let $data = $(this).val();
-
-            // Update the selectedInterests property from the Blade
-            // with false indicating that no server request is made or simply use the method 2
-
-            // method 1
-            $wire.set('selectedInterests', $data, false);
-
-            // method 2
-            // $wire.selectedInterests =$data;
-        });
-
-
-    });
-</script>
+    </script>
 @endscript
 
 <script>
@@ -160,8 +160,17 @@
             },
             init() {
                 this.$watch('selected', () => this.resetForms());
+                this.$watch('showCard', () => this.loadUsersToMention());
+            },
+            loadUsersToMention() {
+                if (this.selected === 'content-article' && this.showCard) {
+                    wire.loadUsersToMention();
+                    // console.log('load users to mention');
+                } else {
+                    // console.log('unload users to mention');
+                    wire.usersToMention =[];
+                }
             }
         }));
     });
-
 </script>

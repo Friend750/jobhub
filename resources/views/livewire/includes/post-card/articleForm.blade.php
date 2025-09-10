@@ -1,12 +1,16 @@
 <form wire:submit.prevent="SubmitArticleForm">
 
-    <div class="form-group">
-        <textarea class="form-control w-100 @error('articleForm.content') is-invalid
-        @enderror" id="postContent" rows="6" placeholder="ماذا تريد أن تتحدث عنه؟"
-            wire:model="articleForm.content"></textarea>
+    <div class="form-group" x-data="mentionSystem()">
+        <textarea class="form-control w-100 @error('articleForm.content') is-invalid @enderror" id="postContent" rows="6"
+            placeholder="ماذا تريد أن تتحدث عنه؟" wire:model="articleForm.content" x-model="content"
+            x-on:input="handleInput($event)">
+        </textarea>
+
         @error('articleForm.content')
             <small class="text-danger">{{ $message }}</small>
         @enderror
+
+        @include('livewire.includes.mention-system-logic')
     </div>
 
     {{-- spinner --}}
@@ -45,4 +49,7 @@
         <button class="btn btn-primary rounded" wire:loading.attr="disabled" style="height: fit-content;">
             <span>نشر المقال</span>
         </button>
+    </div>
+
 </form>
+
