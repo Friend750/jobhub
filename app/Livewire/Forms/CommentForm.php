@@ -56,7 +56,7 @@ class CommentForm extends Form
     public function replyComment(Comment $comment)
     {
         $this->validateOnly('reply', [
-            'reply' => 'required|string|min:3'
+            'reply' => 'required|string|min:1'
         ]);
         // Check if the user is posting too quickly
         if (Cache::has('comment_limit_' . auth()->id())) {

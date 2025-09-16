@@ -128,7 +128,7 @@
                 );
 
                 this.content = `${beforeMention}@${user.user_name} ${afterCursor}`;
-                UpdateContent();
+                this.UpdateContent();
 
                 // Move cursor to end of inserted mention
                 this.$nextTick(() => {
@@ -146,6 +146,9 @@
                 } else {
                     this.ArticleContent = this.content;
                 }
+
+                this.showMentionList = false;
+                this.mentionQuery = '';
             },
 
 
