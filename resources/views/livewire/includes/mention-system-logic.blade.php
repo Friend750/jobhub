@@ -3,7 +3,10 @@
 @endpush
 
 <div class="mention-dropdown" x-show="showMentionList" @click.outside="showMentionList=false"
-    :style="{ top: dropdownY + 'px', right: dropdownX + 'px' }">
+    :style="{
+        top: {{ isset($CommentsOffsetY) ? $CommentsOffsetY : 'dropdownY' }} + 'px',
+        right: {{ isset($CommentsOffsetX) ? $CommentsOffsetX : 'dropdownX' }} + 'px'
+    }">
     <template x-for="(user, index) in filteredUsers" :key="user.id">
         <div class="mention-item d-flex align-items-center" :class="{ 'selected': index === selectedIndex }"
             @click="selectUser(user)">
@@ -21,8 +24,13 @@
 
 <script>
     document.addEventListener('alpine:init', () => {
-        Alpine.data('mentionSystem', () => ({
+        Alpine.data('mentionSystem', (wire, itemId) => ({
+            CommentContent: @entangle('commentForm.content'),
+            ArticleContent: @entangle('articleForm.content'),
+            //
             content: '',
+            itemEvent: null,
+            _itemId: itemId ?? '',
             showMentionList: false,
             mentionQuery: '',
             mentionStartPos: 0,
@@ -43,7 +51,28 @@
                 }
             },
 
+            // init
+            init() {
+                this.$watch('CommentContent', (newVal) => {
+                    if (this._itemId === 'CommentContent') {
+                        this.content = newVal;
+                    }
+                });
+                this.$watch('ArticleContent', (newVal) => {
+                    if (this._itemId === 'postContent') {
+                        this.content = newVal;
+                    }
+                });
+            },
+
             handleInput(event) {
+                this.itemEvent = event
+                // console.log('content: ' + this.content);
+                // console.log('articleContent: ' + this.ArticleContent);
+                // console.log('CommentContent: ' + this.CommentContent);
+
+
+
                 // console.log(this.users);
                 const cursorPosition = event.target.selectionStart;
                 const textBeforeCursor = this.content.substring(0, cursorPosition);
@@ -77,6 +106,7 @@
                 }
 
                 this.showMentionList = false;
+
             },
 
             // Position dropdown near cursor
@@ -91,22 +121,31 @@
             },
 
             selectUser(user) {
+
                 const beforeMention = this.content.substring(0, this.mentionStartPos);
                 const afterCursor = this.content.substring(
                     this.mentionStartPos + this.mentionQuery.length + 1
                 );
 
                 this.content = `${beforeMention}@${user.user_name} ${afterCursor}`;
-                this.showMentionList = false;
-                this.mentionQuery = '';
+                UpdateContent();
 
                 // Move cursor to end of inserted mention
                 this.$nextTick(() => {
-                    const textarea = document.getElementById('postContent');
+                    const textarea = document.getElementById(this._itemId);
                     const newCursorPos = beforeMention.length + user.user_name.length + 2;
+
                     textarea.setSelectionRange(newCursorPos, newCursorPos);
                     textarea.focus();
                 });
+            },
+
+            UpdateContent() {
+                if (this._itemId === 'CommentContent') {
+                    this.CommentContent = this.content;
+                } else {
+                    this.ArticleContent = this.content;
+                }
             },
 
 

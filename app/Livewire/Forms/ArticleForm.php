@@ -50,6 +50,9 @@ class ArticleForm extends Form
         if ($this->media) {
             $mediaPath = $this->media->store('uploads', 'public');
         }
+
+        // dd($this->content);
+
         $newPost = Post::create([
             'user_id' => Auth::id(),
             'content' => $this->content,

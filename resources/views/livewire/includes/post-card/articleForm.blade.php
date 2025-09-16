@@ -1,8 +1,12 @@
 <form wire:submit.prevent="SubmitArticleForm">
 
-    <div class="form-group" x-data="mentionSystem()">
-        <textarea class="form-control w-100 @error('articleForm.content') is-invalid @enderror" id="postContent" rows="6"
-            placeholder="ماذا تريد أن تتحدث عنه؟" wire:model="articleForm.content" x-model="content"
+    <div class="form-group" x-data="mentionSystem(@this, 'postContent')">
+        <textarea class="form-control w-100
+            @error('articleForm.content') is-invalid @enderror"
+            id="postContent" rows="6"
+            placeholder="ماذا تريد أن تتحدث عنه؟"
+            {{-- wire:model="articleForm.content" --}}
+            x-model="ArticleContent"
             x-on:input="handleInput($event)">
         </textarea>
 
