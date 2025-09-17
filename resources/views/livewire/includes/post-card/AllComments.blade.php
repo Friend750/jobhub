@@ -3,7 +3,25 @@
     $commentsCount = $post->comments->whereNull('parent_id')->count();
 
     // نرتب التعليقات الرئيسية ونحدد العدد اللي يظهر
-    $comments = $post->comments->whereNull('parent_id')->sortByDesc('created_at')->take($commentsToShow);
+    $comments = $post
+        ->comments() // ملاحظة الأقواس هنا!
+        ->with([
+            'user:id,user_name,user_image',
+            'user.personal_details:user_id,first_name,last_name,specialist',
+            'replies' => function ($query) {
+                $query
+                    ->with([
+                        'user:id,user_name,user_image',
+                        'user.personal_details:user_id,first_name,last_name,specialist',
+                    ])
+                    ->orderBy('created_at', 'asc'); // ترتيب الردود
+            },
+        ])
+        ->whereNull('parent_id') // التعليقات الرئيسية فقط
+        ->orderBy('created_at', 'desc') // ترتيب من الأحدث
+        ->take($commentsToShow) // عدد التعليقات
+        ->get(); // جلب البيانات
+
 @endphp
 
 @forelse ($comments as $comment)

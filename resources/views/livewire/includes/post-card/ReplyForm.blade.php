@@ -18,42 +18,35 @@
 
 <div x-show="showReplies" x-transition>
     @foreach ($comment->replies as $reply)
-        {{-- Reply card --}}
+    @php
+        $replier = $reply->user;
+        $replierName = $replier->personal_details->first_name ?? 'مستخدم';
+        $replierLastName = $replier->personal_details->last_name ?? '';
+        $replierSpecialist = $replier->personal_details->specialist ?? null;
+        $replierImage = $replier->user_image_url;
+    @endphp
+
         <div class="d-flex justify-content-between align-items-start my-2 mt-3">
-            <a href="{{ route('user-profile', $reply->user->user_name ?? '#') }}"
-                class="text-decoration-none text-dark">
-                <div class="d-flex align-items-center">
-                    {{-- User Image --}}
-                    <img src="{{ $reply->user->user_image_url }}"
-                        alt="{{ e($reply->user->personal_details->first_name) }}" loading="lazy"
-                        class="rounded-circle ms-2" style="width: 40px; height: 40px; object-fit: cover;">
-
-                    {{-- User Name and Specialty --}}
-                    <div class="d-flex flex-column gap-0">
-                        <h6 class="mb-0">
-                            {{ $reply->user->personal_details->first_name . ' ' . $reply->user->personal_details->last_name }}
-                        </h6>
-                        @if (!empty($reply->user->personal_details->specialist))
-                            <small class="fw-bold text-muted very-small-text">
-                                {{ $reply->user->personal_details->specialist }}
-                            </small>
-                        @endif
-                    </div>
+        <a href="{{ route('user-profile', $replier->user_name ?? '#') }}" class="text-decoration-none text-dark">
+            <div class="d-flex align-items-center">
+                <img src="{{ $replierImage }}" alt="{{ e($replierName) }}" loading="lazy"
+                     class="rounded-circle ms-2" style="width: 40px; height: 40px; object-fit: cover;">
+                <div class="d-flex flex-column gap-0">
+                    <h6 class="mb-0">{{ $replierName }} {{ $replierLastName }}</h6>
+                    @if ($replierSpecialist)
+                        <small class="fw-bold text-muted very-small-text">{{ $replierSpecialist }}</small>
+                    @endif
                 </div>
-            </a>
+            </div>
+        </a>
+        <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small>
+    </div>
 
-            {{-- Timestamp --}}
-            <small class="text-muted">{{ $reply->created_at->diffForHumans() }}</small>
-        </div>
+    <div class="me-5 mt-1">
+        <small dir="auto" class="mt-2 mb-0 d-block CommentContent card" style="white-space: unset;">
+            {{ $reply->content }}
+        </small>
+    </div>
 
-        {{-- Reply Content --}}
-        <div class="me-5 mt-1">
-            {{-- <p class="mb-0 text-secondary" style="width: fit-content;">
-                {{ $reply->content }}
-            </p> --}}
-            <small dir="auto" class="mt-2 mb-0 d-block CommentContent card">
-                {{ $reply->content }}
-            </small>
-        </div>
     @endforeach
 </div>
