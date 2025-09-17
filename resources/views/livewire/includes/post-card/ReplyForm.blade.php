@@ -51,7 +51,9 @@
             {{-- <p class="mb-0 text-secondary" style="width: fit-content;">
                 {{ $reply->content }}
             </p> --}}
-            <small dir="auto" class="mt-2 mb-0 d-block CommentContent card">{{ $reply->content }}</small>
+            <small dir="auto" class="mt-2 mb-0 d-block CommentContent card">
+                {{ $reply->content }}
+            </small>
         </div>
     @endforeach
 </div>

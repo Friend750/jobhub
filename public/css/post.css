@@ -265,3 +265,16 @@
         box-shadow: -24px 0 #FFF, 24px 0 #2B6DAE;
     }
 }
+
+    .mention {
+        font-weight: bold;
+        color: #0d6efd;
+        /* optional: make it blue */
+    }
+    .CommentContent {
+        background-color: aliceblue;
+        padding: 10px;
+        border: none;
+        width: fit-content;
+        white-space: pre-line;
+    }

@@ -40,8 +40,11 @@
         </div>
 
         <div style="margin-right: 40px">
-            
-            <small dir="auto" class="mt-2 me-2 mb-0 d-block CommentContent card">{{ $comment->content }}</small>
+
+            <small dir="auto" class="mt-2 me-2 mb-0 d-block CommentContent card">
+                {!! highlightMentions($comment->content) !!}
+                {{-- {{$comment->content}} --}}
+            </small>
 
 
             <div class="ml-3 mt-1">

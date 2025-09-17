@@ -1,12 +1,4 @@
-<style>
-    .CommentContent {
-        white-space: pre-wrap;
-        background-color: aliceblue;
-        padding: 10px;
-        border: none;
-        width: fit-content;
-    }
-</style>
+
 <div x-data="WatchAndLoadComments(@this)">
 
     <div class="comments mt-3" x-show="showComments" x-transition x-cloak>
