@@ -173,10 +173,11 @@ class PostCard extends Component
     public function loadUsersToMention()
     {
         // Fetch users to mention (you can customize the query as needed)
-        $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image as avatar' )
+        $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image')
             ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
             ->get()
             ->toArray();
+            // dd($this->usersToMention);
     }
 
     public function mount()
@@ -191,7 +192,7 @@ class PostCard extends Component
     {
         $feedService = new FeedService();
         $allPosts = $feedService->getFeedForUser($this->user);
-
+        // dd($allPosts);
         return view('livewire.post-card', [
             'allPosts' => $this->paginatePosts($allPosts),
         ]);
