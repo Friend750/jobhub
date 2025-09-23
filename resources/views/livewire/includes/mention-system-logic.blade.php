@@ -10,7 +10,7 @@
     <template x-for="(user, index) in filteredUsers" :key="user.id">
         <div class="mention-item d-flex align-items-center" :class="{ 'selected': index === selectedIndex }"
             @click="selectUser(user)">
-            <img :src="user.avatar ? user.avatar : user.user_image_url" class="mention-avatar ms-2">
+            <img :src="user.user_image_url" class="mention-avatar ms-2">
             <div>
                 <div x-text="user.name"></div>
                 <small class="text-muted" x-text="user.user_name"></small>

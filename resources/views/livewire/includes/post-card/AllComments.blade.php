@@ -6,16 +6,16 @@
     $comments = $post
         ->comments() // ملاحظة الأقواس هنا!
         ->with([
-            'user:id,user_name,user_image',
-            'user.personal_details:user_id,first_name,last_name,specialist',
-            'replies' => function ($query) {
-                $query
-                    ->with([
-                        'user:id,user_name,user_image',
-                        'user.personal_details:user_id,first_name,last_name,specialist',
-                    ])
-                    ->orderBy('created_at', 'asc'); // ترتيب الردود
+            // Load user with personal_details in one go
+            'user' => function ($query) {
+                $query->select('id', 'user_name', 'user_image')
+                      ->with('personal_details:user_id,first_name,last_name,specialist');
             },
+            // Load replies with their users and personal_details
+            'replies.user' => function ($query) {
+                $query->select('id', 'user_name', 'user_image')
+                      ->with('personal_details:user_id,first_name,last_name,specialist');
+            }
         ])
         ->whereNull('parent_id') // التعليقات الرئيسية فقط
         ->orderBy('created_at', 'desc') // ترتيب من الأحدث
