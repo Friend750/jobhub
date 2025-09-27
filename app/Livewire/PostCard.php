@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\LoadCommentsTrait;
 use App\Livewire\Forms\ArticleForm;
 use App\Livewire\Forms\CommentForm;
 use App\Livewire\Forms\JobOfferForm;
@@ -31,6 +32,7 @@ class PostCard extends Component
     use WithFileUploads;
     use WithPagination;
     use ConnectionTrait;
+    use LoadCommentsTrait;
 
 
     #[Title('Feed')]
@@ -40,13 +42,14 @@ class PostCard extends Component
     public CommentForm $commentForm;
     public $showCard;
     public $selected;
-    public $target = 'connection_only';
+    public $target = 'to_any_one';
     public $selectedInterests = [];
     public $interests;
     public $media; // For the uploaded file (image or video)
     public $user;
     public $jopPosts;
     public $isLiked;
+    public $usersToMention = [];
 
     public function setAudience($value)
     {
@@ -160,6 +163,22 @@ class PostCard extends Component
     {
         $this->commentForm->submit($postId, $postType);
     }
+    // داخل Livewire Component
+    public function createReplyComment($commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        return $this->commentForm->replyComment($comment);
+    }
+
+    public function loadUsersToMention()
+    {
+        // Fetch users to mention (you can customize the query as needed)
+        $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image')
+            ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+            ->get()
+            ->toArray();
+            // dd($this->usersToMention);
+    }
 
     public function mount()
     {
@@ -173,7 +192,7 @@ class PostCard extends Component
     {
         $feedService = new FeedService();
         $allPosts = $feedService->getFeedForUser($this->user);
-
+        // dd($allPosts);
         return view('livewire.post-card', [
             'allPosts' => $this->paginatePosts($allPosts),
         ]);

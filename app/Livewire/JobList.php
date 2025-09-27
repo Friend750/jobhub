@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Interest;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use App\Models\JobPost;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +24,10 @@ class JobList extends Component
     public $relative = '';
     public $time = '';
     public $gov = '';
+    public string $category = '';
     public $id; // this is will auto recieve from the route
-
+    public $UserID;
+    public $isShowAllJobs = false;
 
     public $perPage = 10;
 
@@ -32,8 +36,15 @@ class JobList extends Component
         $this->perPage += 10;
 
     }
+
+    public function mount($UserID = null)
+    {
+        $this->UserID = $UserID;
+        $this->isShowAllJobs = request()->routeIs('ShowAllJobs');
+    }
     public function render()
     {
+        $categories = Interest::select('name', 'type')->get();
         $jobs = JobPost::search($this->search)
             ->with([
                 'user' => fn($q) => $q->select('id', 'user_image', 'user_name', 'email'),
@@ -41,6 +52,10 @@ class JobList extends Component
             ])
             ->withCount('jobLikes')
             ->where('is_active', 1)
+            ->when($this->isShowAllJobs, function ($query) {
+                $userId = $this->UserID ?: Auth::id();
+                return $query->where('user_id', $userId);
+            })
             ->when($this->time, function ($q) {
                 return match ($this->time) {
                     'هذا الاسبوع' => $q->where('created_at', '>=', Carbon::now()->subDays(7)),
@@ -63,6 +78,9 @@ class JobList extends Component
                     default => $query,
                 };
             })
+            ->when($this->category, function ($query) {
+                return $query->whereJsonContains('tags', $this->category);
+            })
             ->latest()
             ->paginate($this->perPage);
 
@@ -76,6 +94,7 @@ class JobList extends Component
         return view('livewire.job-list', [
             'jobs' => $jobs,
             'initialJob' => $this->initialJob,
+            'categories' => $categories,
         ]);
     }
 

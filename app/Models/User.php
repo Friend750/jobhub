@@ -36,7 +36,7 @@ class User extends Authenticatable
     {
         // Strict check for non-empty specialist
         if (!empty($this->personal_details?->page_name)) {
-            return trim($this->personal_details->page_name);
+            return trim($this->personal_details->page_name ?? '');
         }
 
         // Proceed with name components
@@ -52,13 +52,12 @@ class User extends Authenticatable
 
     public function getUserImageUrlAttribute()
     {
-        if (!$this->user_image) {
+        if ($this->user_image == null) {
             return 'https://ui-avatars.com/api/?name=' . urlencode($this->user_name ?? ' ');
-        }
-
-        return str_contains($this->user_image, 'googleusercontent.com')
-            ? $this->user_image
-            : asset('storage/' . $this->user_image);
+        } else if (str_contains($this->user_image, 'googleusercontent.com'))
+            return $this->user_image;
+        else
+            return asset('storage/' . $this->user_image);
     }
 
     public function posts()
@@ -156,6 +155,22 @@ class User extends Authenticatable
             ->withPivot('is_accepted');
     }
 
+    public function getCompaniesData(): array
+    {
+        return $this->companies()
+            ->with('personal_details')
+            ->get()
+            ->map(function ($company) {
+                return [
+                    'id'           => $company->id,
+                    'name'         => $company->fullName() ?? $company->name,
+                    'user_image'   => $company->user_image_url ?? null,
+                    'is_accepted'  => $company->pivot->is_accepted ?? false,
+                    'position'     => $company->personal_details->specialist ?? '',
+                ];
+            })->toArray();
+    }
+
 
 
 
@@ -193,6 +208,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(PersonalDetail::class, 'user_id');
     }
+
     public function connections()
     {
         return $this->hasMany(Connection::class, 'follower_id');

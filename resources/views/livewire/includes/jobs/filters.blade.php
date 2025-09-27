@@ -16,6 +16,9 @@
                 </span>
             </div>
 
+            <!-- Category Filter -->
+            @include('livewire.includes.jobs.category-filter')
+
             <!-- Time Filter -->
             @include('livewire.includes.jobs.time-filter')
 

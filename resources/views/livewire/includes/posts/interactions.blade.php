@@ -17,8 +17,8 @@
             <i class="bi bi-chat"></i>
         </button>
     </div>
-    <button class="btn btn-light" data-bs-toggle="tooltip" title="حفظ">
+    {{-- <button class="btn btn-light" data-bs-toggle="tooltip" title="حفظ">
         <i class="bi bi-save"></i>
-    </button>
+    </button> --}}
 </div>
 

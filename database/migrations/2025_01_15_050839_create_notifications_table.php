@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) 
-        {
-            $table->uuid('id')->primary();
-            $table->string('type');
-            $table->morphs('notifiable');
-            $table->text('data');
-            $table->timestamp('read_at')->nullable();
-            $table->timestamps();
-        });
+        Schema::create('notifications', function (Blueprint $table) {
+    $table->uuid('id')->primary();
+    $table->string('type')->index(); // للاستعلام حسب النوع
+    $table->morphs('notifiable');    // ينشئ index على (notifiable_type, notifiable_id)
+    $table->text('data');
+    $table->timestamp('read_at')->nullable()->index();
+    $table->timestamps();
+
+    // فهرس مركب للاستعلامات الشائعة
+    $table->index(['notifiable_id', 'type', 'read_at']);
+    $table->index(['notifiable_id', 'type', 'created_at']);
+});
+
     }
 
     /**

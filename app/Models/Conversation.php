@@ -26,11 +26,43 @@ class Conversation extends Model
     {
         return $this->belongsTo(User::class, 'second_user');
     }
-    public function getOtherUser()
+   public function getOtherUser(?int $userId = null)
 {
-    return $this->first_user ==  Auth::id()
-        ? $this->secondUser
-        : $this->firstUser;
+    $userId = $userId ?? Auth::id(); // إذا لم يُمرر، استخدم المستخدم الحالي
+
+    if ($this->firstUser && $this->secondUser)
+        {
+        return $this->first_user == Auth::id() ? $this->secondUser : $this->firstUser;
+        }
+    return null;
 }
+
+
+
+public static function betweenUsers(int $userId1, int $userId2): Conversation
+{
+    // البحث عن محادثة موجودة بين المستخدمين
+    $conversation = self::where(function ($query) use ($userId1, $userId2) {
+        $query->where('first_user', $userId1)
+              ->where('second_user', $userId2);
+    })
+    ->orWhere(function ($query) use ($userId1, $userId2) {
+        $query->where('first_user', $userId2)
+              ->where('second_user', $userId1);
+    })
+    ->first();
+
+    // إذا لم توجد، إنشاء محادثة جديدة
+    if (!$conversation) {
+        $conversation = self::create([
+            'first_user'  => $userId1,
+            'second_user' => $userId2,
+        ]);
+    }
+
+    return $conversation;
+}
+
+
 
 }

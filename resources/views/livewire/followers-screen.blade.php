@@ -41,7 +41,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end"
                                     aria-labelledby="dropdownMenuButton{{ $follower['id'] }}">
                                     <li>
-                                        <button wire:click='deleteConnection({{ $follower['id'] }})'
+                                        <button wire:click='deleteUserConnection({{ $follower['id'] }})'
                                             class="dropdown-item">
                                             {{ __('general.remove_follower') }}
                                         </button>

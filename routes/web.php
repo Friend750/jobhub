@@ -36,7 +36,9 @@ use App\Livewire\{
     CareerAI\Questionnaire,
     CareerAI\ReportsAnalysis,
     CareerAI\UplaodJobProfile,
-    CareerAI\Welcome
+    CareerAI\Welcome,
+    GetArticleLink,
+    JobList
 };
 
 // ----------------------
@@ -133,8 +135,12 @@ Route::middleware([
     Route::get('/CompaniesList', CompanyList::class)->name("CompaniesScreen");
     Route::get('/Following', FollowingScreen::class)->name("FollowingsScreen");
     Route::get('/user-profile/{id?}', UserProfile::class)->name("user-profile");
-    Route::get('/JobList/{id?}', \App\Livewire\JobList::class)->name("jobList");
+    Route::get('/JobList/{id?}', JobList::class)->name("jobList");
+    Route::get('/JobList/ShowAll/{UserID?}', JobList::class)->name("ShowAllJobs");
     Route::get('/Search', Search::class)->name("search");
+
+    Route::get('/article-link/{id?}', GetArticleLink::class)->name("ArticleLink");
+    Route::get('/ShowAllPosts/{UserID?}', GetArticleLink::class)->name("ShowAllPosts");
 
     // Career AI
     Route::get('/welcomeCareerAI', Welcome::class)->name('welcomeCareerAI');
@@ -144,6 +150,8 @@ Route::middleware([
     Route::get('/Uplaod_Job_Profile', UplaodJobProfile::class)->name('Uplaod_Job_Profile');
     Route::get('/ReportsAnalysis', ReportsAnalysis::class)->name('ReportsAnalysis');
     Route::get('/cong', CongratsAnalys::class)->name('cong');
+
+
 });
 
 // مسارات لإعدادات الحساب مثل اختيار الاهتمامات ونوع الحساب

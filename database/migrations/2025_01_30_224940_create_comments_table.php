@@ -11,13 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade');
-            $table->text('content');
-            $table->timestamps();
-        });
+      Schema::create('comments', function (Blueprint $table) {
+    $table->id();
+
+    $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+    $table->foreignId('commentable_id'); // polymorphic id
+    $table->string('commentable_type');  // polymorphic type
+
+    $table->foreignId('parent_id')->nullable()->constrained('comments')->onDelete('cascade');
+
+    $table->text('content');
+    $table->timestamps();
+
+    $table->index(['commentable_type', 'commentable_id']); // index لتسريع البحث
+});
+
     }
 
     /**

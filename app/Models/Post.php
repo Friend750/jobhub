@@ -34,10 +34,12 @@ class Post extends Model
     }
 
     // In both Post and JobPost models
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
+public function comments()
+{
+    return $this->morphMany(Comment::class, 'commentable')
+                ->orderBy('created_at', 'desc');
+}
+
 
     protected function casts(): array
     {
