@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
-
             $table->enum('target', ['to_any_one', 'connection_only']);
             $table->text('content')->nullable(); // Content of the post (nullable)
             $table->string('post_image')->nullable(); // Path or URL of the post image (nullable)
