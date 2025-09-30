@@ -1,49 +1,37 @@
 @php
-    // نحسب عدد التعليقات الرئيسية فقط
     $commentsCount = $post->comments->whereNull('parent_id')->count();
 
-    // نرتب التعليقات الرئيسية ونحدد العدد اللي يظهر
     $comments = $post
-        ->comments() // ملاحظة الأقواس هنا!
+        ->comments()
         ->with([
-            // Load user with personal_details in one go
-            'user' => function ($query) {
-                $query->select('id', 'user_name', 'user_image')
-                      ->with('personal_details:user_id,first_name,last_name,specialist');
-            },
-            // Load replies with their users and personal_details
-            'replies.user' => function ($query) {
-                $query->select('id', 'user_name', 'user_image')
-                      ->with('personal_details:user_id,first_name,last_name,specialist');
-            }
+            'user.personal_details:id,user_id,first_name,last_name,specialist',
+            'replies.user.personal_details:id,user_id,first_name,last_name,specialist'
         ])
-        ->whereNull('parent_id') // التعليقات الرئيسية فقط
-        ->orderBy('created_at', 'desc') // ترتيب من الأحدث
-        ->take($commentsToShow) // عدد التعليقات
-        ->get(); // جلب البيانات
-
+        ->whereNull('parent_id')
+        ->orderBy('created_at', 'desc')
+        ->take($commentsToShow)
+        ->get();
 @endphp
 
 @forelse ($comments as $comment)
     @php
         $commenter = $comment->user;
-        $commenterName = $commenter->personal_details->first_name ?? 'مستخدم';
-        $commenterLastName = $commenter->personal_details->last_name ?? '';
+        $commenterFullName = trim(($commenter->personal_details->first_name ?? '') . ' ' . ($commenter->personal_details->last_name ?? ''));
         $commenterSpecialist = $commenter->personal_details->specialist ?? null;
         $commenterImage = $commenter->user_image_url;
     @endphp
 
     <div class="comment mb-3" x-data="{ showReplyForm: false, showReplies: false }">
-        {{-- User card --}}
+        {{-- User Card --}}
         <div class="d-flex justify-content-between align-items-start">
             <a href="{{ route('user-profile', $commenter->user_name ?? '#') }}" class="text-decoration-none text-dark">
                 <div class="d-flex align-items-center">
-                    <img src="{{ $commenterImage }}" alt="{{ e($commenterName) }}" loading="lazy"
-                        class="rounded-circle ms-2" style="width: 40px; height: 40px; object-fit: cover;">
+                    <img src="{{ $commenterImage }}" alt="{{ e($commenterFullName) }}" loading="lazy"
+                        class="rounded-circle ms-2" width="40" height="40" style="object-fit: cover;">
 
                     <div class="d-flex flex-column gap-0">
                         <h6 class="mb-0">
-                            {{ $commenterName }} {{ $commenterLastName }}
+                            {{ $commenterFullName ?: 'مستخدم' }}
                             @if ($post->trashed())
                                 <span class="badge bg-secondary">منشور محذوف</span>
                             @endif
@@ -57,40 +45,30 @@
             <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
         </div>
 
-        <div style="margin-right: 40px">
-
-            <small dir="auto" class="mt-2 me-2 mb-0 d-block CommentContent card">
-                {!! highlightMentions($comment->content) !!}
-                {{-- {{$comment->content}} --}}
+        <div class="ms-5 mt-2">
+            {{-- Comment Content --}}
+            <small dir="auto" class="d-block CommentContent card p-2 mb-2">
+                {{ $comment->content }}
             </small>
 
+            {{-- Actions --}}
+            <div class="d-flex gap-2">
+                <a href="javascript:void(0)" class="btn btn-link text-decoration-none p-0 text-muted fw-bolder small">اعجبني</a>
 
-            <div class="ml-3 mt-1">
-                <a class="btn btn-link text-decoration-none p-0 text-muted fw-bolder px-1"
-                    style="font-size: 13px;">اعجبني</a>
-                <span class="text-muted">|</span>
                 <a href="javascript:void(0)" @click="showReplyForm = !showReplyForm"
-                    class="btn btn-link text-decoration-none p-0 text-muted fw-bolder px-1"
-                    style="font-size: 13px;">رد</a>
+                    class="btn btn-link text-decoration-none p-0 text-muted fw-bolder small">رد</a>
 
                 @if ($comment->replies->count() > 0)
-                    <span class="text-muted">|</span>
                     <a href="javascript:void(0)" @click="showReplies = !showReplies"
-                        class="btn btn-link text-decoration-none p-0 text-muted fw-bolder px-1"
-                        style="font-size: 13px;">
+                        class="btn btn-link text-decoration-none p-0 text-muted fw-bolder small">
                         عرض {{ $comment->replies->count() }} ردود
                     </a>
                 @endif
-
-                <!-- Reply Form -->
-                @include('livewire.includes.post-card.ReplyForm')
             </div>
 
-
-
+            {{-- Reply Form --}}
+            @include('livewire.includes.post-card.ReplyForm')
         </div>
-
-
     </div>
 @empty
     <div class="text-center my-4 py-2">

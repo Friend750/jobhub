@@ -1,9 +1,8 @@
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/mention-system-logic.css') }}">
+{{-- @push('styles')
+<link rel="stylesheet" href="{{ asset('css/mention-system-logic.css') }}">
 @endpush
 
-<div class="mention-dropdown" x-show="showMentionList" @click.outside="showMentionList=false"
-    :style="{
+<div class="mention-dropdown" x-show="showMentionList" @click.outside="showMentionList=false" :style="{
         top: {{ isset($CommentsOffsetY) ? $CommentsOffsetY : 'dropdownY' }} + 'px',
         right: {{ isset($CommentsOffsetX) ? $CommentsOffsetX : 'dropdownX' }} + 'px'
     }">
@@ -154,4 +153,4 @@
 
         }));
     });
-</script>
+</script> --}}

@@ -49,7 +49,7 @@ class PostCard extends Component
     public $user;
     public $jopPosts;
     public $isLiked;
-    public $usersToMention = [];
+    // public $usersToMention = [];
 
     public function setAudience($value)
     {
@@ -170,15 +170,15 @@ class PostCard extends Component
         return $this->commentForm->replyComment($comment);
     }
 
-    public function loadUsersToMention()
-    {
-        // Fetch users to mention (you can customize the query as needed)
-        $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image')
-            ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
-            ->get()
-            ->toArray();
-            // dd($this->usersToMention);
-    }
+    // public function loadUsersToMention()
+    // {
+    //     // Fetch users to mention (you can customize the query as needed)
+    //     $this->usersToMention = User::select('users.id', DB::raw("CONCAT(personal_details.first_name, ' ', personal_details.last_name) AS name"), 'users.user_name', 'users.user_image')
+    //         ->join('personal_details', 'users.id', '=', 'personal_details.user_id')
+    //         ->get()
+    //         ->toArray();
+    //         // dd($this->usersToMention);
+    // }
 
     public function mount()
     {
