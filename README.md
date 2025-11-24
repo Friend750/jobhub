@@ -45,3 +45,35 @@ Developed by **Amjad** and other friends
 
 ## ⚡ Status
 This project is currently in **beta**. Features are under active development and new updates are on the way!
+
+
+## 📸 Screenshots
+
+
+
+### Home Feed
+<p align="center">
+  <img src="public/images/Screenshots/screen%20(10).png" width="600" alt="Home Feed Screenshot">
+</p>
+
+### Others
+
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="public/images/Screenshots/screen%20(1).png" width="300" alt="Screenshot 1"></td>
+      <td><img src="public/images/Screenshots/screen%20(2).png" width="300" alt="Screenshot 2"></td>
+      <td><img src="public/images/Screenshots/screen%20(3).png" width="300" alt="Screenshot 3"></td>
+    </tr>
+    <tr>
+      <td><img src="public/images/Screenshots/screen%20(4).png" width="300" alt="Screenshot 4"></td>
+      <td><img src="public/images/Screenshots/screen%20(5).png" width="300" alt="Screenshot 5"></td>
+      <td><img src="public/images/Screenshots/screen%20(6).png" width="300" alt="Screenshot 6"></td>
+    </tr>
+    <tr>
+      <td><img src="public/images/Screenshots/screen%20(7).png" width="300" alt="Screenshot 7"></td>
+      <td><img src="public/images/Screenshots/screen%20(8).png" width="300" alt="Screenshot 8"></td>
+      <td><img src="public/images/Screenshots/screen%20(9).png" width="300" alt="Screenshot 9"></td>
+    </tr>
+  </table>
+</div>
